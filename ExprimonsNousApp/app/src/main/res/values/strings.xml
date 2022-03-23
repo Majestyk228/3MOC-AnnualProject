@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ExprimonsNousApp</string>
+    <string name="descriptionApp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut diam nisl, lacinia ut imperdiet eget, pharetra id justo. Nulla volutpat, augue eu lobortis lacinia, lectus nibh scelerisque dui, dapibus malesuada.</string>
+    <string name="createAccount">Créez gratuitement un compte</string>
+    <string name="login">Connectez-vous</string>
+</resources>
