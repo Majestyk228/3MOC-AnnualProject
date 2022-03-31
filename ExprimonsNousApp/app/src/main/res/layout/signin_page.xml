@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundBlue"
+        tools:context=".MainActivity">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/logo"
+            android:layout_margin="20dp"
+            android:src="@drawable/logoexprimonsnous2"
+            android:layout_centerHorizontal="true"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/whiteRoundedLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/logo"
+            android:background="@layout/layout_bg">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/RejoignezNous"
+                android:text="Rejoignez-nous !"
+                android:textSize="40dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/quicksandsemibold"
+                android:gravity="center"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signInDescription"
+                android:text="@string/sign_in_desc"
+                android:textSize="15dp"
+                android:layout_below="@id/RejoignezNous"
+                android:textColor="@color/black"
+                android:fontFamily="@font/quicksandregular"
+                android:gravity="center"
+                android:layout_margin="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/firstNameLabel"
+                android:text="@string/firstnameTXT"
+                android:layout_below="@id/signInDescription"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="5dp"/>
+
+            <EditText
+                android:id="@+id/firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/firstNameLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/firstnameHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lastNameLabel"
+                android:text="@string/lastnameTXT"
+                android:layout_below="@id/firstname"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lastNameLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/lastnameHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bithdayLabel"
+                android:text="@string/birthdateTXT"
+                android:layout_below="@id/lastname"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/bithday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bithdayLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/birthdateHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailLabel"
+                android:text="@string/emailTXT"
+                android:layout_below="@id/bithday"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emailLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/emailHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderLabel"
+                android:text="@string/genderTXT"
+                android:layout_below="@id/email"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/genderLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/genderHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/areaCodeLabel"
+                android:text="@string/areaCodeTXT"
+                android:layout_below="@id/gender"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/areaCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/areaCodeLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/areaCodeHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/passwdLabel"
+                android:text="@string/passwdTXT"
+                android:layout_below="@id/areaCode"
+                android:fontFamily="@font/quicksandsemibold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/passwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/passwdLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:hint="@string/passwdHint"
+                android:fontFamily="@font/quicksandregular"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="320dp"
+                android:layout_height="75dp"
+                android:id="@+id/lsignInBtn"
+                android:layout_below="@id/passwd"
+                android:text="@string/login"
+                android:textSize="17dp"
+                android:backgroundTint="@color/blueBtn"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

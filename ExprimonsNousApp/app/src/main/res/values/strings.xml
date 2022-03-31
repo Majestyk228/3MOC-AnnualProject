@@ -1,6 +1,23 @@
 <resources>
-    <string name="app_name">ExprimonsNousApp</string>
+    <string name="app_name">Exprimons-Nous !</string>
     <string name="descriptionApp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut diam nisl, lacinia ut imperdiet eget, pharetra id justo. Nulla volutpat, augue eu lobortis lacinia, lectus nibh scelerisque dui, dapibus malesuada.</string>
     <string name="createAccount">Créez gratuitement un compte</string>
     <string name="login">Connectez-vous</string>
+    <string name="sign_in_desc">Créez un compte afin de rejoindre un espace d’échange convivial et faites entendre votre voix !</string>
+
+    <string name="firstnameTXT">Votre prénom :</string>
+    <string name="lastnameTXT">Votre nom :</string>
+    <string name="birthdateTXT">Date de naissance :</string>
+    <string name="emailTXT">Votre E-Mail :</string>
+    <string name="genderTXT">Votre sexe :</string>
+    <string name="areaCodeTXT">Votre code postal :</string>
+    <string name="passwdTXT">Votre mot de passe :</string>
+
+    <string name="firstnameHint">exemple : John</string>
+    <string name="lastnameHint">exemple : DOE</string>
+    <string name="birthdateHint">exemple : 01/12/1950</string>
+    <string name="emailHint">exemple : john.doe@liberty.com</string>
+    <string name="genderHint"></string>
+    <string name="areaCodeHint">exemple : 69240</string>
+    <string name="passwdHint">exemple : ●●●●●●●●●●●</string>
 </resources>
