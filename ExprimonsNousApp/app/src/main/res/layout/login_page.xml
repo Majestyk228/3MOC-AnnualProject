@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/logo"
+        android:layout_margin="20dp"
+        android:src="@drawable/logoexprimonsnous2"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/whiteRoundedLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/logo"
+        android:background="@layout/layout_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/connectezVous"
+            android:text="@string/loginTitle"
+            android:textSize="40dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksandsemibold"
+            android:gravity="center"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginDescription"
+            android:text="@string/loginDesc"
+            android:textSize="15dp"
+            android:layout_below="@id/connectezVous"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksandregular"
+            android:gravity="center"
+            android:layout_margin="50dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailLoginLabel"
+            android:text="@string/emailTXT"
+            android:layout_below="@id/loginDescription"
+            android:fontFamily="@font/quicksandsemibold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="5dp"/>
+
+        <EditText
+            android:id="@+id/emailLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailLoginLabel"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="#60123456"
+            android:drawablePadding="20dp"
+            android:hint="@string/emailHint"
+            android:fontFamily="@font/quicksandregular"
+            android:textStyle="italic"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/passwdLoginLabel"
+            android:text="@string/passwdTXT"
+            android:layout_below="@id/emailLogin"
+            android:fontFamily="@font/quicksandsemibold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="5dp"/>
+
+        <EditText
+            android:id="@+id/passwdLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwdLoginLabel"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="#60123456"
+            android:drawablePadding="20dp"
+            android:hint="@string/passwdHint"
+            android:fontFamily="@font/quicksandregular"
+            android:textStyle="italic"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="320dp"
+            android:layout_height="75dp"
+            android:id="@+id/loginAccountBtn"
+            android:layout_below="@id/passwdLogin"
+            android:text="@string/login"
+            android:textSize="17dp"
+            android:backgroundTint="@color/blueBtn"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/quicksandbold"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

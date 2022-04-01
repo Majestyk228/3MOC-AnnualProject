@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/logo"
+        android:layout_margin="20dp"
+        android:src="@drawable/logoexprimonsnous2"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/whiteRoundedLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/logo"
+        android:background="@layout/layout_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectCommuneTitle"
+            android:text="@string/communeTitle"
+            android:textSize="40dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksandsemibold"
+            android:gravity="center"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/communeDescription"
+            android:text="@string/communeDesc"
+            android:textSize="15dp"
+            android:layout_below="@id/selectCommuneTitle"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksandregular"
+            android:gravity="center"
+            android:layout_margin="50dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/communeLabel"
+            android:text="@string/communeTXT"
+            android:layout_below="@id/communeDescription"
+            android:fontFamily="@font/quicksandsemibold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="5dp"/>
+
+        <!--ADD SELECTOR HERE-->
+
+        <!--ADD SELECTOR HERE-->
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="320dp"
+            android:layout_height="75dp"
+            android:id="@+id/loginAccountBtn"
+            android:layout_below="@id/communeLabel"
+            android:text="@string/login"
+            android:textSize="17dp"
+            android:backgroundTint="@color/blueBtn"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/quicksandbold"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

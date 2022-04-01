@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.landing_page);
-        setContentView(R.layout.signin_page);
+        //setContentView(R.layout.signin_page);
+        setContentView(R.layout.login_page);
     }
 }
