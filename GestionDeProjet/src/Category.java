@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Category {
     public String name;
-    private ArrayList<Task> subtasks;
+    private ArrayList<Task> subtasks = new ArrayList<Task>();
 
     public Category(String name) {
         this.name = name;
@@ -32,11 +32,14 @@ public class Category {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name);
-        sb.append("\n");
-        for (Task task : subtasks) {
-            sb.append(task.toString());
-            sb.append("\n");
+        sb.append("-- ").append(name).append(" --\n");
+        if (subtasks.isEmpty()){
+            sb.append(" * No tasks in this category\n");
+        }else{
+            for (Task task : subtasks) {
+                sb.append(" * ").append(task.toString());
+                sb.append("\n");
+            }
         }
         return sb.toString();
     }
