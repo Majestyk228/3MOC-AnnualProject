@@ -1,9 +1,14 @@
 //importations
 var express = require('express');
-var mysql = require('mysql');
 
 //instanciation du serveur
 var server = express();
+const userRouter = require("./routes/user.js");
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+
+server.use(bodyParser.json());
+server.use('/user', userRouter);
 
 //configuration des routes autorisées
 //structure générale d'une route
@@ -16,21 +21,21 @@ var server = express();
 //routes user Android
 server.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('<h1>Hello, Thanos did nothing wrong');
+    res.status(200).send('<h1>Hello, Thanos did nothing wrong !</1>');
 });
 
 //routes user iPad
 
 //routes user Flutter
 
-//lancement du serveur
+//lancement du serveur sur le port 8080
 server.listen(8080, function () {
     console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
 
-    var connection = mysql.createConnection({
+    /*var connection = mysql.createConnection({
         host: 'exprimonsnous.coqdgtazlflp.us-east-1.rds.amazonaws.com',
         user: 'admin',
-        password: '',
+        password: 'kB9qG7e3zEU3',
         database: 'exprimonsNous'
     });
 
@@ -41,5 +46,5 @@ server.listen(8080, function () {
         console.log('The solution is: ', rows);
     });
 
-    connection.end();
+    connection.end();*/
 })
