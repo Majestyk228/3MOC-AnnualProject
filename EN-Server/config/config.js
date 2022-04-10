@@ -4,6 +4,7 @@ const config = {
         user: "admin",
         password: "kB9qG7e3zEU3",
         database: "exprimonsNous",
+        dateStrings: 'date'
     }
 };
 module.exports = config;
