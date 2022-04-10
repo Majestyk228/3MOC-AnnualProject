@@ -13,15 +13,15 @@ server.use('/user', userRouter);
 //configuration des routes autorisées
 //structure générale d'une route
 /*
-    server.get('/',function(req,res) {
-        //code...
-    });
+	server.get('/',function(req,res) {
+		//code...
+	});
 */
 
 //routes user Android
 server.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('<h1>Hello, Thanos did nothing wrong !</1>');
+	res.setHeader('Content-Type', 'text/html');
+	res.status(200).send('<h1>Hello, Thanos did nothing wrong !</1>');
 });
 
 //routes user iPad
@@ -30,21 +30,21 @@ server.get('/', function (req, res) {
 
 //lancement du serveur sur le port 8080
 server.listen(8080, function () {
-    console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
+	console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
 
-    /*var connection = mysql.createConnection({
-        host: 'exprimonsnous.coqdgtazlflp.us-east-1.rds.amazonaws.com',
-        user: 'admin',
-        password: 'kB9qG7e3zEU3',
-        database: 'exprimonsNous'
-    });
+	/*var connection = mysql.createConnection({
+		host: 'exprimonsnous.coqdgtazlflp.us-east-1.rds.amazonaws.com',
+		user: 'admin',
+		password: 'kB9qG7e3zEU3',
+		database: 'exprimonsNous'
+	});
 
-    connection.connect();
+	connection.connect();
 
-    connection.query('SHOW TABLES', function (err, rows, fields) {
-        if (err) throw err;
-        console.log('The solution is: ', rows);
-    });
+	connection.query('SHOW TABLES', function (err, rows, fields) {
+		if (err) throw err;
+		console.log('The solution is: ', rows);
+	});
 
-    connection.end();*/
+	connection.end();*/
 })
