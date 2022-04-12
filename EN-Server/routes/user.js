@@ -22,4 +22,14 @@ router.get('/infos', async function (req, res, next) {
 	}
 });
 
+/* GET userInfo // idUser must be in body request*/
+router.get('/login', async function (req, res, next) {
+	try {
+		res.json(await user.getUserCredentials(req.body.email));
+	} catch (err) {
+		console.error(`Error while getting users `, err.message);
+		next(err);
+	}
+});
+
 module.exports = router;

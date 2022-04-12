@@ -24,7 +24,16 @@ async function getUserInfo(idUser) {
     return rows;
 }
 
+//get idUser and Password by email
+async function getUserCredentials(email) {
+    /* ======= password will be crypted ======= */
+
+    const rows = await db.query("SELECT idUser, password FROM User WHERE email='" + email + "';", "");
+    return rows;
+}
+
 module.exports = {
     getAllUsers,
-    getUserInfo
+    getUserInfo,
+    getUserCredentials
 }
