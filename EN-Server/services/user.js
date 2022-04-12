@@ -32,6 +32,8 @@ async function getUserCredentials(email) {
     return rows;
 }
 
+
+
 module.exports = {
     getAllUsers,
     getUserInfo,
