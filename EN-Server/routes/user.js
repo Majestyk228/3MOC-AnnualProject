@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../services/user.js');
-var jwtUtils = require('../utils/jwt.utils.js');
+const jwtUtils = require('../utils/jwt.utils.js');
+
 
 /* GET allUsers*/
 router.get('/all', async function (_, res, next) {

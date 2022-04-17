@@ -1,6 +1,7 @@
 const db = require('./database.js');
 //const helper = require('../helper');
 const config = require('../config/config.js');
+const bcrypt = require('bcrypt');
 
 //gives the list of All users on the platform
 async function getAllUsers() {
@@ -32,10 +33,29 @@ async function getUserCredentials(email) {
     return rows;
 }
 
+async function insertUser(userReq) {
+    bcrypt.hash(userRed.password, 5, function (err, hashedPwd) {
+        const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "',STR_TO_DATE('" + userReq.birthDate + "', '%d-%m-%Y'),'" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + hashedPwd + "', 0);";
+
+        const results = await db.query(requete, "");
+
+        //message to output at the end of the function
+        let message = 'Error in creating contact';
+
+        if (results.affectedRows) {
+            message = 'Contact created successfully';
+        }
+
+        return { message };
+    });
+
+}
+
 
 
 module.exports = {
     getAllUsers,
     getUserInfo,
-    getUserCredentials
+    getUserCredentials,
+    insertUser
 }
