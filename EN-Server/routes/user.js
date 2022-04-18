@@ -56,4 +56,23 @@ router.get('/login', async function (req, res, next) {
 	}
 });
 
+router.post('/register', async function (req, res, next) {
+	// TODO Verify data given
+	if (req.body.firstName == null || req.body.lastName == null || req.body.birthDate == null || req.body.gender == null || req.body.areaCode == null || req.body.email == null || req.body.password == null) {
+		//res 400 -> missing infos
+		res.status(400).json({ 'Error': "missing info(s)" });
+	} else {
+		//check if user isnt already registered
+		if (await user.findUser(req.body.email).idUser) {
+			//res 409 -> user already registered
+			res.status(409).json({ 'Error': "user already has an account" });
+		} else {
+			//insert in db
+			res.status(409).send(user.insertUser(req.body));
+		}
+	}
+
+	// TODO call insertUser and give away its result
+})
+
 module.exports = router;
