@@ -72,13 +72,13 @@
                 android:layout_marginBottom="10dp"
                 android:background="#60123456"
                 android:drawablePadding="20dp"
-                android:hint="@string/firstnameHint"
                 android:fontFamily="@font/quicksandregular"
-                android:textStyle="italic"
-                android:textSize="16dp"
+                android:hint="@string/firstnameHint"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="16dp"
+                android:textStyle="italic" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <EditText
-                android:id="@+id/bithday"
+                android:id="@+id/bithdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bithdayLabel"
@@ -130,20 +130,20 @@
                 android:layout_marginBottom="10dp"
                 android:background="#60123456"
                 android:drawablePadding="20dp"
-                android:hint="@string/birthdateHint"
                 android:fontFamily="@font/quicksandregular"
-                android:textStyle="italic"
-                android:textSize="16dp"
+                android:hint="@string/birthdateHint"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="16dp"
+                android:textStyle="italic" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/emailLabel"
                 android:text="@string/emailTXT"
-                android:layout_below="@id/bithday"
+                android:layout_below="@id/bithdate"
                 android:fontFamily="@font/quicksandsemibold"
                 android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
@@ -257,7 +257,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="320dp"
                 android:layout_height="75dp"
-                android:id="@+id/lsignInBtn"
+                android:id="@+id/signInBtn"
                 android:layout_below="@id/passwd"
                 android:text="@string/login"
                 android:textSize="17dp"

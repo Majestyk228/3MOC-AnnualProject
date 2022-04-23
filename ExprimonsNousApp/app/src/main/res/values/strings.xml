@@ -7,7 +7,7 @@
     <string name="sign_in_desc">Créez un compte afin de rejoindre un espace d’échange convivial et faites entendre votre voix !</string>
 
     <!--Sign up page-->
-        <!--Labels-->
+    <!--Labels-->
     <string name="firstnameTXT">Votre prénom :</string>
     <string name="lastnameTXT">Votre nom :</string>
     <string name="birthdateTXT">Date de naissance :</string>
@@ -15,7 +15,7 @@
     <string name="genderTXT">Votre sexe :</string>
     <string name="areaCodeTXT">Votre code postal :</string>
     <string name="passwdTXT">Votre mot de passe :</string>
-        <!--Hints-->
+    <!--Hints-->
     <string name="firstnameHint">exemple : John</string>
     <string name="lastnameHint">exemple : DOE</string>
     <string name="birthdateHint">exemple : 01/12/1950</string>
@@ -25,22 +25,30 @@
     <string name="passwdHint">exemple : ●●●●●●●●●●●</string>
 
     <!--Login in page-->
-        <!--Labels-->
+    <!--Labels-->
     <string name="loginTitle">Connectez-vous !</string>
     <string name="loginDesc">Connectez-vous à votre compte pour être tenu informés des dernières publications !</string>
     <string name="loginButton">Connexion</string>
     <!--reuse emailTXT & passwdTXT for Label-->
-        <!--Hints-->
+    <!--Hints-->
     <!--reuse emailHint & passwdHint for Hint-->
 
     <!--Select Commune page-->
-        <!--Labels-->
+    <!--Labels-->
     <string name="communeTitle">Rejoignez l’espace communal !</string>
     <string name="communeDesc">Selectionnez votre commune de résidence pour rejoindre l’espace d’échange communal !</string>
     <string name="communeTXT">Votre commune :</string>
     <string name="next">Suivant</string>
     <string name="skip">Passer cette étape</string>
-        <!--Hints-->
+    <!--Hints-->
     <string name="communeHint">Selectionnez votre commune</string>
+
+    <!--Select Commune page-->
+    <!--Labels-->
+    <string name="companyTitle">Rejoignez l’espace d’entreprise !</string>
+    <string name="companyDesc">Entrez le code d’invitation de votre entreprise pour rejoindre l’espace d’entreprise !</string>
+    <string name="companyTXT">Votre code :</string>
+    <!--Hint-->
+    <string name="companyHint">Exemple : 1453</string>
 
 </resources>

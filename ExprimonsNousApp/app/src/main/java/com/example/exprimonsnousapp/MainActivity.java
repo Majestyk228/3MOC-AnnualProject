@@ -29,17 +29,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*
-    *
-    * this.btProduit = (Button)findViewById(R.id.btProduit);
-        btProduit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent otherActivity = new Intent(getApplicationContext(),ProduitActivity.class);
-                startActivity(otherActivity);
-                finish();
-            }
-        });
-    * */
 }

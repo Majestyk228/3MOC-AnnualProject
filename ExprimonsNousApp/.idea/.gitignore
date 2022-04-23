@@ -1,3 +1,10 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
