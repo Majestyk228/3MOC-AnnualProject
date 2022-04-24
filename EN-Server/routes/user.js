@@ -56,7 +56,8 @@ router.get('/login', async function (req, res, next) {
 	}
 });
 
-router.post('/register', async function (req, res, next) {
+//POST add user in database
+router.post('/register', async function (req, res) {
 	// TODO Verify data given
 	if (req.body.firstName == null || req.body.lastName == null || req.body.birthDate == null || req.body.gender == null || req.body.areaCode == null || req.body.email == null || req.body.password == null) {
 		//res 400 -> missing infos
@@ -71,8 +72,50 @@ router.post('/register', async function (req, res, next) {
 			res.status(409).send(user.insertUser(req.body));
 		}
 	}
+});
 
-	// TODO call insertUser and give away its result
-})
+//PUT updateInfo idUser must be passed in request body
+router.put('/infos/update', async function (req, res) {
+	// TODO check data passed in request body
+	//if a data is missing, we just put back the value already in db
+	//else, we put the data passed request
+
+	var firstName = req.body.firstName;
+	var lastName = req.body.lastName;
+	var birthDate = req.body.birthDate;
+	var gender = req.body.Gender;
+	var areaCode = req.body.areaCode;
+	var email = req.body.email;
+
+	if (!req.body.idUser) {
+		res.status(400).json({ 'Error': "idUser not in request" });
+	}
+
+	var infoUser = user.getUserInfo(req.body.idUser);
+
+	//verifying if each parameter is empty or not
+
+	if (firstName == "") {
+		firstName = infoUser[0].firstName;
+	}
+	if (lastName == "") {
+		lastName = infoUser[0].lastName;
+	}
+	if (birthDate == "") {
+		birthDate = infoUser[0].birthDate;
+	}
+	if (gender == "") {
+		gender = infoUser[0].gender;
+	}
+	if (areaCode == "") {
+		areaCode = infoUser[0].areaCode;
+	}
+	if (email == "") {
+		email = infoUser[0].email;
+	}
+
+	// TODO call function updateUser to pass all the variables after checkup
+
+});
 
 module.exports = router;
