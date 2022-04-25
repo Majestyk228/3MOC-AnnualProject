@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d56a47cd-17b7-4f15-a59a-3980602c875c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/JavaFX.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SingletonScanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TestFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionDeProjet.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GestionDeProjet.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionDeProjet/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionDeProjet/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionDeProjet/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionDeProjet/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionDeProjet/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionDeProjet/Task.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionDeProjet/TextInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionDeProjet/TextInput.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionDeProjet/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionDeProjet/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JavaFXApplication" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27CcOw7Lfq7NBCpJLI5pFaTwX4a" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/.jdks/javafx-sdk-17.0.2/javafx.controls" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager" selected="Application.TestFX">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Application" />
+      <module name="GestionDeProjet" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestFX" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestFX" />
+      <module name="GestionDeProjet" />
+      <option name="PROGRAM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Application" />
+      <item itemvalue="Application.TestFX" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestFX" />
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d56a47cd-17b7-4f15-a59a-3980602c875c" name="Changes" comment="" />
+      <created>1648827480518</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648827480518</updated>
+      <workItem from="1648827481901" duration="2652000" />
+      <workItem from="1648831292601" duration="192000" />
+      <workItem from="1648831511543" duration="4982000" />
+      <workItem from="1648836930862" duration="211000" />
+      <workItem from="1648837199019" duration="336000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/GestionDeProjet$TestFX.ic" NAME="TestFX Coverage Results" MODIFIED="1648836594113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
