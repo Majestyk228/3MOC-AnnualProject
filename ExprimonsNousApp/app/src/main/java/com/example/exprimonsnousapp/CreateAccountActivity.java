@@ -36,22 +36,23 @@ public class CreateAccountActivity extends AppCompatActivity {
         this.passwd = (EditText) findViewById(R.id.passwd);
         this.signInBtn = (MaterialButton) findViewById(R.id.signInBtn);
 
-        String firstnameTXT = firstname.getText().toString();
-        String lastnameTXT = lastname.getText().toString();
-        String birthdateTXT = birthdate.getText().toString();
-        String emailTXT = email.getText().toString();
-        String genderTXT = gender.getText().toString();
-        String areaCodeTXT = areaCode.getText().toString();
-        String passwdTXT = passwd.getText().toString();
-
-
         //Listening to the SignInBtn press
         this.signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //getting strings from every EditTexts
+                String firstnameTXT = firstname.getText().toString();
+                String lastnameTXT = lastname.getText().toString();
+                String birthdateTXT = birthdate.getText().toString();
+                String emailTXT = email.getText().toString();
+                String genderTXT = gender.getText().toString();
+                String areaCodeTXT = areaCode.getText().toString();
+                String passwdTXT = passwd.getText().toString();
+
                 Intent joinCommunityActivity = new Intent(getApplicationContext(),JoinCommunityActivity.class);
 
-                //adding extras
+                //adding extras from the strings from EditTexts
                 joinCommunityActivity.putExtra("firstname",firstnameTXT);
                 joinCommunityActivity.putExtra("lastname",lastnameTXT);
                 joinCommunityActivity.putExtra("birthdate",birthdateTXT);

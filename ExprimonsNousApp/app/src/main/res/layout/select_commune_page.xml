@@ -17,61 +17,68 @@
         />
 
     <RelativeLayout
+        android:id="@+id/whiteRoundedLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/whiteRoundedLayout"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/logo"
+        android:layout_alignParentBottom="true"
         android:background="@layout/layout_bg">
 
         <TextView
+            android:id="@+id/selectCommuneTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/selectCommuneTitle"
-            android:text="@string/communeTitle"
-            android:textSize="40dp"
-            android:textColor="@color/black"
+            android:layout_margin="20dp"
             android:fontFamily="@font/quicksandsemibold"
             android:gravity="center"
-            android:layout_margin="20dp"/>
+            android:text="@string/communeTitle"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
 
         <TextView
+            android:id="@+id/communeDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/communeDescription"
-            android:text="@string/communeDesc"
-            android:textSize="15dp"
             android:layout_below="@id/selectCommuneTitle"
-            android:textColor="@color/black"
+            android:layout_margin="30dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/quicksandregular"
             android:gravity="center"
-            android:layout_margin="50dp"/>
+            android:text="@string/communeDesc"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/communeLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/communeLabel"
-            android:text="@string/communeTXT"
             android:layout_below="@id/communeDescription"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/quicksandsemibold"
-            android:textColor="@color/black"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="5dp"/>
+            android:text="@string/communeTXT"
+            android:textColor="@color/black" />
 
         <!--ADD SELECTOR HERE-->
-
+        <Spinner
+            android:id="@+id/communeSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/communeLabel"
+            android:background="#60123456"
+            android:hapticFeedbackEnabled="true" />
         <!--ADD SELECTOR HERE-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/nextBtn"
             android:layout_width="320dp"
             android:layout_height="75dp"
-            android:layout_below="@id/communeLabel"
+            android:layout_below="@id/communeSelector"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/blueBtn"
             android:fontFamily="@font/quicksandbold"
             android:gravity="center"
@@ -86,7 +93,10 @@
             android:layout_height="75dp"
             android:layout_below="@id/nextBtn"
             android:layout_centerHorizontal="true"
-            android:layout_margin="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
             android:backgroundTint="@color/lightBlueBtn"
             android:fontFamily="@font/quicksandbold"
             android:gravity="center"
