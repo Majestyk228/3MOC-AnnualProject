@@ -53,10 +53,22 @@ async function findUser(email) {
     return rows;
 }
 
+async function getAllReportedUsers() {
+    const rows = await db.query("SELECT u.idUser, c.reports FROM User u, Comment c WHERE c.idUser = u.idUser and c.reports>0;", "");
+    return rows;
+}
+
+async function getAllPointOrderedUsers() {
+    const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User order by points;", "");
+    return rows;
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
     getUserCredentials,
     insertUser,
-    findUser
+    findUser,
+    getAllReportedUsers,
+    getAllPointOrderedUsers
 }

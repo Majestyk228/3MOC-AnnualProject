@@ -118,4 +118,26 @@ router.put('/infos/update', async function (req, res) {
 
 });
 
+
+/* GET allUsers that has at least 1 comment reported*/
+router.get('/all/reports', async function (_, res, next) {
+	try {
+		res.json(await user.getAllReportedUsers());
+	} catch (err) {
+		console.error(`Error while getting users `, err.message);
+		next(err);
+	}
+});
+
+
+/* GET allUsers ordered by points*/
+router.get('/all/points', async function (_, res, next) {
+	try {
+		res.json(await user.getAllPointOrderedUsers());
+	} catch (err) {
+		console.error(`Error while getting users `, err.message);
+		next(err);
+	}
+});
+
 module.exports = router;

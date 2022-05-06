@@ -4,19 +4,23 @@ var express = require('express');
 //instanciation du serveur
 var server = express();
 const userRouter = require("./routes/user.js");
+const postRouter = require("./routes/post.js");
+const inviteRouter = require("./routes/invite.js");
+const communityRouter = require("./routes/community.js");
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
 server.use(bodyParser.json());
 server.use('/user', userRouter);
+server.use('/post', postRouter);
+server.use('/invite', inviteRouter);
+server.use('/community', communityRouter);
 
-//configuration des routes autorisées
-//structure générale d'une route
-/*
-	server.get('/',function(req,res) {
-		//code...
-	});
-*/
+
+
+
+
+
 
 //routes user Android
 server.get('/', function (req, res) {
@@ -24,9 +28,11 @@ server.get('/', function (req, res) {
 	res.status(200).send('<h1>Hello, Thanos did nothing wrong !</1>');
 });
 
-//routes user iPad
 
-//routes user Flutter
+
+
+
+
 
 //lancement du serveur sur le port 8080
 server.listen(8080, function () {
