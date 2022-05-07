@@ -89,6 +89,7 @@
 
         <EditText
             android:id="@+id/passwdLogin"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/passwdLoginLabel"
@@ -97,13 +98,13 @@
             android:layout_marginBottom="10dp"
             android:background="#60123456"
             android:drawablePadding="20dp"
-            android:hint="@string/passwdHint"
             android:fontFamily="@font/quicksandregular"
-            android:textStyle="italic"
-            android:textSize="16dp"
+            android:hint="@string/passwdHint"
             android:padding="10dp"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/white"
+            android:textSize="16dp"
+            android:textStyle="italic" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="320dp"
