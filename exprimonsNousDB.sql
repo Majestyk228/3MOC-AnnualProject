@@ -1,3 +1,4 @@
+
 -- -----------------------------------------------------
 -- Schema exprimonsNous
 -- -----------------------------------------------------
@@ -12,9 +13,10 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Admin` (
   `firstName` VARCHAR(50) NOT NULL,
   `lastName` VARCHAR(50) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(50) NOT NULL,
+  `password` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`idAdmin`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -71,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Community` (
   `description` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idCommunity`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -100,7 +103,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Vote` (
   `idVote` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `body` VARCHAR(50) NOT NULL,
+  `body` TEXT NULL DEFAULT NULL,
   `nbChoices` INT NOT NULL,
   `important` TINYINT(1) NOT NULL,
   `idUser` INT NULL DEFAULT NULL,
@@ -117,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Vote` (
     FOREIGN KEY (`idUser`)
     REFERENCES `exprimonsNous`.`User` (`idUser`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -129,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`VoteOptions` (
   `label` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idVoteOptions`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -158,9 +163,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Post` (
   `idPost` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `body` VARCHAR(50) NOT NULL,
+  `body` TEXT NULL DEFAULT NULL,
   `date` DATE NOT NULL,
-  `time` DATETIME NOT NULL,
+  `time` TIME NULL DEFAULT NULL,
   `likes` INT NOT NULL,
   `dislikes` INT NOT NULL,
   `idCommunity` INT NOT NULL,
@@ -180,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Post` (
     FOREIGN KEY (`idUser`)
     REFERENCES `exprimonsNous`.`User` (`idUser`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -189,10 +195,10 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Comment` (
   `idComment` INT NOT NULL AUTO_INCREMENT,
-  `body` VARCHAR(50) NOT NULL,
+  `body` TEXT NULL DEFAULT NULL,
   `likes` INT NOT NULL,
   `dislikes` INT NOT NULL,
-  `reports` VARCHAR(50) NOT NULL,
+  `reports` INT NULL DEFAULT NULL,
   `anonymous` TINYINT(1) NOT NULL,
   `idPost` INT NOT NULL,
   `idUser` INT NOT NULL,
@@ -207,6 +213,7 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Comment` (
     FOREIGN KEY (`idUser`)
     REFERENCES `exprimonsNous`.`User` (`idUser`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -218,11 +225,12 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Rewards` (
   `idRewards` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
   `urlMedia` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(50) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
   `score` INT NOT NULL,
   `cost` INT NOT NULL,
   PRIMARY KEY (`idRewards`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -269,7 +277,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `exprimonsNous`.`Invitation`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Invitation` (
-  `code` VARCHAR(50) NOT NULL,
+  `code` INT NOT NULL AUTO_INCREMENT,
   `idCommunity` INT NOT NULL,
   `creationDate` DATE NULL DEFAULT NULL,
   `endDate` DATE NULL DEFAULT NULL,
@@ -279,6 +287,7 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Invitation` (
     FOREIGN KEY (`idCommunity`)
     REFERENCES `exprimonsNous`.`Community` (`idCommunity`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -301,3 +310,4 @@ CREATE TABLE IF NOT EXISTS `exprimonsNous`.`Votes` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
