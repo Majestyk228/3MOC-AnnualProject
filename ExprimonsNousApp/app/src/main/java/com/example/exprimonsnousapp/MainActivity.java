@@ -11,13 +11,12 @@ import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity {
 
     private MaterialButton createAccountBtn;
+    private MaterialButton loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
-        //setContentView(R.layout.signin_page);
-        //setContentView(R.layout.login_page);
 
         this.createAccountBtn = (MaterialButton)findViewById(R.id.createAccountBtn);
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
@@ -25,6 +24,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent otherActivity = new Intent(getApplicationContext(),CreateAccountActivity.class);
                 startActivity(otherActivity);
+                finish();
+            }
+        });
+
+
+        this.loginBtn = (MaterialButton)findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(nextActivity);
                 finish();
             }
         });

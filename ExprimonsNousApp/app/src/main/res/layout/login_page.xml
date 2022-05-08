@@ -68,13 +68,13 @@
             android:layout_marginBottom="10dp"
             android:background="#60123456"
             android:drawablePadding="20dp"
-            android:hint="@string/emailHint"
             android:fontFamily="@font/quicksandregular"
-            android:textStyle="italic"
-            android:textSize="16dp"
+            android:hint="@string/emailHint"
             android:padding="10dp"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/white"
+            android:textSize="16dp"
+            android:textStyle="italic" />
 
         <TextView
             android:layout_width="match_parent"
@@ -107,19 +107,22 @@
             android:textStyle="italic" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginAccountBtn"
             android:layout_width="320dp"
             android:layout_height="75dp"
-            android:id="@+id/loginAccountBtn"
             android:layout_below="@id/passwdLogin"
-            android:text="@string/login"
-            android:textSize="17dp"
-            android:backgroundTint="@color/blueBtn"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/quicksandbold"
             android:layout_centerHorizontal="true"
-            android:layout_margin="15dp"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/blueBtn"
+            android:fontFamily="@font/quicksandbold"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
