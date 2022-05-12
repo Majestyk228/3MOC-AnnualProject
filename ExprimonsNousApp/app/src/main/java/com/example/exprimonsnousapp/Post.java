@@ -21,6 +21,16 @@ public class Post {
         this.nbRewards = nbRewards;
     }
 
+    public Post(String firstname, String lastname, String body) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.body = body;
+        this.likes = 0;
+        this.dislikes = 0;
+        this.nbComments = 0;
+        this.nbRewards = 0;
+    }
+
     //Getters & setters
     public String getFirstname() {
         return firstname;

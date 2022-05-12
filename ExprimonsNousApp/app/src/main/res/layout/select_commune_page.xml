@@ -70,7 +70,7 @@
         <!--ADD SELECTOR HERE-->
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/nextBtn"
+            android:id="@+id/nextBtn1"
             android:layout_width="320dp"
             android:layout_height="75dp"
             android:layout_below="@id/communeSelector"
@@ -88,10 +88,10 @@
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/skipBtn"
+            android:id="@+id/skipBtn1"
             android:layout_width="320dp"
             android:layout_height="75dp"
-            android:layout_below="@id/nextBtn"
+            android:layout_below="@id/nextBtn1"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"

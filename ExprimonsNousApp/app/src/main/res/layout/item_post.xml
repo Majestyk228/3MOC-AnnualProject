@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <!--Partie 1 : Prénom nom du propriétaire du poste-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fullnameTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John DOE !"
+            android:layout_margin="15dp"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            >
+        </TextView>
+
+    </LinearLayout>
+    <!--Partie 2 : Le corps du poste-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bodyTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam a est aliquet finibus. Cras gravida mi sit amet dui viverra rhoncus vitae fermentum urna. Aliquam sit amet mauris vitae leo egestas sollicitudin. Aenean id libero vel velit blandit vestibulum. Mauris sem eros, dictum ac nisl quis, sagittis lobortis."
+            android:textSize="14dp"
+            android:layout_margin="20dp"
+            ></TextView>
+    </LinearLayout>
+
+
+    <!--Partie 3 : Les likes/dislikes/commentaires/reward-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--inséré les réact et les chiffres-->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_happy"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/likesTXT"
+            android:text="5"></TextView>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_sad"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/dislikesTXT"
+            android:text="66"></TextView>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_chat_fill"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/commentTXT"
+            android:text="0464"></TextView>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_dimond_alt_light"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/rewardTXT"
+            android:text="5"></TextView>
+    </LinearLayout>
+
+    <!--Partie 4 : Les boutons Like/Dislike/Comment/Reward-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/likeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:backgroundTint="@color/medium_grey"
+            android:text="J'aime"
+            android:textColor="@color/black"
+            android:textSize="7dp"
+            app:strokeColor="@color/medium_stroke_grey"
+            app:strokeWidth="1dp" />
+        <Button
+            android:id="@+id/dislikeBtn"
+            android:backgroundTint="@color/medium_grey"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="J'aime pas"
+            android:textSize="7dp"
+            app:strokeColor="@color/medium_stroke_grey"
+            app:strokeWidth="1dp"/>
+        <Button
+            android:id="@+id/commentBtn"
+            android:backgroundTint="@color/medium_grey"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Commentaires"
+            android:textSize="7dp"
+            app:strokeColor="@color/medium_stroke_grey"
+            app:strokeWidth="1dp"/>
+        <Button
+            android:id="@+id/rewardBtn"
+            android:backgroundTint="@color/medium_grey"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Récompenses"
+            android:textSize="7dp"
+            app:strokeColor="@color/medium_stroke_grey"
+            app:strokeWidth="1dp"/>
+    </LinearLayout>
+
+</LinearLayout>

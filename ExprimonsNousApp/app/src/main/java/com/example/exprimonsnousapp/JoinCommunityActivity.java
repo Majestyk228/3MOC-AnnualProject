@@ -13,16 +13,16 @@ import com.google.android.material.button.MaterialButton;
 public class JoinCommunityActivity extends AppCompatActivity {
 
     private Spinner spinner;
-    private MaterialButton nextBtn;
-    private MaterialButton skipBtn;
+    private MaterialButton nextBtn1;
+    private MaterialButton skipBtn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_commune_page);
 
-        this.nextBtn = (MaterialButton) findViewById(R.id.nextBtn);
-        this.skipBtn = (MaterialButton) findViewById(R.id.skipBtn);
+        this.nextBtn1 = (MaterialButton) findViewById(R.id.nextBtn1);
+        this.skipBtn1 = (MaterialButton) findViewById(R.id.skipBtn1);
 
         this.spinner = (Spinner) findViewById(R.id.communeSelector);
 
@@ -43,7 +43,7 @@ public class JoinCommunityActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
-        this.skipBtn.setOnClickListener(new View.OnClickListener() {
+        this.skipBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //ouverture de la page suivante avec le transfert des infos précédantes
@@ -61,7 +61,7 @@ public class JoinCommunityActivity extends AppCompatActivity {
             }
         });
 
-        this.nextBtn.setOnClickListener(new View.OnClickListener() {
+        this.nextBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

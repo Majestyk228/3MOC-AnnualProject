@@ -2,11 +2,16 @@ package com.example.exprimonsnousapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
 
 public class JoinCompanyActivity extends AppCompatActivity {
+
+    private MaterialButton nextBtn;
+    private MaterialButton skipBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,5 +35,23 @@ public class JoinCompanyActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        this.nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(getApplicationContext(),PostFeedActivity.class);
+                startActivity(nextActivity);
+                finish();
+            }
+        });
+
+        this.skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(getApplicationContext(),PostFeedActivity.class);
+                startActivity(nextActivity);
+                finish();
+            }
+        });
     }
 }
