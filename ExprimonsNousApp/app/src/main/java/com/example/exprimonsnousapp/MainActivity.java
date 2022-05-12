@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
 
-        Log.i("ASS","API test starts here");
+        Log.i("Rest Response","API test starts here");
 
         /*API Call*/
         String URL="http://192.168.1.48:8080/post/all";
@@ -43,28 +43,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 //code...
-                try {
-                    JSONArray jsonArray = response.getJSONArray("posts");
-                    for (int i=0 ; i<jsonArray.length() ; i++) {
-                        JSONObject jorb = jsonArray.getJSONObject(i);
-                        Log.i("JORB",jorb.toString());
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    JSONArray jsonArray = response.getJSONArray("posts");
-                    Log.e("rest Response", jsonArray.getJSONObject(0).toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //Log.e("rest Response", response.toString());
+                Log.i("Rest Response", response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //code
-                Log.e("rest Response", error.toString());
+                Log.i("Rest Response", error.toString());
             }
         });
 
