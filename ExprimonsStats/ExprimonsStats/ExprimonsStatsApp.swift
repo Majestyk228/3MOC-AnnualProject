@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-var a=0
+
 @main
 struct ExprimonsStatsApp: App {
     var body: some Scene {
