@@ -27,14 +27,12 @@ public class JoinCompanyActivity extends AppCompatActivity {
         String gender = extras.getString("gender");
         String areaCode = extras.getString("areaCode");
         String passwd = extras.getString("passwd");
+        String communeCode = extras.getString("communeCode");
+
+        this.nextBtn = (MaterialButton) findViewById(R.id.nextBtn);
+        this.skipBtn = (MaterialButton) findViewById(R.id.skipBtn);
 
 
-        //dans le cas où l'utilisateur n'a pas spécifier de région
-        try {
-            String communeCode = extras.getString("communeCode");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         this.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override

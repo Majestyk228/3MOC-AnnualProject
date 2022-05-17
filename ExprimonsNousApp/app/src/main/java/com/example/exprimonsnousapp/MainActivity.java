@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("Rest Response","API test starts here");
 
-        /*API Call*/
+        /*API Call
         //1) create a request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );*/
 
-        JsonArrayRequest objectRequest = new JsonArrayRequest(
+        /*JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 URL,
                 null,
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         //3) Add the objectRequest to the requestQueue
-        requestQueue.add(objectRequest);
+        requestQueue.add(objectRequest);*/
         /*API Call*/
 
         this.createAccountBtn = (MaterialButton)findViewById(R.id.createAccountBtn);
