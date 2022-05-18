@@ -1,33 +1,32 @@
 //importations
 var express = require('express');
 
+
+
 //instanciation du serveur
 var server = express();
+
+
+//importation des routes
 const userRouter = require("./routes/user.js");
 const postRouter = require("./routes/post.js");
 const inviteRouter = require("./routes/invite.js");
 const communityRouter = require("./routes/community.js");
-const mysql = require('mysql');
+const adminRouter = require("./routes/admin.js");
+////const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
+
+//Body Parser
 server.use(bodyParser.json());
+
+
+//Middlewares
 server.use('/user', userRouter);
 server.use('/post', postRouter);
 server.use('/invite', inviteRouter);
 server.use('/community', communityRouter);
-
-
-
-
-
-
-
-//routes user Android
-server.get('/', function (req, res) {
-	res.setHeader('Content-Type', 'text/html');
-	res.status(200).send('<h1>Hello, Thanos did nothing wrong !</1>');
-});
-
+server.use('/admin', adminRouter);
 
 
 

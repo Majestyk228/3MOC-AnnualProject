@@ -6,7 +6,7 @@ const post = require('../services/post.js');
 /* GET allPosts*/
 router.get('/all', async function (_, res, next) {
 	try {
-		res.json(await post.getAllPosts());
+		res.status(200).json(await post.getAllPosts());
 	} catch (err) {
 		console.error(`Error while getting posts `, err.message);
 		next(err);
@@ -15,11 +15,11 @@ router.get('/all', async function (_, res, next) {
 
 
 /* GET post*/
-router.get('/all/:id', async function (req, res, next) {
+router.get('/:id', async function (req, res, next) {
 	try {
-		res.json(await post.getPost(req.params.id));
+		res.status(200).json(await post.getPost(req.params.id));
 	} catch (err) {
-		console.error(`Error while getting posts `, err.message);
+		res.status(400).json({ "ERROR": "Bad Request" });
 		next(err);
 	}
 });

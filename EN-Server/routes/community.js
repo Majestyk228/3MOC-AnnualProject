@@ -5,9 +5,17 @@ const community = require('../services/community.js');
 
 router.get('/:id', async function (req, res, next) {
 	try {
-		res.json(await community.getCommunityInfo(req.params.id));
+		const result = await community.getCommunityInfo(req.params.id)
+		console.log(result);
+		if (result.toString == "[]") {
+			res.status(404).json({ "ERROR": "Commmunity not found" });
+		} else {
+			res.status(400).json({ "ERROR": "Bad Request" });
+			//res.status(200).json(await community.getCommunityInfo(req.params.id));
+		}
+
 	} catch (err) {
-		console.error(`Error while getting community `, err.message);
+		res.status(400).json({ "ERROR": "Bad Request" });
 		next(err);
 	}
 });

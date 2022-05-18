@@ -34,8 +34,9 @@ async function getUserCredentials(email) {
 }
 
 async function insertUser(userReq) {
-    const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + bcryptUtils.hashPwd(userReq.password) + "', 0);";
-
+    //const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + bcryptUtils.hashPwd(userReq.password) + "', 0);";
+    const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + userReq.password + "', 0);";
+    console.log("\n\n" + requete);
     const results = await db.query(requete, "");
 
     //message to output at the end of the function
@@ -50,7 +51,7 @@ async function insertUser(userReq) {
 
 async function findUser(email) {
     const rows = await db.query("SELECT idUser FROM User WHERE email='" + email + "';", "");
-    return rows;
+    return rows[0];
 }
 
 async function getAllReportedUsers() {
@@ -59,7 +60,7 @@ async function getAllReportedUsers() {
 }
 
 async function getAllPointOrderedUsers() {
-    const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User order by points;", "");
+    const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User ORDER BY points DESC;", "");
     return rows;
 }
 
