@@ -14,3 +14,12 @@ struct User{
     let communityId:Int
     let communityTitle:String
 }
+
+struct BestUser:Identifiable{
+    let id=UUID()
+    let userName:String
+}
+struct ListofUser:Identifiable{
+    let id=UUID()
+    let userName:String
+}

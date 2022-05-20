@@ -14,3 +14,8 @@ struct Vote:Identifiable{
     let Description:String
     
 }
+
+struct ListVote:Identifiable{
+    let id = UUID()
+    let title:String
+}

@@ -81,11 +81,13 @@ struct ConnexionView: View {
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                         }
                         
+                        
                     }
                     
                     .frame(width: 400.0, height: 400.0)
                     
                     .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     
                     
                 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E424EE1728370403004F9154 /* SheetVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424EE1628370403004F9154 /* SheetVoteView.swift */; };
+		E424EE1A28372578004F9154 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424EE1928372578004F9154 /* Post.swift */; };
+		E424EE1C28372D65004F9154 /* SheetPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424EE1B28372D65004F9154 /* SheetPostView.swift */; };
 		E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4454C0F27F76D8500CCB4A2 /* ExprimonsStatsApp.swift */; };
 		E4454C1227F76D8500CCB4A2 /* ConnexionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4454C1127F76D8500CCB4A2 /* ConnexionView.swift */; };
 		E4454C1427F76D8600CCB4A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4454C1327F76D8600CCB4A2 /* Assets.xcassets */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E424EE1628370403004F9154 /* SheetVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetVoteView.swift; sourceTree = "<group>"; };
+		E424EE1928372578004F9154 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		E424EE1B28372D65004F9154 /* SheetPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetPostView.swift; sourceTree = "<group>"; };
 		E4454C0C27F76D8500CCB4A2 /* ExprimonsStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExprimonsStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4454C0F27F76D8500CCB4A2 /* ExprimonsStatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExprimonsStatsApp.swift; sourceTree = "<group>"; };
 		E4454C1127F76D8500CCB4A2 /* ConnexionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionView.swift; sourceTree = "<group>"; };
@@ -46,6 +52,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E424EE1828370EAF004F9154 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				E424EE1628370403004F9154 /* SheetVoteView.swift */,
+				E424EE1B28372D65004F9154 /* SheetPostView.swift */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
 		E4454C0327F76D8500CCB4A2 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +102,7 @@
 			children = (
 				E447DAC428303B26008C223D /* Vote.swift */,
 				E447DAC2282EFF35008C223D /* User.swift */,
+				E424EE1928372578004F9154 /* Post.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -94,6 +110,7 @@
 		E447DAC728303BDC008C223D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E424EE1828370EAF004F9154 /* Sheet */,
 				E48CC77B2817F67900C62957 /* MainView.swift */,
 				E4454C1127F76D8500CCB4A2 /* ConnexionView.swift */,
 				E4454C1D280C059300CCB4A2 /* DashboardView.swift */,
@@ -175,11 +192,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E447DABF282EFC51008C223D /* MainUsersView.swift in Sources */,
+				E424EE1A28372578004F9154 /* Post.swift in Sources */,
 				E4454C1E280C059300CCB4A2 /* DashboardView.swift in Sources */,
 				E48CC77C2817F67900C62957 /* MainView.swift in Sources */,
+				E424EE1C28372D65004F9154 /* SheetPostView.swift in Sources */,
 				E4454C1227F76D8500CCB4A2 /* ConnexionView.swift in Sources */,
 				E447DAC3282EFF35008C223D /* User.swift in Sources */,
 				E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */,
+				E424EE1728370403004F9154 /* SheetVoteView.swift in Sources */,
 				E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */,
 				E447DAC528303B26008C223D /* Vote.swift in Sources */,
 				E447DAC1282EFC76008C223D /* MainPostView.swift in Sources */,

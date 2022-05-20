@@ -17,11 +17,15 @@ struct MainVoteView: View {
         Vote(title: "Test", bestChoice: "4", Description: "c'est un vote qui permet de revoter")
         
     ]
+    @State private var showingSheet = false
     var body: some View {
         Color.normalColor
-            .ignoresSafeArea() // Ignore just for the color
+            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.all)// Ignore just for the color
             .overlay(
-                VStack(spacing:150){
+                
+            
+                VStack(spacing:100){
                     Text("Vote")
                         .font(.system(size: 36))
                         .foregroundColor(Color.white)
@@ -61,8 +65,11 @@ struct MainVoteView: View {
                                         }
                                         .frame(width: 280.0, height: 150.0)
                                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
+                                        .cornerRadius(25)
                                         
-                                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                                        Button(action: {
+                                            
+                                        }) {
                                             Text("Details")
                                                 .font(.system(size:36))
                                                 .foregroundColor(Color.black)
@@ -70,6 +77,7 @@ struct MainVoteView: View {
                                         .frame(width: 200.0, height: 60)
                                         .background(Color.ligthColor2)
                                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                                        
                                         
                                         
                                     }
@@ -86,15 +94,37 @@ struct MainVoteView: View {
                     .frame(width: 700, height: 530)
                     .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                     .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    
+                    Button(action: {
+                        showingSheet=true
+                    }) {
+                        Text("Voir l'historique")
+                            .font(.system(size:36))
+                            .foregroundColor(Color.black)
+                    }
+                    .frame(width: 400, height: 60)
+                    .background(Color.ligthColor2)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    .sheet(isPresented: $showingSheet) {
+                        SheetVoteView()
+                                
+                                
+                        
+                    }
                 }
-                
+            
+                    
                 
             )
+   
     }
 }
 
 struct MainVoteView_Previews: PreviewProvider {
     @State static var userTest = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
     static var previews: some View {
         MainVoteView(user:$userTest)
     }

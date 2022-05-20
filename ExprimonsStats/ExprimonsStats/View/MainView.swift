@@ -15,6 +15,8 @@ extension Color{
 }
 struct MainView: View {
     @State private var user = User(userId: -1,userMail: "", userPassword: "", communityId: -1, communityTitle: "")
+    //@State private var user = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.lightColor)
         
@@ -58,6 +60,8 @@ struct MainView: View {
                         }
                         
                 }.accentColor(.black).font(.system(size: 300))
+                
+                
                 
             
                 
