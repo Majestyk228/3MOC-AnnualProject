@@ -5,41 +5,84 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.exprimonsnousapp.adapters.PostAdapter;
+import com.example.exprimonsnousapp.models.Post;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PostFeedActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    List<Post> posts;
+    private String URL = "https://www.titan-photography.com/post/all";
+    PostAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.posts_page);
 
-        // Lookup the recyclerview in activity layout
-        RecyclerView rvPosts = (RecyclerView) findViewById(R.id.rvPosts);
+        //link the recycler view to external data
+        recyclerView = findViewById(R.id.postsList);
+        posts = new ArrayList<>();
 
-        // Initialize contacts
-        ArrayList<Post> postList =new ArrayList<Post>();
-        postList.add(
-                new Post(
-                        "Sarah",
-                        "KOUTA",
-                        "Post de merde je suis fachée"
-                        )
-        );
-        postList.add(
-                new Post(
-                        "Micheal",
-                        "KOUTA",
-                        "Deuxieme post"
-                )
-        );
-        // Create adapter passing in the sample user data
-        PostAdapter adapter = new PostAdapter();
-        // Attach the adapter to the recyclerview to populate items
-        rvPosts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
-        // That's all!
+        extractPost();
+    }
+
+    private void extractPost() {//API call made here
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i = 0 ; i<response.length() ; i++){
+                            try {
+                                JSONObject postObject = response.getJSONObject(i);
+
+                                Post post = new Post();
+                                post.setFirstname("#");
+                                post.setLastname(String.valueOf(postObject.getInt("idUser")));
+                                post.setBody(postObject.getString("body"));
+                                post.setLikes(postObject.getInt("likes"));
+                                post.setDislikes(postObject.getInt("dislikes"));
+                                post.setNbComments(0);
+                                post.setNbRewards(0);
+
+                                posts.add(post);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        adapter = new PostAdapter(getApplicationContext(), posts);
+                        recyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("errorAPI","onErrorResponse:"+error.getMessage());
+                    }
+                });
+
+        queue.add(jsonArrayRequest);
     }
 }

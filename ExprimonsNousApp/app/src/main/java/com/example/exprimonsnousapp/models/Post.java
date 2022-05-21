@@ -1,4 +1,4 @@
-package com.example.exprimonsnousapp;
+package com.example.exprimonsnousapp.models;
 
 public class Post {
     //attributes
@@ -10,7 +10,9 @@ public class Post {
     private int nbComments;
     private int nbRewards;
 
-    //constructeur
+    // CONSTRUCTEURS
+    public Post() { }
+
     public Post(String firstname, String lastname, String body, int likes, int dislikes, int nbComments, int nbRewards) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -21,17 +23,9 @@ public class Post {
         this.nbRewards = nbRewards;
     }
 
-    public Post(String firstname, String lastname, String body) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.body = body;
-        this.likes = 0;
-        this.dislikes = 0;
-        this.nbComments = 0;
-        this.nbRewards = 0;
-    }
 
-    //Getters & setters
+    // GETTERS & SETTERS
+
     public String getFirstname() {
         return firstname;
     }
@@ -56,32 +50,32 @@ public class Post {
         this.body = body;
     }
 
-    public int getLikes() {
-        return likes;
+    public String getLikes() {
+        return String.valueOf(likes);
     }
 
     public void setLikes(int likes) {
         this.likes = likes;
     }
 
-    public int getDislikes() {
-        return dislikes;
+    public String getDislikes() {
+        return String.valueOf(dislikes);
     }
 
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
     }
 
-    public int getNbComments() {
-        return nbComments;
+    public String getNbComments() {
+        return String.valueOf(nbComments);
     }
 
     public void setNbComments(int nbComments) {
         this.nbComments = nbComments;
     }
 
-    public int getNbRewards() {
-        return nbRewards;
+    public String getNbRewards() {
+        return String.valueOf(nbRewards);
     }
 
     public void setNbRewards(int nbRewards) {
