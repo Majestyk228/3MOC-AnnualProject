@@ -31,7 +31,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="AddListButton" mnemonicParsing="false" onAction="#CreateDialogue" text="+ Ajouter une liste" GridPane.valignment="TOP" />
+            <Button fx:id="AddListButton" mnemonicParsing="false" onAction="#CreateDialogue" text="+ Ajouter une liste" GridPane.valignment="TOP" GridPane.columnIndex="0"/>
          </children>
       </GridPane>
    </children>

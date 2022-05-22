@@ -4,12 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +42,7 @@ public class AppView {
         TitledPane TitledListPane = new TitledPane();
         TitledListPane.setText(listName);
         Button AddTaskButton = new Button("Ajouter une tâche");
+        AddTaskButton.setWrapText(true);
         ListView content = new ListView<>();
         content.setMaxWidth(150);
         content.setPrefWidth(150);
@@ -63,10 +63,13 @@ public class AppView {
         });
         content.getItems().add(AddTaskButton);
         TitledListPane.setContent(content);
-        ListPane.add(TitledListPane, 0, 0);
-        ColumnConstraints column = new ColumnConstraints(150);
+        TitledListPane.setWrapText(true);
+        ListPane.add(TitledListPane, GridPane.getColumnIndex(AddListButton), 0);
+        ListPane.setValignment(TitledListPane, VPos.TOP);
+        ColumnConstraints column = new ColumnConstraints();
+        column.setMaxWidth(150);
         ListPane.getColumnConstraints().add(column);
-        ListPane.setColumnIndex(AddListButton, ListPane.getColumnIndex(AddListButton) + 1);
+        ListPane.setColumnIndex(AddListButton, GridPane.getColumnIndex(AddListButton) + 1);
 
     }
 
@@ -75,8 +78,11 @@ public class AppView {
         TitledPane TitledTaskPane = new TitledPane();
         TitledTaskPane.setText(taskname);
         TitledTaskPane.setContent(test);
+        TitledTaskPane.setWrapText(true);
+        TitledTaskPane.setMaxWidth(140);
         parent.getItems().remove(parent.getItems().toArray().length - 1);
         parent.getItems().add(TitledTaskPane);
+        button.setAlignment(Pos.CENTER);
         parent.getItems().add(button);
     }
 
