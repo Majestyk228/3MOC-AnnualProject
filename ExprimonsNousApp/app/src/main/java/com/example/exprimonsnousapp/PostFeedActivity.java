@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,8 @@ public class PostFeedActivity extends AppCompatActivity {
     private String URL = "https://www.titan-photography.com/post/all";
     PostAdapter adapter;
 
+    SwipeRefreshLayout swipeRefreshPosts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +43,27 @@ public class PostFeedActivity extends AppCompatActivity {
         posts = new ArrayList<>();
 
         extractPost();
+
+        swipeRefreshPosts = findViewById(R.id.swipeRefreshPosts);
+        swipeRefreshPosts.setColorSchemeColors(getResources().getColor(R.color.backgroundBlue));
+        swipeRefreshPosts.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //wipe out de la liste des posts
+                posts = new ArrayList<>();
+
+                //réextraction de la liste des posts
+                extractPost();
+
+                //implémeenter le changement de données
+                adapter.notifyDataSetChanged();
+                swipeRefreshPosts.setRefreshing(false);
+            }
+        });
     }
 
-    private void extractPost() {//API call made here
+    private void extractPost() {
+        //API call made here
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
