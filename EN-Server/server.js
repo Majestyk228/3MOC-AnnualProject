@@ -14,6 +14,7 @@ const inviteRouter = require("./routes/invite.js");
 const communityRouter = require("./routes/community.js");
 const adminRouter = require("./routes/admin.js");
 const rewardRouter = require("./routes/rewards.js");
+const commentRouter = require("./routes/comment.js");
 ////const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
@@ -29,6 +30,7 @@ server.use('/invite', inviteRouter);
 server.use('/community', communityRouter);
 server.use('/admin', adminRouter);
 server.use('/rewards', rewardRouter);
+server.use('/comment', commentRouter);
 
 
 

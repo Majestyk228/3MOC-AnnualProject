@@ -7,7 +7,7 @@ router.get('/all', async function (_, res, next) {
 	try {
 		res.status(200).json(await reward.getAllRewards());
 	} catch (err) {
-		res.status(400).json({ "ERROR": "Bad Request" });
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
 		next(err);
 	}
 });
