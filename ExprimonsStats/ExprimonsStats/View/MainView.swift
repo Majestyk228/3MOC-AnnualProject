@@ -33,33 +33,35 @@ struct MainView: View {
                     DashboardView(user: self.$user)
                         .tabItem {
                                 Image(systemName: "percent")
-                                .font(.system(size: 3000))
+                                
                                 
                                
                         }
                     MainVoteView(user: self.$user)
                         .tabItem {
                                 Image(systemName: "tray.and.arrow.down")
-                                .font(.system(size: 3000))
+                                
                                 
                                
                         }
-                    MainUsersView(user: self.$user)
+                    NavigationView{
+                        MainUsersView(user: self.$user)}.navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                                 Image(systemName: "person.fill")
-                                .font(.system(size: 3000))
+                                
                                 
                                
                         }
+                    
                     MainPostView(user: self.$user)
                         .tabItem {
                                 Image(systemName: "list.bullet.rectangle.fill")
-                                .font(.system(size: 3000))
+                                
                                 
                                
                         }
                         
-                }.accentColor(.black).font(.system(size: 300))
+                }.accentColor(.black)
                 
                 
                 

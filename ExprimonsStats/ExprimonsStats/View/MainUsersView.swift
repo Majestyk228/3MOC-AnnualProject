@@ -82,9 +82,7 @@ struct MainUsersView: View {
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(50.0)
-                            Button(action: {
-                                
-                            }) {
+                            NavigationLink(destination:DetailsUserView()) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)

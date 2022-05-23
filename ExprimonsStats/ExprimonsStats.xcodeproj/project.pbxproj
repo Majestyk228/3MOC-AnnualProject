@@ -19,6 +19,7 @@
 		E447DAC1282EFC76008C223D /* MainPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447DAC0282EFC76008C223D /* MainPostView.swift */; };
 		E447DAC3282EFF35008C223D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447DAC2282EFF35008C223D /* User.swift */; };
 		E447DAC528303B26008C223D /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447DAC428303B26008C223D /* Vote.swift */; };
+		E45959252837B4B200E16E72 /* DetailsUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45959242837B4B200E16E72 /* DetailsUserView.swift */; };
 		E48CC77C2817F67900C62957 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48CC77B2817F67900C62957 /* MainView.swift */; };
 		E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DC3F282DB745006CB498 /* MainVoteView.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		E447DAC0282EFC76008C223D /* MainPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPostView.swift; sourceTree = "<group>"; };
 		E447DAC2282EFF35008C223D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E447DAC428303B26008C223D /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
+		E45959242837B4B200E16E72 /* DetailsUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsUserView.swift; sourceTree = "<group>"; };
 		E48CC77B2817F67900C62957 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E4D3DC3F282DB745006CB498 /* MainVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVoteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 				E4D3DC3F282DB745006CB498 /* MainVoteView.swift */,
 				E447DAC0282EFC76008C223D /* MainPostView.swift */,
 				E447DABE282EFC51008C223D /* MainUsersView.swift */,
+				E45959242837B4B200E16E72 /* DetailsUserView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				E4454C1227F76D8500CCB4A2 /* ConnexionView.swift in Sources */,
 				E447DAC3282EFF35008C223D /* User.swift in Sources */,
 				E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */,
+				E45959252837B4B200E16E72 /* DetailsUserView.swift in Sources */,
 				E424EE1728370403004F9154 /* SheetVoteView.swift in Sources */,
 				E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */,
 				E447DAC528303B26008C223D /* Vote.swift in Sources */,
@@ -333,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ExprimonsStats/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PSX799H2R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -362,6 +367,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ExprimonsStats/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PSX799H2R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
