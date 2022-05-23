@@ -10,12 +10,12 @@ Hébergement de l'API : O2Switch (domaine privé)
 ## Instructions d'installation
 Pour mettre en place l'API sur votre serveur, il vous faudra récupérer toutes les dépendances en lancant un termimal dans le répertoire **EN-Server** et exécuter la commande suivante :
 ```
-	npm i
+npm i
 ```
 
 Pour lancer le service, vous pouvez lancer dans ce même terminal la commande suivante :
 ```
-	nodemon server.js
+nodemon server.js
 ```
 
 Assurez-vous que votre serveur ait son port 8080 libre : l'écoute du serveur se fera sur ce port par défaut.
