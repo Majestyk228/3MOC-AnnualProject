@@ -2,8 +2,10 @@
 ## Service d'API développée pour le fonctionnement de l'ensemble des applications de la plateforme Exprimons-Nous.
 ### Développée par Sarah KOUTA-LOPATEY
 
-Nom du serveur : EN-Server
+_**Nom du serveur**_ : EN-Server
 Entry point : server.js
+Base de données : Instance de base de données MySQL par AWS
+Hébergement de l'API : O2Switch (domaine privé)
 
 ## Instructions d'installation
 Pour mettre en place l'API sur votre serveur, il vous faudra récupérer toutes les dépendances en lancant un termimal dans le répertoire **EN-Server** et exécuter la commande suivante :
