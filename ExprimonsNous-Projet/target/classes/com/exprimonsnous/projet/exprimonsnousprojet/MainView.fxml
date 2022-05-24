@@ -3,56 +3,60 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exprimonsnous.projet.exprimonsnousprojet.HomeViewController">
-   <top>
-      <AnchorPane prefHeight="74.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exprimonsnous.projet.exprimonsnousprojet.HomeViewController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Text boundsType="VISUAL" fill="#b71818" layoutX="28.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue sur votre espace de gestion de projet !" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffea7e" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+            <Rectangle arcHeight="50.0" arcWidth="50.0" fill="WHITE" height="352.0" layoutX="27.0" layoutY="24.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="545.0" />
+            <Text boundsType="VISUAL" fill="#4173ff" layoutX="121.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue sur votre espace de gestion de projet" textAlignment="CENTER" wrappingWidth="363.275390625">
                <font>
-                  <Font name="Cambria" size="26.0" />
+                  <Font name="Cambria" size="30.0" />
                </font>
             </Text>
-         </children>
-      </AnchorPane>
-   </top>
-   <left>
-      <AnchorPane prefHeight="326.0" prefWidth="180.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="200.0" fitWidth="226.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+            <Pane layoutX="314.0" layoutY="139.0" prefHeight="182.0" prefWidth="182.0">
+               <children>
+                  <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffea7e" height="180.0" layoutX="-2.0" layoutY="1.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-radius: 50;" width="184.0">
+                     <effect>
+                        <DropShadow height="10.0" offsetY="5.0" radius="7.25">
+                           <color>
+                              <Color opacity="0.5" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="33.0" layoutX="15.0" layoutY="28.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="151.0" />
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="33.0" layoutX="16.0" layoutY="76.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="151.0" />
+                  <TextField id="FirstnameTextField" fx:id="UsernameField" layoutX="22.0" layoutY="32.0" prefHeight="26.0" prefWidth="139.0" promptText="Nom d'utilisateur..." style="-fx-alignment: center;" />
+                  <TextField id="LastnameTextField" fx:id="PasswordField" layoutX="22.0" layoutY="78.0" prefHeight="26.0" prefWidth="139.0" promptText="Mot de passe...." style="-fx-alignment: center;" />
+                  <Button id="ConnexionButton" fx:id="LoginButton" alignment="CENTER" layoutX="37.0" layoutY="126.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="109.0" style="-fx-background-color: #4173FF; -fx-background-radius: 45px;" text="Connexion" textAlignment="CENTER" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow offsetY="2.0" />
+                     </effect>
+                  </Button>
+                  <Text fx:id="ErrorField" fill="RED" layoutX="22.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="139.0" />
+               </children>
+            </Pane>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/logoExprimonsProjet.jpeg" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-   </left>
-   <right>
-      <AnchorPane prefHeight="326.0" prefWidth="445.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="88.0" fitWidth="76.0" layoutX="162.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/lock.png" />
-               </image>
-            </ImageView>
-            <TextField id="FirstnameTextField" fx:id="UsernameField" layoutX="125.0" layoutY="150.0" promptText="Nom d'utilisateur..." />
-            <TextField id="LastnameTextField" fx:id="PasswordField" layoutX="125.0" layoutY="197.0" promptText="Mot de passe...." />
-            <Button id="ConnexionButton" fx:id="LoginButton" alignment="CENTER" layoutX="161.0" layoutY="247.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" prefWidth="80.0" text="Connexion" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="161.0" AnchorPane.rightAnchor="159.0" AnchorPane.topAnchor="247.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Text fx:id="ErrorField" fill="RED" layoutX="110.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="182.5999755859375">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-   </right>
-</BorderPane>
+   </children>
+</StackPane>
