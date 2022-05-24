@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,32 +8,52 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exprimonsnous.projet.exprimonsnousprojet.AppView">
    <children>
-      <Text fill="RED" layoutX="215.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue!" textAlignment="CENTER">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Text>
-      <MenuButton layoutY="2.0" mnemonicParsing="false" text="Options">
+      <Rectangle fx:id="ReferenceRectangle" fill="#ffea7e" height="41.0" layoutX="119.0" layoutY="-3.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="484.0" />
+      <MenuButton layoutX="512.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #4173FF; -fx-border-radius: 5px;" text="Options" textFill="WHITE">
         <items>
           <MenuItem fx:id="HomeButton" mnemonicParsing="false" onAction="#SwitchToHome" text="Acceuil" />
           <MenuItem fx:id="ExitButton" mnemonicParsing="false" onAction="#ExitApp" text="Quitter" />
         </items>
       </MenuButton>
-      <GridPane fx:id="ListPane" layoutY="67.0" prefHeight="336.0" prefWidth="600.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <VBox fx:id="VBOX" layoutX="119.0" layoutY="37.0" prefHeight="363.0" prefWidth="484.0" style="-fx-background-image: url(Images/backgroundApp.png);">
          <children>
-            <Button fx:id="AddListButton" mnemonicParsing="false" onAction="#CreateDialogue" text="+ Ajouter une liste" GridPane.valignment="TOP" GridPane.columnIndex="0"/>
+            <GridPane fx:id="ListPane" prefHeight="166.0" prefWidth="484.0" VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" prefWidth="150.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="100.0" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="AddListButton" mnemonicParsing="false" onAction="#CreateDialogue" style="-fx-background-color: #4173FF; -fx-background-radius: 15px;" text="+ Ajouter une liste" GridPane.columnIndex="0" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="8.0" top="8.0" />
+                     </GridPane.margin></Button>
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </VBox>
+      <StackPane>
+         <children>
+            <AnchorPane prefHeight="292.0" prefWidth="123.0">
+               <children>
+                  <Rectangle fill="#d9d9d9" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="122.0" />
+                  <Text fill="#0048cb" layoutX="1.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de projet" textAlignment="CENTER" wrappingWidth="121.58251953125">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
