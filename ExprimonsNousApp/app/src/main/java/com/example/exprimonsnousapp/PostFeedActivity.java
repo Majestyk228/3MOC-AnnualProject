@@ -104,6 +104,7 @@ public class PostFeedActivity extends AppCompatActivity {
                     }
                 });
 
+        //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
     }
 }
