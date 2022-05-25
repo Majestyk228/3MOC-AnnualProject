@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
@@ -48,27 +49,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 String emailTXT = email.getText().toString();
                 String passwordTXT = password.getText().toString();
-                String emailDB = "admin";       //will be retrieved from API
-                String passwordDB = "admin";    //will be retrieved from API
 
-                JSONObject credentialObjEmail = new JSONObject();
+                JSONObject credentialObj = new JSONObject();
                 try {
-                    credentialObjEmail.put("email", emailTXT);
+                    credentialObj.put("email", emailTXT);
+                    credentialObj.put("password", passwordTXT);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                JSONObject credentialObjPassword= new JSONObject();
-                try {
-                    credentialObjPassword.put("password", passwordTXT);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                JSONArray credentials = new JSONArray();
+                /*JSONArray credentials = new JSONArray();
                 credentials.put(credentialObjEmail);
-                credentials.put(credentialObjPassword);
-
+                credentials.put(credentialObjPassword);*/
 
 
                 /**
@@ -78,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                /*RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
                         URL_LOGIN,
                         credentials,
@@ -103,7 +95,31 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
-                queue.add(jsonArrayRequest);
+                queue.add(jsonArrayRequest);*/
+
+                RequestQueue queue = Volley.newRequestQueue(getApplication());
+                JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                        Request.Method.GET,
+                        URL_LOGIN,
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    Log.i("response",response.toString());
+                                    connexion(response);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("errorAPI","onErrorResponse:"+error.getMessage());
+                    }
+                });
+
+                queue.add(jsonObjReq);
 
                 /**
                  *
@@ -133,18 +149,18 @@ public class LoginActivity extends AppCompatActivity {
     public void connexion(JSONObject responseApi) {
         Toast toast;
         try {
-            if(responseApi.getString("error") == "Missing email or/and password") {
+            if (responseApi.getString("error") == "Missing email or/and password") {
                 toast = Toast.makeText(getApplicationContext(), "Il manque un des deux champs obligatoires", Toast.LENGTH_LONG);
                 toast.show();
             }
-            if(responseApi.getString("error") == "incorrect password") {
+            if (responseApi.getString("error") == "incorrect password") {
                 //toast "mot de passe incorrect"
                 toast = Toast.makeText(getApplicationContext(), "Mot de passe incorrect", Toast.LENGTH_LONG);
                 toast.show();
             }
-            if(responseApi.getInt("idUser") != 0 ){
+            if (responseApi.getInt("idUser") != 0) {
                 //next activity
-                Intent nextActivity = new Intent(getApplicationContext(),PostFeedActivity.class);
+                Intent nextActivity = new Intent(getApplicationContext(), PostFeedActivity.class);
                 //extras will be added
                 startActivity(nextActivity);
                 finish();
@@ -153,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                 toast.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERR",e.toString());
         }
     }
 }

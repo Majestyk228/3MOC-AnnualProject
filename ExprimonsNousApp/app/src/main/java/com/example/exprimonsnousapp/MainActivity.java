@@ -33,66 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
 
-        Log.i("Rest Response","API test starts here");
-
-        /*API Call
-        //1) create a request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        //String URL = "https://api.coindesk.com/v1/bpi/currentprice.json";
-        //String URL = "http://thecocktaildb.com/api/json/v1/1/search.php?s=margarita";
-        String URL = "http://192.168.1.48:8080/post/all";
-
-
-        //2) create the request
-        //3 methods possible : JSONArrayRequest / JSONObjectRequest<= / StringRequest
-        /*JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //code
-                        Log.i("Rest Response", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //code
-                        Log.e("Rest Response", error.toString());
-                    }
-                }
-        );*/
-
-        /*JsonArrayRequest objectRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            Log.i("Rest Response", response.getString(0));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //code
-                        Log.e("Rest Response", error.toString());
-                    }
-                }
-        );
-
-        //3) Add the objectRequest to the requestQueue
-        requestQueue.add(objectRequest);*/
-        /*API Call*/
-
         this.createAccountBtn = (MaterialButton)findViewById(R.id.createAccountBtn);
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
