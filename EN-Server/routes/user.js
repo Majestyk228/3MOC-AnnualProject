@@ -37,12 +37,12 @@ router.get('/login', async function (req, res, next) {
 	const userCredentials = await user.getUserCredentials(req.body.email);
 	if (JSON.stringify(userCredentials) == "[]") {
 		//error
-		res.status(404).json([{ 'ERROR': "cannot find user" }]);
+		res.status(404).json({ 'ERROR': "cannot find user" });
 		next();
 	} else {
 		if (req.body.password != userCredentials[0].password) {
 			//error
-			res.status(403).json([{ 'ERROR': "incorrect password" }]);
+			res.status(403).json({ 'ERROR': "incorrect password" });
 			next();
 		} else {
 			//generate token
