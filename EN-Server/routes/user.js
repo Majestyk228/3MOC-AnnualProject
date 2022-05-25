@@ -46,10 +46,10 @@ router.get('/login', async function (req, res, next) {
 			next();
 		} else {
 			//generate token
-			res.status(201).json([{
+			res.status(201).json({
 				"idUser": userCredentials[0].idUser,
 				"token": jwtUtils.generateTokenForUser(userCredentials[0].idUser)
-			}]);
+			});
 		}
 	}
 });
