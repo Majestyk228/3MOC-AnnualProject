@@ -17,6 +17,9 @@ const rewardRouter = require("./routes/rewards.js");
 const commentRouter = require("./routes/comment.js");
 ////const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const swaggerUI = require('swagger-ui-express');
+const docs = require('./docs/index.js');
+
 
 
 //Body Parser
@@ -31,6 +34,8 @@ server.use('/community', communityRouter);
 server.use('/admin', adminRouter);
 server.use('/rewards', rewardRouter);
 server.use('/comment', commentRouter);
+
+server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs));
 
 
 
