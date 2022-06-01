@@ -24,6 +24,10 @@ router.post('/create', async function (req, res, next) {
 });
 
 
+
+
+
+
 /* GET allInvites */
 router.get('/all', async function (_, res, next) {
 	try {
@@ -33,5 +37,9 @@ router.get('/all', async function (_, res, next) {
 		next(err);
 	}
 });
+
+
+
+
 
 module.exports = router;

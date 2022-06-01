@@ -24,7 +24,7 @@ module.exports = {
 			}
 		},
 	},
-	states: {
+	invites: {
 		type: "object",
 		additionalProperties: { $ref: "#/components/schemas/invite" },
 	},

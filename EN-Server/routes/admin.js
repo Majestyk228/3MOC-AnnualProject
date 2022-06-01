@@ -3,6 +3,11 @@ const router = express.Router();
 const admin = require('../services/admin.js');
 //const jwtUtils = require('../utils/jwt.utils.js');
 
+
+
+
+
+
 router.get('/all', async function (_, res, next) {
 
 	try {
@@ -13,6 +18,10 @@ router.get('/all', async function (_, res, next) {
 		next(err);
 	}
 });
+
+
+
+
 
 
 
@@ -46,7 +55,6 @@ router.get('/login', async function (req, res, next) {
 			}]);
 		}
 	}
-
 });
 
 module.exports = router;

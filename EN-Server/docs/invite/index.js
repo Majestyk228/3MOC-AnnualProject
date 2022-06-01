@@ -3,11 +3,11 @@ const createInvite = require("./create.js")
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
-		"/invite": {
-			...getAllInvite
+		"/invite/all": {
+			...getAllInvite,
 		},
-		"/create": {
-			...createInvite
+		"/invite/create": {
+			...createInvite,
 		}
 	},
 	schema: {

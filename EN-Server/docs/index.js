@@ -1,4 +1,7 @@
 const invite = require('./invite/index.js')
+const admin = require('./admin/index.js')
+const post = require('./post/index.js')
+const reward = require('./reward/index.js')
 
 module.exports = {
 	openapi: "3.0.1",
@@ -20,10 +23,16 @@ module.exports = {
 	],
 	paths: {
 		...invite.paths,
+		...admin.paths,
+		...post.paths,
+		...reward.paths,
 	},
 	components: {
 		schemas: {
 			...invite.schema,
+			...admin.schema,
+			...post.schema,
+			...reward.schema,
 		},
 	},
 }
