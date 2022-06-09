@@ -26,11 +26,11 @@ router.get('/all', async function (_, res, next) {
 
 
 
-// email and password must be in body request
+// email must be in body request
 router.get('/login', async function (req, res, next) {
 
 	//verifying credentials entered
-	if (req.body.email == null || req.body.password == null) {
+	/*if (req.body.email == null || req.body.password == null) {
 		res.status(400).json([{ 'Error': 'Missing email or/and password' }]);
 		next();
 	}
@@ -54,6 +54,13 @@ router.get('/login', async function (req, res, next) {
 				//'token': jwtUtils.generateTokenForUser(userCredentials[0].idUser)
 			}]);
 		}
+	}*/
+
+	try {
+		res.status(200).json(await admin.getAdminCredentials(req.body.email));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
 	}
 });
 
