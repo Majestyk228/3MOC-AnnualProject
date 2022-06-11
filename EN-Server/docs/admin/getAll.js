@@ -1,7 +1,7 @@
 module.exports = {
     get: {
         tags: ["admin"],
-        description: "Get all invite",
+        description: "Get all admins",
         operationId: "getAllInvites",
         parameters: [],
         responses: {
