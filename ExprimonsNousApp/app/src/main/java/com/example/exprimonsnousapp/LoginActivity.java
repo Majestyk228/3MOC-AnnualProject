@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -20,11 +19,19 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
 import com.example.exprimonsnousapp.models.Post;
+import com.example.exprimonsnousapp.models.UserCreds;
+import com.example.exprimonsnousapp.models.UserLoginCreds;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,9 +39,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private MaterialButton loginBtn;
     private String URL_LOGIN = "https://www.titan-photography.com/user/login";
+    ApiInterface apiInterface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
@@ -50,13 +60,17 @@ public class LoginActivity extends AppCompatActivity {
                 String emailTXT = email.getText().toString();
                 String passwordTXT = password.getText().toString();
 
-                JSONObject credentialObj = new JSONObject();
+                UserLoginCreds userLoginCreds = new UserLoginCreds(emailTXT,passwordTXT);
+
+                getUserCreds(userLoginCreds);
+
+                /*JSONObject credentialObj = new JSONObject();
                 try {
                     credentialObj.put("email", emailTXT);
                     credentialObj.put("password", passwordTXT);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 /*JSONArray credentials = new JSONArray();
                 credentials.put(credentialObjEmail);
@@ -97,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 queue.add(jsonArrayRequest);*/
 
-                RequestQueue queue = Volley.newRequestQueue(getApplication());
+                /*RequestQueue queue = Volley.newRequestQueue(getApplication());
                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                         Request.Method.GET,
                         URL_LOGIN,
@@ -119,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-                queue.add(jsonObjReq);
+                queue.add(jsonObjReq);*/
 
                 /**
                  *
@@ -141,6 +155,22 @@ public class LoginActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), "Login ou/et mot de passe erroné. Veuillez réessayer.", Toast.LENGTH_LONG);
                 }
                 toast.show();*/
+            }
+        });
+    }
+
+    private void getUserCreds( UserLoginCreds userLoginCreds) {
+        Call<UserCreds> call = apiInterface.getUserCreds(userLoginCreds);
+        call.enqueue(new Callback<UserCreds>(){
+
+            @Override
+            public void onResponse(Call<UserCreds> call, Response<UserCreds> response) {
+                Log.i("API RESPONSE", "onResponse: "+response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserCreds> call, Throwable t) {
+                Log.i("API RESPONSE", "onFailure: "+t.getLocalizedMessage());
             }
         });
     }
