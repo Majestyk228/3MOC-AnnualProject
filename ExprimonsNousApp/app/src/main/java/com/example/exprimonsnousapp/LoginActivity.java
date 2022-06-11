@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private MaterialButton loginBtn;
     private String URL_LOGIN = "https://www.titan-photography.com/user/login";
     ApiInterface apiInterface;
+    UserCreds userCreds = new UserCreds(-1,"");
 
 
     @Override
@@ -63,109 +66,21 @@ public class LoginActivity extends AppCompatActivity {
                 UserLoginCreds userLoginCreds = new UserLoginCreds(emailTXT,passwordTXT);
 
                 getUserCreds(userLoginCreds);
-
-                /*JSONObject credentialObj = new JSONObject();
-                try {
-                    credentialObj.put("email", emailTXT);
-                    credentialObj.put("password", passwordTXT);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-
-                /*JSONArray credentials = new JSONArray();
-                credentials.put(credentialObjEmail);
-                credentials.put(credentialObjPassword);*/
-
-
-                /**
-                 *
-                 * API REQUEST STARTED
-                 * **/
-
-
-
-                /*RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
-                        URL_LOGIN,
-                        credentials,
-                        (Response.Listener<JSONArray>) response -> {
-                            for(int i = 0 ; i<response.length() ; i++){
-                                try {
-                                    JSONObject responseApi = response.getJSONObject(i);
-
-                                    //connexion test depending on API response
-                                    connexion(responseApi);
-
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("errorAPI","onErrorResponse:"+error.getMessage());
-                            }
-                        });
-
-                queue.add(jsonArrayRequest);*/
-
-                /*RequestQueue queue = Volley.newRequestQueue(getApplication());
-                JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                        Request.Method.GET,
-                        URL_LOGIN,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    Log.i("response",response.toString());
-                                    connexion(response);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("errorAPI","onErrorResponse:"+error.getMessage());
-                    }
-                });
-
-                queue.add(jsonObjReq);*/
-
-                /**
-                 *
-                 * API REQUEST ENDED
-                 * **/
-
-                /*débuggage
-                Toast toast;
-
-                if (emailTXT.equals(emailDB) && passwordTXT.equals(passwordDB)) {
-                    toast = Toast.makeText(getApplicationContext(), "Connexion autorisée", Toast.LENGTH_LONG);
-
-                    //next activity
-                    Intent nextActivity = new Intent(getApplicationContext(),PostFeedActivity.class);
-                    //extras will be added
-                    startActivity(nextActivity);
-                    finish();
-                } else {
-                    toast = Toast.makeText(getApplicationContext(), "Login ou/et mot de passe erroné. Veuillez réessayer.", Toast.LENGTH_LONG);
-                }
-                toast.show();*/
             }
         });
     }
 
-    private void getUserCreds( UserLoginCreds userLoginCreds) {
+    private void getUserCreds(UserLoginCreds userLoginCreds) {
         Call<UserCreds> call = apiInterface.getUserCreds(userLoginCreds);
         call.enqueue(new Callback<UserCreds>(){
 
             @Override
             public void onResponse(Call<UserCreds> call, Response<UserCreds> response) {
-                Log.i("API RESPONSE", "onResponse: "+response.body());
+                if (response.isSuccessful()) {
+                    userCreds = response.body();
+                } else {
+                    userCreds = new UserCreds(-1, "");
+                }
             }
 
             @Override
@@ -173,33 +88,30 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("API RESPONSE", "onFailure: "+t.getLocalizedMessage());
             }
         });
+
+        // FAKE DELAY
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                Log.i("WAIT","WAIT DONE");
+                connexion(userCreds);
+            }
+        }, 1200);
     }
 
-
-    public void connexion(JSONObject responseApi) {
-        Toast toast;
-        try {
-            if (responseApi.getString("error") == "Missing email or/and password") {
-                toast = Toast.makeText(getApplicationContext(), "Il manque un des deux champs obligatoires", Toast.LENGTH_LONG);
-                toast.show();
-            }
-            if (responseApi.getString("error") == "incorrect password") {
-                //toast "mot de passe incorrect"
-                toast = Toast.makeText(getApplicationContext(), "Mot de passe incorrect", Toast.LENGTH_LONG);
-                toast.show();
-            }
-            if (responseApi.getInt("idUser") != 0) {
-                //next activity
-                Intent nextActivity = new Intent(getApplicationContext(), PostFeedActivity.class);
-                //extras will be added
-                startActivity(nextActivity);
-                finish();
-
-                toast = Toast.makeText(getApplicationContext(), "Connexion autorisée", Toast.LENGTH_LONG);
-                toast.show();
-            }
-        } catch (Exception e) {
-            Log.e("ERR",e.toString());
+    public void connexion(UserCreds userCreds) {
+        // CHECKS VALIDITY OF RETREIVED USER BEFORE SWITCHING SCREEN
+        if(userCreds.getIdUser() == -1) {
+            // TOAST
+            Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+        } else {
+            Intent nextActivity = new Intent(getApplicationContext(), PostFeedActivity.class);
+            //extras will be added
+            nextActivity.putExtra("userId", userCreds.getIdUser());
+            startActivity(nextActivity);
+            finish();
         }
     }
 }

@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
 import com.example.exprimonsnousapp.models.Post;
+import com.example.exprimonsnousapp.models.UserCreds;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,7 @@ public class PostFeedActivity extends AppCompatActivity {
     List<Post> posts;
     private String URL = "https://www.titan-photography.com/post/all";
     PostAdapter adapter;
+    private int userId = -1;
 
     SwipeRefreshLayout swipeRefreshPosts;
 
@@ -37,6 +39,10 @@ public class PostFeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.posts_page);
+
+        // RETRIEVING userId FROM EXTRAS
+        Bundle extras = getIntent().getExtras();
+        userId = extras.getInt("userId");
 
         //link the recycler view to external data
         recyclerView = findViewById(R.id.postsList);

@@ -10,6 +10,6 @@ import retrofit2.http.HTTP;
 
 public interface ApiInterface {
     //@GET("/user/login")
-    @HTTP(method = "GET", path = "/user/login", hasBody = true)
+    @HTTP(method = "POST", path = "/user/login", hasBody = true)
     Call<UserCreds> getUserCreds(@Body UserLoginCreds userLoginCreds);
 }
