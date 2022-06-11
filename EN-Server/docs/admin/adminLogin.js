@@ -3,48 +3,49 @@ module.exports = {
         tags: ["admin"],
         description: "Login of admin",
         operationId: "adminLogin",
-        parameters: [
-            {
-                in: "path",
-                required: true,
-                type: "String",
-                name: "email",
-                schema: {
-                    type: "String",
-                    example: {
-                        email: "fipupa@gmail.com"
-                    }
-                }
-            },
-            {
-                in: "path",
-                required: true,
-                type: "String",
-                name: "password",
-                schema: {
-                    type: "String",
-                    example: {
-                        email: "test1234"
-                    }
-                }
-            },
-        ],
+        parameters: [],
         requestBody: {
             content: {
                 "application/json": {
                     schema: {
-                        $ref: "#/components/schemas/admin",
-                    },
+                        type: "String",
+                        example: {
+                            email: "fipupa@gmail.com",
+                            password: "test1234"
+                        }
+                    }
                 },
             },
         },
         responses: {
             200: {
-                message: "Invitation created successfully",
-                code: 21
+                description: "Admin login",
+                content: {
+                    "application/json": {
+                        schema: {
+                            type: "object",
+                            example: {
+                                idAdmin: 1,
+                                email: "root@root.fr",
+                                password: "IMAGINARY PASSWORD",
+                                idCommunity: 2
+                            }
+                        },
+                    },
+                },
             },
             400: {
-                ERROR: "Bad Request"
+                description: "Bad Request",
+                content: {
+                    "application/json": {
+                        schema: {
+                            type: "object",
+                            example: {
+                                ERROR: "Bad Request"
+                            }
+                        },
+                    },
+                },
             },
         },
     },

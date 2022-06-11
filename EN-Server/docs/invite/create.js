@@ -28,11 +28,31 @@ module.exports = {
 		},
 		responses: {
 			200: {
-				message: "Invitation created successfully",
-				code: 21
+				description: "Invitation created successfully",
+				content: {
+					"application/json": {
+						schema: {
+							type: "string",
+							example: {
+								message: "Invitation created successfully",
+								code: 21
+							}
+						},
+					},
+				},
 			},
 			400: {
-				ERROR: "Bad Request"
+				description: "Bad Request",
+				content: {
+					"application/json": {
+						schema: {
+							type: "string",
+							example: {
+								ERROR: "Bad Request"
+							}
+						},
+					},
+				},
 			},
 		},
 	},

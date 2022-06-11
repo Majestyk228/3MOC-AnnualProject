@@ -17,22 +17,33 @@ module.exports = {
 				}
 			},
 		],
-		requestBody: {
-			content: {
-				"application/json": {
-					schema: {
-						$ref: "#/components/schemas/community",
+		responses: {
+			200: {
+				description: "Get community infos",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							example: {
+								idCommunity: 1,
+								label: "Val-de-Marne"
+							}
+						},
 					},
 				},
 			},
-		},
-		responses: {
-			200: {
-				idCommunity: 1,
-				label: "Val-de-Marne"
-			},
 			400: {
-				ERROR: "Bad Request"
+				description: "Bad Request",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							example: {
+								ERROR: "Bad Request"
+							}
+						},
+					},
+				},
 			},
 		},
 	},

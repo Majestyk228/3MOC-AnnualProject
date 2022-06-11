@@ -3,6 +3,7 @@ const admin = require('./admin/index.js')
 const post = require('./post/index.js')
 const reward = require('./reward/index.js')
 const community = require('./community/index.js')
+const vote = require('./vote/index.js')
 
 module.exports = {
 	openapi: "3.0.1",
@@ -28,6 +29,7 @@ module.exports = {
 		...post.paths,
 		...reward.paths,
 		...community.paths,
+		...vote.paths,
 	},
 	components: {
 		schemas: {
@@ -36,6 +38,7 @@ module.exports = {
 			...post.schema,
 			...reward.schema,
 			...community.schema,
+			...vote.schema,
 		},
 	},
 }

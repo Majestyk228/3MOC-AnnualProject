@@ -6,11 +6,11 @@ module.exports = {
         parameters: [],
         responses: {
             200: {
-                description: "Get all invites",
+                description: "Get all admins",
                 content: {
                     "application/json": {
                         schema: {
-                            $ref: "#/components/schemas/admin",
+                            $ref: "#/components/schemas/admins",
                         },
                     },
                 },

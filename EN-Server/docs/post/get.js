@@ -19,7 +19,7 @@ module.exports = {
         ],
         responses: {
             200: {
-                description: "Get all posts",
+                description: "Get a post",
                 content: {
                     "application/json": {
                         schema: {

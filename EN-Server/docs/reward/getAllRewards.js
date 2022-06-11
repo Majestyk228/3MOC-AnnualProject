@@ -10,7 +10,7 @@ module.exports = {
                 content: {
                     "application/json": {
                         schema: {
-                            $ref: "#/components/schemas/reward",
+                            $ref: "#/components/schemas/rewards",
                         },
                     },
                 },
