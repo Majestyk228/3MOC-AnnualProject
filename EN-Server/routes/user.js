@@ -26,7 +26,7 @@ router.get('/infos', async function (req, res, next) {
 });
 
 /* GET login // idUser must be in body request*/
-router.get('/login', async function (req, res, next) {
+router.post('/login', async function (req, res, next) {
 	//verifying credentials entered
 	if (req.body.email == null || req.body.password == null) {
 		res.status(400).json([{ 'ERROR': 'Missing email or/and password' }]);
