@@ -26,6 +26,11 @@ module.exports = {
                 type: "String",
                 description: "Password of user",
                 example: "test1234"
+            },
+            idCommunity: {
+                type: "int",
+                description: "ID of the community administered by admin",
+                example: "1"
             }
         },
     },
