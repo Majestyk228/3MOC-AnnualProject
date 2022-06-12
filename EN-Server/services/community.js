@@ -16,8 +16,16 @@ async function getTopChoicesVotes(id) {
 	return rows;
 }
 
+
+//gives all community IDs from one user
+async function getUsersCommunity(id) {
+	const rows = await db.query("SELECT idCommunity FROM Associate WHERE idUser = " + id + ";", "");
+	return rows;
+}
+
 module.exports = {
 	getCommunityInfo,
 	getCommunityStats,
-	getTopChoicesVotes
+	getTopChoicesVotes,
+	getUsersCommunity
 }

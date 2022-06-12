@@ -6,7 +6,7 @@ const community = require('../services/community.js');
 
 
 
-router.get('/stats', async function (req, res, next) {
+router.post('/stats', async function (req, res, next) {
 	try {
 		const result = await community.getCommunityStats(req.body.idCommunity)
 		if (result.toString == "[]") {
@@ -23,9 +23,20 @@ router.get('/stats', async function (req, res, next) {
 });
 
 
-router.get('/topChoices', async function (req, res, next) {
+router.post('/topChoices', async function (req, res, next) {
 	try {
 		res.status(200).json(await community.getTopChoicesVotes(req.body.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+
+router.get('/user/:idUser', async function (req, res, next) {
+	try {
+		res.status(200).json(await community.getUsersCommunity(req.params.idUser));
 	} catch (err) {
 		res.status(400).json([{ "ERROR": "Bad Request" }]);
 		next(err);

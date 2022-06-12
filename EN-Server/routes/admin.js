@@ -27,7 +27,7 @@ router.get('/all', async function (_, res, next) {
 
 
 // email must be in body request
-router.get('/login', async function (req, res, next) {
+router.post('/login', async function (req, res, next) {
 
 	//verifying credentials entered
 	/*if (req.body.email == null || req.body.password == null) {

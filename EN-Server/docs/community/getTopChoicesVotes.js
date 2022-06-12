@@ -1,5 +1,5 @@
 module.exports = {
-	get: {
+	post: {
 		tags: ["community"],
 		description: "Get every top choice on every vote for a specific community",
 		operationId: "getTopChoicesVotes",

@@ -3,6 +3,19 @@ const router = express.Router();
 const post = require('../services/post.js');
 ////const jwtUtils = require('../utils/jwt.utils.js');
 
+
+
+/* GET allPosts formated to fit Exprimons-Nous Android App input*/
+router.get('/formatted/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await post.getAllPostsFormated(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		//console.error(`Error while getting posts `, err.message);
+		next(err);
+	}
+});
+
 /* GET allPosts*/
 router.get('/all', async function (_, res, next) {
 	try {
@@ -15,6 +28,7 @@ router.get('/all', async function (_, res, next) {
 });
 
 
+
 /* GET post*/
 router.get('/:id', async function (req, res, next) {
 	try {
@@ -24,6 +38,7 @@ router.get('/:id', async function (req, res, next) {
 		next(err);
 	}
 });
+
 
 
 module.exports = router;

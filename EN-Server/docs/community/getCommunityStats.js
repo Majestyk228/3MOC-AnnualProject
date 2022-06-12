@@ -1,5 +1,5 @@
 module.exports = {
-	get: {
+	post: {
 		tags: ["community"],
 		description: "Get stats from a community",
 		operationId: "getCommunityStats",
