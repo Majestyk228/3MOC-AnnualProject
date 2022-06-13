@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             // TOAST
             Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
         } else {
-            Intent nextActivity = new Intent(getApplicationContext(), PostFeedActivity.class);
+            Intent nextActivity = new Intent(getApplicationContext(), MainActivity2.class);
             //extras will be added
             nextActivity.putExtra("userId", userCreds.getIdUser());
             startActivity(nextActivity);

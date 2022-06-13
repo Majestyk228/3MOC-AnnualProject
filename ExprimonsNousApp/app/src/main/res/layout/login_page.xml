@@ -17,46 +17,46 @@
         />
 
     <RelativeLayout
+        android:id="@+id/whiteRoundedLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/whiteRoundedLayout"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/logo"
-        android:background="@layout/layout_bg">
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_bg">
 
         <TextView
+            android:id="@+id/connectezVous"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/connectezVous"
-            android:text="@string/loginTitle"
-            android:textSize="40dp"
-            android:textColor="@color/black"
+            android:layout_margin="20dp"
             android:fontFamily="@font/quicksandsemibold"
             android:gravity="center"
-            android:layout_margin="20dp"/>
+            android:text="@string/loginTitle"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
 
         <TextView
+            android:id="@+id/loginDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/loginDescription"
-            android:text="@string/loginDesc"
-            android:textSize="15dp"
             android:layout_below="@id/connectezVous"
-            android:textColor="@color/black"
+            android:layout_margin="50dp"
             android:fontFamily="@font/quicksandregular"
             android:gravity="center"
-            android:layout_margin="50dp"/>
+            android:text="@string/loginDesc"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/emailLoginLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emailLoginLabel"
-            android:text="@string/emailTXT"
             android:layout_below="@id/loginDescription"
-            android:fontFamily="@font/quicksandsemibold"
-            android:textColor="@color/black"
             android:layout_marginLeft="25dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/quicksandsemibold"
+            android:text="@string/emailTXT"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/emailLogin"
@@ -77,19 +77,18 @@
             android:textStyle="italic" />
 
         <TextView
+            android:id="@+id/passwdLoginLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/passwdLoginLabel"
-            android:text="@string/passwdTXT"
             android:layout_below="@id/emailLogin"
-            android:fontFamily="@font/quicksandsemibold"
-            android:textColor="@color/black"
             android:layout_marginLeft="25dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/quicksandsemibold"
+            android:text="@string/passwdTXT"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/passwdLogin"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/passwdLoginLabel"
@@ -100,6 +99,7 @@
             android:drawablePadding="20dp"
             android:fontFamily="@font/quicksandregular"
             android:hint="@string/passwdHint"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"

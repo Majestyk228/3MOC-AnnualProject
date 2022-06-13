@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundBlue"
@@ -20,47 +20,47 @@
             />
 
         <RelativeLayout
+            android:id="@+id/whiteRoundedLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/whiteRoundedLayout"
-            android:layout_alignParentBottom="true"
             android:layout_below="@id/logo"
-            android:background="@layout/layout_bg">
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/layout_bg">
 
 
             <TextView
+                android:id="@+id/RejoignezNous"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/RejoignezNous"
-                android:text="Rejoignez-nous !"
-                android:textSize="40dp"
-                android:textColor="@color/black"
+                android:layout_margin="20dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:gravity="center"
-                android:layout_margin="20dp"/>
+                android:text="Rejoignez-nous !"
+                android:textColor="@color/black"
+                android:textSize="40dp" />
 
             <TextView
+                android:id="@+id/signInDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/signInDescription"
-                android:text="@string/sign_in_desc"
-                android:textSize="15dp"
                 android:layout_below="@id/RejoignezNous"
-                android:textColor="@color/black"
+                android:layout_margin="30dp"
                 android:fontFamily="@font/quicksandregular"
                 android:gravity="center"
-                android:layout_margin="30dp"/>
+                android:text="@string/sign_in_desc"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/firstNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/firstNameLabel"
-                android:text="@string/firstnameTXT"
                 android:layout_below="@id/signInDescription"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/firstnameTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/firstname"
@@ -81,15 +81,15 @@
                 android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/lastNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lastNameLabel"
-                android:text="@string/lastnameTXT"
                 android:layout_below="@id/firstname"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/lastnameTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/lastname"
@@ -101,24 +101,24 @@
                 android:layout_marginBottom="10dp"
                 android:background="#60123456"
                 android:drawablePadding="20dp"
-                android:hint="@string/lastnameHint"
                 android:fontFamily="@font/quicksandregular"
-                android:textStyle="italic"
-                android:textSize="16dp"
+                android:hint="@string/lastnameHint"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="16dp"
+                android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/bithdayLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/bithdayLabel"
-                android:text="@string/birthdateTXT"
                 android:layout_below="@id/lastname"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/birthdateTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/bithdate"
@@ -139,15 +139,15 @@
                 android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/emailLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/emailLabel"
-                android:text="@string/emailTXT"
                 android:layout_below="@id/bithdate"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/emailTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/email"
@@ -159,24 +159,24 @@
                 android:layout_marginBottom="10dp"
                 android:background="#60123456"
                 android:drawablePadding="20dp"
-                android:hint="@string/emailHint"
                 android:fontFamily="@font/quicksandregular"
-                android:textStyle="italic"
-                android:textSize="16dp"
+                android:hint="@string/emailHint"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="16dp"
+                android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/genderLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/genderLabel"
-                android:text="@string/genderTXT"
                 android:layout_below="@id/email"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/genderTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/gender"
@@ -188,24 +188,24 @@
                 android:layout_marginBottom="10dp"
                 android:background="#60123456"
                 android:drawablePadding="20dp"
-                android:hint="@string/genderHint"
                 android:fontFamily="@font/quicksandregular"
-                android:textStyle="italic"
-                android:textSize="16dp"
+                android:hint="@string/genderHint"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="16dp"
+                android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/areaCodeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/areaCodeLabel"
-                android:text="@string/areaCodeTXT"
                 android:layout_below="@id/gender"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/areaCodeTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/areaCode"
@@ -217,28 +217,27 @@
                 android:layout_marginBottom="10dp"
                 android:background="#60123456"
                 android:drawablePadding="20dp"
-                android:hint="@string/areaCodeHint"
                 android:fontFamily="@font/quicksandregular"
-                android:textStyle="italic"
-                android:textSize="16dp"
+                android:hint="@string/areaCodeHint"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="16dp"
+                android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/passwdLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/passwdLabel"
-                android:text="@string/passwdTXT"
                 android:layout_below="@id/areaCode"
-                android:fontFamily="@font/quicksandsemibold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/passwdTXT"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/passwd"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passwdLabel"
@@ -249,6 +248,7 @@
                 android:drawablePadding="20dp"
                 android:fontFamily="@font/quicksandregular"
                 android:hint="@string/passwdHint"
+                android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
@@ -256,19 +256,19 @@
                 android:textStyle="italic" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/signInBtn"
                 android:layout_width="320dp"
                 android:layout_height="75dp"
-                android:id="@+id/signInBtn"
                 android:layout_below="@id/passwd"
-                android:text="@string/login"
-                android:textSize="17dp"
-                android:backgroundTint="@color/blueBtn"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="@font/quicksandbold"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="15dp"/>
+                android:layout_margin="15dp"
+                android:backgroundTint="@color/blueBtn"
+                android:fontFamily="@font/quicksandbold"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

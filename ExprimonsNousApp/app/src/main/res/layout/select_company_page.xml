@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
         android:layout_alignParentBottom="true"
-        android:background="@layout/layout_bg">
+        android:background="@drawable/layout_bg">
 
         <TextView
             android:id="@+id/selectCompanyTitle"
