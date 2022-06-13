@@ -119,7 +119,7 @@
             android:textColor="@color/black"
             android:textSize="7dp"
             app:strokeColor="@color/medium_stroke_grey"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="1dp"/>
         <Button
             android:id="@+id/dislikeBtn"
             android:backgroundTint="@color/medium_grey"

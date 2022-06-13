@@ -22,7 +22,7 @@ public class MainActivity2 extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment;
+            Fragment selectedFragment = null;
 
             switch (item.getItemId()){
                 case R.id.action_posts:
@@ -34,15 +34,8 @@ public class MainActivity2 extends AppCompatActivity {
                 case R.id.action_profile:
                     selectedFragment = new ProfileFragment();
                     break;
-                /*case R.id.nav_notification:
-                    selectedFragment = new NotificationFragment();
-                    break;*/
-                default:
-                    selectedFragment = new PostFragment();
-
             }
 
-            assert selectedFragment != null;
             getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout,selectedFragment).commit();
 
             return true;

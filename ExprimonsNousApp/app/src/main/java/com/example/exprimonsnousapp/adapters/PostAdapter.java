@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,38 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.commentTXT.setText(posts.get(position).getNbComments());
         holder.rewardTXT.setText(posts.get(position).getNbRewards());
 
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code
+                Log.i("RVButton","Bouton like post "+posts.get(position).getBody());
+            }
+        });
+
+        holder.dislikeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code
+                Log.i("RVButton","Bouton dislike post "+posts.get(position).getBody());
+            }
+        });
+
+        holder.commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code
+                Log.i("RVButton","Bouton comment post "+posts.get(position).getBody());
+            }
+        });
+
+        holder.rewardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code
+                Log.i("RVButton","Bouton reward post "+posts.get(position).getBody());
+            }
+        });
+
         //holder.fullnameTXT
     }
 
@@ -59,6 +92,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView fullnameTXT,bodyTXT,likesTXT, dislikesTXT, commentTXT, rewardTXT;
+        Button likeBtn,dislikeBtn,commentBtn,rewardBtn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -68,6 +103,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             dislikesTXT = itemView.findViewById(R.id.dislikesTXT);
             commentTXT = itemView.findViewById(R.id.commentTXT);
             rewardTXT = itemView.findViewById(R.id.rewardTXT);
+
+            likeBtn = itemView.findViewById(R.id.likeBtn);
+            dislikeBtn = itemView.findViewById(R.id.dislikeBtn);
+            commentBtn = itemView.findViewById(R.id.commentBtn);
+            rewardBtn = itemView.findViewById(R.id.rewardBtn);
 
         }
     }

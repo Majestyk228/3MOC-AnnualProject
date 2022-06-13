@@ -3,10 +3,31 @@ package com.example.exprimonsnousapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.exprimonsnousapp.adapters.PostAdapter;
+import com.example.exprimonsnousapp.models.Post;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,33 +36,25 @@ import android.view.ViewGroup;
  */
 public class PostFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    PostAdapter adapter;
+    List<Post> posts;
+    private String URL = "https://www.titan-photography.com/post/all";
+    SwipeRefreshLayout swipeRefreshPosts;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //buttons
+    Button likeBtn;
+    Button dislikeBtn;
+    Button commentBtn;
+    Button rewardBtn;
+
 
     public PostFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PostFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PostFragment newInstance(String param1, String param2) {
+    public static PostFragment newInstance() {
         PostFragment fragment = new PostFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,16 +62,88 @@ public class PostFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        posts = new ArrayList<>();
+
+        extractPost();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post, container, false);
+        View view = inflater.inflate(R.layout.fragment_post, container, false);
+
+        recyclerView = view.findViewById(R.id.postsList1);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        adapter = new PostAdapter(getActivity(),posts);
+        recyclerView.setAdapter(adapter);
+
+        swipeRefreshPosts = view.findViewById(R.id.swipeRefreshPosts);
+        swipeRefreshPosts.setColorSchemeColors(getResources().getColor(R.color.backgroundBlue));
+        swipeRefreshPosts.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //wipe out de la liste des posts
+                posts = new ArrayList<>();
+
+                //réextraction de la liste des posts
+                extractPost();
+
+                //implémeenter le changement de données
+                adapter.notifyDataSetChanged();
+                swipeRefreshPosts.setRefreshing(false);
+            }
+        });
+
+        return view;
+    }
+
+
+    private void extractPost() {
+        //API call made here
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i = 0 ; i<response.length() ; i++){
+                            try {
+                                JSONObject postObject = response.getJSONObject(i);
+
+                                Post post = new Post();
+                                post.setFirstname("#");
+                                post.setLastname(String.valueOf(postObject.getInt("idUser")));
+                                post.setBody(postObject.getString("body"));
+                                post.setLikes(postObject.getInt("likes"));
+                                post.setDislikes(postObject.getInt("dislikes"));
+                                post.setNbComments(0);
+                                post.setNbRewards(0);
+
+                                posts.add(post);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        adapter = new PostAdapter(getContext(), posts);
+                        recyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("errorAPI","onErrorResponse:"+error.getMessage());
+                    }
+                });
+
+        //ajouter la requete à la queue d'exécution
+        queue.add(jsonArrayRequest);
     }
 }
