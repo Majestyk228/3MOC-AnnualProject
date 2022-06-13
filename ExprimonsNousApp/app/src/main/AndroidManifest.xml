@@ -16,7 +16,7 @@
         <activity
             android:name=".MainActivity2"
             android:exported="false"
-            android:label="@string/title_activity_main2" />
+            android:label="@string/title_activity_main2"></activity>
         <activity android:name=".PostFeedActivity" />
         <activity
             android:name=".JoinCompanyActivity"
