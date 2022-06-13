@@ -21,34 +21,33 @@ public class MainActivity2 extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment;
 
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
-
-                switch (item.getItemId()){
-                    case R.id.action_posts:
-                        selectedFragment = new PostFragment();
-                        break;
-                    case R.id.action_votes:
-                        selectedFragment = new VoteFragment();
-                        break;
-                    case R.id.action_profile:
-                        selectedFragment = new ProfileFragment();
-                        break;
-                    /*case R.id.nav_notification:
-                        selectedFragment = new NotificationFragment();
-                        break;*/
-
-                }
-
-                assert selectedFragment != null;
-                getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout,selectedFragment).commit();
-
-                return true;
+            switch (item.getItemId()){
+                case R.id.action_posts:
+                    selectedFragment = new PostFragment();
+                    break;
+                case R.id.action_votes:
+                    selectedFragment = new VoteFragment();
+                    break;
+                case R.id.action_profile:
+                    selectedFragment = new ProfileFragment();
+                    break;
+                /*case R.id.nav_notification:
+                    selectedFragment = new NotificationFragment();
+                    break;*/
+                default:
+                    selectedFragment = new PostFragment();
 
             }
+
+            assert selectedFragment != null;
+            getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout,selectedFragment).commit();
+
+            return true;
         });
+
+        bottomNavigationView.setSelectedItemId(R.id.action_posts);
     }
 }

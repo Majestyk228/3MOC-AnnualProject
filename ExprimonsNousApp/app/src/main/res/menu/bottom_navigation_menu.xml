@@ -4,19 +4,19 @@
     <item
         android:id="@+id/action_posts"
         android:enabled="true"
-        android:icon="@drawable/ic_dimond_alt_light"
+        android:icon="@drawable/ic_blank_duotone_line"
         android:title="@string/title_post"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_votes"
         android:enabled="true"
-        android:icon="@drawable/ic_dimond_alt_light"
+        android:icon="@drawable/ic_box_light"
         android:title="@string/title_vote"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
-        android:icon="@drawable/ic_dimond_alt_light"
+        android:icon="@drawable/ic_user_fill"
         android:title="@string/title_profile"
         app:showAsAction="ifRoom" />
 </menu>
