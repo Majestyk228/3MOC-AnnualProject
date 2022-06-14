@@ -20,7 +20,7 @@
     <string name="lastnameHint">exemple : DOE</string>
     <string name="birthdateHint">exemple : 01/12/1950</string>
     <string name="emailHint">exemple : john.doe@liberty.com</string>
-    <string name="genderHint"></string>
+    <string name="genderHint">exemple : Mâle</string>
     <string name="areaCodeHint">exemple : 69420</string>
     <string name="passwdHint">exemple : ●●●●●●●●●●●</string>
 

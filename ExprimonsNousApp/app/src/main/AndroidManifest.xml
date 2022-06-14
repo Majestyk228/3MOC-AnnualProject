@@ -14,9 +14,12 @@
         android:theme="@style/Theme.ExprimonsNousApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity2"
             android:exported="false"
-            android:label="@string/title_activity_main2"></activity>
+            android:label="@string/title_activity_main2" />
         <activity android:name=".PostFeedActivity" />
         <activity
             android:name=".JoinCompanyActivity"
