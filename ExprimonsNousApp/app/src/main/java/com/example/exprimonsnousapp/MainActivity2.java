@@ -2,6 +2,7 @@ package com.example.exprimonsnousapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -13,11 +14,15 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity2 extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+    private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
 

@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.11436170212765957" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_vote.xml" value="0.1" />
@@ -26,6 +27,7 @@
         <entry key="app/src/main/res/layout/signup_page.xml" value="0.18862275449101795" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.10648148148148148" />
         <entry key="app/src/main/res/layout/waiting_layout.xml" value="0.15913238525390627" />
+        <entry key="app/src/main/res/menu/appbar_menu.xml" value="0.15520833333333334" />
       </map>
     </option>
   </component>

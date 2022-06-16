@@ -14,7 +14,13 @@
     <color name="medium_stroke_grey">#B7B7B7</color>
 
 
+
     <!-- COULEUR DE SELECTION DE LA BOTTOM NAVIGATION BAR -->
     <color name="colorAccentDark">@color/purple_500</color>
+
     <color name="bottom_nav_bar_background">#FFDEEDF8</color>
+
+
+    <!-- APPBAR COLORS -->
+    <color name="appbar_background">#FFDFECF8</color>
 </resources>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +22,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
 import com.example.exprimonsnousapp.models.Post;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,11 +46,13 @@ public class PostFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshPosts;
 
     //buttons
-    Button likeBtn;
+    /*Button likeBtn;
     Button dislikeBtn;
     Button commentBtn;
-    Button rewardBtn;
+    Button rewardBtn;*/
 
+    //floating button
+    FloatingActionButton fab;
 
     public PostFragment() {
     }
@@ -94,6 +99,15 @@ public class PostFragment extends Fragment {
                 //implémeenter le changement de données
                 adapter.notifyDataSetChanged();
                 swipeRefreshPosts.setRefreshing(false);
+            }
+        });
+
+        fab = view.findViewById(R.id.add_post);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
