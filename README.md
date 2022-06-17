@@ -11,7 +11,7 @@
 - Retrofit
 - Picasso
 
-# Auteurs
+# Auteur(s)
 ## Logo
 Sarah KOUTA-LOPATEY
 
