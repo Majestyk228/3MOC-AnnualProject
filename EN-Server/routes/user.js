@@ -16,7 +16,7 @@ router.get('/all', async function (_, res, next) {
 });
 
 /* GET userInfo // idUser must be in body request*/
-router.get('/infos', async function (req, res, next) {
+router.post('/infos', async function (req, res, next) {
 	try {
 		res.status(200).json(await user.getUserInfo(req.body.idUser));
 	} catch (err) {
@@ -25,7 +25,7 @@ router.get('/infos', async function (req, res, next) {
 	}
 });
 
-/* GET login // idUser must be in body request*/
+/* POST login // idUser must be in body request*/
 router.post('/login', async function (req, res, next) {
 	//verifying credentials entered
 	if (req.body.email == null || req.body.password == null) {
@@ -48,6 +48,7 @@ router.post('/login', async function (req, res, next) {
 			//generate token
 			res.status(201).json({
 				"idUser": userCredentials[0].idUser,
+				"idCommunity": userCredentials[0].idCommunity,
 				"token": jwtUtils.generateTokenForUser(userCredentials[0].idUser)
 			});
 		}

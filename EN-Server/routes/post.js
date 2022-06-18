@@ -8,7 +8,7 @@ const post = require('../services/post.js');
 /* GET allPosts formated to fit Exprimons-Nous Android App input*/
 router.get('/formatted/:idCommunity', async function (req, res, next) {
 	try {
-		res.status(200).json(await post.getAllPostsFormated(req.params.idCommunity));
+		res.status(200).json(await post.getAllPostsFormatted(req.params.idCommunity));
 	} catch (err) {
 		res.status(400).json([{ "ERROR": "Bad Request" }]);
 		//console.error(`Error while getting posts `, err.message);

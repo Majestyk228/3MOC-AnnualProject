@@ -23,9 +23,17 @@ async function getUsersCommunity(id) {
 	return rows;
 }
 
+//gives the first 3 users with highest score from a given community
+async function getThreeBestUserByCommunity(id) {
+	const rows = await db.query("SELECT u.idUser, u.firstName, u.lastName FROM User u, Associate a WHERE a.idUser = u.idUser AND a.idCommunity = " + id + " ORDER BY(u.points) DESC LIMIT 3; ", "");
+	return rows;
+}
+
+
 module.exports = {
 	getCommunityInfo,
 	getCommunityStats,
 	getTopChoicesVotes,
-	getUsersCommunity
+	getUsersCommunity,
+	getThreeBestUserByCommunity
 }

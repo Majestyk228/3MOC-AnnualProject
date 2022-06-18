@@ -29,7 +29,7 @@ async function getUserInfo(idUser) {
 async function getUserCredentials(email) {
     /* ======= password will be crypted ======= */
 
-    const rows = await db.query("SELECT idUser, password FROM User WHERE email='" + email + "';", "");
+    const rows = await db.query("SELECT u.idUser, u.password, a.idCommunity FROM User u, Associate a WHERE a.idUser = u.idUser AND email='" + email + "';", "");
     return rows;
 }
 

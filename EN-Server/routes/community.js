@@ -4,6 +4,20 @@ const router = express.Router();
 const community = require('../services/community.js');
 //const jwtUtils = require('../utils/jwt.utils.js');
 
+router.post('/bestUsers', async function (req, res, next) {
+	try {
+		const result = await community.getThreeBestUserByCommunity(req.body.idCommunity)
+		if (result.toString == "[]") {
+			res.status(404).json([{ "ERROR": "Bad Request" }]);
+		} else {
+			res.status(200).json(result);
+		}
+
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
 
 
 router.post('/stats', async function (req, res, next) {
