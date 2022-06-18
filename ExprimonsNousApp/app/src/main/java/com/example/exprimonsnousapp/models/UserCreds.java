@@ -5,11 +5,13 @@ public class UserCreds {
     //ATTRIBUTS
     private int idUser;
     private String token;
+    private int idCommunity;
 
     // CONSTRUCTOR
-    public UserCreds(int idUser, String token) {
+    public UserCreds(int idUser, String token, int idCommunity) {
         this.idUser = idUser;
         this.token = token;
+        this.idCommunity = idCommunity;
     }
 
     //GETTERS & SETTERS
@@ -27,6 +29,14 @@ public class UserCreds {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getIdCommunity() {
+        return idCommunity;
+    }
+
+    public void setIdCommunity(int idCommunity) {
+        this.idCommunity = idCommunity;
     }
 
     // toString()

@@ -42,8 +42,9 @@ public class PostFragment extends Fragment {
     private RecyclerView recyclerView;
     PostAdapter adapter;
     List<Post> posts;
-    private String URL = "https://www.titan-photography.com/post/all";
+    private String URL = "https://www.titan-photography.com/post/formatted/";
     SwipeRefreshLayout swipeRefreshPosts;
+    private int communityId;
 
     //buttons
     /*Button likeBtn;
@@ -54,11 +55,12 @@ public class PostFragment extends Fragment {
     //floating button
     FloatingActionButton fab;
 
-    public PostFragment() {
+    public PostFragment(int communityId) {
+        this.communityId = communityId;
     }
 
-    public static PostFragment newInstance() {
-        PostFragment fragment = new PostFragment();
+    public static PostFragment newInstance(int communityId) {
+        PostFragment fragment = new PostFragment(communityId);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -120,23 +122,48 @@ public class PostFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                URL,
+                URL+communityId,
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.i("responseAPI",response.toString());
                         for(int i = 0 ; i<response.length() ; i++){
                             try {
                                 JSONObject postObject = response.getJSONObject(i);
 
                                 Post post = new Post();
-                                post.setFirstname("#");
-                                post.setLastname(String.valueOf(postObject.getInt("idUser")));
+                                post.setFirstname(postObject.getString("firstName"));
+                                post.setLastname(postObject.getString("lastName"));
                                 post.setBody(postObject.getString("body"));
-                                post.setLikes(postObject.getInt("likes"));
-                                post.setDislikes(postObject.getInt("dislikes"));
-                                post.setNbComments(0);
-                                post.setNbRewards(0);
+                                //post.setLikes(postObject.getInt("likes") ? postObject.getInt("likes") : 0);
+                                if (postObject.get("likes") != null) {
+                                    post.setLikes(postObject.getInt("likes"));
+                                } else {
+                                    post.setLikes(0);
+                                }
+
+                                if (postObject.get("dislikes") != null) {
+                                    post.setDislikes(postObject.getInt("dislikes"));
+                                } else {
+                                    post.setDislikes(0);
+                                }
+
+                                if (postObject.get("comments") != null) {
+                                    post.setNbComments(postObject.getInt("comments"));
+                                } else {
+                                    post.setNbComments(0);
+                                }
+
+
+                                if (postObject.get("rewards") != null) {
+                                    post.setNbRewards(postObject.getInt("rewards"));
+                                } else {
+                                    post.setNbRewards(0);
+                                }
+                                //post.setDislikes(postObject.getInt("dislikes"));
+                                //post.setNbComments(postObject.getInt("comments"));
+                                //post.setNbRewards(postObject.getInt("rewards"));
 
                                 posts.add(post);
 

@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private MaterialButton loginBtn;
     private String URL_LOGIN = "https://www.titan-photography.com/user/login";
     ApiInterface apiInterface;
-    UserCreds userCreds = new UserCreds(-1,"");
+    UserCreds userCreds = new UserCreds(-1,"", -1);
 
 
     @Override
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     userCreds = response.body();
                 } else {
-                    userCreds = new UserCreds(-1, "");
+                    userCreds = new UserCreds(-1, "",-1);
                 }
             }
 
@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent nextActivity = new Intent(getApplicationContext(), MainActivity2.class);
             //extras will be added
             nextActivity.putExtra("userId", userCreds.getIdUser());
+            nextActivity.putExtra("communityId", userCreds.getIdCommunity());
             startActivity(nextActivity);
             finish();
         }

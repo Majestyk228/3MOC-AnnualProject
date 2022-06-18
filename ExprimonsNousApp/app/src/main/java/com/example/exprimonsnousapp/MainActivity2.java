@@ -15,11 +15,17 @@ public class MainActivity2 extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private Toolbar myToolbar;
+    private int userId = -1;
+    private int communityId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        Bundle extras = getIntent().getExtras();
+        userId = extras.getInt("userId");
+        communityId = extras.getInt("communityId");
 
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -31,7 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.action_posts:
-                    selectedFragment = new PostFragment();
+                    selectedFragment = new PostFragment(communityId);
                     break;
                 case R.id.action_votes:
                     selectedFragment = new VoteFragment();
