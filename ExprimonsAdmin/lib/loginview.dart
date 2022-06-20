@@ -7,15 +7,19 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: Colors.red,
-          height: 100,
-          width: 100,
+        Expanded(
+          child: Container(
+            color: Colors.red,
+            height: 100,            //test
+            width: 100,             //test
+          ),
         ),
-        Container(
-          color: Colors.green,
-          height: 100,
-          width: 100,
+        Expanded(
+          child: Container(
+            color: Colors.green,
+            height: 100,            //test
+            width: double.infinity, //test
+          ),
         ),
       ],
     );
