@@ -14,10 +14,13 @@ class _HomeViewState extends State<HomeView> {
       child: Text('Dashboard'),
     ),
     Center(
-      child: Text('Account'),
+      child: Text('Post'),
     ),
     Center(
-      child: Text('Settings'),
+      child: Text('Vote'),
+    ),
+    Center(
+      child: Text('User'),
     ),
   ];
 
@@ -44,12 +47,16 @@ class _HomeViewState extends State<HomeView> {
                 label: 'Dashboard',
               ),
               SideNavigationBarItem(
-                icon: Icons.person,
-                label: 'Account',
+                icon: Icons.article,
+                label: 'Post',
               ),
               SideNavigationBarItem(
-                icon: Icons.settings,
-                label: 'Settings',
+                icon: Icons.how_to_vote,
+                label: 'Vote',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.person,
+                label: 'User',
               ),
             ],
             onTap: (index) {
