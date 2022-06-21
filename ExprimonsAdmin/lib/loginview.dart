@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/loginform.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -5,22 +6,35 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
         Expanded(
           child: Container(
-            color: Colors.red,
-            height: 100,            //test
-            width: 100,             //test
+            color: const Color(0xFFFF616F),
+            height: double.infinity, //test
+            width: double.infinity,
+            child: const FractionallySizedBox(
+              widthFactor: 0.7,
+              heightFactor: 0.6,
+              child: Image(
+                image: AssetImage('assets/images/logo.png'),
+              ),
+            ), //test
           ),
         ),
         Expanded(
           child: Container(
-            color: Colors.green,
-            height: 100,            //test
-            width: double.infinity, //test
+            color: Colors.white,
+            height: double.infinity, //test
+            width: double.infinity,
+            child: FractionallySizedBox(
+              widthFactor: 0.7,
+              heightFactor: 0.5,
+              child: Center(child: LoginForm()),
+            ), //test
           ),
         ),
+
       ],
     );
   }
