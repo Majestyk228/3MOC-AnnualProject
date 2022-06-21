@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/homeview.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
@@ -9,7 +10,7 @@ class LoginForm extends StatelessWidget {
       color: Colors.white,
       elevation: 3,
       child: Column(
-        children:  [
+        children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Connexion ADMIN"),
@@ -55,14 +56,21 @@ class LoginForm extends StatelessWidget {
             child: Text(
               "Recovery password",
               style: TextStyle(color: Colors.red),
-
             ),
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: TextButton(onPressed: () {}, child: Text("LOGIN")),
+            child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeView(),
+                    ),
+                  );
+                },
+                child: Text("LOGIN")),
           )
-
         ],
       ),
     );
