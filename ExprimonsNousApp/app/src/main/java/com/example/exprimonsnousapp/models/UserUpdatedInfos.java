@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp.models;
 public class UserUpdatedInfos {
 
     // ATTRIBUTS
+    private int idUser;
     private String firstName;
     private String lastName;
     private String birthDate;
@@ -11,8 +12,8 @@ public class UserUpdatedInfos {
     private String areaCode;
 
     // CONSTRUCTEUR
-
-    public UserUpdatedInfos(String firstName, String lastName, String birthDate, String email, String gender, String areaCode) {
+    public UserUpdatedInfos(int idUser, String firstName, String lastName, String birthDate, String email, String gender, String areaCode) {
+        this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -21,8 +22,15 @@ public class UserUpdatedInfos {
         this.areaCode = areaCode;
     }
 
-
     // GETTER & SETTER
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -72,12 +80,14 @@ public class UserUpdatedInfos {
         this.areaCode = areaCode;
     }
 
-    // ToString()
+
+    // TO STRING
 
     @Override
     public String toString() {
         return "UserUpdatedInfos{" +
-                "firstName='" + firstName + '\'' +
+                "idUser=" + idUser +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", email='" + email + '\'' +

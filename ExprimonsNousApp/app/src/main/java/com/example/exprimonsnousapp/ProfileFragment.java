@@ -4,15 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.exprimonsnousapp.models.UserCreds;
-import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.UserUpdatedInfos;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
@@ -43,6 +40,9 @@ public class ProfileFragment extends Fragment {
     // API
     ApiInterface apiInterface;
 
+    // OTHER VARIABLES
+    private int idUser;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -68,71 +68,72 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        // RÉCUPÉRATION DE l'IDUSER PASSÉ EN ARGUMENT DU FRAGMENT
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            idUser = bundle.getInt("idUser", -1);
+        }
+
+        // BOUTONS
         this.submit_button = view.findViewById(R.id.submitBtn);
         this.reset_password = view.findViewById(R.id.passwordChangeBtn);
 
+        // CHAMPS TEXTE
+        this.firstName = view.findViewById(R.id.firstnameUpdate);
+        this.lastName = view.findViewById(R.id.lastnameUpdate);
+        this.birthDate = view.findViewById(R.id.bithdateUpdate);
+        this.email = view.findViewById(R.id.emailUpdate);
+        this.gender = view.findViewById(R.id.genderUpdate);
+        this.areaCode = view.findViewById(R.id.areaCodeUpdate);
 
-        this.submit_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("BUTTONSSS", "Bouton Submit");
 
-                String firstNameTxt = firstName.getText().toString();
-                String lastNameTxt = lastName.getText().toString();
-                String birthDateTxt = birthDate.getText().toString();
-                String emailtxt = email.getText().toString();
-                String genderTxt = gender.getText().toString();
-                String areaCodeTxt = areaCode.getText().toString();
+        this.submit_button.setOnClickListener(view12 -> {
+            Log.i("BUTTONSSS", "Bouton Submit");
 
-                // MAKE REQUEST TO UPDATE API
-                UserUpdatedInfos updatedInfos = new UserUpdatedInfos(firstNameTxt,lastNameTxt,birthDateTxt,emailtxt,genderTxt,areaCodeTxt);
-                updateUserInfo(updatedInfos);
+            String firstNameTxt = firstName.getText().toString();
+            String lastNameTxt = lastName.getText().toString();
+            String birthDateTxt = birthDate.getText().toString();
+            String emailtxt = email.getText().toString();
+            String genderTxt = gender.getText().toString();
+            String areaCodeTxt = areaCode.getText().toString();
 
-            }
+            // MAKE REQUEST TO UPDATE API
+            UserUpdatedInfos updatedInfos = new UserUpdatedInfos(idUser,firstNameTxt,lastNameTxt,birthDateTxt,emailtxt,genderTxt,areaCodeTxt);
+            //Log.i("UserUpdateInfos",updatedInfos.toString());
+            updateUserInfo(updatedInfos);
+
         });
 
-        this.reset_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(view.getContext(),"Changement du mot de passe...", Toast.LENGTH_SHORT).show();
+        this.reset_password.setOnClickListener(view1 -> {
+            //Toast.makeText(view.getContext(),"Changement du mot de passe...", Toast.LENGTH_SHORT).show();
 
-                Log.i("BUTTONSSS", "Bouton Reset");
-                // OPEN FRAGMENT TO RESET PASSWORD SCREEN
-            }
+            Log.i("BUTTONSSS", "Bouton Reset");
+            // OPEN FRAGMENT TO RESET PASSWORD SCREEN
         });
         return view;
     }
 
     private void updateUserInfo(UserUpdatedInfos userUpdatedInfos) {
 
-        Call<String> call = apiInterface.updateUserInfo(userUpdatedInfos);
-        call.enqueue(new Callback<String>(){
-            String responseStr;
+        Log.i("UserUpdateInfos",userUpdatedInfos.toString());
+
+        Call<UserUpdatedInfos> call = apiInterface.updateUserInfo(userUpdatedInfos);
+        call.enqueue(new Callback<UserUpdatedInfos>(){
+            UserUpdatedInfos responseStr;
 
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<UserUpdatedInfos> call, Response<UserUpdatedInfos> response) {
                 if (response.isSuccessful()) {
                     responseStr = response.body();
                 } else {
-                    responseStr = "Erreur";
+                    responseStr = new UserUpdatedInfos(-1,"","","","","","");
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<UserUpdatedInfos> call, Throwable t) {
                 Log.i("API RESPONSE", "onFailure: "+t.getLocalizedMessage());
             }
         });
-
-        // FAKE DELAY
-        /*final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 5s = 5000ms
-                Log.i("WAIT","WAIT DONE");
-                connexion(userCreds);
-            }
-        }, 1200);*/
     }
 }

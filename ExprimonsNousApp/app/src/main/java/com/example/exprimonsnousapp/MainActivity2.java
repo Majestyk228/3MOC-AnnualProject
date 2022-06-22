@@ -35,19 +35,32 @@ public class MainActivity2 extends AppCompatActivity {
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
+            Bundle bundle = new Bundle();
             Fragment selectedFragment = null;
 
             switch (item.getItemId()){
                 case R.id.action_posts:
                     selectedFragment = new PostFragment(communityId);
+                    bundle = new Bundle();
+                    bundle.putInt("idUser", userId);
+                    bundle.putInt("idCommunity", communityId);
+                    selectedFragment.setArguments(bundle);
+
                     myToolbar.setTitle("Les posts");
                     break;
                 case R.id.action_votes:
                     selectedFragment = new VoteFragment();
+                    bundle = new Bundle();
+                    bundle.putInt("idUser", userId);
+                    bundle.putInt("idCommunity", communityId);
+                    selectedFragment.setArguments(bundle);
                     myToolbar.setTitle("Les votes");
                     break;
                 case R.id.action_profile:
                     selectedFragment = new ProfileFragment();
+                    bundle = new Bundle();
+                    bundle.putInt("idUser", userId);
+                    selectedFragment.setArguments(bundle);
                     myToolbar.setTitle("Mon profil");
                     break;
             }

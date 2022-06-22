@@ -16,5 +16,5 @@ public interface ApiInterface {
 
     //UPDATE USER INFOS
     @HTTP(method = "PUT", path = "/user/infos/update", hasBody = true)
-    Call<String> updateUserInfo(@Body UserUpdatedInfos userUpdatedInfos);
+    Call<UserUpdatedInfos> updateUserInfo(@Body UserUpdatedInfos userUpdatedInfos);
 }
