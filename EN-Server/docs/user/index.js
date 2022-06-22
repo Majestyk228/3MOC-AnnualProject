@@ -5,6 +5,8 @@ const getLogin = require("./getLogin.js")
 const getReportedUsers = require("./getReportedUsers.js")
 const postRegister = require("./postRegister.js")
 const updateUser = require("./updateUser.js")
+const updatePassword = require("./updatePassword.js")
+const deleteUser = require("./deleteUser.js")
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -28,6 +30,12 @@ module.exports = {
 		},
 		"/user/all/points": {
 			...getAllByPoints,
+		},
+		"/user/password/reset": {
+			...updatePassword,
+		},
+		"/user/delete/{idUser}": {
+			...deleteUser,
 		}
 	},
 	schema: {

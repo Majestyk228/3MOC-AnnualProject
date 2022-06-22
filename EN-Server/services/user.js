@@ -16,11 +16,6 @@ async function getAllUsers() {
 
 //gives every information on ONE specific user passed in parameter
 async function getUserInfo(idUser) {
-    /*query below for debugging purposes DO NOT USE IN PROD
-    *
-    /const rows = await db.query("SELECT * FROM User WHERE idUser='" + idUser + "';", "");
-    */
-
     const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User WHERE idUser='" + idUser + "';", "");
     return rows;
 }
@@ -64,6 +59,25 @@ async function getAllPointOrderedUsers() {
     return rows;
 }
 
+async function updateUser(idUser, firstName, lastName, birthDate, gender, areaCode, email) {
+    const request = "UPDATE User SET firstName = '" + firstName + "', lastName = '" + lastName + "', birthDate = '" + birthDate + "', gender = '" + gender + "', areaCode = '" + areaCode + "', email = '" + email + "' WHERE idUser = " + idUser + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
+async function updatePasswordUser(password, idUser) {
+    const request = "UPDATE User SET password = '" + password + "' WHERE idUser = " + idUser + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
+
+async function deleteUser(idUser) {
+    const request = "DELETE FROM User WHERE idUser = " + idUser + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
@@ -71,5 +85,8 @@ module.exports = {
     insertUser,
     findUser,
     getAllReportedUsers,
-    getAllPointOrderedUsers
+    getAllPointOrderedUsers,
+    updateUser,
+    updatePasswordUser,
+    deleteUser
 }

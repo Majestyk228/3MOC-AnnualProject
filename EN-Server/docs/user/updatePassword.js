@@ -1,20 +1,16 @@
 module.exports = {
 	put: {
 		tags: ["user"],
-		description: "Udpate user's informations",
-		operationId: "updateUser",
+		description: "Udpate user's password",
+		operationId: "updatePasswordUser",
 		requestBody: {
 			content: {
 				"application/json": {
 					schema: {
 						type: "object",
 						example: {
-							firstName: "Master",
-							lastName: "KG",
-							birthDate: "1996-01-30",
-							gender: "Male",
-							areaCode: "94000",
-							email: "mkg@gmail.com"
+							password: "jerusalema",
+							idUser: 8
 						}
 					}
 				},
@@ -22,12 +18,12 @@ module.exports = {
 		},
 		responses: {
 			201: {
-				description: "User updated created",
+				description: "Password updated successfully",
 				content: {
 					"application/json": {
 						type: "object",
 						example: {
-							Message: "User updated successfully"
+							Message: "Password updated successfully"
 						}
 					},
 				},

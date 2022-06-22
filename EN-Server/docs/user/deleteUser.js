@@ -1,33 +1,30 @@
 module.exports = {
-	put: {
+	delete: {
 		tags: ["user"],
-		description: "Udpate user's informations",
-		operationId: "updateUser",
-		requestBody: {
-			content: {
-				"application/json": {
-					schema: {
-						type: "object",
-						example: {
-							firstName: "Master",
-							lastName: "KG",
-							birthDate: "1996-01-30",
-							gender: "Male",
-							areaCode: "94000",
-							email: "mkg@gmail.com"
-						}
+		description: "Delete user account",
+		operationId: "deletedUser",
+		parameters: [
+			{
+				in: "path",
+				name: "idUser",
+				required: true,
+				description: "ID of the user",
+				schema: {
+					type: "integer",
+					example: {
+						idUser: 15
 					}
-				},
+				}
 			},
-		},
+		],
 		responses: {
 			201: {
-				description: "User updated created",
+				description: "Password updated successfully",
 				content: {
 					"application/json": {
 						type: "object",
 						example: {
-							Message: "User updated successfully"
+							Message: "Password updated successfully"
 						}
 					},
 				},

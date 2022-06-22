@@ -77,46 +77,54 @@ router.post('/register', async function (req, res) {
 });
 
 //PUT updateInfo idUser must be passed in request body
-router.put('/infos/update', async function (req, res) {
-	// TODO check data passed in request body
-	//if a data is missing, we just put back the value already in db
-	//else, we put the data passed request
+router.put('/infos/update', async function (req, res, next) {
+	try {
+		if (!req.body.firstName || !req.body.lastName || !req.body.birthDate || !req.body.gender || !req.body.areaCode || !req.body.email) {
+			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+		} else {
+			//
+			var firstName = req.body.firstName;
+			var lastName = req.body.lastName;
+			var birthDate = req.body.birthDate;
+			var gender = req.body.gender;
+			var areaCode = req.body.areaCode;
+			var email = req.body.email;
 
-	var firstName = req.body.firstName;
-	var lastName = req.body.lastName;
-	var birthDate = req.body.birthDate;
-	var gender = req.body.Gender;
-	var areaCode = req.body.areaCode;
-	var email = req.body.email;
+			if (!req.body.idUser) {
+				res.status(400).json([{ 'Error': "idUser not in request" }]);
+			}
 
-	if (!req.body.idUser) {
-		res.status(400).json([{ 'Error': "idUser not in request" }]);
-	}
+			var infoUser = user.getUserInfo(req.body.idUser);
 
-	var infoUser = user.getUserInfo(req.body.idUser);
+			//verifying if each parameter is empty or not
 
-	//verifying if each parameter is empty or not
+			if (firstName == "") {
+				firstName = infoUser[0].firstName;
+			}
+			if (lastName == "") {
+				lastName = infoUser[0].lastName;
+			}
+			if (birthDate == "") {
+				birthDate = infoUser[0].birthDate;
+			}
+			if (gender == "") {
+				gender = infoUser[0].gender;
+			}
+			if (areaCode == "") {
+				areaCode = infoUser[0].areaCode;
+			}
+			if (email == "") {
+				email = infoUser[0].email;
+			}
 
-	if (firstName == "") {
-		firstName = infoUser[0].firstName;
-	}
-	if (lastName == "") {
-		lastName = infoUser[0].lastName;
-	}
-	if (birthDate == "") {
-		birthDate = infoUser[0].birthDate;
-	}
-	if (gender == "") {
-		gender = infoUser[0].gender;
-	}
-	if (areaCode == "") {
-		areaCode = infoUser[0].areaCode;
-	}
-	if (email == "") {
-		email = infoUser[0].email;
-	}
+			await user.updateUser(req.body.idUser, firstName, lastName, birthDate, gender, areaCode, email);
+			res.status(200).json({ "Message": "User Updated" });
+		}
 
-	// TODO call function updateUser to pass all the variables after checkup
+	} catch (err) {
+		res.status(200).json([{ "ERROR": "Cannot update user" }]);
+		next(err);
+	}
 
 });
 
@@ -139,6 +147,34 @@ router.get('/all/points', async function (_, res, next) {
 		res.status(200).json(await user.getAllPointOrderedUsers());
 	} catch (err) {
 		//console.error(`Error while getting users `, err.message);
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+/* PUT allUsers ordered by points*/
+router.put('/password/reset', async function (req, res, next) {
+	try {
+		if (req.body.password == null || req.body.idUser == null) {
+			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+		} else {
+			await user.updatePasswordUser(req.body.password, req.body.idUser);
+			res.status(200).json([{ "Message": "Password updated successfully" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+/* PUT allUsers ordered by points*/
+router.delete('/delete/:idUser', async function (req, res, next) {
+	try {
+		await user.deleteUser(req.params.idUser);
+		res.status(200).json([{ "Message": "User deleted successfully" }]);
+	} catch (err) {
 		res.status(400).json([{ "ERROR": "Bad Request" }]);
 		next(err);
 	}
