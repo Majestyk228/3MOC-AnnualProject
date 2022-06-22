@@ -29,8 +29,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        myToolbar.setTitle("Les posts");
 
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
@@ -38,12 +40,15 @@ public class MainActivity2 extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.action_posts:
                     selectedFragment = new PostFragment(communityId);
+                    myToolbar.setTitle("Les posts");
                     break;
                 case R.id.action_votes:
                     selectedFragment = new VoteFragment();
+                    myToolbar.setTitle("Les votes");
                     break;
                 case R.id.action_profile:
                     selectedFragment = new ProfileFragment();
+                    myToolbar.setTitle("Mon profil");
                     break;
             }
 
@@ -53,5 +58,6 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
         bottomNavigationView.setSelectedItemId(R.id.action_posts);
+
     }
 }

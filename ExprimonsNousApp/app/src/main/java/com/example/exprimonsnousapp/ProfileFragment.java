@@ -4,9 +4,22 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.example.exprimonsnousapp.models.UserCreds;
+import com.example.exprimonsnousapp.models.UserLoginCreds;
+import com.example.exprimonsnousapp.models.UserUpdatedInfos;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
+import com.google.android.material.button.MaterialButton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,33 +28,29 @@ import android.view.ViewGroup;
  */
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // BOUTONS
+    private MaterialButton submit_button;
+    private MaterialButton reset_password;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // CHAMPS TEXTE
+    private EditText firstName;
+    private EditText lastName;
+    private EditText birthDate;
+    private EditText email;
+    private EditText gender;
+    private EditText areaCode;
+
+    // API
+    ApiInterface apiInterface;
+
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,15 +59,80 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        this.submit_button = view.findViewById(R.id.submitBtn);
+        this.reset_password = view.findViewById(R.id.passwordChangeBtn);
+
+
+        this.submit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("BUTTONSSS", "Bouton Submit");
+
+                String firstNameTxt = firstName.getText().toString();
+                String lastNameTxt = lastName.getText().toString();
+                String birthDateTxt = birthDate.getText().toString();
+                String emailtxt = email.getText().toString();
+                String genderTxt = gender.getText().toString();
+                String areaCodeTxt = areaCode.getText().toString();
+
+                // MAKE REQUEST TO UPDATE API
+                UserUpdatedInfos updatedInfos = new UserUpdatedInfos(firstNameTxt,lastNameTxt,birthDateTxt,emailtxt,genderTxt,areaCodeTxt);
+                updateUserInfo(updatedInfos);
+
+            }
+        });
+
+        this.reset_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(view.getContext(),"Changement du mot de passe...", Toast.LENGTH_SHORT).show();
+
+                Log.i("BUTTONSSS", "Bouton Reset");
+                // OPEN FRAGMENT TO RESET PASSWORD SCREEN
+            }
+        });
+        return view;
+    }
+
+    private void updateUserInfo(UserUpdatedInfos userUpdatedInfos) {
+
+        Call<String> call = apiInterface.updateUserInfo(userUpdatedInfos);
+        call.enqueue(new Callback<String>(){
+            String responseStr;
+
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    responseStr = response.body();
+                } else {
+                    responseStr = "Erreur";
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("API RESPONSE", "onFailure: "+t.getLocalizedMessage());
+            }
+        });
+
+        // FAKE DELAY
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                Log.i("WAIT","WAIT DONE");
+                connexion(userCreds);
+            }
+        }, 1200);*/
     }
 }

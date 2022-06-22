@@ -60,5 +60,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="switch_community">Switch Community</string>
+    <string name="resetPassword">Réinitialiser mon mot de passe</string>
+    <string name="submit">Enregistrer</string>
 
 </resources>

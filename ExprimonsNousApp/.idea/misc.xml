@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/layout_bg.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable/bottom_navigation_colors.xml" value="0.1725" />
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.1645" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
@@ -28,6 +29,7 @@
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.10648148148148148" />
         <entry key="app/src/main/res/layout/waiting_layout.xml" value="0.15913238525390627" />
         <entry key="app/src/main/res/menu/appbar_menu.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
