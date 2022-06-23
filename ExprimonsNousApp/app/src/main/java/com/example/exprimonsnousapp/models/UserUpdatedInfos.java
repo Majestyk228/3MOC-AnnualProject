@@ -82,7 +82,6 @@ public class UserUpdatedInfos {
 
 
     // TO STRING
-
     @Override
     public String toString() {
         return "UserUpdatedInfos{" +

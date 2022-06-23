@@ -5,250 +5,257 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/firstNameLabelUpdate"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/quicksandsemibold"
-                    android:text="@string/firstnameTXT"
-                    android:textColor="@color/black" />
+                    android:layout_height="match_parent">
 
-                <EditText
-                    android:id="@+id/firstnameUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/firstNameLabelUpdate"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#60123456"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:hint="@string/firstnameHint"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="italic"
-                    android:inputType="textPersonName"
-                    android:autofillHints="name" />
+                    <TextView
+                        android:id="@+id/firstNameLabelUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:text="@string/firstnameTXT"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/lastNameLabelUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/firstnameUpdate"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/quicksandsemibold"
-                    android:text="@string/lastnameTXT"
-                    android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/firstnameUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/firstNameLabelUpdate"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="name"
+                        android:background="#60123456"
+                        android:drawablePadding="20dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:hint="@string/firstnameHint"
+                        android:inputType="textPersonName"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="italic" />
 
-                <EditText
-                    android:id="@+id/lastnameUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/lastNameLabelUpdate"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#60123456"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:hint="@string/lastnameHint"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:inputType="textPersonName"
-                    android:autofillHints="name"/>
+                    <TextView
+                        android:id="@+id/lastNameLabelUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/firstnameUpdate"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:text="@string/lastnameTXT"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/bithdayLabelUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/lastnameUpdate"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/quicksandsemibold"
-                    android:text="@string/birthdateTXT"
-                    android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/lastnameUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lastNameLabelUpdate"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="name"
+                        android:background="#60123456"
+                        android:drawablePadding="20dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:hint="@string/lastnameHint"
+                        android:inputType="textPersonName"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
-                <EditText
-                    android:id="@+id/bithdateUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/bithdayLabelUpdate"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#60123456"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:hint="@string/birthdateHint"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:inputType="date" />
+                    <TextView
+                        android:id="@+id/bithdayLabelUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lastnameUpdate"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:text="@string/birthdateTXT"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/emailLabelUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/bithdateUpdate"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/quicksandsemibold"
-                    android:text="@string/emailTXT"
-                    android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/bithdateUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bithdayLabelUpdate"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#60123456"
+                        android:drawablePadding="20dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:hint="@string/birthdateHint"
+                        android:inputType="date"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
-                <EditText
-                    android:id="@+id/emailUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/emailLabelUpdate"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#60123456"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:hint="@string/emailHint"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:inputType="textEmailAddress"
-                    android:autofillHints="emailAddress"/>
+                    <TextView
+                        android:id="@+id/emailLabelUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bithdateUpdate"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:text="@string/emailTXT"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/genderLabelUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/emailUpdate"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/quicksandsemibold"
-                    android:text="@string/genderTXT"
-                    android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/emailUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/emailLabelUpdate"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="emailAddress"
+                        android:background="#60123456"
+                        android:drawablePadding="20dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:hint="@string/emailHint"
+                        android:inputType="textEmailAddress"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
-                <EditText
-                    android:id="@+id/genderUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/genderLabelUpdate"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#60123456"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:hint="@string/genderHint"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:inputType="text"/>
+                    <TextView
+                        android:id="@+id/genderLabelUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/emailUpdate"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:text="@string/genderTXT"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/areaCodeLabelUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/genderUpdate"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/quicksandsemibold"
-                    android:text="@string/areaCodeTXT"
-                    android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/genderUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/genderLabelUpdate"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#60123456"
+                        android:drawablePadding="20dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:hint="@string/genderHint"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
-                <EditText
-                    android:id="@+id/areaCodeUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/areaCodeLabelUpdate"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#60123456"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:hint="@string/areaCodeHint"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:inputType="number"
-                    android:autofillHints="postalAddress"/>
+                    <TextView
+                        android:id="@+id/areaCodeLabelUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/genderUpdate"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:text="@string/areaCodeTXT"
+                        android:textColor="@color/black" />
 
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/submitBtn"
-                    android:layout_width="320dp"
-                    android:layout_height="75dp"
-                    android:layout_below="@id/areaCodeUpdate"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="@color/blueBtn"
-                    android:fontFamily="@font/quicksandbold"
-                    android:gravity="center"
-                    android:text="@string/submit"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/areaCodeUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/areaCodeLabelUpdate"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="postalAddress"
+                        android:background="#60123456"
+                        android:drawablePadding="20dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:hint="@string/areaCodeHint"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/passwordChangeBtn"
-                    android:layout_width="320dp"
-                    android:layout_height="75dp"
-                    android:layout_below="@id/submitBtn"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/lightBlueBtn"
-                    android:fontFamily="@font/quicksandbold"
-                    android:gravity="center"
-                    android:text="@string/resetPassword"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/submitBtn"
+                        android:layout_width="320dp"
+                        android:layout_height="75dp"
+                        android:layout_below="@id/areaCodeUpdate"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/blueBtn"
+                        android:fontFamily="@font/quicksandbold"
+                        android:gravity="center"
+                        android:text="@string/submit"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/passwordChangeBtn"
+                        android:layout_width="320dp"
+                        android:layout_height="75dp"
+                        android:layout_below="@id/submitBtn"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/lightBlueBtn"
+                        android:fontFamily="@font/quicksandbold"
+                        android:gravity="center"
+                        android:text="@string/resetPassword"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
+                </RelativeLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </FrameLayout>
