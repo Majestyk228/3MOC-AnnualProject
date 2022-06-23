@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,7 +24,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
 import com.example.exprimonsnousapp.models.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
@@ -35,27 +33,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PostFragment extends Fragment {
 
+    // RECYCLER VIEW AND ITS DEPENDANCIES
     private RecyclerView recyclerView;
     PostAdapter adapter;
     List<Post> posts;
-    private String URL = "https://www.titan-photography.com/post/formatted/";
+    private final String URL = "https://www.titan-photography.com/post/formatted/";
+
+    // SWIPE REFRESH LAYOUT - PULL DOWN TO REFRESH
     SwipeRefreshLayout swipeRefreshPosts;
-    private int communityId;
 
-    //buttons
-    /*Button likeBtn;
-    Button dislikeBtn;
-    Button commentBtn;
-    Button rewardBtn;*/
+    // IMPORTANTES DATA
+    private final int communityId;
 
-    //floating button
+    // FLOATING ACTION BUTTON
     FloatingActionButton fab;
 
     // TOOLBAR
@@ -65,12 +57,12 @@ public class PostFragment extends Fragment {
         this.communityId = communityId;
     }
 
-    public static PostFragment newInstance(int communityId) {
+    /*public static PostFragment newInstance(int communityId) {
         PostFragment fragment = new PostFragment(communityId);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,26 +106,44 @@ public class PostFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                /*
+                *
+                * Sur action du floating action button, on passe sur la stack le fragment de
+                * création de poste en identifiant le fragment d'un tag 'CreatePostFragment'
+                *
+                * ce tag servira à retirer le fragment de la stack sur l'appui du bouton retour
+                * (ou de l'envoi d'un post en ligne)
+                *
+                * */
 
                 Fragment mFragment = new CreatePostFragment();
                 FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-//              ft.replace(R.id.Maincontainer, mFragment);
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
-                ft.addToBackStack("PostFragment");
+                ft.addToBackStack("CreatePostFragment");
                 ft.commit();
 
 
-                Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.my_toolbar);
+                // RECUPERATION DE LA TOOLBAR DU PARENT, CHANGEMENT DU TITRE ET AJOUT DU BOUTON RETOUR
+                myToolbar = getActivity().findViewById(R.id.my_toolbar);
                 myToolbar.setTitle("Nouveau post");
                 ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+                // MISE EN ÉCOUTE DU BOUTON RETOUR
                 myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.i("BACKBUTTON", "Back button pressed from new post");
+                        // RETRAIT DU FRAGMENT CreatePostFragment
+                        FragmentManager fm = getActivity()
+                                .getSupportFragmentManager();
+                        fm.popBackStack ("CreatePostFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                        // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
+                        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+                        myToolbar.setTitle("Les posts");
                     }
                 });
             }
