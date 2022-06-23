@@ -31,6 +31,7 @@ public class MainActivity2 extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         myToolbar.setTitle("Les posts");
 
+
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
 
 

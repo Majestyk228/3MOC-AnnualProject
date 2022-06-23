@@ -67,5 +67,7 @@
     <string name="insert_password">Nouveau mot de passe :</string>
     <string name="confirmation_password">Confirmation :</string>
     <string name="different_passwords">Les deux mots de passe doivent être identiques.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="create_post_fragment">Hello New Post Fragment</string>
 
 </resources>

@@ -2,7 +2,9 @@ package com.example.exprimonsnousapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -24,6 +26,7 @@ import com.example.exprimonsnousapp.adapters.PostAdapter;
 import com.example.exprimonsnousapp.models.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +57,9 @@ public class PostFragment extends Fragment {
 
     //floating button
     FloatingActionButton fab;
+
+    // TOOLBAR
+    Toolbar myToolbar;
 
     public PostFragment(int communityId) {
         this.communityId = communityId;
@@ -110,6 +116,26 @@ public class PostFragment extends Fragment {
             public void onClick(View view) {
                 Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Fragment mFragment = new CreatePostFragment();
+                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+//              ft.replace(R.id.Maincontainer, mFragment);
+                ft.replace(R.id.activity_main_frame_layout, mFragment);
+                ft.addToBackStack("PostFragment");
+                ft.commit();
+
+
+                Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.my_toolbar);
+                myToolbar.setTitle("Nouveau post");
+                ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+                myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("BACKBUTTON", "Back button pressed from new post");
+                    }
+                });
             }
         });
 
