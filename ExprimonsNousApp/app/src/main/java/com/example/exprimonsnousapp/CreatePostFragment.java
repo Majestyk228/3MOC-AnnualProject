@@ -4,31 +4,29 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreatePostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.button.MaterialButton;
+
 public class CreatePostFragment extends Fragment {
+
+    private EditText postBody;
+    private EditText postTitle;
+    private MaterialButton postButton;
+    private MaterialButton cancelButton;
+
+    private int idUser;
+    private int idCommunity;
 
     public CreatePostFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CreatePostFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CreatePostFragment newInstance(String param1, String param2) {
+    public static CreatePostFragment newInstance() {
         CreatePostFragment fragment = new CreatePostFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -46,6 +44,39 @@ public class CreatePostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_post, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_create_post, container, false);
+
+        // RÉCUPÉRATION DE l'IDUSER ET L'IDCOMMUNITY PASSÉ EN ARGUMENT DU FRAGMENT
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            this.idUser = bundle.getInt("idUser", -1);
+            this.idCommunity = bundle.getInt("idCommunity", -1);
+        }
+
+        postBody = view.findViewById(R.id.newPostEdittext);
+        postTitle = view.findViewById(R.id.newPostTitleEdittext);
+        postButton = view.findViewById(R.id.postBtn);
+        cancelButton = view.findViewById(R.id.cancelBtn);
+
+        postButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //code...
+                Log.i("SKY_ESGI","New post created for userID = "+ idUser + " et idCommunity = " + idCommunity);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //code...
+                Log.i("SKY_ESGI","New post cancelled");
+            }
+        });
+
+        return view;
     }
 }

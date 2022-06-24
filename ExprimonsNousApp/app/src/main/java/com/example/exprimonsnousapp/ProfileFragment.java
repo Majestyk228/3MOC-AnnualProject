@@ -130,7 +130,7 @@ public class ProfileFragment extends Fragment {
 
 
         this.submit_button.setOnClickListener(view12 -> {
-            Log.i("BUTTONSSS", "Bouton Submit");
+            Log.i("SKY_ESGI", "Bouton Submit");
 
             String firstNameTxt = firstName.getText().toString();
             String lastNameTxt = lastName.getText().toString();
@@ -148,7 +148,7 @@ public class ProfileFragment extends Fragment {
         this.reset_password.setOnClickListener(view1 -> {
             //Toast.makeText(view.getContext(),"Changement du mot de passe...", Toast.LENGTH_SHORT).show();
 
-            Log.i("BUTTONSSS", "Bouton Reset");
+            Log.i("SKY_ESGI", "Bouton Reset");
             // OPEN FRAGMENT TO RESET PASSWORD SCREEN
             dialog.show();
         });
@@ -189,10 +189,10 @@ public class ProfileFragment extends Fragment {
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if(newPassword.getText().toString().equals(confirmationPassword.getText().toString())){
-                            Log.i("PASWWORD","Same");
+                            Log.i("SKY_ESGI","Same");
                             // POUSSER UN DES DEUX CHAMPS VERS L'API
                         } else {
-                            Log.i("PASWWORD","Different");
+                            Log.i("SKY_ESGI","Different");
                             // LAISSER LA FENETRE ET FAIRE UN TOAST POUR NOTIFIER L'UTILISATEUR
                             Toast.makeText(getActivity(),R.string.different_passwords,Toast.LENGTH_SHORT).show();
                         }
@@ -217,7 +217,7 @@ public class ProfileFragment extends Fragment {
 
         Call<UserUpdateResponse> call = apiInterface.updateUserInfo(userUpdatedInfos1);
 
-        Log.i("UserUpdateInfos",userUpdatedInfos.toString());
+        Log.i("SKY_ESGI",userUpdatedInfos.toString());
 
 
         call.enqueue(new Callback<UserUpdateResponse>(){
@@ -234,7 +234,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
-                Log.i("API RESPONSE", "onFailure: "+t.getLocalizedMessage());
+                Log.i("SKY_ESGI", "onFailure: "+t.getLocalizedMessage());
             }
         });
     }

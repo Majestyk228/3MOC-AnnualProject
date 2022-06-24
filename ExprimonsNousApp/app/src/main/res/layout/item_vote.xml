@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="6dp"
+    android:orientation="vertical">
+
+    <!--Partie 1 : Titre du vote -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John DOE !"
+            android:layout_margin="15dp"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            >
+        </TextView>
+
+    </LinearLayout>
+
+
+
+    <!--Partie 2 : Le corps du vote -->
+    <TextView
+        android:id="@+id/body_vote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam a est aliquet finibus. Cras gravida mi sit amet dui viverra rhoncus vitae fermentum urna. Aliquam sit amet mauris vitae leo egestas sollicitudin. Aenean id libero vel velit blandit vestibulum. Mauris sem eros, dictum ac nisl quis, sagittis lobortis."
+        android:textSize="14dp"
+        android:layout_margin="20dp"
+        ></TextView>
+
+
+    <!--Partie 3 : Le bonton d'accès aux options -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/participationBtn"
+            android:layout_width="320dp"
+            android:textSize="17sp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:backgroundTint="@color/backgroundBlue"
+            android:text="@string/participation_vote"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

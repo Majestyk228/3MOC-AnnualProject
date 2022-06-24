@@ -69,5 +69,10 @@
     <string name="different_passwords">Les deux mots de passe doivent être identiques.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="create_post_fragment">Hello New Post Fragment</string>
+    <string name="whats_new">Quoi de neuf John !</string>
+    <string name="create_post_hint">Rédidez votre post ici...</string>
+    <string name="new_post">Poster</string>
+    <string name="create_title_hint">Le titre de votre post...</string>
+    <string name="participation_vote">Je participe !</string>
 
 </resources>

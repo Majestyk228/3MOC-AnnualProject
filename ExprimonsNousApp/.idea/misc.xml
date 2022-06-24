@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/layout_bg.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/bottom_navigation_colors.xml" value="0.1725" />
+        <entry key="app/src/main/res/drawable/edittext_bg.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/exprimonsnousicon_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_chat_fill.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_dimond_alt_light.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_happy.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_home_fill.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.1645" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
@@ -13,13 +23,14 @@
         <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.13043478260869565" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.11436170212765957" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_reset_password.xml" value="0.13632246376811594" />
         <entry key="app/src/main/res/layout/fragment_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_votes.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.1897590361445783" />
+        <entry key="app/src/main/res/layout/item_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/landing_page.xml" value="0.18862275449101795" />
         <entry key="app/src/main/res/layout/layout_bg.xml" value="0.1" />
         <entry key="app/src/main/res/layout/login_page.xml" value="0.20606884057971014" />

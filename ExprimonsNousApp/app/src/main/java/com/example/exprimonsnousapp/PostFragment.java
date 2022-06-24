@@ -46,6 +46,7 @@ public class PostFragment extends Fragment {
 
     // IMPORTANTES DATA
     private final int communityId;
+    private int userId;
 
     // FLOATING ACTION BUTTON
     FloatingActionButton fab;
@@ -57,12 +58,12 @@ public class PostFragment extends Fragment {
         this.communityId = communityId;
     }
 
-    /*public static PostFragment newInstance(int communityId) {
+    public static PostFragment newInstance(int communityId) {
         PostFragment fragment = new PostFragment(communityId);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,11 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            this.userId = bundle.getInt("idUser", -1);
+        }
 
         recyclerView = view.findViewById(R.id.postsList1);
         recyclerView.setHasFixedSize(true);
@@ -117,7 +123,14 @@ public class PostFragment extends Fragment {
                 *
                 * */
 
+
                 Fragment mFragment = new CreatePostFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("idUser", userId);
+                bundle.putInt("idCommunity", communityId);
+                mFragment.setArguments(bundle);
+
                 FragmentTransaction ft = getParentFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
                 ft.addToBackStack("CreatePostFragment");
@@ -216,7 +229,7 @@ public class PostFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("errorAPI","onErrorResponse:"+error.getMessage());
+                        Log.d("SKY_ESGI","onErrorResponse:"+error.getMessage());
                     }
                 });
 
