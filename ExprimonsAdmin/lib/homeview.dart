@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Colors.dart';
 import 'package:exprimons_nous/dashboardview.dart';
 import 'package:exprimons_nous/postview.dart';
 import 'package:exprimons_nous/userview.dart';
@@ -50,6 +51,7 @@ class _HomeViewState extends State<HomeView> {
             /// Pretty similar to the BottomNavigationBar!
             SideNavigationBar(
               selectedIndex: selectedIndex,
+
               items: const [
                 SideNavigationBarItem(
                   icon: Icons.dashboard,
@@ -74,11 +76,11 @@ class _HomeViewState extends State<HomeView> {
                 });
               },
               theme: SideNavigationBarTheme(
-                backgroundColor: Color(0xFFC4001D),
+                backgroundColor: veryDarkRedColor,
                 dividerTheme: SideNavigationBarDividerTheme.standard(),
                 itemTheme: SideNavigationBarItemTheme(
-                  unselectedItemColor: Colors.white,
-                  selectedItemColor: Color(0xFF20FF2A),
+                  unselectedItemColor: lightGray,
+                  selectedItemColor: Colors.white,
                 ),
                 togglerTheme: SideNavigationBarTogglerTheme(
                   expandIconColor: Colors.blue,

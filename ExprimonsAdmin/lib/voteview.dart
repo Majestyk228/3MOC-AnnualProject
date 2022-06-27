@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Colors.dart';
 import 'package:flutter/material.dart';
 
 class VoteView extends StatelessWidget {
@@ -8,7 +9,7 @@ class VoteView extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Color(0xFFFFE9EB),
+      color: ultraLightRedColor,
       child: Text("VoteView"),
     );
   }

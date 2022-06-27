@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Colors.dart';
 import 'package:flutter/material.dart';
 
 class DashboardView extends StatelessWidget {
@@ -8,8 +9,24 @@ class DashboardView extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: const Color(0xFFFFE9EB),
-      child: Text("DashboardView"),
+      color: ultraLightRedColor,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Card(
+                child: Text("UWU"),
+              ),
+              Card(
+                child: Text("UWU"),
+              ),
+              Card(
+                child: Text("UWU"),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
