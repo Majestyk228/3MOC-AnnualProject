@@ -55,5 +55,19 @@ router.post('/voteInfo', async function (req, res, next) {
 
 
 
+/* GET VoteListByCommunityAndroid idCommunity MUST BE IN BODY*/
+router.post('/voteListAndroid', async function (req, res, next) {
+	try {
+		res.status(200).json(await vote.getVoteListByCommunityAndroid(req.body.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+
+
+
 
 module.exports = router;

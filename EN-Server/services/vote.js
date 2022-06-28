@@ -6,6 +6,16 @@ async function getVoteListByCommunity(idCommunity) {
 	return rows;
 }
 
+
+
+
+
+async function getVoteListByCommunityAndroid(idCommunity) {
+	const rows = await db.query("SELECT idVote, title, body FROM Vote WHERE idCommunity = " + idCommunity + ";", "");
+	return rows;
+}
+
+
 // TODO FUNCTIONS TO BUILD VOTE TEMPLATE
 // title, body from vote
 async function getVoteTitleBody(idVote) {
@@ -49,5 +59,6 @@ module.exports = {
 	getVoteTitleBody,
 	getVoteOptions,
 	getNbChoices,
-	getListOfNumber
+	getListOfNumber,
+	getVoteListByCommunityAndroid
 }
