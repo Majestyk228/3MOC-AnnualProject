@@ -51,7 +51,15 @@ class _HomeViewState extends State<HomeView> {
             /// Pretty similar to the BottomNavigationBar!
             SideNavigationBar(
               selectedIndex: selectedIndex,
-
+              header: SideNavigationBarHeader(
+                title: Text("Exprimons "),
+                subtitle: Text("Admin"),
+                image: Image(
+                  image: AssetImage('assets/images/logo.png'),
+                  width: 50,
+                  height: 50,
+                ),
+              ),
               items: const [
                 SideNavigationBarItem(
                   icon: Icons.dashboard,
