@@ -1,5 +1,6 @@
 const getVoteListByCommunity = require("./getVoteListByCommunity.js")
 const getVoteinfo = require("./getVoteinfo.js")
+const voteListAndroid = require("./voteListAndroid.js");
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -8,6 +9,9 @@ module.exports = {
 		},
 		"/vote/voteInfo": {
 			...getVoteinfo,
+		},
+		"/vote/voteListAndroid": {
+			...voteListAndroid,
 		},
 	},
 	schema: {
