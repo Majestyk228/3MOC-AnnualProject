@@ -43,7 +43,7 @@ public class VoteFragment extends Fragment {
 
     // RECYCLER VIEW AND ITS DEPENDANCIES
     private RecyclerView recyclerView;
-    VoteAdapter adapter;
+    private VoteAdapter adapter;
     List<Vote> votes;
     private final String URL = "https://www.titan-photography.com/vote/voteList";
 
@@ -83,12 +83,14 @@ public class VoteFragment extends Fragment {
             this.communityId = bundle.getInt("idCommunity", -1);
         }
 
-        IdCommunity idCommunity = new IdCommunity(communityId);
-        try {
+        //IdCommunity idCommunity = new IdCommunity(communityId);
+        /*try {
             extractVoteBis(idCommunity);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        //extractVote(idCommunity);
     }
 
     @Override
@@ -97,10 +99,17 @@ public class VoteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vote, container, false);
 
+        IdCommunity idCommunity = new IdCommunity(communityId);
+        try {
+            extractVoteBis(idCommunity);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         recyclerView = view.findViewById(R.id.voteList1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new VoteAdapter(getActivity(), votes);
+        this.adapter = new VoteAdapter(getActivity(), votes);
         recyclerView.setAdapter(adapter);
 
         swipeRefreshPosts = view.findViewById(R.id.swipeRefreshVotes);
@@ -113,11 +122,13 @@ public class VoteFragment extends Fragment {
 
                 //réextraction de la liste des posts
                 IdCommunity idCommunity = new IdCommunity(communityId);
-                try {
+                /*try {
                     extractVoteBis(idCommunity);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
+
+                extractVote(idCommunity);
 
                 //implémeenter le changement de données
                 adapter.notifyDataSetChanged();

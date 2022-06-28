@@ -25,6 +25,6 @@ public interface ApiInterface {
     Call<UserUpdateResponse> updateUserInfo(@Body UserUpdatedInfos userUpdatedInfos);
 
     // GET LISTS OF VOTES FROM A COMMUNITY
-    @HTTP(method = "POST", path = "/vote/voteList", hasBody = true)
+    @HTTP(method = "POST", path = "/vote/voteListAndroid", hasBody = true)
     Call<List<Vote>> getVotesFromCommunity(@Body IdCommunity idCommunity);
 }

@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
     public VoteAdapter(Context context, List<Vote> votes) {
         this.inflater = LayoutInflater.from(context);
         this.votes = votes;
+
+        Log.i("VOTEADAPTER", votes.toString());
     }
 
 
