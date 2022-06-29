@@ -14,8 +14,8 @@ module.exports = {
 		description: "Service d'API développée pour le fonctionnement de l'ensemble des applications de la plateforme Exprimons-Nous.",
 		contact: {
 			name: "Sarah KOUTA-LOPATEY",
-			email: "sklopatey@myges.fr",
-			url: "https://esgi.fr", //change url ASAP
+			email: "skoutalopatey@myges.fr",
+			url: "https://rr.noordstar.me/sarah-kouta-lopateys-website-9e15903b", //change url ASAP
 		},
 	},
 	servers: [
