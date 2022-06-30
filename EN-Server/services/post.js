@@ -49,11 +49,19 @@ async function createPost(body) {
 	return rows;
 }
 
+async function getLastPostedPosts(idCommunity) {
+	//TODO code
+	const request = "SELECT idPost, title FROM Post WHERE idCommunity = " + idCommunity + " ORDER BY idPost DESC LIMIT 5;";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
 	getPost,
 	getAllPostsFormatted,
 	nbReportedPosts,
-	createPost
+	createPost,
+	getLastPostedPosts
 }

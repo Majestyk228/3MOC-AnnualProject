@@ -67,4 +67,17 @@ router.post('/create', async function (req, res, next) {
 });
 
 
+
+
+router.get('/lastPosted/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await post.getLastPostedPosts(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+
+});
+
+
 module.exports = router;
