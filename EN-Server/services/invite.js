@@ -44,8 +44,16 @@ async function getLastInvite(idCommunity) {
 	return rows;
 }
 
+
+async function getAllCommunityInvites(idCommunity) {
+	const request = "SELECT * FROM Invitation WHERE idCommunity = " + idCommunity + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	insertInvite,
 	getAllInvites,
-	getLastInvite
+	getLastInvite,
+	getAllCommunityInvites
 }

@@ -26,8 +26,6 @@ router.post('/create', async function (req, res, next) {
 
 
 
-
-
 /* GET allInvites */
 router.get('/all', async function (_, res, next) {
 	try {
@@ -40,6 +38,16 @@ router.get('/all', async function (_, res, next) {
 
 
 
+
+/* GET allInvites per community */
+router.get('/allByCommunity/:idCommunity', async function (req, res, next) {
+	try {
+		res.json(await invite.getAllCommunityInvites(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
 
 
 module.exports = router;
