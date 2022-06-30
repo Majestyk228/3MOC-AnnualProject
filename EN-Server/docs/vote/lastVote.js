@@ -1,7 +1,7 @@
 module.exports = {
 	get: {
-		tags: ["post"],
-		description: "Gives the last 5 posts created in a given community",
+		tags: ["vote"],
+		description: "Gives the last 5 votes created in a given community",
 		operationId: "lastPosts",
 		parameters: [
 			{
@@ -19,29 +19,29 @@ module.exports = {
 		],
 		responses: {
 			201: {
-				description: "Gives the last 5 posts created in a given community",
+				description: "Gives the last 5 votes created in a given community",
 				content: {
 					"application/json": {
 						type: "object",
 						example: [
 							{
-								idPost: 5,
-								title: "Quatrième post"
+								idVote: 5,
+								title: "Quatrième vote"
 							},
 							{
-								idUser: 4,
-								title: "Troisième post"
+								idVote: 4,
+								title: "Troisième vote"
 							},
 							{
-								idUser: 3,
+								idVote: 3,
 								title: "Test 1"
 							},
 							{
-								idUser: 2,
+								idVote: 2,
 								title: "Test 1"
 							},
 							{
-								idUser: 1,
+								idVote: 1,
 								title: "Test 1"
 							}
 						]

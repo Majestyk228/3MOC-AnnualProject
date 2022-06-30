@@ -3,6 +3,7 @@ const getVoteinfo = require("./getVoteinfo.js")
 const voteListAndroid = require("./voteListAndroid.js");
 const createVote = require("./createVote.js")
 const deleteVote = require('./deleteVote.js')
+const lastVote = require('./lastVote');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -20,6 +21,9 @@ module.exports = {
 		},
 		"/vote/delete/{idVote}": {
 			...deleteVote,
+		},
+		"/vote/lastPost/{idCommunity}": {
+			...lastVote,
 		},
 	},
 	schema: {

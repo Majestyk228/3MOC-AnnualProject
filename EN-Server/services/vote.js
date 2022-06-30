@@ -94,6 +94,15 @@ async function deleteVote(idVote) {
 
 
 
+
+async function lastPosts(idCommunity) {
+	request = "SELECT idVote, title FROM Vote WHERE idCommunity = " + idCommunity + " ORDER BY idVote DESC LIMIT 5;";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+
 module.exports = {
 	getVoteListByCommunity,
 	getVoteTitleBody,
@@ -102,5 +111,6 @@ module.exports = {
 	getListOfNumber,
 	getVoteListByCommunityAndroid,
 	createVote,
-	deleteVote
+	deleteVote,
+	lastPosts
 }

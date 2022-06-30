@@ -89,4 +89,15 @@ router.delete('/delete/:idVote', async function (req, res, next) {
 
 
 
+router.get('/lastVotes/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await vote.lastPosts(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+
 module.exports = router;
