@@ -75,6 +75,13 @@ async function getnbReportedCommentsAll(idCommunity) {
 	return rows;
 }
 
+
+async function deleteComment(idComment) {
+	const request = "DELETE FROM Comment WHERE idComment=" + idComment + "";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getnbComment,
 	getReportedComments,
@@ -83,5 +90,6 @@ module.exports = {
 	getNbReportedComments,
 	getComments,
 	insertComment,
-	getnbReportedCommentsAll
+	getnbReportedCommentsAll,
+	deleteComment
 }

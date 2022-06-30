@@ -50,8 +50,22 @@ async function createPost(body) {
 }
 
 async function getLastPostedPosts(idCommunity) {
-	//TODO code
 	const request = "SELECT idPost, title FROM Post WHERE idCommunity = " + idCommunity + " ORDER BY idPost DESC LIMIT 5;";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+async function getAllReportedPosts(idCommunity) {
+	const request = "SELECT * FROM Post WHERE idCommunity = " + idCommunity + "AND reported > 0;";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+
+async function getAllPostsByCommunity(idCommunity) {
+	const request = "SELECT * FROM Post WHERE idCommunity = " + idCommunity + ";";
 	const rows = await db.query(request, "");
 	return rows;
 }
@@ -63,5 +77,7 @@ module.exports = {
 	getAllPostsFormatted,
 	nbReportedPosts,
 	createPost,
-	getLastPostedPosts
+	getLastPostedPosts,
+	getAllReportedPosts,
+	getAllPostsByCommunity
 }

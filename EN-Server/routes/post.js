@@ -80,4 +80,29 @@ router.get('/lastPosted/:idCommunity', async function (req, res, next) {
 });
 
 
+// get reported posts
+router.get('/reportedPosts/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await post.getAllReportedPosts(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+
+});
+
+
+
+
+// get reported posts
+router.get('/all/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await post.getAllPostsByCommunity(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+
+});
+
 module.exports = router;

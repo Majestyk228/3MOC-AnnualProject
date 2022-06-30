@@ -116,4 +116,18 @@ router.get('/nbReportedCommentsAll/:idCommunity', async function (req, res, next
 });
 
 
+router.delete('/deleteComment/:idComment', async function (req, res, next) {
+	// TODO code
+
+
+	try {
+		await comment.deleteComment(req.params.idComment)
+		res.status(200).json({ "message": "Comment deleted successfully" });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
 module.exports = router;
