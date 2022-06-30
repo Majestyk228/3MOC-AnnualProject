@@ -1,5 +1,18 @@
 const db = require('./database.js');
 
+//getting current date and time
+var today = new Date();
+//var nextDay = new Date();
+var nextDay = new Date(today.getTime() + (7 * 24 * 60 * 60 * 1000));
+var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+var dd = String(today.getDate()).padStart(2, '0');
+var dd7 = String(nextDay.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+today = yyyy + '-' + mm + '-' + dd;
+nextDay = yyyy + '-' + mm + '-' + dd7;
+var Datetime = (today + ' ' + time);
+
 
 async function getVoteListByCommunity(idCommunity) {
 	const rows = await db.query("SELECT idVote, title FROM Vote WHERE idCommunity = " + idCommunity + "ORDER BY voteBegins;", "");
@@ -52,6 +65,33 @@ async function getListOfNumber(idVote, choice) {
 
 
 
+async function createVote(body) {
+	const request = "INSERT INTO Vote(idVote, title, body, nbChoices, important, idAdmin, voteBegins, voteEnds, idCommunity) VALUES (null, '" + body.title + "', '" + body.body + "', " + body.nbChoice + ", " + body.important + ", " + body.idAdmin + ",'" + today + "', '" + nextDay + "', " + body.idCommunity + ");";
+
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+
+
+async function deleteVote(idVote) {
+	//TODO code
+
+	// TODO remove all votes linked to idVote
+	var request = "DELETE FROM Votes WHERE idVote = " + idVote + ";";
+	await db.query(request, "");
+
+	//TODO remove all voteOptions linked to idVote
+	request = "DELETE FROM VoteOptions WHERE idVote = " + idVote + ";";
+	await db.query(request, "");
+
+	//TODO remove idVote
+	request = "DELETE FROM Vote WHERE idVote = " + idVote + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 
 
 module.exports = {
@@ -60,5 +100,7 @@ module.exports = {
 	getVoteOptions,
 	getNbChoices,
 	getListOfNumber,
-	getVoteListByCommunityAndroid
+	getVoteListByCommunityAndroid,
+	createVote,
+	deleteVote
 }

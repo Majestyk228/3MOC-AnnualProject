@@ -66,7 +66,26 @@ router.post('/voteListAndroid', async function (req, res, next) {
 });
 
 
+router.post('/create', async function (req, res, next) {
+	try {
+		await vote.createVote(req.body);
+		res.status(200).json({ "Message": "Vote created successfully." });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
 
+
+router.delete('/delete/:idVote', async function (req, res, next) {
+	try {
+		await vote.deleteVote(req.params.idVote);
+		res.status(200).json({ "Message": "Vote deleted successfully." });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
 
 
 

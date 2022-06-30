@@ -19,12 +19,12 @@ module.exports = {
 		],
 		responses: {
 			201: {
-				description: "Password updated successfully",
+				description: "User deleted successfully",
 				content: {
 					"application/json": {
 						type: "object",
 						example: {
-							Message: "Password updated successfully"
+							Message: "User deleted successfully"
 						}
 					},
 				},

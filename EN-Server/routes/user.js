@@ -180,4 +180,18 @@ router.delete('/delete/:idUser', async function (req, res, next) {
 	}
 });
 
+
+
+/* GET 5 last registered users */
+router.get('/lastRegistered/:idCommunity', async function (req, res, next) {
+	//TODO code
+	try {
+		res.status(200).json(await user.getLastRegisteredUsers(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+
+})
+
 module.exports = router;

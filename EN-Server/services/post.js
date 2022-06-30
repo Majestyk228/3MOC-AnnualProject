@@ -1,5 +1,15 @@
 const db = require('./database.js');
 
+//getting current date and time
+var today = new Date();
+//var nextDay = new Date();
+var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+today = yyyy + '-' + mm + '-' + dd;
+var Datetime = (today + ' ' + time);
+
 async function getAllPosts() {
 	const rows = await db.query("SELECT * FROM Post;", "");
 	return rows;
@@ -23,9 +33,27 @@ async function getPost(id) {
 	return rows;
 }
 
+
+async function nbReportedPosts(idCommunity) {
+	const rows = await db.query("SELECT COUNT(*) as nbReportedPost FROM Post WHERE reported>0 AND idCommunity = " + idCommunity + ";", "");
+	return rows;
+}
+
+
+
+
+async function createPost(body) {
+
+	const request = "INSERT INTO Post(idPost, title, body, date, time, likes, dislikes, idCommunity, idUser, idAdmin, reported) VALUES (null,'" + body.title + "', '" + body.body + "', '" + today + "','" + time + "',0,0," + body.idCommunity + "," + body.idUser + "," + body.idAdmin + ",0);";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
 	getPost,
-	getAllPostsFormatted
+	getAllPostsFormatted,
+	nbReportedPosts,
+	createPost
 }

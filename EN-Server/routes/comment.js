@@ -102,4 +102,18 @@ router.post('/create', async function (req, res, next) {
 });
 
 
+
+
+router.get('/nbReportedCommentsAll/:idCommunity', async function (req, res, next) {
+	// TODO code
+
+	try {
+		res.status(200).json(await comment.getnbReportedCommentsAll(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
 module.exports = router;

@@ -78,6 +78,15 @@ async function deleteUser(idUser) {
     return rows;
 }
 
+
+
+
+async function getLastRegisteredUsers(idCommunity) {
+    const request = "SELECT u.idUser, firstName, lastName FROM User u, Associate a WHERE a.idCommunity = " + idCommunity + " AND u.idUser = a.idUser ORDER BY u.idUser DESC LIMIT 5;";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
@@ -88,5 +97,6 @@ module.exports = {
     getAllPointOrderedUsers,
     updateUser,
     updatePasswordUser,
-    deleteUser
+    deleteUser,
+    getLastRegisteredUsers
 }

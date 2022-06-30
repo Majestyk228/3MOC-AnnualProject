@@ -41,4 +41,30 @@ router.get('/:id', async function (req, res, next) {
 
 
 
+
+/* GET nbReportedPosts */
+router.get('/nbReportedPosts/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await post.nbReportedPosts(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+
+
+/* POST createPost */
+router.post('/create', async function (req, res, next) {
+	try {
+		await post.createPost(req.body);
+		res.status(200).json({ "message": "Post created successfully" });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
 module.exports = router;

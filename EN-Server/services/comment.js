@@ -66,6 +66,15 @@ async function insertComment(commentReq) {
 	return { message };
 }
 
+
+async function getnbReportedCommentsAll(idCommunity) {
+	// TODO code
+	const request = "SELECT COUNT(*) AS nbReportedComments FROM Comment c, Post p WHERE c.reports>0 AND p.idCommunity = " + idCommunity + " AND c.idPost = p.idPost;";
+
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getnbComment,
 	getReportedComments,
@@ -73,5 +82,6 @@ module.exports = {
 	getNbReportedCommentsPerPost,
 	getNbReportedComments,
 	getComments,
-	insertComment
+	insertComment,
+	getnbReportedCommentsAll
 }

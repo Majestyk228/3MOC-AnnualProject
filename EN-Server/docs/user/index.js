@@ -7,6 +7,7 @@ const postRegister = require("./postRegister.js")
 const updateUser = require("./updateUser.js")
 const updatePassword = require("./updatePassword.js")
 const deleteUser = require("./deleteUser.js")
+const lastRegisteredUsers = require('./lastRegisteredUsers.js')
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -36,6 +37,9 @@ module.exports = {
 		},
 		"/user/delete/{idUser}": {
 			...deleteUser,
+		},
+		"/user/lastRegistered/{idCommunity}": {
+			...lastRegisteredUsers,
 		}
 	},
 	schema: {
