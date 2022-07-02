@@ -7,9 +7,9 @@ const vote = require('../services/vote.js');
 
 
 /* GET VoteListByCommunity idCommunity MUST BE IN BODY*/
-router.post('/voteList', async function (req, res, next) {
+router.get('/voteList/:idCommunity', async function (req, res, next) {
 	try {
-		res.status(200).json(await vote.getVoteListByCommunity(req.body.idCommunity));
+		res.status(200).json(await vote.getVoteListByCommunity(req.params.idCommunity));
 	} catch (err) {
 		res.status(400).json([{ "ERROR": "Bad Request" }]);
 		next(err);

@@ -1,11 +1,11 @@
 module.exports = {
-	post: {
+	get: {
 		tags: ["vote"],
 		description: "Get all votes in a given community",
 		operationId: "getVoteListByCommunity",
 		parameters: [
 			{
-				in: "body",
+				in: "path",
 				required: true,
 				type: "int",
 				name: "idCommunity",
@@ -19,19 +19,26 @@ module.exports = {
 		],
 		responses: {
 			200: {
-				description: "Get all rewards",
+				description: "Get all votes in a given community",
 				content: {
 					"application/json": {
 						schema: {
-							type: "string",
-							example: {
-								idVote: 1,
-								title: "Premier vote"
-							}
+							$ref: "#/components/schemas/votes",
 						},
 					},
 				},
 			},
+			400: {
+				description: "Bad Request",
+				content: {
+					"application/json": {
+						type: "object",
+						example: {
+							ERROR: "Bad Request"
+						}
+					},
+				},
+			}
 		},
 	},
 }

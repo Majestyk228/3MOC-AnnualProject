@@ -7,7 +7,7 @@ const lastVote = require('./lastVote');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
-		"/vote/voteList": {
+		"/vote/voteList/{idCommunity}": {
 			...getVoteListByCommunity,
 		},
 		"/vote/voteInfo": {
