@@ -105,4 +105,38 @@ router.get('/all/:idCommunity', async function (req, res, next) {
 
 });
 
+
+
+
+
+
+// UPDATE Admin post
+router.put('/updatePost', async function (req, res, next) {
+	try {
+		if (!req.body.idPost) {
+			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+		} else {
+
+			var title = req.body.title;
+			var body = req.body.body;
+
+			var postDB = await post.getPost(req.body.idPost);
+
+			if (title == null) {
+				title = postDB[0].title;
+			}
+
+			if (body == null) {
+				body = postDB[0].body;
+			}
+
+			await post.updatePost(req.body.idPost, title, body);
+			res.status(200).json([{ "Message": "Post updated successfully" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+
+});
 module.exports = router;

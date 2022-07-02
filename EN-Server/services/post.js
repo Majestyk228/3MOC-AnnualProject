@@ -70,6 +70,11 @@ async function getAllPostsByCommunity(idCommunity) {
 	return rows;
 }
 
+async function updatePost(idPost, title, body) {
+	const request = "UPDATE Post SET title = '" + title + "', body = '" + body + "' WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
@@ -79,5 +84,6 @@ module.exports = {
 	createPost,
 	getLastPostedPosts,
 	getAllReportedPosts,
-	getAllPostsByCommunity
+	getAllPostsByCommunity,
+	updatePost
 }
