@@ -1,3 +1,4 @@
+const { request } = require('express');
 const db = require('./database.js');
 
 //getting current date and time
@@ -103,6 +104,29 @@ async function lastPosts(idCommunity) {
 
 
 
+async function getVoteInfo(idVote) {
+	const request = "SELECT * FROM Vote WHERE idVote = " + idVote + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+async function updatePost(idVote, title, body, nbChoices, voteBegins, voteEnds) {
+
+	/*
+		# 			var title = req.body.title;
+		# 			var body = req.body.body;
+		#			var nbChoice = req.body.nbChoice;
+		#			var voteBegins = req.body.voteBegins;
+		#			var voteEnds = req.body.voteEnds;
+		UPDATE Vote SET  title = ''
+	
+	*/
+	const request = "UPDATE Vote SET title = '" + title + "', body = '" + body + "', nbChoices = " + nbChoices + ", voteBegins = '" + voteBegins + "', voteEnds = '" + voteEnds + "' WHERE idVote = " + idVote + ";";
+
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getVoteListByCommunity,
 	getVoteTitleBody,
@@ -112,5 +136,7 @@ module.exports = {
 	getVoteListByCommunityAndroid,
 	createVote,
 	deleteVote,
-	lastPosts
+	lastPosts,
+	getVoteInfo,
+	updatePost
 }

@@ -66,6 +66,7 @@ router.post('/voteListAndroid', async function (req, res, next) {
 });
 
 
+// CREATE a vote
 router.post('/create', async function (req, res, next) {
 	try {
 		await vote.createVote(req.body);
@@ -77,6 +78,7 @@ router.post('/create', async function (req, res, next) {
 });
 
 
+// DELETE a vote
 router.delete('/delete/:idVote', async function (req, res, next) {
 	try {
 		await vote.deleteVote(req.params.idVote);
@@ -97,6 +99,56 @@ router.get('/lastVotes/:idCommunity', async function (req, res, next) {
 		next(err);
 	}
 });
+
+
+// UPDATE A vote
+router.put('/updateVote', async function (req, res, next) {
+	//TODO : code
+	try {
+		// if missing idVote
+		if (!req.body.idVote) {
+			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+		} else {
+			var title = req.body.title;
+			var body = req.body.body;
+			var nbChoices = req.body.nbChoices;
+			var voteBegins = req.body.voteBegins;
+			var voteEnds = req.body.voteEnds;
+
+			const voteDB = await vote.getVoteInfo(req.body.idVote);
+
+
+			if (title == null) {
+				title = voteDB[0].title;
+			}
+
+			if (body == null) {
+				body = voteDB[0].body;
+			}
+
+			if (nbChoices == null || nbChoices <= 1) {
+				nbChoices = voteDB[0].nbChoices;
+			}
+
+			if (voteBegins == null) {
+				voteBegins = voteDB[0].voteBegins;
+			}
+
+			if (voteEnds == null) {
+				voteEnds = voteDB[0].voteEnds;
+			}
+
+
+			await vote.updatePost(req.body.idVote, title, body, nbChoices, voteBegins, voteEnds);
+			res.status(201).json([{ "Message": "Vote updated successfully" }]);
+
+		}
+
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+})
 
 
 
