@@ -49,5 +49,15 @@ router.get('/allByCommunity/:idCommunity', async function (req, res, next) {
 	}
 });
 
+router.delete('/delete/:code', async function (req, res, next) {
+	try {
+		await invite.deleteInvite(req.params.code);
+		res.json([{ "Message": "Invitation deleted successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
 
 module.exports = router;

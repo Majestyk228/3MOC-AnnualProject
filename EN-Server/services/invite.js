@@ -51,9 +51,18 @@ async function getAllCommunityInvites(idCommunity) {
 	return rows;
 }
 
+
+
+async function deleteInvite(code) {
+	const request = "DELETE FROM Invitation WHERE code = " + code + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	insertInvite,
 	getAllInvites,
 	getLastInvite,
-	getAllCommunityInvites
+	getAllCommunityInvites,
+	deleteInvite
 }
