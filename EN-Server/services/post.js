@@ -75,6 +75,12 @@ async function updatePost(idPost, title, body) {
 	const rows = await db.query(request, "");
 	return rows;
 }
+
+async function deletePost(idPost) {
+	const request = "DELETE FROM Post WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
@@ -85,5 +91,6 @@ module.exports = {
 	getLastPostedPosts,
 	getAllReportedPosts,
 	getAllPostsByCommunity,
-	updatePost
+	updatePost,
+	deletePost
 }

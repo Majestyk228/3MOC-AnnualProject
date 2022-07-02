@@ -7,6 +7,7 @@ const lastPosted = require("./lastPosted.js")
 const getAllReportedPosts = require('./getAllReportedPosts.js')
 const postsByCommunity = require('./postsByCommunity.js')
 const updatePost = require('./updatePost.js');
+const deletePost = require('./deletePost.js');
 const schema = require("./_model.js")
 module.exports = {
     paths: {
@@ -36,6 +37,9 @@ module.exports = {
         },
         "/post/updatePost": {
             ...updatePost,
+        },
+        "/post/delete/{idPost}": {
+            ...deletePost,
         }
     },
     schema: {
