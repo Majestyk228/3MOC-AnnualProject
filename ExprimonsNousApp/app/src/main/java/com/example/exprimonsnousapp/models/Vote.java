@@ -9,7 +9,7 @@ public class Vote {
     private String title;
     private String body;
     private int nbChoice;
-    private Boolean important;
+    private int important;
     private int idUser;
     private int idAdmin;
     private Date voteBegins;
@@ -20,7 +20,7 @@ public class Vote {
     public Vote() {
     }
 
-    public Vote(int idVote, String title, String body, int nbChoice, Boolean important, int idUser, int idAdmin, Date voteBegins, Date voteEnds, int idCommunity) {
+    public Vote(int idVote, String title, String body, int nbChoice, int important, int idUser, int idAdmin, Date voteBegins, Date voteEnds, int idCommunity) {
         this.idVote = idVote;
         this.title = title;
         this.body = body;
@@ -66,11 +66,11 @@ public class Vote {
         this.nbChoice = nbChoice;
     }
 
-    public Boolean getImportant() {
+    public int getImportant() {
         return important;
     }
 
-    public void setImportant(Boolean important) {
+    public void setImportant(int important) {
         this.important = important;
     }
 

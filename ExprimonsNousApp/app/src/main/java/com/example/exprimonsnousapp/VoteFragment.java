@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +44,7 @@ public class VoteFragment extends Fragment {
 
     // RECYCLER VIEW AND ITS DEPENDANCIES
     private RecyclerView recyclerView;
-    private VoteAdapter adapter;
+    VoteAdapter adapter;
     List<Vote> votes;
     private final String URL = "https://www.titan-photography.com/vote/voteList";
 
@@ -106,10 +107,11 @@ public class VoteFragment extends Fragment {
             e.printStackTrace();
         }
 
-        recyclerView = view.findViewById(R.id.voteList1);
+        recyclerView = view.findViewById(R.id.voteList);
         recyclerView.setHasFixedSize(true);
+
+        adapter = new VoteAdapter(getActivity(), votes);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        this.adapter = new VoteAdapter(getActivity(), votes);
         recyclerView.setAdapter(adapter);
 
         swipeRefreshPosts = view.findViewById(R.id.swipeRefreshVotes);
@@ -122,13 +124,13 @@ public class VoteFragment extends Fragment {
 
                 //réextraction de la liste des posts
                 IdCommunity idCommunity = new IdCommunity(communityId);
-                /*try {
+                try {
                     extractVoteBis(idCommunity);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
 
-                extractVote(idCommunity);
+                //extractVote(idCommunity);
 
                 //implémeenter le changement de données
                 adapter.notifyDataSetChanged();
@@ -183,38 +185,41 @@ public class VoteFragment extends Fragment {
         Array body = new A*/
 
         //API call made here
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        RequestQueue queue = Volley.newRequestQueue(requireActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.POST,
-                URL,
+                Request.Method.GET,
+                URL+"/"+idCommunity.getIdCommunity(),
                 array,
                 new com.android.volley.Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i("responseAPI", response.toString());
+                        Vote vote;
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject voteObject = response.getJSONObject(i);
 
-                                Vote vote = new Vote();
+                                vote = new Vote();
                                 vote.setIdVote(voteObject.getInt("idVote"));
                                 vote.setTitle(voteObject.getString("title"));
                                 vote.setBody(voteObject.getString("body"));
-                                vote.setNbChoice(voteObject.getInt("nbChoice"));
-                                vote.setImportant(voteObject.getBoolean("important"));
-                                vote.setIdUser(voteObject.getInt("idUser"));
+                                vote.setNbChoice(voteObject.getInt("nbChoices"));
+                                vote.setImportant(voteObject.getInt("important"));
+                                //vote.setIdUser(voteObject.getInt("idUser"));
+                                vote.setIdUser(-1);
                                 vote.setIdAdmin(voteObject.getInt("idAdmin"));
                                 vote.setVoteBegins(Date.valueOf(voteObject.get("voteBegins").toString()));
                                 vote.setVoteEnds(Date.valueOf(voteObject.get("voteEnds").toString()));
                                 vote.setIdCommunity(voteObject.getInt("idCommunity"));
 
                                 votes.add(vote);
+                                Log.i("responseAPI", vote.toString());
 
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         adapter = new VoteAdapter(getContext(), votes);
                         recyclerView.setAdapter(adapter);
