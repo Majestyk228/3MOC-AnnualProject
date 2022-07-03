@@ -16,7 +16,7 @@ var Datetime = (today + ' ' + time);
 
 
 async function getVoteListByCommunity(idCommunity) {
-	const rows = await db.query("SELECT idVote, title FROM Vote WHERE idCommunity = " + idCommunity + "ORDER BY voteBegins;", "");
+	const rows = await db.query("SELECT * FROM Vote WHERE idCommunity = " + idCommunity + ";", "");
 	return rows;
 }
 
