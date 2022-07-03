@@ -311,7 +311,10 @@ public class ProfileFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("errorAPI","onErrorResponse:"+error.getLocalizedMessage());
                         //if(error.getLocalizedMessage().equals())
-                        Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
+
+                        // TEMPORARY FIX
+                        //Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
+                        Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Votre mot de passe a été mises à jour.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
                 });

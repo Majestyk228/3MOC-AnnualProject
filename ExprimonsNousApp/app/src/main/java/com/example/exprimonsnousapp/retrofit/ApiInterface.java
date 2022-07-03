@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.retrofit;
 
 import com.example.exprimonsnousapp.models.IdCommunity;
+import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.UserUpdateResponse;
@@ -27,4 +28,8 @@ public interface ApiInterface {
     // GET LISTS OF VOTES FROM A COMMUNITY
     @HTTP(method = "POST", path = "/vote/voteListAndroid", hasBody = true)
     Call<List<Vote>> getVotesFromCommunity(@Body IdCommunity idCommunity);
+
+    // POST A NEW POST
+    @HTTP(method = "POST", path = "/post/create", hasBody = true)
+    Call<String> postPost(@Body NewPost newPost);
 }

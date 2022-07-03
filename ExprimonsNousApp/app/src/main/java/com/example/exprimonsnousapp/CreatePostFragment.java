@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.example.exprimonsnousapp.models.NewPost;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreatePostFragment extends Fragment {
 
@@ -21,6 +28,9 @@ public class CreatePostFragment extends Fragment {
 
     private int idUser;
     private int idCommunity;
+
+    // API
+    ApiInterface apiInterface;
 
     public CreatePostFragment() {
         // Required empty public constructor
@@ -65,6 +75,9 @@ public class CreatePostFragment extends Fragment {
             public void onClick(View view) {
                 //code...
                 Log.i("SKY_ESGI","New post created for userID = "+ idUser + " et idCommunity = " + idCommunity);
+                NewPost newPost = new NewPost(postTitle.getText().toString(),postBody.getText().toString(),idCommunity,idUser,"null");
+                Log.i("SKY_ESGI","NewPost = "+newPost.toString());
+                sendNewPost(newPost);
             }
         });
 
@@ -74,9 +87,60 @@ public class CreatePostFragment extends Fragment {
             public void onClick(View view) {
                 //code...
                 Log.i("SKY_ESGI","New post cancelled");
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("CreatePostFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
         return view;
     }
+
+    private void sendNewPost(NewPost newPost) {
+        Call<String> call = apiInterface.postPost(newPost);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.i("SKY_ESGI","Post créé");
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("SKY_ESGI","Post PAS créé");
+            }
+        });
+
+    }
+
+    /*
+    * private void updateUserInfo(UserUpdatedInfos userUpdatedInfos) {
+
+        UserUpdatedInfos userUpdatedInfos1 = userUpdatedInfos;
+
+        Call<UserUpdateResponse> call = apiInterface.updateUserInfo(userUpdatedInfos1);
+
+        Log.i("SKY_ESGI",userUpdatedInfos.toString());
+
+
+        call.enqueue(new Callback<UserUpdateResponse>(){
+            UserUpdateResponse responseStr;
+
+            @Override
+            public void onResponse(Call<UserUpdateResponse> call, Response<UserUpdateResponse> response) {
+                if (response.isSuccessful()) {
+                    responseStr = response.body();
+                } else {
+                    responseStr = new UserUpdateResponse("Erreur");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
+                Log.i("SKY_ESGI", "onFailure: "+t.getLocalizedMessage());
+            }
+        });
+    }
+    *
+    * */
 }
