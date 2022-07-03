@@ -205,7 +205,7 @@ public class VoteFragment extends Fragment {
                                 vote.setNbChoice(voteObject.getInt("nbChoices"));
                                 vote.setImportant(voteObject.getInt("important"));
                                 //vote.setIdUser(voteObject.getInt("idUser"));
-                                vote.setIdUser(-1);
+                                vote.setIdUser(-1);//No user ever post a servey from now on
                                 vote.setIdAdmin(voteObject.getInt("idAdmin"));
                                 vote.setVoteBegins(Date.valueOf(voteObject.get("voteBegins").toString()));
                                 vote.setVoteEnds(Date.valueOf(voteObject.get("voteEnds").toString()));

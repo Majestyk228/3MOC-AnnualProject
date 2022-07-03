@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:elevation="6dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="8dp">
 
     <!--Partie 1 : Titre du vote -->
     <LinearLayout

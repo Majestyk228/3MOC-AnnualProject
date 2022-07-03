@@ -191,6 +191,7 @@ public class ProfileFragment extends Fragment {
                         if(newPassword.getText().toString().equals(confirmationPassword.getText().toString())){
                             Log.i("SKY_ESGI","Same");
                             // POUSSER UN DES DEUX CHAMPS VERS L'API
+                            updateUserPassword(newPassword.getText().toString(), idUser);
                         } else {
                             Log.i("SKY_ESGI","Different");
                             // LAISSER LA FENETRE ET FAIRE UN TOAST POUR NOTIFIER L'UTILISATEUR
@@ -272,6 +273,44 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //Log.d("errorAPI","onErrorResponse:"+error.getMessage());
+                        Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                });
+
+        //ajouter la requete à la queue d'exécution
+        queue.add(jsonArrayRequest);
+    }
+
+
+
+    // RESET PASSWORD FUNCTION
+    private void updateUserPassword(String password,int idUser) {
+
+        String URL = "https://www.titan-photography.com/user/password/reset";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("password", password);
+        params.put("idUser", idUser);
+
+        //API call made here
+        RequestQueue queue = Volley.newRequestQueue(requireContext());
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                URL,
+                new JSONObject(params),
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //Log.i("responseAPI",response.toString());
+                        Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Votre mot de passe a été mises à jour.", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("errorAPI","onErrorResponse:"+error.getLocalizedMessage());
+                        //if(error.getLocalizedMessage().equals())
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
