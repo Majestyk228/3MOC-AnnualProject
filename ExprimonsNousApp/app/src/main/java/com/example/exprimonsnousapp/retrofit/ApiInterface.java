@@ -30,6 +30,7 @@ public interface ApiInterface {
     Call<List<Vote>> getVotesFromCommunity(@Body IdCommunity idCommunity);
 
     // POST A NEW POST
+    @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/post/create", hasBody = true)
-    Call<String> postPost(@Body NewPost newPost);
+    Call<Object> postPost(@Body NewPost newPost);
 }

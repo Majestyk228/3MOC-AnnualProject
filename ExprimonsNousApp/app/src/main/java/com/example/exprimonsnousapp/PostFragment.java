@@ -159,6 +159,11 @@ public class PostFragment extends Fragment {
                         myToolbar.setTitle("Les posts");
                     }
                 });
+
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+                myToolbar.setTitle("Les posts");
+
             }
         });
 

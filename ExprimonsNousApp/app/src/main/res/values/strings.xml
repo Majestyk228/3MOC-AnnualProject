@@ -74,5 +74,7 @@
     <string name="new_post">Poster</string>
     <string name="create_title_hint">Le titre de votre post...</string>
     <string name="participation_vote">Je participe !</string>
+    <string name="postCreated">Le post a été créé</string>
+    <string name="createPostError">Une erreur est survenue.</string>
 
 </resources>
