@@ -15,16 +15,91 @@ class DashboardView extends StatelessWidget {
           Row(
             children: [
               Card(
-                child: Text("UWU"),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 200,
+                      child: Center(child: Text("5",style: TextStyle(fontSize: 32),)),
+                    ),
+                    Container(
+                      height: 150,
+                      width: 200,
+                      child: Center(child: Text("Reported Post")),
+                    ),
+                  ],
+                ),
               ),
               Card(
-                child: Text("UWU"),
-              ),
-              Card(
-                child: Text("UWU"),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Center(child: Text("5")),
+                    ),
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Center(child: Text("Reported Comment")),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
+          Row(
+            children: [
+              Card(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 200,
+                      child: Center(child: Text("5")),
+                    ),
+                    Container(
+                      height: 150,
+                      width: 200,
+                      child: Center(child: Text("Reported Post")),
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 200,
+                      child: Center(child: Text("5")),
+                    ),
+                    Container(
+                      height: 150,
+                      width: 200,
+                      child: Center(child: Text("Reported Post")),
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 200,
+                      child: Center(child: Text("5")),
+                    ),
+                    Container(
+                      height: 150,
+                      width: 200,
+                      child: Center(child: Text("Reported Post")),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
