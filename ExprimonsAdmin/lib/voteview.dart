@@ -13,26 +13,37 @@ class VoteView extends StatefulWidget {
 }
 
 class _VoteViewState extends State<VoteView> {
-  var votes=[];
+  var votes = [];
+
   @override
   void initState() {
     refreshCocktails();
     super.initState();
   }
+
   Future refreshCocktails() async {
     //endpoint
     Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteList/1");
-
+    print(uri);
     //methode get du package HTTP
-    final response = await http.get(uri);
+    final response = await http.get(
+      uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
+      },
+    );
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
 
+    print(data);
+
     this.votes = [];
     setState(() {
       for (var i = 0; i < data.length; i++) {
-        Vote unCocktail = Vote(
+        Vote unVote = Vote(
           idVote: data[i]['idVote'],
           title: data[i]['title'],
           body: data[i]['body'],
@@ -43,14 +54,12 @@ class _VoteViewState extends State<VoteView> {
           voteBegins: data[i]['voteBegins'],
           voteEnds: data[i]['voteEnds'],
           idCommunity: data[i]['idCommunity'],
-
         );
-        votes.add(unCocktail);
-
+        votes.add(unVote);
       }
-
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,8 +74,8 @@ class _VoteViewState extends State<VoteView> {
               itemCount: 10,
               itemBuilder: (context, index) {
                 return Container(
-                 child: Text(index.toString())
-                );
+                    //child: Text(votes[index]["title"])
+                    child: Text("owo"));
               })
         ],
       ),
