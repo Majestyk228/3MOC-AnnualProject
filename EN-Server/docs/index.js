@@ -10,7 +10,7 @@ const comment = require('./comment/index.js')
 module.exports = {
 	openapi: "3.0.1",
 	info: {
-		version: "1.0.0",
+		version: "2.2.8",
 		title: "Exprimons-Nous API Service",
 		description: "Service d'API développée pour le fonctionnement de l'ensemble des applications de la plateforme Exprimons-Nous.",
 		contact: {
