@@ -26,25 +26,25 @@ module.exports = {
 		},
 	],
 	paths: {
-		...invite.paths,
 		...admin.paths,
+		...comment.paths,
+		...community.paths,
+		...invite.paths,
 		...post.paths,
 		...reward.paths,
-		...community.paths,
-		...vote.paths,
 		...user.paths,
-		...comment.paths
+		...vote.paths,
 	},
 	components: {
 		schemas: {
-			...invite.schema,
 			...admin.schema,
+			...comment.schema,
+			...community.schema,
+			...invite.schema,
 			...post.schema,
 			...reward.schema,
-			...community.schema,
-			...vote.schema,
 			...user.schema,
-			...comment.schema
+			...vote.schema,
 		},
 	},
 }
