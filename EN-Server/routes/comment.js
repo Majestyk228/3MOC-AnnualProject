@@ -4,7 +4,7 @@ const router = express.Router();
 const comment = require('../services/comment.js');
 
 
-/* GET nbComment*/
+/* GET nbComment POUR TOUTE LA BDD */
 router.get('/allcount', async function (_, res, next) {
 	try {
 		res.status(200).json(await comment.getnbComment());

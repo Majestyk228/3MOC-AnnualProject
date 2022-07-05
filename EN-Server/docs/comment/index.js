@@ -1,13 +1,17 @@
 const nbReportedCommentsAll = require("./nbReportedCommentsAll.js")
 const commentByPost = require('./commentByPost.js')
+const reportedCommentByPost = require('./reportedCommentsByPost.js');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
-		"/nbReportedCommentsAll/{idCommunity}": {
+		"/comment/nbReportedCommentsAll/{idCommunity}": {
 			...nbReportedCommentsAll,
 		},
-		"/all/{idPost}": {
+		"/comment/all/{idPost}": {
 			...commentByPost,
+		},
+		"/comment/reported/{idPost}": {
+			...reportedCommentByPost,
 		}
 	},
 	schema: {
