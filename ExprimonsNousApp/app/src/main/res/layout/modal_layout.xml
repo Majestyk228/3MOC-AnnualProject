@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center"
+    android:columnCount="2"
+    android:rowCount="2"
+    android:alignmentMode="alignMargins"
+    android:columnOrderPreserved="false"
+    android:background="@drawable/modal_bg">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+        <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:src="@color/grey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:text="@string/super_reward"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="vertical"
+        android:gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+        <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:src="@color/grey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:text="@string/interesting_reward"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="vertical"
+        android:gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+        <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:src="@color/grey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:text="@string/bof_reward"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="vertical"
+        android:gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+        <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:src="@color/grey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:text="@string/not_interesting_reward"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</GridLayout>

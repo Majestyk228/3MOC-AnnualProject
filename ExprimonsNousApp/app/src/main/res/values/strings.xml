@@ -77,4 +77,12 @@
     <string name="postCreated">Le post a été créé</string>
     <string name="createPostError">Une erreur est survenue.</string>
 
+    <!-- REWARDS MODAL TEXT -->
+    <string name="super_reward">Super !</string>
+    <string name="interesting_reward">Intéressant !</string>
+    <string name="bof_reward">Bof...</string>
+    <string name="not_interesting_reward">Pas Intéressant...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
