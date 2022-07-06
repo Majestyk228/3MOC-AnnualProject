@@ -7,19 +7,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.Post;
 import com.example.exprimonsnousapp.R;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     LayoutInflater inflater;
     List<Post> posts;
+    ApiInterface apiInterface;
 
 
     //constructeur de l'adapteur
@@ -32,6 +43,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_post, parent, false);
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         return new ViewHolder(view);
     }
 
@@ -50,6 +62,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN LIKE AU POST AVEC L'idPost
                 Log.i("RVButton", "Bouton like post " + posts.get(holder.getAdapterPosition()).getBody());
+                IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
+                addLike(idPost);
             }
         });
 
@@ -107,5 +121,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             rewardBtn = itemView.findViewById(R.id.rewardBtn);
 
         }
+    }
+
+    private void addLike(IdPost idPost) {
+        IdPost idPost1 = new IdPost("1");
+        Call<Object> call = apiInterface.likePost(idPost1);
+        Log.i("SKYYYYYY", String.valueOf(call.request()));
+
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Toast.makeText(inflater.getContext(), R.string.like_toast,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(inflater.getContext(), R.string.error,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.retrofit;
 
 import com.example.exprimonsnousapp.models.IdCommunity;
+import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
@@ -33,4 +34,15 @@ public interface ApiInterface {
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/post/create", hasBody = true)
     Call<Object> postPost(@Body NewPost newPost);
+
+    // LIKE A POST
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/post/like", hasBody = true)
+    Call<Object> likePost(@Body IdPost idPost);
+
+
+    // DISLIKE A POST
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/post/like", hasBody = true)
+    Call<Object> dislikePost(@Body IdPost idPost);
 }

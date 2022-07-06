@@ -2,7 +2,7 @@ package com.example.exprimonsnousapp.models;
 
 public class Post {
     //attributes
-    //private int idPost;
+    private int idPost;
     private String firstname;
     private String lastname;
     private String body;
@@ -14,7 +14,7 @@ public class Post {
     // CONSTRUCTEURS
     public Post() { }
 
-    public Post(String firstname, String lastname, String body, int likes, int dislikes, int nbComments, int nbRewards/*,int idPost*/) {
+    public Post(String firstname, String lastname, String body, int likes, int dislikes, int nbComments, int nbRewards,int idPost) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.body = body;
@@ -22,7 +22,7 @@ public class Post {
         this.dislikes = dislikes;
         this.nbComments = nbComments;
         this.nbRewards = nbRewards;
-        //this.idPost = idPost;
+        this.idPost = idPost;
     }
 
 
@@ -84,11 +84,11 @@ public class Post {
         this.nbRewards = nbRewards;
     }
 
-    /*public String getIdPost() {
+    public String getIdPost() {
         return String.valueOf(idPost);
     }
 
     public void setIdPost(int idPost) {
         this.idPost = idPost;
-    }*/
+    }
 }
