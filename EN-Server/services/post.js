@@ -81,6 +81,21 @@ async function deletePost(idPost) {
 	const rows = await db.query(request, "");
 	return rows;
 }
+
+
+
+async function likePost(idPost) {
+	const request = "UPDATE Post SET likes = likes + 1 WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+async function dislikePost(idPost) {
+	const request = "UPDATE Post SET dislikes = dislikes + 1 WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
@@ -92,5 +107,7 @@ module.exports = {
 	getAllReportedPosts,
 	getAllPostsByCommunity,
 	updatePost,
-	deletePost
+	deletePost,
+	likePost,
+	dislikePost
 }

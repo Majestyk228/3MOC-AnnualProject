@@ -8,6 +8,8 @@ const getAllReportedPosts = require('./getAllReportedPosts.js')
 const postsByCommunity = require('./postsByCommunity.js')
 const updatePost = require('./updatePost.js');
 const deletePost = require('./deletePost.js');
+const likePost = require('./likePost.js');
+const dislikePost = require('./dislikePost.js');
 const schema = require("./_model.js")
 module.exports = {
     paths: {
@@ -40,6 +42,12 @@ module.exports = {
         },
         "/post/delete/{idPost}": {
             ...deletePost,
+        },
+        "/post/like": {
+            ...likePost,
+        },
+        "/post/dislike": {
+            ...dislikePost,
         }
     },
     schema: {

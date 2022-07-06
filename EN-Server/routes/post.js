@@ -152,4 +152,27 @@ router.get('/delete/:idPost', async function (req, res, next) {
 	}
 
 });
+
+router.post('/like', async function (req, res, next) {
+	// TODO CODE
+	try {
+		await post.likePost(req.body.idPost);
+		res.status(200).json([{ "Message": "Post liked successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
+
+
+router.post('/dislike', async function (req, res, next) {
+	// TODO CODE
+	try {
+		await post.dislikePost(req.body.idPost);
+		res.status(200).json([{ "Message": "Post disliked successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		next(err);
+	}
+});
 module.exports = router;
