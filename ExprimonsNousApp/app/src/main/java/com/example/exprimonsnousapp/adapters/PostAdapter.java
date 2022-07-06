@@ -38,7 +38,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         //bind the data
-        holder.fullnameTXT.setText(posts.get(holder.getAdapterPosition()).getFirstname() + " " +posts.get(holder.getAdapterPosition()).getLastname());
+        holder.fullnameTXT.setText(posts.get(holder.getAdapterPosition()).getFirstname() + " " + posts.get(holder.getAdapterPosition()).getLastname());
         holder.bodyTXT.setText(posts.get(holder.getAdapterPosition()).getBody());
         holder.likesTXT.setText(posts.get(holder.getAdapterPosition()).getLikes());
         holder.dislikesTXT.setText(posts.get(holder.getAdapterPosition()).getDislikes());
@@ -49,7 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN LIKE AU POST AVEC L'idPost
-                Log.i("RVButton","Bouton like post "+posts.get(holder.getAdapterPosition()).getBody());
+                Log.i("RVButton", "Bouton like post " + posts.get(holder.getAdapterPosition()).getBody());
             }
         });
 
@@ -57,7 +57,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN DISLIKE AU POST AVEC L'idPost
-                Log.i("RVButton","Bouton dislike post "+posts.get(holder.getAdapterPosition()).getBody());
+                Log.i("RVButton", "Bouton dislike post " + posts.get(holder.getAdapterPosition()).getBody());
             }
         });
 
@@ -65,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR OUVRIR LA PAGE DES COMMENTAIRES
-                Log.i("RVButton","Bouton comment post "+posts.get(holder.getAdapterPosition()).getBody());
+                Log.i("RVButton", "Bouton comment post " + posts.get(holder.getAdapterPosition()).getBody());
             }
         });
 
@@ -73,7 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN REWARD AU POST AVEC L'idPost
-                Log.i("RVButton","Bouton reward post "+posts.get(holder.getAdapterPosition()).getBody());
+                Log.i("RVButton", "Bouton reward post " + posts.get(holder.getAdapterPosition()).getBody());
             }
         });
 
@@ -86,13 +86,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fullnameTXT,bodyTXT,likesTXT, dislikesTXT, commentTXT, rewardTXT;
-        Button likeBtn,dislikeBtn,commentBtn,rewardBtn;
+        TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT;
+        Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

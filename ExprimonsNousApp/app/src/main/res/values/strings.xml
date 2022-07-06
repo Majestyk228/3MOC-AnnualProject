@@ -67,7 +67,6 @@
     <string name="insert_password">Nouveau mot de passe :</string>
     <string name="confirmation_password">Confirmation :</string>
     <string name="different_passwords">Les deux mots de passe doivent être identiques.</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="create_post_fragment">Hello New Post Fragment</string>
     <string name="whats_new">Quoi de neuf John !</string>
     <string name="create_post_hint">Rédidez votre post ici...</string>
@@ -82,7 +81,5 @@
     <string name="interesting_reward">Intéressant !</string>
     <string name="bof_reward">Bof...</string>
     <string name="not_interesting_reward">Pas Intéressant...</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
