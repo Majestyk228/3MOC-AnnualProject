@@ -83,5 +83,7 @@
     <string name="not_interesting_reward">Pas Intéressant...</string>
     <string name="like_toast">Je like !</string>
     <string name="error">Une erreur est survenue.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

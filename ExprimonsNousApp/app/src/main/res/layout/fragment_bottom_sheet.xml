@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/modal_bg"
+    android:layout_gravity="bottom"
+    android:padding="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- INCLUDE TYPICAL NOTCH OF MODAL -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:src="@color/grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@string/super_reward"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:src="@color/grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@string/interesting_reward"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:src="@color/grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@string/bof_reward"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:src="@color/grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@string/not_interesting_reward"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exprimonsnousapp.BottomSheetFrag;
+import com.example.exprimonsnousapp.CreatePostFragment;
 import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.Post;
 import com.example.exprimonsnousapp.R;
@@ -31,12 +38,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     LayoutInflater inflater;
     List<Post> posts;
     ApiInterface apiInterface;
+    Context context;
 
 
     //constructeur de l'adapteur
     public PostAdapter(Context context, List<Post> posts) {
         this.inflater = LayoutInflater.from(context);
         this.posts = posts;
+        this.context = context;
     }
 
     @NonNull
@@ -62,8 +71,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN LIKE AU POST AVEC L'idPost
                 Log.i("RVButton", "Bouton like post " + posts.get(holder.getAdapterPosition()).getBody());
-                IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
-                addLike(idPost);
+                //IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
+                //addLike(idPost);
             }
         });
 
@@ -88,6 +97,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN REWARD AU POST AVEC L'idPost
                 Log.i("RVButton", "Bouton reward post " + posts.get(holder.getAdapterPosition()).getBody());
+
+                Fragment mFragment = new BottomSheetFrag();
+
+                /*Bundle bundle = new Bundle();
+                bundle.putInt("idUser", userId);
+                bundle.putInt("idCommunity", communityId);
+                mFragment.setArguments(bundle);*/
+
+                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.activity_main_frame_layout, mFragment);
+                ft.addToBackStack("BottomSheetFrag");
+                ft.commit();
             }
         });
 
@@ -139,5 +160,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Toast.makeText(inflater.getContext(), R.string.error,Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void toggleBottomSheet() {
+
     }
 }
