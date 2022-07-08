@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const post = require('../services/post.js');
+const comment = require('../services/comment.js');
 ////const jwtUtils = require('../utils/jwt.utils.js');
 
 
@@ -8,7 +9,25 @@ const post = require('../services/post.js');
 /* GET allPosts formated to fit Exprimons-Nous Android App input*/
 router.get('/formatted/:idCommunity', async function (req, res, next) {
 	try {
-		res.status(200).json(await post.getAllPostsFormatted(req.params.idCommunity));
+		var posts = await post.getAllPostsFormatted(req.params.idCommunity);
+		var newPosts = [];
+		var nbComment;
+		var nbReward;
+
+		posts.forEach((post) => post.comments = 0);
+		posts.forEach((post) => post.rewards = 0);
+
+		newPosts = posts;
+		console.log(newPosts)
+
+		newPosts.forEach(async function (post) {
+			nbComment = await comment.nbCommentAndroidPost(post.idPost);
+			post.comments = nbComment.nbComment
+
+		});
+		//console.log(newPosts)
+
+		res.status(200).send(JSON.stringify(newPosts));
 	} catch (err) {
 		res.status(400).json([{ "ERROR": "Bad Request" }]);
 		//console.error(`Error while getting posts `, err.message);

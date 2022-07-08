@@ -19,7 +19,7 @@ module.exports = {
 		],
 		responses: {
 			200: {
-				description: "Get the list of post from a given community, formatted to be used for Android client Exprimons-nous.",
+				description: "Get the list of post from a given community, formatted to be used for Android client Exprimons-nous. NOTE : comments and rewards initialized at 0 ; can be updated with another route.",
 				content: {
 					"application/json": {
 						schema: {
@@ -32,8 +32,8 @@ module.exports = {
 								body: "Ceci est le premier poste pour la commune du Val-de-Marne !!!",
 								likes: 0,
 								dislikes: 0,
-								comments: 2,
-								rewards: 1
+								comments: 0,
+								rewards: 0
 							}
 						},
 					},

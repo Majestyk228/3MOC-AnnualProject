@@ -82,6 +82,12 @@ async function deleteComment(idComment) {
 	return rows;
 }
 
+async function nbCommentAndroidPost(idPost) {
+	const request = "SELECT COUNT(*) as nbComment FROM Congratulate WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows[0];
+}
+
 module.exports = {
 	getnbComment,
 	getReportedComments,
@@ -91,5 +97,6 @@ module.exports = {
 	getComments,
 	insertComment,
 	getnbReportedCommentsAll,
-	deleteComment
+	deleteComment,
+	nbCommentAndroidPost
 }
