@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,8 +23,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
+import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.Post;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
@@ -33,6 +38,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class PostFragment extends Fragment {
 
     // RECYCLER VIEW AND ITS DEPENDANCIES
@@ -40,6 +48,8 @@ public class PostFragment extends Fragment {
     PostAdapter adapter;
     List<Post> posts;
     private final String URL = "https://www.titan-photography.com/post/formatted/";
+    private final String URLComment = "https://www.titan-photography.com/comment/count/";
+    private final String URLReward = "https://www.titan-photography.com/rewards/nbReward/";
 
     // SWIPE REFRESH LAYOUT - PULL DOWN TO REFRESH
     SwipeRefreshLayout swipeRefreshPosts;
@@ -53,6 +63,9 @@ public class PostFragment extends Fragment {
 
     // TOOLBAR
     Toolbar myToolbar;
+
+    // OTHER
+    ApiInterface apiInterface;
 
     public PostFragment(int communityId) {
         this.communityId = communityId;
@@ -68,6 +81,8 @@ public class PostFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         posts = new ArrayList<>();
 
@@ -88,7 +103,7 @@ public class PostFragment extends Fragment {
         recyclerView = view.findViewById(R.id.postsList1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new PostAdapter(getActivity(),posts);
+        adapter = new PostAdapter(getActivity(), posts);
         recyclerView.setAdapter(adapter);
 
         swipeRefreshPosts = view.findViewById(R.id.swipeRefreshPosts);
@@ -114,14 +129,14 @@ public class PostFragment extends Fragment {
             public void onClick(View view) {
 
                 /*
-                *
-                * Sur action du floating action button, on passe sur la stack le fragment de
-                * création de poste en identifiant le fragment d'un tag 'CreatePostFragment'
-                *
-                * ce tag servira à retirer le fragment de la stack sur l'appui du bouton retour
-                * (ou de l'envoi d'un post en ligne)
-                *
-                * */
+                 *
+                 * Sur action du floating action button, on passe sur la stack le fragment de
+                 * création de poste en identifiant le fragment d'un tag 'CreatePostFragment'
+                 *
+                 * ce tag servira à retirer le fragment de la stack sur l'appui du bouton retour
+                 * (ou de l'envoi d'un post en ligne)
+                 *
+                 * */
 
 
                 Fragment mFragment = new CreatePostFragment();
@@ -140,9 +155,9 @@ public class PostFragment extends Fragment {
                 // RECUPERATION DE LA TOOLBAR DU PARENT, CHANGEMENT DU TITRE ET AJOUT DU BOUTON RETOUR
                 myToolbar = getActivity().findViewById(R.id.my_toolbar);
                 myToolbar.setTitle("Nouveau post");
-                ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+                ((AppCompatActivity) getActivity()).setSupportActionBar(myToolbar);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
                 // MISE EN ÉCOUTE DU BOUTON RETOUR
                 myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -151,17 +166,17 @@ public class PostFragment extends Fragment {
                         // RETRAIT DU FRAGMENT CreatePostFragment
                         FragmentManager fm = getActivity()
                                 .getSupportFragmentManager();
-                        fm.popBackStack ("CreatePostFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        fm.popBackStack("CreatePostFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                         // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
-                        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
                         myToolbar.setTitle("Les posts");
                     }
                 });
 
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
                 myToolbar.setTitle("Les posts");
 
             }
@@ -171,54 +186,34 @@ public class PostFragment extends Fragment {
     }
 
 
-    private void extractPost() {
+    public void extractPost() {
         //API call made here
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                URL+communityId,
+                URL + communityId,
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i("responseAPI",response.toString());
-                        for(int i = 0 ; i<response.length() ; i++){
+                        Log.i("responseAPI", response.toString());
+                        for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject postObject = response.getJSONObject(i);
 
                                 Post post = new Post();
+                                post.setIdPost(postObject.getInt("idPost"));
                                 post.setFirstname(postObject.getString("firstName"));
                                 post.setLastname(postObject.getString("lastName"));
                                 post.setBody(postObject.getString("body"));
-                                //post.setLikes(postObject.getInt("likes") ? postObject.getInt("likes") : 0);
-                                if (postObject.get("likes") != null) {
-                                    post.setLikes(postObject.getInt("likes"));
-                                } else {
-                                    post.setLikes(0);
-                                }
+                                post.setLikes(postObject.getInt("likes"));
+                                post.setDislikes(postObject.getInt("dislikes"));
 
-                                if (postObject.get("dislikes") != null) {
-                                    post.setDislikes(postObject.getInt("dislikes"));
-                                } else {
-                                    post.setDislikes(0);
-                                }
+                                // RETRIVING NBCOMMENTS
+                                post.setNbComments(getNbCommentsAPI(postObject.getInt("idPost")));
 
-                                if (postObject.get("comments") != null) {
-                                    post.setNbComments(postObject.getInt("comments"));
-                                } else {
-                                    post.setNbComments(0);
-                                }
-
-
-                                if (postObject.get("rewards") != null) {
-                                    post.setNbRewards(postObject.getInt("rewards"));
-                                } else {
-                                    post.setNbRewards(0);
-                                }
-                                //post.setDislikes(postObject.getInt("dislikes"));
-                                //post.setNbComments(postObject.getInt("comments"));
-                                //post.setNbRewards(postObject.getInt("rewards"));
-
+                                // RETRIVING NBREWARDS
+                                post.setNbRewards(postObject.getInt("rewards"));
                                 posts.add(post);
 
 
@@ -234,11 +229,57 @@ public class PostFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("SKY_ESGI","onErrorResponse:"+error.getMessage());
+                        Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
                     }
                 });
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
+    }
+
+    private int getNbCommentsAPI(int idPost) {
+        // TODO : Code goes here
+        final int[] nbComment = {-1};
+        //API call made here
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                URLComment + idPost,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.i("responseAPI", response.toString());
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject postObject = response.getJSONObject(i);
+
+                                nbComment[0] = postObject.getInt("nbComment");
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        adapter = new PostAdapter(getContext(), posts);
+                        recyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
+                    }
+                });
+
+        //ajouter la requete à la queue d'exécution
+        queue.add(jsonArrayRequest);
+
+        return nbComment[0];
+    }
+
+    private void getNbRewardsAPI(IdPost idPost) {
+        // TODO : Code goes here
     }
 }

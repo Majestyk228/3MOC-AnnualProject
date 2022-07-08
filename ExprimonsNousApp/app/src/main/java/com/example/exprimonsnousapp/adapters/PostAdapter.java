@@ -71,8 +71,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN LIKE AU POST AVEC L'idPost
                 Log.i("RVButton", "Bouton like post " + posts.get(holder.getAdapterPosition()).getBody());
-                //IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
-                //addLike(idPost);
+                IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
+                addLike(idPost);
             }
         });
 
@@ -81,6 +81,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN DISLIKE AU POST AVEC L'idPost
                 Log.i("RVButton", "Bouton dislike post " + posts.get(holder.getAdapterPosition()).getBody());
+                IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
+                addDislike(idPost);
             }
         });
 
@@ -96,7 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN REWARD AU POST AVEC L'idPost
-                Log.i("RVButton", "Bouton reward post " + posts.get(holder.getAdapterPosition()).getBody());
+                Log.i("RVButton", "Bouton reward post " + posts.get(holder.getAdapterPosition()).getIdPost());
 
                 Fragment mFragment = new BottomSheetFrag();
 
@@ -145,8 +147,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     private void addLike(IdPost idPost) {
-        IdPost idPost1 = new IdPost("1");
-        Call<Object> call = apiInterface.likePost(idPost1);
+        //IdPost idPost1 = new IdPost("1");
+        Call<Object> call = apiInterface.likePost(idPost);
         Log.i("SKYYYYYY", String.valueOf(call.request()));
 
         call.enqueue(new Callback<Object>() {
@@ -162,7 +164,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
     }
 
-    public void toggleBottomSheet() {
+    private void addDislike(IdPost idPost) {
+        Call<Object> call = apiInterface.dislikePost(idPost);
+        Log.i("SKYYYYYY", String.valueOf(call.request()));
 
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Toast.makeText(inflater.getContext(), R.string.dislike_toast,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(inflater.getContext(), R.string.error,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
