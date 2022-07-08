@@ -1,7 +1,8 @@
 //importations
 var express = require('express');
 
-
+// CORS
+var cors = require('cors');
 
 //instanciation du serveur
 var server = express();
@@ -25,6 +26,9 @@ const docs = require('./docs/index.js');
 
 //Body Parser
 server.use(bodyParser.json());
+
+// CORS
+server.use(cors());
 
 
 //Middlewares
