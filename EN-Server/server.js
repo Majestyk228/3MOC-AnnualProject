@@ -4,8 +4,14 @@ var express = require('express');
 // CORS
 var cors = require('cors');
 
+// File-Morgan
+
+
 //instanciation du serveur
 var server = express();
+
+// INSTANCIATION DES LOG DE REQUEST ET REPONSES
+
 
 
 //importation des routes
