@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:exprimons_nous/Colors.dart';
@@ -30,7 +31,8 @@ class _VoteViewState extends State<VoteView> {
       uri,
       headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-        "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Headers":
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
     );
@@ -68,14 +70,34 @@ class _VoteViewState extends State<VoteView> {
       color: ultraLightRedColor,
       child: Column(
         children: [
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Login(),
+                      ),
+                    );
+                  },
+                  child: Text("Add Vote")),
+            ],
+          ),
           ListView.builder(
+              scrollDirection: Axis.vertical,
               shrinkWrap: true,
               addRepaintBoundaries: false,
               itemCount: 10,
               itemBuilder: (context, index) {
                 return Container(
-                    //child: Text(votes[index]["title"])
-                    child: Text("owo"));
+                  //child: Text(votes[index]["title"])
+                  child: Row(
+                    children: [
+                      Text("owo"),
+                    ],
+                  ),
+                );
               })
         ],
       ),
