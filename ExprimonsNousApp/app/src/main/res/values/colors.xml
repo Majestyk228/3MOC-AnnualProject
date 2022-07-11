@@ -17,7 +17,7 @@
 
 
     <!-- COULEUR DE SELECTION DE LA BOTTOM NAVIGATION BAR -->
-    <color name="colorAccentDark">@color/purple_500</color>
+    <color name="colorAccentDark">#19699c</color>
 
     <color name="grey">#FF818181</color>
 
