@@ -7,23 +7,31 @@ const jwtUtils = require('../utils/jwt.utils.js');
 /* GET allUsers*/
 router.get('/all', async function (_, res, next) {
 	try {
-		//res.status(400).json({ "ERROR": "Bad Request" });
 		res.status(200).json(await user.getAllUsers());
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
+
 
 /* GET userInfo // idUser must be in body request*/
 router.post('/infos', async function (req, res, next) {
 	try {
 		res.status(200).json(await user.getUserInfo(req.body.idUser));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
+
+
 
 /* POST login // idUser must be in body request*/
 router.post('/login', async function (req, res, next) {
@@ -36,12 +44,10 @@ router.post('/login', async function (req, res, next) {
 	//Searching for user with email entered
 	const userCredentials = await user.getUserCredentials(req.body.email);
 	if (JSON.stringify(userCredentials) == "[]") {
-		//error
 		res.status(404).json({ 'ERROR': "cannot find user" });
 		next();
 	} else {
 		if (req.body.password != userCredentials[0].password) {
-			//error
 			res.status(403).json({ 'ERROR': "incorrect password" });
 			next();
 		} else {
@@ -55,11 +61,15 @@ router.post('/login', async function (req, res, next) {
 	}
 });
 
+
+
+
+
+
 //POST add user in database
 router.post('/register', async function (req, res) {
 	// Verify data given
 	if (req.body.firstName == null || req.body.lastName == null || req.body.birthDate == null || req.body.gender == null || req.body.areaCode == null || req.body.email == null || req.body.password == null) {
-		//res 400 -> missing infos
 		res.status(400).json([{ 'Error': "missing info(s)" }]);
 	}
 
@@ -69,12 +79,15 @@ router.post('/register', async function (req, res) {
 		await user.insertUser(req.body);
 		res.status(201).json([{ "message": "User successufully registered" }]);
 	} else {
-		//console.log(await user.findUser(req.body.email).idUser);
-		//res 409 -> user already registered
 		res.status(409).json([{ 'Error': "user already has an account" }]);
 	}
 
 });
+
+
+
+
+
 
 //PUT updateInfo idUser must be passed in request body
 router.put('/infos/update', async function (req, res, next) {
@@ -97,7 +110,6 @@ router.put('/infos/update', async function (req, res, next) {
 			var infoUser = user.getUserInfo(req.body.idUser);
 
 			//verifying if each parameter is empty or not
-
 			if (firstName == "") {
 				firstName = infoUser[0].firstName;
 			}
@@ -129,16 +141,23 @@ router.put('/infos/update', async function (req, res, next) {
 });
 
 
+
+
+
+
 /* GET allUsers that has at least 1 comment reported*/
 router.get('/all/reports', async function (_, res, next) {
 	try {
 		res.status(200).json(await user.getAllReportedUsers());
 	} catch (err) {
 		res.status(400).json([{ "ERROR": "cannot get reported users" }]);
-		//console.error(`Error while getting users `, err.message);
 		next(err);
 	}
 });
+
+
+
+
 
 
 /* GET allUsers ordered by points*/
@@ -146,11 +165,15 @@ router.get('/all/points', async function (_, res, next) {
 	try {
 		res.status(200).json(await user.getAllPointOrderedUsers());
 	} catch (err) {
-		//console.error(`Error while getting users `, err.message);
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
+
+
 
 
 /* PUT allUsers ordered by points*/
@@ -163,10 +186,14 @@ router.put('/password/reset', async function (req, res, next) {
 			res.status(200).json([{ "Message": "Password updated successfully" }]);
 		}
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
+
 
 
 /* PUT allUsers ordered by points*/
@@ -175,10 +202,13 @@ router.delete('/delete/:idUser', async function (req, res, next) {
 		await user.deleteUser(req.params.idUser);
 		res.status(200).json([{ "Message": "User deleted successfully" }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
 
 
 
@@ -188,10 +218,14 @@ router.get('/lastRegistered/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await user.getLastRegisteredUsers(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 
-})
+});
+
+
+
+
 
 module.exports = router;

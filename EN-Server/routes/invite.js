@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const invite = require('../services/invite.js');
-//const jwtUtils = require('../utils/jwt.utils.js');
 
 
 
@@ -18,7 +17,7 @@ router.post('/create', async function (req, res, next) {
 
 		res.status(200).json([{ "message": createInvite.message, "code": lastInvite[0].code }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -31,7 +30,7 @@ router.get('/all', async function (_, res, next) {
 	try {
 		res.json(await invite.getAllInvites());
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -44,7 +43,7 @@ router.get('/allByCommunity/:idCommunity', async function (req, res, next) {
 	try {
 		res.json(await invite.getAllCommunityInvites(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -54,7 +53,7 @@ router.delete('/delete/:code', async function (req, res, next) {
 		await invite.deleteInvite(req.params.code);
 		res.json([{ "Message": "Invitation deleted successfully" }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });

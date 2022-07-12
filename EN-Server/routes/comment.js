@@ -9,7 +9,7 @@ router.get('/allcount', async function (_, res, next) {
 	try {
 		res.status(200).json(await comment.getnbComment());
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -22,7 +22,7 @@ router.get('/reported/:idPost', async function (req, res, next) {
 	try {
 		res.status(200).json(await comment.getReportedComments(req.params.idPost));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -37,7 +37,7 @@ router.get('/count/:idPost', async function (req, res, next) {
 			res.status(200).json(await comment.getNbCommentsPerPost(req.params.idPost));
 		}
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -53,7 +53,7 @@ router.get('/reported/count/:idPost', async function (req, res, next) {
 			res.status(200).json(await comment.getNbReportedCommentsPerPost(req.params.idPost));
 		}
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -64,7 +64,7 @@ router.get('/allcount/reported', async function (_, res, next) {
 	try {
 		res.status(200).json(await comment.getNbReportedComments());
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -76,7 +76,7 @@ router.get('/all/:idPost', async function (req, res, next) {
 	try {
 		res.status(200).json(await comment.getComments(req.params.idPost));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -92,10 +92,10 @@ router.post('/create', async function (req, res, next) {
 		//call function
 		try {
 			await comment.insertComment(req.body);
-			res.status(201).json([{ "MESSAGE": "Comment Added Successfully" }]);
+			res.status(201).json([{ "Message": "Comment Added Successfully" }]);
 
 		} catch (err) {
-			res.status(400).json([{ "ERROR": "Bad Request" }]);
+			res.status(400).json([{ "ERROR": err.message }]);
 			next(err);
 		}
 	}
@@ -110,7 +110,7 @@ router.get('/nbReportedCommentsAll/:idCommunity', async function (req, res, next
 	try {
 		res.status(200).json(await comment.getnbReportedCommentsAll(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -122,9 +122,9 @@ router.delete('/deleteComment/:idComment', async function (req, res, next) {
 
 	try {
 		await comment.deleteComment(req.params.idComment)
-		res.status(200).json({ "message": "Comment deleted successfully" });
+		res.status(200).json({ "Message": "Comment deleted successfully" });
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });

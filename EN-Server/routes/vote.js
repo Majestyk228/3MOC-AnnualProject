@@ -11,7 +11,7 @@ router.get('/voteList/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await vote.getVoteListByCommunity(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -48,7 +48,7 @@ router.post('/voteInfo', async function (req, res, next) {
 			]
 		);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -60,7 +60,7 @@ router.post('/voteListAndroid', async function (req, res, next) {
 	try {
 		res.status(200).json(await vote.getVoteListByCommunityAndroid(req.body.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -72,7 +72,7 @@ router.post('/create', async function (req, res, next) {
 		await vote.createVote(req.body);
 		res.status(200).json({ "Message": "Vote created successfully." });
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -84,7 +84,7 @@ router.delete('/delete/:idVote', async function (req, res, next) {
 		await vote.deleteVote(req.params.idVote);
 		res.status(200).json({ "Message": "Vote deleted successfully." });
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -95,7 +95,7 @@ router.get('/lastVotes/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await vote.lastPosts(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -145,7 +145,7 @@ router.put('/updateVote', async function (req, res, next) {
 		}
 
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 })

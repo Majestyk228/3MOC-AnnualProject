@@ -6,45 +6,43 @@ const comment = require('../services/comment.js');
 
 
 
+
+
 /* GET allPosts formated to fit Exprimons-Nous Android App input*/
 router.get('/formatted/:idCommunity', async function (req, res, next) {
 	try {
 		var posts = await post.getAllPostsFormatted(req.params.idCommunity);
 		var newPosts = [];
-		var nbComment;
-		var nbReward;
 
 		posts.forEach((post) => post.comments = 0);
 		posts.forEach((post) => post.rewards = 0);
 
 		newPosts = posts;
-		console.log(newPosts)
-
-		newPosts.forEach(async function (post) {
-			nbComment = await comment.nbCommentAndroidPost(post.idPost);
-			post.comments = nbComment.nbComment
-
-		});
-		//console.log(newPosts)
 
 		res.status(200).send(JSON.stringify(newPosts));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
-		//console.error(`Error while getting posts `, err.message);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
+
+
 
 /* GET allPosts*/
 router.get('/all', async function (_, res, next) {
 	try {
 		res.status(200).json(await post.getAllPosts());
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
-		//console.error(`Error while getting posts `, err.message);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
 
 
 
@@ -53,7 +51,7 @@ router.get('/:id', async function (req, res, next) {
 	try {
 		res.status(200).json(await post.getPost(req.params.id));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -66,7 +64,7 @@ router.get('/nbReportedPosts/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await post.nbReportedPosts(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -80,7 +78,7 @@ router.post('/create', async function (req, res, next) {
 		await post.createPost(req.body);
 		res.status(200).json({ "message": "Post created successfully" });
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -92,7 +90,7 @@ router.get('/lastPosted/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await post.getLastPostedPosts(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 
@@ -104,7 +102,7 @@ router.get('/reportedPosts/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await post.getAllReportedPosts(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 
@@ -118,7 +116,7 @@ router.get('/all/:idCommunity', async function (req, res, next) {
 	try {
 		res.status(200).json(await post.getAllPostsByCommunity(req.params.idCommunity));
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 
@@ -153,7 +151,7 @@ router.put('/updatePost', async function (req, res, next) {
 			res.status(200).json([{ "Message": "Post updated successfully" }]);
 		}
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 
@@ -166,7 +164,7 @@ router.get('/delete/:idPost', async function (req, res, next) {
 		await post.deletePost(req.params.idPost);
 		res.status(200).json([{ "Message": "Post deleted successfully" }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 
@@ -178,7 +176,7 @@ router.post('/like', async function (req, res, next) {
 		await post.likePost(req.body.idPost);
 		res.status(200).json([{ "Message": "Post liked successfully" }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -190,7 +188,7 @@ router.post('/dislike', async function (req, res, next) {
 		await post.dislikePost(req.body.idPost);
 		res.status(200).json([{ "Message": "Post disliked successfully" }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "Bad Request" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
