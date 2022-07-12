@@ -53,7 +53,6 @@ async function getComments(idPost) {
 async function insertComment(commentReq) {
 	const requete = "INSERT INTO Comment(idComment, body, likes, dislikes, reports, anonymous, idPost, idUser, date) VALUES (null, '" + commentReq.body + "', 0,0,0, " + commentReq.anonymous + ", " + commentReq.idPost + ", " + commentReq.idUser + ",'" + today + "');";
 	//const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + userReq.password + "', 0);";
-	console.log("\n\n" + commentReq.anonymous);
 	const results = await db.query(requete, "");
 
 	//message to output at the end of the function
