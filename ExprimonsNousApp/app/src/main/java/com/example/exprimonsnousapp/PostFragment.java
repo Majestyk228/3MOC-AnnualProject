@@ -209,11 +209,21 @@ public class PostFragment extends Fragment {
                                 post.setLikes(postObject.getInt("likes"));
                                 post.setDislikes(postObject.getInt("dislikes"));
 
-                                // RETRIVING NBCOMMENTS
-                                post.setNbComments(getNbCommentsAPI(postObject.getInt("idPost")));
+                                if (postObject.get("comments") != null) {
+                                    post.setNbComments(postObject.getInt("comments"));
+                                } else {
+                                    post.setNbComments(0);
+                                }
 
-                                // RETRIVING NBREWARDS
-                                post.setNbRewards(postObject.getInt("rewards"));
+
+                                if (postObject.get("rewards") != null) {
+                                    post.setNbRewards(postObject.getInt("rewards"));
+                                } else {
+                                    post.setNbRewards(0);
+                                }
+                                //post.setDislikes(postObject.getInt("dislikes"));
+                                //post.setNbComments(postObject.getInt("comments"));
+                                //post.setNbRewards(postObject.getInt("rewards"));
                                 posts.add(post);
 
 

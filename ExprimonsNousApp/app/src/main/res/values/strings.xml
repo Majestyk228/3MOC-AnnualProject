@@ -83,8 +83,18 @@
     <string name="not_interesting_reward">Pas Intéressant...</string>
     <string name="like_toast">Je like !</string>
     <string name="error">Une erreur est survenue.</string>
+    <string name="dislike_toast">Je dislike !</string>
+    <string name="hello_vote_participation_fragment">Hello Vote Participation Fragment</string>
+
+
+    <!-- VOTE OPTION FRAGMENT -->
+    <string name="title_vote_title"><u>Title :</u></string>
+    <string name="title_vote_title_test">Is Thanos bae ?</string>
+    <string name="sujet_vote_title"><u>Sujet :</u></string>
+    <string name="sujet_vote_title_test">Is Thanos bae or not ?</string>
+    <string name="validation_button">Valider</string>
+    <string name="cancel_button">Annuler</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dislike_toast">Je dislike !</string>
 
 </resources>

@@ -74,4 +74,5 @@ public class MainActivity2 extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.action_posts);
 
     }
+
 }

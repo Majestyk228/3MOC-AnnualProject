@@ -2,12 +2,14 @@ package com.example.exprimonsnousapp.retrofit;
 
 import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.IdPost;
+import com.example.exprimonsnousapp.models.IdVote;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.UserUpdateResponse;
 import com.example.exprimonsnousapp.models.UserUpdatedInfos;
 import com.example.exprimonsnousapp.models.Vote;
+import com.example.exprimonsnousapp.models.VoteOption;
 
 import java.util.List;
 
@@ -55,4 +57,14 @@ public interface ApiInterface {
 
 
     // GET NUMBER OF REWARDS ON A POST
+
+    // GET VOTE OPTIONS FROM AN idVote
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/vote/options", hasBody = true)
+    Call<VoteOption> getVoteOptions(@Body IdVote idVote);
+
+    // GET VOTE OPTIONS FROM AN idVote
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/vote/options", hasBody = true)
+    Call<Vote> getVote(@Body IdVote idVote);
 }
