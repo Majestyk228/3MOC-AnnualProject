@@ -34,7 +34,7 @@ module.exports = {
 					"application/json": {
 						type: "object",
 						example: {
-							ERROR: "Bad Request"
+							ERROR: "[API or/and database error]"
 						}
 					},
 				},

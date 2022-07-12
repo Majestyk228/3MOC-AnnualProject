@@ -41,7 +41,7 @@ module.exports = {
 						schema: {
 							type: "string",
 							example: {
-								ERROR: "Bad request"
+								ERROR: "[API or/and database error]"
 							}
 						},
 					},
