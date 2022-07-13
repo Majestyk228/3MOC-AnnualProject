@@ -135,6 +135,31 @@ async function getVoteOptionsAndroid(idVote) {
 	return rows;
 }
 
+
+
+async function insertVoteOptions(body) {
+	// TODO CODE
+
+	var request = "INSERT INTO VoteOptions VALUES ";
+
+
+	// BUILDING REQUEST
+	body.forEach(voteOption => {
+		request += "(null, '" + voteOption.label + "', " + voteOption.idVote + "),";
+	});
+
+
+	// REMOVING LAST , UNEADED
+	request = request.slice(0, -1);
+
+	request += ";";
+
+	console.log(request);
+
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getVoteListByCommunity,
 	getVoteTitleBody,
@@ -147,5 +172,6 @@ module.exports = {
 	lastPosts,
 	getVoteInfo,
 	updatePost,
-	getVoteOptionsAndroid
+	getVoteOptionsAndroid,
+	insertVoteOptions
 }

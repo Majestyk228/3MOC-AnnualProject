@@ -164,4 +164,31 @@ router.post('/options', async function (req, res, next) {
 
 
 
+
+
+router.post('/infos', async function (req, res, next) {
+	try {
+		res.status(200).json(await vote.getVoteInfo(req.body.idVote));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
+
+router.post('/newVoteOptions', async function (req, res, next) {
+	try {
+		await vote.insertVoteOptions(req.body);
+		res.status(200).json([{ "Message": "Vote Options created successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
 module.exports = router;

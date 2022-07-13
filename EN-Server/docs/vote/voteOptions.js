@@ -2,7 +2,7 @@
 module.exports = {
 	post: {
 		tags: ["vote"],
-		description: "Get all informations about a given vote.",
+		description: "Get all informations choices about a given vote.",
 		operationId: "getVoteInfos",
 		requestBody:
 		{
@@ -20,7 +20,7 @@ module.exports = {
 
 		responses: {
 			200: {
-				description: "Get all informations about a given vote.",
+				description: "Get all informations choices about a given vote.",
 				content: {
 					"application/json": {
 						schema: {
