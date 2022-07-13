@@ -127,6 +127,14 @@ async function updatePost(idVote, title, body, nbChoices, voteBegins, voteEnds) 
 	return rows;
 }
 
+
+async function getVoteOptionsAndroid(idVote) {
+	const request = "SELECT * FROM VoteOptions WHERE idVote = " + idVote + ";";
+
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getVoteListByCommunity,
 	getVoteTitleBody,
@@ -138,5 +146,6 @@ module.exports = {
 	deleteVote,
 	lastPosts,
 	getVoteInfo,
-	updatePost
+	updatePost,
+	getVoteOptionsAndroid
 }

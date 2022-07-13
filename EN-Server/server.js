@@ -56,7 +56,7 @@ server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs));
 
 //lancement du serveur sur le port 8080
 server.listen(8080, function () {
-	//console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
+	console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
 
 	/*var connection = mysql.createConnection({
 		host: 'exprimonsnous.coqdgtazlflp.us-east-1.rds.amazonaws.com',

@@ -148,7 +148,19 @@ router.put('/updateVote', async function (req, res, next) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
-})
+});
+
+
+
+
+router.post('/options', async function (req, res, next) {
+	try {
+		res.status(200).json(await vote.getVoteOptionsAndroid(req.body.idVote));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
 
 
 

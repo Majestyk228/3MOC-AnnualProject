@@ -5,6 +5,7 @@ const createVote = require("./createVote.js")
 const deleteVote = require('./deleteVote.js')
 const lastVote = require('./lastVote');
 const updateVote = require('./updateVote.js');
+const voteOptions = require('./voteOptions.js');
 const schema = require("./_model.js");
 module.exports = {
 	paths: {
@@ -28,6 +29,9 @@ module.exports = {
 		},
 		"/vote/updateVote": {
 			...updateVote
+		},
+		"/vote/options": {
+			...voteOptions
 		}
 	},
 	schema: {
