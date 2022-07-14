@@ -178,11 +178,26 @@
                 android:text="@string/genderTXT"
                 android:textColor="@color/black" />
 
+            <Spinner
+                android:id="@+id/gender_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/genderLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/edittext_background"
+                android:backgroundTint="@color/edittext_background"
+                android:foregroundTint="#FFFFFF" />
+
             <EditText
                 android:id="@+id/gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/genderLabel"
+                android:layout_below="@id/gender_spinner"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"

@@ -93,7 +93,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
                         // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
                         ((MainActivity2) context).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         ((MainActivity2) context).getSupportActionBar().setDisplayShowHomeEnabled(false);
-                        myToolbar.setTitle("Les posts");
+                        myToolbar.setTitle("Les votes");
                     }
                 });
 

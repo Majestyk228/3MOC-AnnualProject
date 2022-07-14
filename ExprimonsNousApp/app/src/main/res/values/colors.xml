@@ -28,4 +28,5 @@
 
     <!-- APPBAR COLORS -->
     <color name="appbar_background">#FFDFECF8</color>
+    <color name="edittext_background">#FFA6B2BE</color>
 </resources>
