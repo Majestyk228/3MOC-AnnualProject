@@ -33,7 +33,7 @@ public class VoteParticipationFragment extends Fragment {
     private RecyclerView recyclerView;
     VoteOptionsListAdapter adapter;
     List<VoteOption> voteOptions;
-    private Vote vote;
+    Vote vote;
 
     // INTERFACE
     private TextView title_vote_name, sujet_vote_name;
@@ -68,8 +68,9 @@ public class VoteParticipationFragment extends Fragment {
 
         IdVote idVote = new IdVote(pidVote);
 
-        extractVote(idVote);
+        vote = extractVote(idVote);
         extractVoteOptions(idVote);
+
 
         // CHANGING TEXTVIEWS TO MATCH TITLE AND SUBJECT
 
@@ -84,16 +85,17 @@ public class VoteParticipationFragment extends Fragment {
         this.sujet_vote_name = view.findViewById(R.id.sujet_vote_name);
         this.title_vote_name = view.findViewById(R.id.title_vote_name);
 
-        //Log.i("Test",this.vote.toString());
+        Log.i("Test",vote.toString());
 
-        //this.sujet_vote_name.setText(this.vote.getTitle());
-        //this.title_vote_name.setText(this.vote.getBody());
+        this.sujet_vote_name.setText(this.vote.getTitle());
+        this.title_vote_name.setText(this.vote.getBody());
 
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.voteOptionsList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new VoteOptionsListAdapter(voteOptions,getContext()));
+        adapter = new VoteOptionsListAdapter(voteOptions,getContext());
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
@@ -118,24 +120,47 @@ public class VoteParticipationFragment extends Fragment {
     }
 
 
-    public void extractVote(IdVote idVote) {
-        Call<Object> call = apiInterface.getVote(idVote);
-        call.enqueue(new Callback<Object>(){
+    public Vote extractVote(IdVote idVote) {
+
+        Vote voteBuffer = new Vote();
+
+        Call<List<Vote>> call = apiInterface.getVote(idVote);
+
+        //Log.i("VOTEREFERENCE",call.request().body().toString());
+
+        call.enqueue(new Callback<List<Vote>>(){
 
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<List<Vote>> call, Response<List<Vote>>response) {
                 if (response.isSuccessful()) {
-                    vote = (Vote) response.body();
-                    Log.i("VOTEREFERENCE", response.body().toString());
+                    //vote = response.body().get(0);
+                    voteBuffer.setIdVote(response.body().get(0).getIdVote());
+                    voteBuffer.setTitle(response.body().get(0).getTitle());
+                    voteBuffer.setBody(response.body().get(0).getBody());
+                    voteBuffer.setNbChoice(response.body().get(0).getNbChoice());
+                    voteBuffer.setImportant(response.body().get(0).getImportant());
+                    voteBuffer.setIdUser(response.body().get(0).getIdUser());
+                    voteBuffer.setIdAdmin(response.body().get(0).getIdAdmin());
+                    voteBuffer.setVoteBegins(response.body().get(0).getVoteBegins());
+                    voteBuffer.setVoteEnds(response.body().get(0).getVoteEnds());
+                    voteBuffer.setIdCommunity(response.body().get(0).getIdCommunity());
+                    setVote(voteBuffer);
                 } else {
-                    Log.i("VOTEOPTIONS",response.body().toString());
+                    Log.i("VOTEOPTIONS","the fuck");
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<List<Vote>> call, Throwable t) {
                 Log.i("VOTEOPTIONS",t.getLocalizedMessage());
             }
         });
+
+        Log.i("VOTEREFERENCE", voteBuffer.toString());
+        return voteBuffer;
+    }
+
+    public void setVote(Vote vote) {
+        this.vote = vote;
     }
 }

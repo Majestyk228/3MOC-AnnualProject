@@ -66,5 +66,5 @@ public interface ApiInterface {
     // GET VOTE OPTIONS FROM AN idVote
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/vote/infos", hasBody = true)
-    Call<Object> getVote(@Body IdVote idVote);
+    Call<List<Vote>> getVote(@Body IdVote idVote);
 }

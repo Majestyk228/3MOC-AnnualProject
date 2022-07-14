@@ -3,7 +3,7 @@ package com.example.exprimonsnousapp.models;
 public class IdVote {
 
     // ATTRIBUTS
-    private int idPost;
+    private int idVote;
 
     // CONSTRUCTEUR
     public IdVote(int idPost) {
@@ -11,19 +11,19 @@ public class IdVote {
     }
 
     // GETTER & SETTER
-    public int getIdPost() {
-        return idPost;
+    public int getidVote() {
+        return idVote;
     }
 
-    public void setIdPost(int idPost) {
-        this.idPost = idPost;
+    public void setidVote(int idVote) {
+        this.idVote = idVote;
     }
 
     // TO STRING
     @Override
     public String toString() {
         return "IdVote{" +
-                "idPost=" + idPost +
+                "idVote=" + idVote +
                 '}';
     }
 }
