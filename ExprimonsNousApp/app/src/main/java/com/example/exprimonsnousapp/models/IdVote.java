@@ -6,8 +6,8 @@ public class IdVote {
     private int idVote;
 
     // CONSTRUCTEUR
-    public IdVote(int idPost) {
-        this.idPost = idPost;
+    public IdVote(int idVote) {
+        this.idVote = idVote;
     }
 
     // GETTER & SETTER
