@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/super_reward_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -46,6 +47,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/interessant_reward_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -80,6 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
+                android:id="@+id/bof_reward_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -105,6 +108,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/pas_interessant_reward_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"

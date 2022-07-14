@@ -33,7 +33,7 @@ public class VoteParticipationFragment extends Fragment {
     private RecyclerView recyclerView;
     VoteOptionsListAdapter adapter;
     List<VoteOption> voteOptions;
-    Vote vote;
+    private Vote vote;
 
     // INTERFACE
     private TextView title_vote_name, sujet_vote_name;
@@ -84,8 +84,10 @@ public class VoteParticipationFragment extends Fragment {
         this.sujet_vote_name = view.findViewById(R.id.sujet_vote_name);
         this.title_vote_name = view.findViewById(R.id.title_vote_name);
 
-        this.sujet_vote_name.setText(vote.getTitle());
-        this.title_vote_name.setText(vote.getBody());
+        //Log.i("Test",this.vote.toString());
+
+        //this.sujet_vote_name.setText(this.vote.getTitle());
+        //this.title_vote_name.setText(this.vote.getBody());
 
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.voteOptionsList);
@@ -117,20 +119,21 @@ public class VoteParticipationFragment extends Fragment {
 
 
     public void extractVote(IdVote idVote) {
-        Call<Vote> call = apiInterface.getVote(idVote);
-        call.enqueue(new Callback<Vote>(){
+        Call<Object> call = apiInterface.getVote(idVote);
+        call.enqueue(new Callback<Object>(){
 
             @Override
-            public void onResponse(Call<Vote> call, Response<Vote> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.isSuccessful()) {
-                    vote = response.body();
+                    vote = (Vote) response.body();
+                    Log.i("VOTEREFERENCE", response.body().toString());
                 } else {
-                    Log.i("VOTEOPTIONS","ERROR");
+                    Log.i("VOTEOPTIONS",response.body().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<Vote> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 Log.i("VOTEOPTIONS",t.getLocalizedMessage());
             }
         });

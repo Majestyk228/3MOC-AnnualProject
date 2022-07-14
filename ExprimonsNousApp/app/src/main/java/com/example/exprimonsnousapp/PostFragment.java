@@ -196,7 +196,6 @@ public class PostFragment extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i("responseAPI", response.toString());
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject postObject = response.getJSONObject(i);
@@ -247,7 +246,7 @@ public class PostFragment extends Fragment {
         queue.add(jsonArrayRequest);
     }
 
-    private int getNbCommentsAPI(int idPost) {
+    /*private int getNbCommentsAPI(int idPost) {
         // TODO : Code goes here
         final int[] nbComment = {-1};
         //API call made here
@@ -259,7 +258,6 @@ public class PostFragment extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i("responseAPI", response.toString());
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject postObject = response.getJSONObject(i);
@@ -287,9 +285,9 @@ public class PostFragment extends Fragment {
         queue.add(jsonArrayRequest);
 
         return nbComment[0];
-    }
+    }*/
 
-    private void getNbRewardsAPI(IdPost idPost) {
+    /*private void getNbRewardsAPI(IdPost idPost) {
         // TODO : Code goes here
-    }
+    }*/
 }

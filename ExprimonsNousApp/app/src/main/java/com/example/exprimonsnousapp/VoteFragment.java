@@ -145,14 +145,12 @@ public class VoteFragment extends Fragment {
 
     private void extractVote(IdCommunity idCommunity) {
         Call<List<Vote>> call = apiInterface.getVotesFromCommunity(idCommunity);
-        Log.i("APICALL", call.request().toString());
         call.enqueue(new Callback<List<Vote>>() {
 
             @Override
             public void onResponse(Call<List<Vote>> call, Response<List<Vote>> response) {
                 if (response.isSuccessful()) {
                     votes = response.body();
-                    Log.i("API RESPONSE", votes.toString());
                 } else {
                     // BAD REQUEST CASE
                     Log.i("API RESPONSE", response.toString());
@@ -212,9 +210,6 @@ public class VoteFragment extends Fragment {
                                 vote.setIdCommunity(voteObject.getInt("idCommunity"));
 
                                 votes.add(vote);
-                                Log.i("responseAPI", vote.toString());
-
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

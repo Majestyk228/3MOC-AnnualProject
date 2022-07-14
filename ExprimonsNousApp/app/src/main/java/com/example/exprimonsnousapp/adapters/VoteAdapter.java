@@ -41,8 +41,6 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
         this.inflater = LayoutInflater.from(context);
         this.votes = votes;
         this.context = context;
-
-        Log.i("VOTEADAPTER", votes.toString());
     }
 
 
@@ -69,7 +67,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
                 Fragment mFragment = new VoteParticipationFragment();
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("idVote", votes.get(position).getIdVote());
+                bundle.putInt("idVote", votes.get(holder.getAbsoluteAdapterPosition()).getIdVote());
                 mFragment.setArguments(bundle);
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
