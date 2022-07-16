@@ -1,5 +1,7 @@
 import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AddVoteView extends StatefulWidget {
   const AddVoteView({Key? key}) : super(key: key);
@@ -12,9 +14,15 @@ class _AddVoteViewState extends State<AddVoteView> {
   late TextEditingController title;
   late TextEditingController body;
   late TextEditingController nbChoice;
-  late TextEditingController important;
+  bool important = false;
 
-
+  @override
+  void initState() {
+    super.initState();
+    title = TextEditingController();
+    body = TextEditingController();
+    nbChoice=TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +70,49 @@ class _AddVoteViewState extends State<AddVoteView> {
                     TextField(
                       controller: title,
                       autocorrect: true,
-                      decoration: InputDecoration(hintText: 'Enter Class Here'),
-                    )
+                      decoration: InputDecoration(
+                          hintText: 'Entrer le titre du votre ici'),
+                    ),
+                    TextField(
+                      controller: body,
+                      autocorrect: true,
+                      decoration: InputDecoration(
+                          hintText: 'Entrer le descriptif du votre ici'),
+                    ),
+                    TextField(
+                      controller: nbChoice,
+                      autocorrect: true,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        // for below version 2 use this
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        // for version 2 and greater youcan also use this
+                        FilteringTextInputFormatter.digitsOnly
+
+                      ],
+
+                      decoration: InputDecoration(
+                          hintText: 'Entrer le nombre de choix ici'),
+                    ),
+                    Row(
+                      children: [
+                        Text("Si c'est un vote important cocher la case"),
+                        Checkbox(
+                          value: important,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              important = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          addVotes(title.text, body.text, nbChoice.text, important);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Créer le vote")),
                   ],
                 ),
               ),

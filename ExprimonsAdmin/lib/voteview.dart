@@ -1,4 +1,5 @@
 import 'package:exprimons_nous/Child/addvoteview.dart';
+import 'package:exprimons_nous/Globals.dart';
 import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -25,7 +26,7 @@ class _VoteViewState extends State<VoteView> {
 
   Future refreshVotes() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteList/1");
+    Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteList/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,

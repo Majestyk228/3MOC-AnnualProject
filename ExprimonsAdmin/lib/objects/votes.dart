@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:exprimons_nous/Globals.dart';
 import 'package:http/http.dart' as http;
 class Vote {
   int? idVote;
@@ -40,18 +42,18 @@ class Vote {
   }
 
 }
-Future addVotes() async {
+Future addVotes(String Title,String Body,String nbChoice,bool important) async {
   Uri uri = Uri.parse("https://titan-photography.com/vote/create");
   print(uri);
   var body = jsonEncode({
-    "title": "Vote via API why does it works ?",
-    "body": "Ceci est un vote créé via mon API ; cool non ?",
-    "nbChoice": 3,
-    "important": true,
-    "idAdmin": 1,
-    "idCommunity": 1
+    "title": Title,
+    "body": Body,
+    "nbChoice": int.parse(nbChoice),
+    "important": important,
+    "idAdmin": currentAdmin.idAdmin,
+    "idCommunity": currentAdmin.idCommunity
   });
-  print(body);
+print(body);
   final response = await http.post(uri,
       headers: {
         "Access-Control-Allow-Origin": "*",
