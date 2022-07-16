@@ -78,12 +78,11 @@ router.post('/register', async function (req, res) {
 		//insert in db
 		const idUser = await user.insertUser(req.body);
 		//const idUser = await user.getLastUserRegistered()[0]
-		res.status(201).json([
+		res.status(201).json(
 			{
 				"message": "User successufully registered",
 				"idUser": idUser.idUser[0].idUser
-			}
-		]);
+			});
 	} else {
 		res.status(409).json([{ 'Error': "user already has an account" }]);
 	}
