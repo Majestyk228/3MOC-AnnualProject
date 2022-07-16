@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class JoinCompanyActivity extends AppCompatActivity {
     private MaterialButton nextBtn;
     //private MaterialButton skipBtn;
     private EditText companyCode;
+    private int idCommunity;
 
     // API
     ApiInterface apiInterface;
@@ -59,14 +61,27 @@ public class JoinCompanyActivity extends AppCompatActivity {
                 Log.i("GETIDCOMMUNITY", "company_code = " + companyCodeTXT);
 
                 // GETTING THE idCommunity FROM API WITH CODE
-                int idCommunity = extractIdCommunity(companyCodeTXT);
+                extractIdCommunity(companyCodeTXT);
+
+                // FAKE DELAY
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent nextActivity = new Intent(getApplicationContext(),MainActivity2.class);
+                        nextActivity.putExtra("userId", idUser);
+                        nextActivity.putExtra("communityId",idCommunity);
+                        startActivity(nextActivity);
+                        finish();
+                    }
+                }, 1200);
 
 
-                Intent nextActivity = new Intent(getApplicationContext(),MainActivity2.class);
+                /*Intent nextActivity = new Intent(getApplicationContext(),MainActivity2.class);
                 nextActivity.putExtra("userId", idUser);
-                nextActivity.putExtra("idCommunity",idCommunity);
+                nextActivity.putExtra("communityId",idCommunity);
                 startActivity(nextActivity);
-                finish();
+                finish();*/
             }
         });
 
@@ -80,19 +95,20 @@ public class JoinCompanyActivity extends AppCompatActivity {
         });*/
     }
 
-    private int extractIdCommunity(int code) {
+    private void extractIdCommunity(int code) {
 
         Call<IdCommunity> call = apiInterface.extractIdCommunity(code);
         call.enqueue(new Callback<IdCommunity>(){
-
             @Override
             public void onResponse(Call<IdCommunity> call, Response<IdCommunity> response) {
                 if (response.isSuccessful()) {
-                    Log.i("GETIDCOMMUNITY", "onResponse: "+response.body());
+                    Log.i("GETIDCOMMUNITY", "onResponse: "+response.body().getIdCommunity());
                     //userCreds = response.body();
+                    idCommunity = response.body().getIdCommunity();
                 } else {
-                    Log.i("GETIDCOMMUNITY", "onResponse: ");
+                    Log.i("GETIDCOMMUNITY", "onResponse: "+response.body());
                     //userCreds = new UserCreds(-1, "",-1);
+                    idCommunity = -1;
                 }
             }
 
@@ -101,6 +117,5 @@ public class JoinCompanyActivity extends AppCompatActivity {
                 Log.i("GETIDCOMMUNITY", "onFailure: "+t.getLocalizedMessage());
             }
         });
-        return 0;
     }
 }

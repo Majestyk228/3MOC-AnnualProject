@@ -77,6 +77,6 @@ public interface ApiInterface {
 
     //CREATE ACCOUNT
     @Headers({"Content-Type: application/json"})
-    @HTTP(method = "POST", path = "/invite/getCommunity/{code}", hasBody = true)
+    @HTTP(method = "GET", path = "/invite/getCommunity/{code}", hasBody = false)
     Call<IdCommunity> extractIdCommunity(@Path("code") int code);
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +27,8 @@ public class MainActivity2 extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         userId = extras.getInt("userId");
         communityId = extras.getInt("communityId");
+
+        Log.i("COMMUNITYID", "onCreateMainActyvity2: "+communityId);
 
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
