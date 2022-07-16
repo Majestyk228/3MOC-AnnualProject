@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="Rejoignez-nous !"
                 android:textColor="@color/black"
-                android:textSize="40dp" />
+                android:textSize="40sp" />
 
             <TextView
                 android:id="@+id/signInDescription"
@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:text="@string/sign_in_desc"
                 android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/firstNameLabel"
@@ -77,7 +77,7 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
             <TextView
@@ -106,7 +106,7 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
             <TextView
@@ -135,8 +135,14 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16dp"
-                android:textStyle="italic" />
+                android:textSize="16sp"
+                android:textStyle="italic"
+
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+
 
             <TextView
                 android:id="@+id/emailLabel"
@@ -164,7 +170,7 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
             <TextView
@@ -193,29 +199,11 @@
                 android:backgroundTint="@color/edittext_background"
                 android:foregroundTint="#FFFFFF" />
 
-            <EditText
-                android:id="@+id/gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/gender_spinner"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
-                android:background="#60123456"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
-                android:hint="@string/genderHint"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="16dp"
-                android:textStyle="italic" />
-
             <TextView
                 android:id="@+id/areaCodeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/gender"
+                android:layout_below="@id/gender_spinner"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksandsemibold"
@@ -237,7 +225,7 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
             <TextView
@@ -267,7 +255,7 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
             <com.google.android.material.button.MaterialButton
@@ -282,7 +270,7 @@
                 android:gravity="center"
                 android:text="@string/login"
                 android:textColor="@color/black"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>

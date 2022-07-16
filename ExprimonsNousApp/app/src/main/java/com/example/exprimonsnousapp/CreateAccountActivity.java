@@ -1,11 +1,13 @@
 package com.example.exprimonsnousapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,6 +20,10 @@ import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +49,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     // API
     ApiInterface apiInterface;
 
+    // DATE SELECTOR
+    final Calendar myCalendar= Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +65,34 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         this.firstname = (EditText) findViewById(R.id.firstname);
         this.lastname = (EditText) findViewById(R.id.lastname);
-        this.birthdate = (EditText) findViewById(R.id.bithdate);
+
         this.email = (EditText) findViewById(R.id.email);
         //this.gender = (EditText) findViewById(R.id.gender);
         this.gender_spinner = (Spinner) findViewById(R.id.gender_spinner);
         this.areaCode = (EditText) findViewById(R.id.areaCode);
         this.passwd = (EditText) findViewById(R.id.passwd);
         this.signInBtn = (MaterialButton) findViewById(R.id.signInBtn);
+        this.birthdate = (EditText) findViewById(R.id.bithdate);
 
+        // DATE SELECTOR
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                myCalendar.set(Calendar.YEAR, i);
+                myCalendar.set(Calendar.MONTH,i1);
+                myCalendar.set(Calendar.DAY_OF_MONTH,i2);
+                updateLabel();
+            }
+        };
+
+
+
+        birthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(CreateAccountActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -119,7 +148,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
     private void userRegister(NewAccount newAccount) {
-        // TODO : MAKE API CALL TO INSERT THE NEW ACCOUNT INTO THE DATABASE
         Call<NewAccountResponse> call = apiInterface.userRegister(newAccount);
         call.enqueue(new Callback<NewAccountResponse>(){
 
@@ -140,5 +168,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                 Log.i("REGISTER", "onFailure: "+t.getLocalizedMessage());
             }
         });
+    }
+
+    // DATE SELECTOR
+    private void updateLabel(){
+        String myFormat="yyyy-MM-dd";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.FRANCE);
+        birthdate.setText(dateFormat.format(myCalendar.getTime()));
     }
 }

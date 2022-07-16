@@ -1,7 +1,8 @@
 <resources>
     <!--Landing page-->
     <string name="app_name">Exprimons-Nous !</string>
-    <string name="descriptionApp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut diam nisl, lacinia ut imperdiet eget, pharetra id justo. Nulla volutpat, augue eu lobortis lacinia, lectus nibh scelerisque dui, dapibus malesuada.</string>
+    <string name="descriptionApp">Bienvenue sur Exprimons-Nous, la plateforme communautaire d\'entreprise où chacun à son mot à dire !</string>
+    <string name="descriptionApp2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut diam nisl, lacinia ut imperdiet eget, pharetra id justo. Nulla volutpat, augue eu lobortis lacinia, lectus nibh scelerisque dui, dapibus malesuada.</string>
     <string name="createAccount">Créez gratuitement un compte</string>
     <string name="login">Connectez-vous</string>
     <string name="sign_in_desc">Créez un compte afin de rejoindre un espace d’échange convivial et faites entendre votre voix !</string>
@@ -94,6 +95,15 @@
     <string name="sujet_vote_title_test">Is Thanos bae or not ?</string>
     <string name="validation_button">Valider</string>
     <string name="cancel_button">Annuler</string>
+    <string name="logo_description">Logo of Exprimons-Nous plateform.</string>
+    <string name="logo_like_description">Logo Like</string>
+    <string name="logo_dislike_description">Logo Dislike</string>
+    <string name="logo_commentaire_description">Logo Commentaire</string>
+    <string name="logo_r_compenses_description">Logo Récompenses</string>
+    <string name="like">J\'aime</string>
+    <string name="dislike">J\'aime pas</string>
+    <string name="recompenses_string">Récompenses</string>
+    <string name="commentaires_string">Commentaires</string>
 
 
     <!-- SPINNER GENDER -->

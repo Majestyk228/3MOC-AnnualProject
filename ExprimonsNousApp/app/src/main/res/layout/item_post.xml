@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:elevation="6dp"
-    android:orientation="vertical">
+    android:elevation="10dp"
+    android:orientation="vertical"
+    android:layout_margin="4dp">
 
     <!--Partie 1 : Prénom nom du propriétaire du poste-->
     <LinearLayout
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="John DOE !"
             android:layout_margin="15dp"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textColor="@color/black"
             >
         </TextView>
@@ -36,9 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam a est aliquet finibus. Cras gravida mi sit amet dui viverra rhoncus vitae fermentum urna. Aliquam sit amet mauris vitae leo egestas sollicitudin. Aenean id libero vel velit blandit vestibulum. Mauris sem eros, dictum ac nisl quis, sagittis lobortis."
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_margin="20dp"
-            ></TextView>
+            />
     </LinearLayout>
 
 
@@ -52,12 +53,13 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_happy"></ImageView>
+            android:src="@drawable/ic_happy"
+            android:contentDescription="@string/logo_like_description" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/likesTXT"
-            android:text="5"></TextView>
+            android:text="5"/>
         <View
             android:layout_width="10dp"
             android:layout_height="match_parent"
@@ -66,12 +68,13 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_sad"></ImageView>
+            android:src="@drawable/ic_sad"
+            android:contentDescription="@string/logo_dislike_description" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/dislikesTXT"
-            android:text="66"></TextView>
+            android:text="66"/>
         <View
             android:layout_width="10dp"
             android:layout_height="match_parent"
@@ -80,12 +83,15 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_chat_fill"></ImageView>
+            android:src="@drawable/ic_chat_fill"
+            android:visibility="gone"
+            android:contentDescription="@string/logo_commentaire_description" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/commentTXT"
-            android:text="0464"></TextView>
+            android:text="0464"
+            android:visibility="gone"/>
         <View
             android:layout_width="10dp"
             android:layout_height="match_parent"
@@ -94,12 +100,15 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_dimond_alt_light"></ImageView>
+            android:src="@drawable/ic_dimond_alt_light"
+            android:visibility="gone"
+            android:contentDescription="@string/logo_r_compenses_description" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/rewardTXT"
-            android:text="5"></TextView>
+            android:text="5"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <!--Partie 4 : Les boutons Like/Dislike/Comment/Reward-->
@@ -115,9 +124,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:backgroundTint="@color/medium_grey"
-            android:text="J'aime"
+            android:text="@string/like"
             android:textColor="@color/black"
-            android:textSize="7dp"
+            android:textSize="7sp"
             app:strokeColor="@color/medium_stroke_grey"
             app:strokeWidth="1dp"/>
         <Button
@@ -127,8 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:text="J'aime pas"
-            android:textSize="7dp"
+            android:text="@string/dislike"
+            android:textSize="7sp"
             app:strokeColor="@color/medium_stroke_grey"
             app:strokeWidth="1dp"/>
         <Button
@@ -138,8 +147,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:text="Commentaires"
-            android:textSize="7dp"
+            android:text="@string/commentaires_string"
+            android:textSize="7sp"
             app:strokeColor="@color/medium_stroke_grey"
             app:strokeWidth="1dp"/>
         <Button
@@ -149,8 +158,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:text="Récompenses"
-            android:textSize="7dp"
+            android:text="@string/recompenses_string"
+            android:textSize="7sp"
             app:strokeColor="@color/medium_stroke_grey"
             app:strokeWidth="1dp"/>
     </LinearLayout>

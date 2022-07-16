@@ -20,7 +20,7 @@
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/modal_bg.xml" value="0.2075" />
         <entry key="app/src/main/res/drawable/notch_modal.xml" value="0.2075" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.31236897274633124" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
@@ -37,7 +37,7 @@
         <entry key="app/src/main/res/layout/fragment_reward.xml" value="0.16802536231884058" />
         <entry key="app/src/main/res/layout/fragment_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_votes.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.1897590361445783" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.5360267363398908" />
         <entry key="app/src/main/res/layout/item_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/landing_page.xml" value="0.18862275449101795" />
         <entry key="app/src/main/res/layout/layout_bg.xml" value="0.1" />
