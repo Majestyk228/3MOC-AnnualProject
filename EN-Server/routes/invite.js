@@ -36,6 +36,14 @@ router.get('/all', async function (_, res, next) {
 });
 
 
+router.get('/getCommunity/:code', async function (req, res, next) {
+	try {
+		res.json(await invite.getCommunity(req.params.code));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+})
 
 
 /* GET allInvites per community */
@@ -57,6 +65,8 @@ router.delete('/delete/:code', async function (req, res, next) {
 		next(err);
 	}
 });
+
+
 
 
 module.exports = router;
