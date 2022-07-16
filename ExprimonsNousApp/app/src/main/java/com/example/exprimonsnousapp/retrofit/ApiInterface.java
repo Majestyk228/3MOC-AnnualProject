@@ -4,6 +4,7 @@ import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.IdVote;
 import com.example.exprimonsnousapp.models.NewAccount;
+import com.example.exprimonsnousapp.models.NewAccountResponse;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
@@ -72,5 +73,5 @@ public interface ApiInterface {
     //CREATE ACCOUNT
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/user/register", hasBody = true)
-    Call<Object> userRegister(@Body NewAccount newAccount);
+    Call<NewAccountResponse> userRegister(@Body NewAccount newAccount);
 }

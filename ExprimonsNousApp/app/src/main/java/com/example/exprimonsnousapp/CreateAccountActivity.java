@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.exprimonsnousapp.models.NewAccount;
+import com.example.exprimonsnousapp.models.NewAccountResponse;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
@@ -119,11 +120,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     private void userRegister(NewAccount newAccount) {
         // TODO : MAKE API CALL TO INSERT THE NEW ACCOUNT INTO THE DATABASE
-        Call<Object> call = apiInterface.userRegister(newAccount);
-        call.enqueue(new Callback<Object>(){
+        Call<NewAccountResponse> call = apiInterface.userRegister(newAccount);
+        call.enqueue(new Callback<NewAccountResponse>(){
 
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<NewAccountResponse> call, Response<NewAccountResponse> response) {
                 if (response.isSuccessful()) {
                     //idUser = (int) response.body();
                     Log.i("REGISTER", "onResponse: "+response.body());
@@ -134,7 +135,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<NewAccountResponse> call, Throwable t) {
                 Log.i("REGISTER", "onFailure: "+t.getLocalizedMessage());
             }
         });
