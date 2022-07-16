@@ -62,7 +62,7 @@ async function deleteInvite(code) {
 async function getCommunity(code) {
 	const request = "SELECT idCommunity FROM Invitation WHERE code = " + code + ";";
 	const rows = await db.query(request, "");
-	return rows;
+	return rows[0];
 }
 
 module.exports = {
