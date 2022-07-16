@@ -127,6 +127,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onResponse(Call<NewAccountResponse> call, Response<NewAccountResponse> response) {
                 if (response.isSuccessful()) {
                     //idUser = (int) response.body();
+                    idUser = response.body().getIdUser();
                     Log.i("REGISTER", "onResponse: "+response.body());
                 } else {
                     //idUser = -1;
