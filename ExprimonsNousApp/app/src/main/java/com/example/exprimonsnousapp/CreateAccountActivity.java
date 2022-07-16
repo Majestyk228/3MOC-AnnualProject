@@ -2,16 +2,25 @@ package com.example.exprimonsnousapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.exprimonsnousapp.models.NewAccount;
+import com.example.exprimonsnousapp.models.UserCreds;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -28,12 +37,18 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     // OTHER
     private String gender_selection;
+    private int idUser;
+
+    // API
+    ApiInterface apiInterface;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
+
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender_array, R.layout.spinner_item);
@@ -69,32 +84,59 @@ public class CreateAccountActivity extends AppCompatActivity {
                 String passwdTXT = passwd.getText().toString();
 
 
-                // CONVERT TEXT VARIABLES TO OBJECT
-                NewAccount newAccount = new NewAccount(firstnameTXT,lastnameTXT,birthdateTXT,emailTXT,genderTXT,areaCodeTXT,passwdTXT);
+                if (firstnameTXT == "" || lastnameTXT == "" || birthdateTXT == "0000-00-00" || emailTXT == "" || areaCodeTXT == "" || passwdTXT == "") {
+                    // TOAST ASKING FOR USER TO COMPLETE ALL FIELDS IN THE SCREEN
+                    Toast.makeText(getApplicationContext(), "Merci de completer les champs manquants", Toast.LENGTH_LONG).show();
+                } else {
+                    // PUT CODE FOR API CALL AND NEXT ACTIVITY
 
-                /*
-                //adding extras from the strings from EditTexts
-                joinCommunityActivity.putExtra("firstname",firstnameTXT);
-                joinCommunityActivity.putExtra("lastname",lastnameTXT);
-                joinCommunityActivity.putExtra("birthdate",birthdateTXT);
-                joinCommunityActivity.putExtra("email",emailTXT);
-                joinCommunityActivity.putExtra("gender",genderTXT);
-                joinCommunityActivity.putExtra("areaCode",areaCodeTXT);
-                joinCommunityActivity.putExtra("passwd",passwdTXT);*/
+                    // CONVERT TEXT VARIABLES TO OBJECT
+                    NewAccount newAccount = new NewAccount(firstnameTXT, lastnameTXT, birthdateTXT, emailTXT, genderTXT, areaCodeTXT, passwdTXT);
 
-                //starting activity
-                Intent joinCommunityActivity = new Intent(getApplicationContext(),JoinCompanyActivity.class);
-                startActivity(joinCommunityActivity);
-                finish();
+                    /*
+                    //adding extras from the strings from EditTexts
+                    joinCommunityActivity.putExtra("firstname",firstnameTXT);
+                    joinCommunityActivity.putExtra("lastname",lastnameTXT);
+                    joinCommunityActivity.putExtra("birthdate",birthdateTXT);
+                    joinCommunityActivity.putExtra("email",emailTXT);
+                    joinCommunityActivity.putExtra("gender",genderTXT);
+                    joinCommunityActivity.putExtra("areaCode",areaCodeTXT);
+                    joinCommunityActivity.putExtra("passwd",passwdTXT);*/
 
-                // API CALL TO CREATE ACCOUNT
-                createAccount(newAccount);
+                    //starting activity
+                    Intent joinCommunityActivity = new Intent(getApplicationContext(), JoinCompanyActivity.class);
+                    joinCommunityActivity.putExtra("idUser",idUser);
+                    startActivity(joinCommunityActivity);
+                    finish();
+
+                    // API CALL TO CREATE ACCOUNT
+                    userRegister(newAccount);
+                }
             }
         });
     }
 
 
-    private void createAccount(NewAccount newAccount) {
+    private void userRegister(NewAccount newAccount) {
         // TODO : MAKE API CALL TO INSERT THE NEW ACCOUNT INTO THE DATABASE
+        Call<Object> call = apiInterface.userRegister(newAccount);
+        call.enqueue(new Callback<Object>(){
+
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    //idUser = (int) response.body();
+                    Log.i("REGISTER", "onResponse: "+response.body());
+                } else {
+                    //idUser = -1;
+                    Log.i("REGISTER", "onResponse: "+response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.i("REGISTER", "onFailure: "+t.getLocalizedMessage());
+            }
+        });
     }
 }

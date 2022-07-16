@@ -12,7 +12,7 @@ import com.google.android.material.button.MaterialButton;
 public class JoinCompanyActivity extends AppCompatActivity {
 
     private MaterialButton nextBtn;
-    private MaterialButton skipBtn;
+    //private MaterialButton skipBtn;
     private EditText companyCode;
 
     @Override
@@ -21,9 +21,9 @@ public class JoinCompanyActivity extends AppCompatActivity {
         setContentView(R.layout.select_company_page);
 
         //retrieving data from extras
-        /*Bundle extras = getIntent().getExtras();
-        String firstname = extras.getString("firstname");
-        String lastname = extras.getString("lastname");
+        Bundle extras = getIntent().getExtras();
+        int idUser = extras.getInt("idUser");
+        /*String lastname = extras.getString("lastname");
         String birthdate = extras.getString("birthdate");
         String email = extras.getString("email");
         String gender = extras.getString("gender");
@@ -32,7 +32,7 @@ public class JoinCompanyActivity extends AppCompatActivity {
         String communeCode = extras.getString("communeCode");*/
 
         this.nextBtn = (MaterialButton) findViewById(R.id.nextBtn);
-        this.skipBtn = (MaterialButton) findViewById(R.id.skipBtn);
+        //this.skipBtn = (MaterialButton) findViewById(R.id.skipBtn);
         this.companyCode = (EditText) findViewById(R.id.companyCode);
 
 
@@ -47,20 +47,21 @@ public class JoinCompanyActivity extends AppCompatActivity {
 
 
                 Intent nextActivity = new Intent(getApplicationContext(),MainActivity2.class);
+                nextActivity.putExtra("userId", idUser);
                 nextActivity.putExtra("idCommunity",idCommunity);
                 startActivity(nextActivity);
                 finish();
             }
         });
 
-        this.skipBtn.setOnClickListener(new View.OnClickListener() {
+        /*this.skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextActivity = new Intent(getApplicationContext(),PostFeedActivity.class);
                 startActivity(nextActivity);
                 finish();
             }
-        });
+        });*/
     }
 
     private int extractIdCommunity(String company_code) {

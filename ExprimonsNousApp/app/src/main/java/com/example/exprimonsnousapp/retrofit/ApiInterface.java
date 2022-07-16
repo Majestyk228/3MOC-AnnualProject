@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp.retrofit;
 import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.IdVote;
+import com.example.exprimonsnousapp.models.NewAccount;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
@@ -67,4 +68,9 @@ public interface ApiInterface {
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/vote/infos", hasBody = true)
     Call<List<Vote>> getVote(@Body IdVote idVote);
+
+    //CREATE ACCOUNT
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/user/register", hasBody = true)
+    Call<Object> userRegister(@Body NewAccount newAccount);
 }
