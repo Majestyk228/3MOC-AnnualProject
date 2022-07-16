@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Child/addvoteview.dart';
 import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -18,14 +19,13 @@ class _VoteViewState extends State<VoteView> {
 
   @override
   void initState() {
-    refreshCocktails();
+    refreshVotes();
     super.initState();
   }
 
-  Future refreshCocktails() async {
+  Future refreshVotes() async {
     //endpoint
     Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteList/1");
-    print(uri);
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -39,8 +39,6 @@ class _VoteViewState extends State<VoteView> {
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
-
-    print(data);
 
     this.votes = [];
     setState(() {
@@ -62,6 +60,8 @@ class _VoteViewState extends State<VoteView> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,33 +72,65 @@ class _VoteViewState extends State<VoteView> {
         children: [
           Row(
             children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(),
+              Card(
+                elevation: 2,
+                color: Colors.white,
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddVoteView()),
+                      );
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 75,
+                      child: Center(
+                        child: Text("Add Vote"),
                       ),
-                    );
-                  },
-                  child: Text("Add Vote")),
+                    )),
+              ),
             ],
           ),
-          ListView.builder(
+          SizedBox(
+            height: 100,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              addRepaintBoundaries: false,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  //child: Text(votes[index]["title"])
-                  child: Row(
-                    children: [
-                      Text("owo"),
-                    ],
-                  ),
-                );
-              })
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  addRepaintBoundaries: false,
+                  itemCount: votes.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 300,
+                      height: 100,
+
+                      //child: Text(votes[index]["title"])
+                      child: Card(
+                        elevation: 2,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              width: 150,
+                              child: Text(votes[index].title),
+                            ),
+                            Container(
+                              width: 150,
+                              child: Text(votes[index].voteEnds),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          )
         ],
       ),
     );
