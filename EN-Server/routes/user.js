@@ -76,8 +76,14 @@ router.post('/register', async function (req, res) {
 	//check if user isnt already registered
 	if (!await user.findUser(req.body.email)) {
 		//insert in db
-		await user.insertUser(req.body);
-		res.status(201).json([{ "message": "User successufully registered" }]);
+		const idUser = await user.insertUser(req.body);
+		//const idUser = await user.getLastUserRegistered()[0]
+		res.status(201).json([
+			{
+				"message": "User successufully registered",
+				"idUser": idUser.idUser[0].idUser
+			}
+		]);
 	} else {
 		res.status(409).json([{ 'Error': "user already has an account" }]);
 	}

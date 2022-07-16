@@ -28,7 +28,8 @@ module.exports = {
 					"application/json": {
 						type: "object",
 						example: {
-							Message: "User successfuly registered"
+							message: "User successfuly registered",
+							idUser: 20
 						}
 					},
 				},

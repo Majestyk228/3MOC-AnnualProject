@@ -35,12 +35,14 @@ async function insertUser(userReq) {
 
     //message to output at the end of the function
     let message = 'Error in creating contact';
+    let idUser;
 
     if (results.affectedRows) {
         message = 'Contact created successfully';
+        idUser = await getLastUserRegistered()
     }
 
-    return { message };
+    return { idUser };
 }
 
 async function findUser(email) {
@@ -86,6 +88,14 @@ async function getLastRegisteredUsers(idCommunity) {
     return rows;
 }
 
+
+
+async function getLastUserRegistered() {
+    const request = "SELECT idUser FROM User ORDER BY idUser DESC LIMIT 1;";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
@@ -97,5 +107,6 @@ module.exports = {
     updateUser,
     updatePasswordUser,
     deleteUser,
-    getLastRegisteredUsers
+    getLastRegisteredUsers,
+    getLastUserRegistered
 }
