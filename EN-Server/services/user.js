@@ -96,6 +96,14 @@ async function getLastUserRegistered() {
     return rows;
 }
 
+
+
+async function addUserToCommunity(idUser, idCommunity) {
+    const request = "INSERT INTO Associate VALUES(" + idUser + ", " + idCommunity + "); ";
+    const rows = await db.query(request, "");
+    return rows[0];
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
@@ -108,5 +116,6 @@ module.exports = {
     updatePasswordUser,
     deleteUser,
     getLastRegisteredUsers,
-    getLastUserRegistered
+    getLastUserRegistered,
+    addUserToCommunity
 }

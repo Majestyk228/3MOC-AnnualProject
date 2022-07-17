@@ -231,6 +231,18 @@ router.get('/lastRegistered/:idCommunity', async function (req, res, next) {
 
 
 
+/* GET allUsers that has at least 1 comment reported*/
+router.post('/register/admin', async function (req, res, next) {
+	try {
+		const idUser = await user.insertUser(req.body);
+		//insert user in community
+		user.addUserToCommunity(idUser.idUser[0].idUser, req.body.idCommunity);
 
+		res.status(400).json([{ "message": "User created successfully." }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": "cannot get reported users" }]);
+		next(err);
+	}
+});
 
 module.exports = router;
