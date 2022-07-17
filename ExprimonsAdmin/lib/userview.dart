@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exprimons_nous/Child/adduserview.dart';
+import 'package:exprimons_nous/Child/invitationview.dart';
 import 'package:exprimons_nous/Colors.dart';
 import 'package:exprimons_nous/component/userlistline.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +96,27 @@ class _UserViewState extends State<UserView> {
                         child: Text("Add User"),
                       ),
                     )),
+
+              ),
+              Card(
+                elevation: 2,
+                color: Colors.white,
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InvitationView()),
+                      );
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 75,
+                      child: Center(
+                        child: Text("Invitation"),
+                      ),
+                    )),
+
               ),
             ],
           ),
