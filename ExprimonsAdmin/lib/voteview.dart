@@ -1,5 +1,6 @@
 import 'package:exprimons_nous/Child/addvoteview.dart';
 import 'package:exprimons_nous/Globals.dart';
+import 'package:exprimons_nous/component/voteslistline.dart';
 import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -106,29 +107,7 @@ class _VoteViewState extends State<VoteView> {
                   addRepaintBoundaries: false,
                   itemCount: votes.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: 300,
-                      height: 100,
-
-                      //child: Text(votes[index]["title"])
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              width: 150,
-                              child: Text(votes[index].title),
-                            ),
-                            Container(
-                              width: 150,
-                              child: Text(votes[index].voteEnds),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+                    return VotesListLine(votes: votes[index]);
                   }),
             ),
           )
@@ -137,3 +116,5 @@ class _VoteViewState extends State<VoteView> {
     );
   }
 }
+
+
