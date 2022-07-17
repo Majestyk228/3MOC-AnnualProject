@@ -4,13 +4,13 @@ const db = require('./database.js');
 const bcryptUtils = require('../utils/bcrypt.utils.js');
 
 //gives the list of All users on the platform
-async function getAllUsers() {
+async function getAllUsers(idCommunity) {
     /*query below for debugging purposes DO NOT USE IN PROD
     *
     *const rows = await db.query("SELECT * FROM User;", "");
     */
 
-    const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User;", "");
+    const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User u, Associate a WHERE a.idCommunity = " + idCommunity + ";", "");
     return rows;
 }
 

@@ -28,7 +28,8 @@ module.exports = {
 						schema: {
 							type: "string",
 							example: {
-								message: "Vote created successfully"
+								message: "Vote created successfully",
+								idVote: 40
 							}
 						},
 					},

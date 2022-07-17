@@ -160,6 +160,12 @@ async function insertVoteOptions(body) {
 	return rows;
 }
 
+async function getLastVote() {
+	const request = "SELECT idVote FROM Vote ORDER BY idVote DESC LIMIT 1;";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getVoteListByCommunity,
 	getVoteTitleBody,
@@ -173,5 +179,6 @@ module.exports = {
 	getVoteInfo,
 	updatePost,
 	getVoteOptionsAndroid,
-	insertVoteOptions
+	insertVoteOptions,
+	getLastVote
 }

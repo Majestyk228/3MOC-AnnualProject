@@ -70,7 +70,11 @@ router.post('/voteListAndroid', async function (req, res, next) {
 router.post('/create', async function (req, res, next) {
 	try {
 		await vote.createVote(req.body);
-		res.status(200).json({ "Message": "Vote created successfully." });
+		const idVote = await vote.getLastVote();
+		res.status(200).json({
+			"Message": "Vote created successfully.",
+			"idVote": idVote[0].idVote
+		});
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);

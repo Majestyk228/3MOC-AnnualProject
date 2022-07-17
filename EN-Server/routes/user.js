@@ -5,9 +5,9 @@ const jwtUtils = require('../utils/jwt.utils.js');
 
 
 /* GET allUsers*/
-router.get('/all', async function (_, res, next) {
+router.get('/all/:idCommunity', async function (req, res, next) {
 	try {
-		res.status(200).json(await user.getAllUsers());
+		res.status(200).json(await user.getAllUsers(req.params.idCommunity));
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
