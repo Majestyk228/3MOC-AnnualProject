@@ -12,7 +12,7 @@ module.exports = {
 		"/invite/create": {
 			...createInvite,
 		},
-		"/invite/getAllByCommunity/{idCommunity}": {
+		"/invite/allByCommunity/{idCommunity}": {
 			...getAllByCommunity,
 		},
 		"/invite/delete": {
