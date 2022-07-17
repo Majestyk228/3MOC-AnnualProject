@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.exprimonsnousapp.models.CommunityInsert;
 import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
@@ -76,6 +77,10 @@ public class JoinCompanyActivity extends AppCompatActivity {
                     }
                 }, 1200);
 
+                // API CALL TO ADD USER INTO COMMUNITY
+                CommunityInsert communityInsert = new CommunityInsert(idUser,idCommunity);
+                addUserInCommunity(communityInsert);
+
 
                 /*Intent nextActivity = new Intent(getApplicationContext(),MainActivity2.class);
                 nextActivity.putExtra("userId", idUser);
@@ -115,6 +120,28 @@ public class JoinCompanyActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<IdCommunity> call, Throwable t) {
                 Log.i("GETIDCOMMUNITY", "onFailure: "+t.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void addUserInCommunity(CommunityInsert communityInsert) {
+        // TODO : make api call
+        Call<Object> call = apiInterface.addUserInCommunity(communityInsert);
+        call.enqueue(new Callback<Object>(){
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    Log.i("GETIDCOMMUNITY", "onResponse Adding user in community: "+response.body());
+                    //userCreds = response.body();
+                } else {
+                    Log.i("GETIDCOMMUNITY", "onResponse Adding user in community: "+response.body());
+                    //userCreds = new UserCreds(-1, "",-1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.i("GETIDCOMMUNITY", "onFailure Adding user in community: "+t.getLocalizedMessage());
             }
         });
     }

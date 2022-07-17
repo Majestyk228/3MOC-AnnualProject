@@ -44,7 +44,7 @@ public class MainActivity2 extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.action_posts:
-                    selectedFragment = new PostFragment(communityId);
+                    selectedFragment = new PostFragment(communityId, userId);
                     bundle = new Bundle();
                     bundle.putInt("idUser", userId);
                     bundle.putInt("idCommunity", communityId);

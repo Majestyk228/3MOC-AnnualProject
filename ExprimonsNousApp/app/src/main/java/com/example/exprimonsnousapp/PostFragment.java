@@ -67,12 +67,13 @@ public class PostFragment extends Fragment {
     // OTHER
     ApiInterface apiInterface;
 
-    public PostFragment(int communityId) {
+    public PostFragment(int communityId,int userId) {
         this.communityId = communityId;
+        this.userId = userId;
     }
 
-    public static PostFragment newInstance(int communityId) {
-        PostFragment fragment = new PostFragment(communityId);
+    public static PostFragment newInstance(int communityId, int userId) {
+        PostFragment fragment = new PostFragment(communityId, userId);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -83,6 +84,8 @@ public class PostFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Log.i("FragmentIDs", "onCreatePostFragment: idCommunity = "+communityId+" / idUser = "+userId);
 
         posts = new ArrayList<>();
 

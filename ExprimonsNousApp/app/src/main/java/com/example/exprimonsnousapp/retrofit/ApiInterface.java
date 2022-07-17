@@ -1,5 +1,6 @@
 package com.example.exprimonsnousapp.retrofit;
 
+import com.example.exprimonsnousapp.models.CommunityInsert;
 import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.IdVote;
@@ -79,4 +80,9 @@ public interface ApiInterface {
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/invite/getCommunity/{code}", hasBody = false)
     Call<IdCommunity> extractIdCommunity(@Path("code") int code);
+
+    // ADD USER TO COMMUNITY
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/user/addToCommunity", hasBody = true)
+    Call<Object> addUserInCommunity(@Body CommunityInsert communityInsert);
 }
