@@ -1,28 +1,22 @@
-import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
 
-class VotesListLine extends StatefulWidget {
-  const VotesListLine({Key? key, required this.votes}) : super(key: key);
+import '../objects/post.dart';
 
-  final Vote votes;
-
+class PostListLine extends StatefulWidget {
+  const PostListLine({Key? key,required this.post}) : super(key: key);
+  final Post post;
   @override
-  State<VotesListLine> createState() => _VotesListLineState();
+  State<PostListLine> createState() => _PostListLineState();
 }
 
-class _VotesListLineState extends State<VotesListLine> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _PostListLineState extends State<PostListLine> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          //go to  vote details
+          //go to  post details
         },
         child: Container(
           width: 300,
@@ -37,11 +31,15 @@ class _VotesListLineState extends State<VotesListLine> {
               children: [
                 Container(
                   width: 150,
-                  child: Text(widget.votes.title ?? "Failed to load"),
+                  child: Text(widget.post.title ?? "Failed to load"),
                 ),
                 Container(
                   width: 150,
-                  child: Text(widget.votes.voteEnds ?? "Failed to load"),
+                  child: Text(widget.post.date ?? "Failed to load"),
+                ),
+                Container(
+                  width: 150,
+                  child: Text("${widget.post.reported}"),
                 )
               ],
             ),

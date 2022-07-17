@@ -1,16 +1,17 @@
-import 'package:exprimons_nous/Colors.dart';
-import 'package:exprimons_nous/objects/votes.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:exprimons_nous/objects/post.dart';
 
-class AddVoteView extends StatefulWidget {
-  const AddVoteView({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+
+import '../Colors.dart';
+
+class AddPostView extends StatefulWidget {
+  const AddPostView({Key? key}) : super(key: key);
 
   @override
-  State<AddVoteView> createState() => _AddVoteViewState();
+  State<AddPostView> createState() => _AddPostViewState();
 }
 
-class _AddVoteViewState extends State<AddVoteView> {
+class _AddPostViewState extends State<AddPostView> {
   late TextEditingController title;
   late TextEditingController body;
   late TextEditingController nbChoice;
@@ -21,7 +22,7 @@ class _AddVoteViewState extends State<AddVoteView> {
     super.initState();
     title = TextEditingController();
     body = TextEditingController();
-    nbChoice=TextEditingController();
+    nbChoice = TextEditingController();
   }
 
   @override
@@ -71,48 +72,20 @@ class _AddVoteViewState extends State<AddVoteView> {
                       controller: title,
                       autocorrect: true,
                       decoration: InputDecoration(
-                          hintText: 'Entrer le titre du vote ici'),
+                          hintText: 'Entrer le titre du Post ici'),
                     ),
                     TextField(
                       controller: body,
                       autocorrect: true,
                       decoration: InputDecoration(
-                          hintText: 'Entrer le descriptif du vote ici'),
-                    ),
-                    TextField(
-                      controller: nbChoice,
-                      autocorrect: true,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        // for below version 2 use this
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        // for version 2 and greater youcan also use this
-                        FilteringTextInputFormatter.digitsOnly
-
-                      ],
-
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le nombre de choix ici'),
-                    ),
-                    Row(
-                      children: [
-                        Text("Si c'est un vote important cocher la case"),
-                        Checkbox(
-                          value: important,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              important = value!;
-                            });
-                          },
-                        ),
-                      ],
+                          hintText: 'Entrer le descriptif du Post ici'),
                     ),
                     TextButton(
                         onPressed: () {
-                          addVotes(title.text, body.text, nbChoice.text, important);
+                          addPost(title.text, body.text);
                           Navigator.pop(context);
                         },
-                        child: Text("Créer le vote")),
+                        child: Text("Créer le Post")),
                   ],
                 ),
               ),

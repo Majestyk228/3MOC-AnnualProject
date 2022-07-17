@@ -27,7 +27,7 @@ class _UserViewState extends State<UserView> {
 
   Future refreshUsers() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/user/all");
+    Uri uri = Uri.parse("https://www.titan-photography.com/user/all/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,

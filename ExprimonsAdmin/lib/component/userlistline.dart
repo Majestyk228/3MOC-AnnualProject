@@ -2,7 +2,7 @@ import 'package:exprimons_nous/objects/user.dart';
 import 'package:flutter/material.dart';
 
 class UserListLine extends StatefulWidget {
-  const UserListLine({Key? key,required this.user,}) : super(key: key);
+  const UserListLine({Key? key, required this.user}) : super(key: key);
   final User user;
 
   @override
@@ -15,7 +15,7 @@ class _UserListLineState extends State<UserListLine> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           //go to  user details
         },
         child: Container(
@@ -31,11 +31,11 @@ class _UserListLineState extends State<UserListLine> {
               children: [
                 Container(
                   width: 150,
-                  child: Text(widget.user.lastName??"Failed to load"),
+                  child: Text(widget.user.lastName ?? "Failed to load"),
                 ),
                 Container(
                   width: 150,
-                  child: Text(widget.user.firstName??"Failed to load"),
+                  child: Text(widget.user.firstName ?? "Failed to load"),
                 ),
                 Container(
                   width: 150,

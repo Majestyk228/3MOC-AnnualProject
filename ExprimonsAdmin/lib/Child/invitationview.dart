@@ -25,7 +25,7 @@ class _InvitationViewState extends State<InvitationView> {
 
   Future refreshInvitation() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/invite/all");
+    Uri uri = Uri.parse("https://www.titan-photography.com/invite/allByCommunity/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -65,6 +65,28 @@ class _InvitationViewState extends State<InvitationView> {
         children: [
           Row(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 2,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Center(
+                        child: Text(
+                          style: TextStyle(fontSize: 30),
+                          "<",
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               Card(
                 elevation: 2,
                 color: Colors.white,
@@ -77,7 +99,7 @@ class _InvitationViewState extends State<InvitationView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Add User"),
+                        child: Text("Add Invitation"),
                       ),
                     )),
               ),
