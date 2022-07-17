@@ -9,6 +9,7 @@ const updatePassword = require("./updatePassword.js")
 const deleteUser = require("./deleteUser.js")
 const lastRegisteredUsers = require('./lastRegisteredUsers.js')
 const registerAdmin = require('./registerAdmin.js');
+const addToCommunity = require('./addToCommunity.js');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -44,6 +45,9 @@ module.exports = {
 		},
 		"/user/register/admin": {
 			...registerAdmin,
+		},
+		"/user/addToCommunity": {
+			...addToCommunity,
 		}
 	},
 	schema: {

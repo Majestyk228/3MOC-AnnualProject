@@ -240,7 +240,19 @@ router.post('/register/admin', async function (req, res, next) {
 
 		res.status(400).json([{ "message": "User created successfully." }]);
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "cannot get reported users" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+router.post('/addToCommunity', async function (req, res, next) {
+	// TODO code
+	try {
+		user.addUserToCommunity(req.body.idUser, req.body.idCommunity);
+
+		res.status(400).json([{ "message": "User added to community successfully." }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
