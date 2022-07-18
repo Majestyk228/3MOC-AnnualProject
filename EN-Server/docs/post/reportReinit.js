@@ -1,31 +1,31 @@
 module.exports = {
 	get: {
-		tags: ["comment"],
-		description: "Updates the number of reports for a given comment.",
-		operationId: "reportComment",
+		tags: ["post"],
+		description: "Reinitializes the number of reports for a given post.",
+		operationId: "reportPostReinit",
 		parameters: [
 			{
 				in: "path",
-				name: "idComment",
+				name: "idPost",
 				required: true,
-				description: "ID of the comment",
+				description: "ID of the post",
 				schema: {
 					type: "integer",
 					example: {
-						idComment: 1
+						idPost: 1
 					}
 				}
 			},
 		],
 		responses: {
 			200: {
-				description: "Comment reported successfully.",
+				description: "Post reinitialized successfully.",
 				content: {
 					"application/json": {
 						schema: {
 							type: "object",
 							example: {
-								message: "Comment reported successfully."
+								message: "Post reinitialized successfully."
 							}
 						},
 					},

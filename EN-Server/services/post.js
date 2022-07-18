@@ -98,6 +98,20 @@ async function dislikePost(idPost) {
 	const rows = await db.query(request, "");
 	return rows;
 }
+
+
+async function reportPost(idPost) {
+	const request = "UPDATE Post SET reported = reported + 1 WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+async function reportPostReinit(idPost) {
+	const request = "UPDATE Post SET reported = 0 WHERE idPost = " + idPost + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
@@ -111,5 +125,7 @@ module.exports = {
 	updatePost,
 	deletePost,
 	likePost,
-	dislikePost
+	dislikePost,
+	reportPost,
+	reportPostReinit
 }

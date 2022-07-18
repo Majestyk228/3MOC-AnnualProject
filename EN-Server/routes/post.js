@@ -192,4 +192,30 @@ router.post('/dislike', async function (req, res, next) {
 		next(err);
 	}
 });
+
+
+
+router.get('/report/:idPost', async function (req, res, next) {
+	// TODO CODE
+	try {
+		await post.reportPost(req.params.idPost);
+		res.status(200).json([{ "Message": "Post reported successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+router.get('/reportReinit/:idPost', async function (req, res, next) {
+	// TODO CODE
+	try {
+		await post.reportPostReinit(req.params.idPost);
+		res.status(200).json([{ "Message": "Post reinitialized successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
 module.exports = router;

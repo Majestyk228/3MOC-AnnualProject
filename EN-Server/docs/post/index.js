@@ -10,6 +10,8 @@ const updatePost = require('./updatePost.js');
 const deletePost = require('./deletePost.js');
 const likePost = require('./likePost.js');
 const dislikePost = require('./dislikePost.js');
+const report = require('./report.js');
+const reportReinit = require('./reportReinit.js');
 const schema = require("./_model.js")
 module.exports = {
     paths: {
@@ -48,6 +50,12 @@ module.exports = {
         },
         "/post/dislike": {
             ...dislikePost,
+        },
+        "/post/report/{idPost}": {
+            ...report,
+        },
+        "/post/reportReinit/{idPost}": {
+            ...reportReinit,
         }
     },
     schema: {
