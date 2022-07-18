@@ -78,8 +78,8 @@ public class JoinCompanyActivity extends AppCompatActivity {
                 }, 1200);
 
                 // API CALL TO ADD USER INTO COMMUNITY
-                CommunityInsert communityInsert = new CommunityInsert(idUser,idCommunity);
-                addUserInCommunity(communityInsert);
+                //CommunityInsert communityInsert = new CommunityInsert(idUser,idCommunity);
+                //addUserInCommunity(communityInsert);
 
 
                 /*Intent nextActivity = new Intent(getApplicationContext(),MainActivity2.class);
@@ -108,7 +108,6 @@ public class JoinCompanyActivity extends AppCompatActivity {
             public void onResponse(Call<IdCommunity> call, Response<IdCommunity> response) {
                 if (response.isSuccessful()) {
                     Log.i("GETIDCOMMUNITY", "onResponse: "+response.body().getIdCommunity());
-                    //userCreds = response.body();
                     idCommunity = response.body().getIdCommunity();
                 } else {
                     Log.i("GETIDCOMMUNITY", "onResponse: "+response.body());

@@ -9,8 +9,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.exprimonsnousapp.models.CommunityInsert;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -19,16 +26,24 @@ public class MainActivity2 extends AppCompatActivity {
     private int userId = -1;
     private int communityId = -1;
 
+    // API
+    ApiInterface apiInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
         Bundle extras = getIntent().getExtras();
         userId = extras.getInt("userId");
         communityId = extras.getInt("communityId");
 
-        Log.i("COMMUNITYID", "onCreateMainActyvity2: "+communityId);
+        CommunityInsert communityInsert = new CommunityInsert(userId,communityId);
+        addUserInCommunity(communityInsert);
+
+        Log.i("COMMUNITYID", "onCreateMainActyvity2 idUser: "+userId);
 
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -78,4 +93,26 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
+    private void addUserInCommunity(CommunityInsert communityInsert) {
+        // TODO : make api call
+        Call<Object> call = apiInterface.addUserInCommunity(communityInsert);
+        Log.i("GETIDCOMMUNITY", "addUserInCommunity request: "+ call.request().toString());
+        call.enqueue(new Callback<Object>(){
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    Log.i("GETIDCOMMUNITY", "onResponse Adding user in community: "+response.body());
+                    //userCreds = response.body();
+                } else {
+                    Log.i("GETIDCOMMUNITY", "onResponse Adding user in community: "+response.body());
+                    //userCreds = new UserCreds(-1, "",-1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.i("GETIDCOMMUNITY", "onFailure Adding user in community: "+t.getLocalizedMessage());
+            }
+        });
+    }
 }

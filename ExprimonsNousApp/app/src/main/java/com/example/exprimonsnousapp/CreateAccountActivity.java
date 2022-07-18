@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -133,14 +134,23 @@ public class CreateAccountActivity extends AppCompatActivity {
                     joinCommunityActivity.putExtra("areaCode",areaCodeTXT);
                     joinCommunityActivity.putExtra("passwd",passwdTXT);*/
 
+
+                    // FAKE DELAY
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // API CALL TO CREATE ACCOUNT
+                            userRegister(newAccount);
+                        }
+                    }, 1200);
+
                     //starting activity
                     Intent joinCommunityActivity = new Intent(getApplicationContext(), JoinCompanyActivity.class);
                     joinCommunityActivity.putExtra("idUser",idUser);
                     startActivity(joinCommunityActivity);
                     finish();
 
-                    // API CALL TO CREATE ACCOUNT
-                    userRegister(newAccount);
                 }
             }
         });
