@@ -10,7 +10,7 @@ async function getAllUsers(idCommunity) {
     *const rows = await db.query("SELECT * FROM User;", "");
     */
 
-    const rows = await db.query("SELECT u.idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User u, Associate a WHERE a.idCommunity = " + idCommunity + ";", "");
+    const rows = await db.query("SELECT u.idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User u, Associate a WHERE a.idCommunity = " + idCommunity + " ANd u.idUser = a.idUser;", "");
     return rows;
 }
 
