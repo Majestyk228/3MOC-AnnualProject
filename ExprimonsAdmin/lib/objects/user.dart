@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../Globals.dart';
+import 'package:http/http.dart' as http;
 class User {
   int? idUser;
   String? firstName;
@@ -39,4 +43,29 @@ class User {
     );
   }
 
+}
+Future addUser(String firstName,String lastName,String birthDate,String gender,String areaCode,String email,String password) async {
+  Uri uri = Uri.parse("https://titan-photography.com/user/register/admin");
+  print(uri);
+  var body = jsonEncode({
+    "firstName": firstName,
+    "lastName": lastName,
+    "birthDate": birthDate,
+    "gender": gender,
+    "areaCode": areaCode,
+    "email": email,
+    "password": password,
+    "idCommunity": currentAdmin.idCommunity
+  });
+  print(body);
+  final response = await http.post(uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      body: body);
 }

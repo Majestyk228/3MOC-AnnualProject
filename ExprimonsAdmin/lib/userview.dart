@@ -66,8 +66,6 @@ class _UserViewState extends State<UserView> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
