@@ -99,6 +99,13 @@ async function reportCommentReinit(idComment) {
 	const rows = await db.query(request, "");
 	return rows;
 }
+
+async function commmentByPost(idPost) {
+	const request = "SELECT u.firstName, u.lastName, c.body, c.anonymous FROM User u, Comment c WHERE c.idPost = " + idPost + " GROUP BY idComment;";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getnbComment,
 	getReportedComments,
@@ -111,5 +118,6 @@ module.exports = {
 	deleteComment,
 	nbCommentAndroidPost,
 	reportComment,
-	reportCommentReinit
+	reportCommentReinit,
+	commmentByPost
 }

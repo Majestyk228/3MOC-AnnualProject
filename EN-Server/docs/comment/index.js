@@ -10,6 +10,7 @@ const countReportedByCommunity = require('./countReportedByCommunity.js');
 const deleteCommment = require('./delete.js');
 const report = require('./report.js');
 const reportInit = require('./reportInit.js');
+const formattedComment = require('./formattedComments.js');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -48,6 +49,9 @@ module.exports = {
 		},
 		"/comment/reportReinit/{idComment}": {
 			...reportInit
+		},
+		"/comment/formattedComment/{idPost}": {
+			...formattedComment
 		}
 	},
 	schema: {

@@ -148,4 +148,15 @@ router.get('/reportReinit/:idComment', async function (req, res, next) {
 	}
 })
 
+
+
+router.get('/formattedComment/:idPost', async function (req, res, next) {
+	try {
+		res.status(200).json(await comment.commmentByPost(req.params.idPost));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+})
+
 module.exports = router;
