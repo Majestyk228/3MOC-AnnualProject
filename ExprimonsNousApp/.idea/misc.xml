@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/activity_main_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.15656433105468748" />
+        <entry key="app/src/main/res/layout/fragment_comment.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.13043478260869565" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.1" />
@@ -37,7 +38,8 @@
         <entry key="app/src/main/res/layout/fragment_reward.xml" value="0.16802536231884058" />
         <entry key="app/src/main/res/layout/fragment_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_votes.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.5360267363398908" />
+        <entry key="app/src/main/res/layout/item_comment.xml" value="0.14945652173913043" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.47125470264848457" />
         <entry key="app/src/main/res/layout/item_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/landing_page.xml" value="0.18862275449101795" />
         <entry key="app/src/main/res/layout/layout_bg.xml" value="0.1" />

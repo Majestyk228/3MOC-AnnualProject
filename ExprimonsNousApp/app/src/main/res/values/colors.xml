@@ -29,4 +29,7 @@
     <!-- APPBAR COLORS -->
     <color name="appbar_background">#FFDFECF8</color>
     <color name="edittext_background">#FFA6B2BE</color>
+
+    <!-- COMMENT FRAGMENT COLORS -->
+    <color name="medium_dark_grey">#FFD9D9D9</color>
 </resources>

@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exprimonsnousapp.BottomSheetFrag;
+import com.example.exprimonsnousapp.CommentFragment;
 import com.example.exprimonsnousapp.CreatePostFragment;
 import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.Post;
@@ -91,6 +92,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR OUVRIR LA PAGE DES COMMENTAIRES
                 Log.i("RVButton", "Bouton comment post " + posts.get(holder.getAdapterPosition()).getBody());
+
+                Fragment mFragment = new CommentFragment();
+
+                /*Bundle bundle = new Bundle();
+                bundle.putInt("idUser", userId);
+                bundle.putInt("idCommunity", communityId);
+                mFragment.setArguments(bundle);*/
+
+                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.activity_main_frame_layout, mFragment);
+                ft.addToBackStack("BottomSheetFrag");
+                ft.commit();
             }
         });
 
@@ -109,7 +122,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
-                ft.addToBackStack("BottomSheetFrag");
+                ft.addToBackStack("CommentFragment");
                 ft.commit();
             }
         });
