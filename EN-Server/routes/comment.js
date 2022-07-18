@@ -117,9 +117,6 @@ router.get('/nbReportedCommentsAll/:idCommunity', async function (req, res, next
 
 
 router.delete('/deleteComment/:idComment', async function (req, res, next) {
-	// TODO code
-
-
 	try {
 		await comment.deleteComment(req.params.idComment)
 		res.status(200).json({ "Message": "Comment deleted successfully" });
@@ -129,5 +126,26 @@ router.delete('/deleteComment/:idComment', async function (req, res, next) {
 	}
 });
 
+
+router.get('/report/:idComment', async function (req, res, next) {
+	try {
+		await comment.reportComment(req.params.idComment)
+		res.status(200).json({ "Message": "Comment reported successfully" });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+})
+
+///ReportReinit/{idComment}
+router.get('/reportReinit/:idComment', async function (req, res, next) {
+	try {
+		await comment.reportCommentReinit(req.params.idComment)
+		res.status(200).json({ "Message": "Comment reinitialized successfully" });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+})
 
 module.exports = router;

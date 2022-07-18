@@ -87,6 +87,18 @@ async function nbCommentAndroidPost(idPost) {
 	return rows[0];
 }
 
+
+async function reportComment(idComment) {
+	const request = "UPDATE Comment SET reports = reports +1 WHERE idComment = " + idComment + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+async function reportCommentReinit(idComment) {
+	const request = "UPDATE Comment SET reports = 0 WHERE idComment = " + idComment + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
 module.exports = {
 	getnbComment,
 	getReportedComments,
@@ -97,5 +109,7 @@ module.exports = {
 	insertComment,
 	getnbReportedCommentsAll,
 	deleteComment,
-	nbCommentAndroidPost
+	nbCommentAndroidPost,
+	reportComment,
+	reportCommentReinit
 }

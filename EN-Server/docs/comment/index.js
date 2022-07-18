@@ -8,6 +8,8 @@ const allcountReported = require('./allcountReported.js');
 const create = require('./create.js');
 const countReportedByCommunity = require('./countReportedByCommunity.js');
 const deleteCommment = require('./delete.js');
+const report = require('./report.js');
+const reportInit = require('./reportInit.js');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
@@ -40,6 +42,12 @@ module.exports = {
 		},
 		"/comment/delete/{idComment}": {
 			...deleteCommment
+		},
+		"/comment/report/{idComment}": {
+			...report
+		},
+		"/comment/reportReinit/{idComment}": {
+			...reportInit
 		}
 	},
 	schema: {
