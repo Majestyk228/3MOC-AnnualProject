@@ -3,25 +3,38 @@ package com.example.exprimonsnousapp.models;
 public class CommentPost {
 
     // ATTRIBUTS
-    String fullname;
+    String firstName;
+    String lastName;
+    //String fullname;
     String body;
     int idComment;
+    int anonymous;
 
-    //CONSTRUCTOR
-    public CommentPost(String fullname, String body, int idComment) {
-        this.fullname = fullname;
+    // CONSTRUCTOR
+    public CommentPost(String firstName, String lastName, String body, int idComment, int anonymous) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.body = body;
         this.idComment = idComment;
+        this.anonymous = anonymous;
     }
-
 
     // GETTERS & SETTERS
-    public String getFullname() {
-        return fullname;
+
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getBody() {
@@ -40,14 +53,25 @@ public class CommentPost {
         this.idComment = idComment;
     }
 
+    public int getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(int anonymous) {
+        this.anonymous = anonymous;
+    }
+
+
     // TO STRING
 
     @Override
     public String toString() {
         return "CommentPost{" +
-                "fullname='" + fullname + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", body='" + body + '\'' +
                 ", idComment=" + idComment +
+                ", anonymous=" + anonymous +
                 '}';
     }
 }

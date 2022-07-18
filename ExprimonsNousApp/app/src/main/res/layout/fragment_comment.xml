@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CommentFragment">
+    tools:context=".CommentFragment"
+    android:background="@color/background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -66,9 +67,8 @@
                 android:id="@+id/textview_comment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:text="Commentaires"
-                android:layout_margin="5dp"
-                android:background="@color/medium_dark_grey"
+                android:text="@string/commentaires_title"
+                android:background="@color/background"
                 android:textSize="30sp"
                 app:layout_constraintTop_toBottomOf="@id/post"
                 app:layout_constraintStart_toStartOf="parent"

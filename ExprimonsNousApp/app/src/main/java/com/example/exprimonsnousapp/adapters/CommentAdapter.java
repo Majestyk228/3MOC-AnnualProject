@@ -43,7 +43,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         //bind the data
-        holder.fullnameTXT.setText(commentsPost.get(holder.getAdapterPosition()).getFullname());
+        holder.fullnameTXT.setText(commentsPost.get(holder.getAdapterPosition()).getFirstName()+ " " + commentsPost.get(holder.getAdapterPosition()).getLastName());
         holder.commentTXT.setText(commentsPost.get(holder.getAdapterPosition()).getBody());
 
         // TODO : Not implemented yet

@@ -1,5 +1,6 @@
 package com.example.exprimonsnousapp.retrofit;
 
+import com.example.exprimonsnousapp.models.CommentPost;
 import com.example.exprimonsnousapp.models.CommunityInsert;
 import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.IdPost;
@@ -7,6 +8,7 @@ import com.example.exprimonsnousapp.models.IdVote;
 import com.example.exprimonsnousapp.models.NewAccount;
 import com.example.exprimonsnousapp.models.NewAccountResponse;
 import com.example.exprimonsnousapp.models.NewPost;
+import com.example.exprimonsnousapp.models.Post;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.UserUpdateResponse;
@@ -85,4 +87,14 @@ public interface ApiInterface {
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/user/addToCommunity", hasBody = true)
     Call<Object> addUserInCommunity(@Body CommunityInsert communityInsert);
+
+    // GET COMMENT FROM A POST
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "GET", path = "/comment/formattedComment/{idPost}", hasBody = false)
+    Call <List<CommentPost>> getComments(@Path("idPost") int idPost);
+
+    // GET COMMENT FROM A POST
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "GET", path = "/post/{idPost}", hasBody = false)
+    Call <Object> getPost(@Path("idPost") int idPost);
 }

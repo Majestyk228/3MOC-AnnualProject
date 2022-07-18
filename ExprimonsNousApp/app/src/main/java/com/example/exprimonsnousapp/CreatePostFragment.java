@@ -135,7 +135,6 @@ public class CreatePostFragment extends Fragment {
                 Snackbar.make(coordinatorLayout,R.string.createPostError, Snackbar.LENGTH_SHORT).show();
             }
         });
-
     }
 
     /*

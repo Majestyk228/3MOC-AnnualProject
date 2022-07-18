@@ -94,6 +94,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Log.i("RVButton", "Bouton comment post " + posts.get(holder.getAdapterPosition()).getBody());
 
                 Fragment mFragment = new CommentFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("idPost", Integer.parseInt(posts.get(holder.getAdapterPosition()).getIdPost()));
+                mFragment.setArguments(bundle);
 
                 /*Bundle bundle = new Bundle();
                 bundle.putInt("idUser", userId);
@@ -102,7 +105,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
-                ft.addToBackStack("BottomSheetFrag");
+                ft.addToBackStack("CommentFragment");
                 ft.commit();
             }
         });
@@ -122,7 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
-                ft.addToBackStack("CommentFragment");
+                ft.addToBackStack("BottomSheetFrag");
                 ft.commit();
             }
         });
