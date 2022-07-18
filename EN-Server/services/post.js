@@ -58,7 +58,8 @@ async function getLastPostedPosts(idCommunity) {
 
 
 async function getAllReportedPosts(idCommunity) {
-	const request = "SELECT * FROM Post WHERE idCommunity = " + idCommunity + "AND reported > 0;";
+	const request = "SELECT * FROM Post WHERE idCommunity = " + idCommunity + " AND reported > 0;";
+	console.log(request);
 	const rows = await db.query(request, "");
 	return rows;
 }
