@@ -218,4 +218,26 @@ router.get('/reportReinit/:idPost', async function (req, res, next) {
 		next(err);
 	}
 });
+
+
+
+
+router.get('/formattedPost/:idPost', async function (req, res, next) {
+	try {
+		var posts = await post.getPostFormatted(req.params.idPost);
+		var newPosts = [];
+
+		posts.forEach((post) => post.comments = 0);
+		posts.forEach((post) => post.rewards = 0);
+
+		newPosts = posts[0];
+
+		res.status(200).send(JSON.stringify(newPosts));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
 module.exports = router;

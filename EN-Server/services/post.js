@@ -112,6 +112,15 @@ async function reportPostReinit(idPost) {
 	const rows = await db.query(request, "");
 	return rows;
 }
+
+
+async function getPostFormatted(idPost) {
+	const request = "SELECT p.idPost, u.firstName, u.lastName, p.title, p.body, p.likes, p.dislikes FROM User u, Post p WHERE u.idUser = p.idUser AND p.idPost = " + idPost + " group by u.firstName, u.lastName, p.title, p.body, p.likes, p.dislikes; ";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
 module.exports = {
 	getAllPosts,
 	getAllPostsBis,
@@ -127,5 +136,6 @@ module.exports = {
 	likePost,
 	dislikePost,
 	reportPost,
-	reportPostReinit
+	reportPostReinit,
+	getPostFormatted
 }

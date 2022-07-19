@@ -12,6 +12,7 @@ const likePost = require('./likePost.js');
 const dislikePost = require('./dislikePost.js');
 const report = require('./report.js');
 const reportReinit = require('./reportReinit.js');
+const getFormattedPost = require('./getFormattedPost.js');
 const schema = require("./_model.js")
 module.exports = {
     paths: {
@@ -56,6 +57,9 @@ module.exports = {
         },
         "/post/reportReinit/{idPost}": {
             ...reportReinit,
+        },
+        "/post/formattedPost/{idPost}": {
+            ...getFormattedPost,
         }
     },
     schema: {
