@@ -31,6 +31,12 @@ class _DetailsUserViewState extends State<DetailsUserView> {
     email = TextEditingController();
     password = TextEditingController();
     firstName.text=widget.user.firstName??"Failed to load";
+    lastName.text=widget.user.lastName??"Failed to load";
+    birthDate.text=widget.user.birthDate??"Failed to load";
+    gender.text=widget.user.gender??"Failed to load";
+    areaCode.text=widget.user.areaCode??"Failed to load";
+    email.text=widget.user.email??"Failed to load";
+    password.text=widget.user.password??"Failed to load";
   }
 
   @override
@@ -79,42 +85,49 @@ class _DetailsUserViewState extends State<DetailsUserView> {
                   child: Column(
                     children: [
                       TextField(
+                        enabled: false,
                         controller: firstName,
                         autocorrect: true,
                         decoration: InputDecoration(
                             hintText: 'Entrer le prénom de l\'utilisateur ici'),
                       ),
                       TextField(
+                        enabled: false,
                         controller: lastName,
                         autocorrect: true,
                         decoration: InputDecoration(
                             hintText: 'Entrer le nom de l\'utilisateur ici'),
                       ),
                       TextField(
+                        enabled: false,
                         controller: birthDate,
                         autocorrect: true,
                         decoration: InputDecoration(
                             hintText: 'Entrer la date de naissance de l\'utilisateur ici'),
                       ),
                       TextField(
+                        enabled: false,
                         controller: gender,
                         autocorrect: true,
                         decoration: InputDecoration(
                             hintText: 'Entrer le genre de l\'utilisateur ici'),
                       ),
                       TextField(
+                        enabled: false,
                         controller: areaCode,
                         autocorrect: true,
                         decoration: InputDecoration(
                             hintText: 'Entrer le code postale de l\'utilisateur ici'),
                       ),
                       TextField(
+                        enabled: false,
                         controller: email,
                         autocorrect: true,
                         decoration: InputDecoration(
                             hintText: 'Entrer l\'email de l\'utilisateur ici'),
                       ),
                       TextField(
+                        enabled: false,
                         obscureText: true,
                         controller: password,
                         autocorrect: true,
@@ -122,11 +135,11 @@ class _DetailsUserViewState extends State<DetailsUserView> {
                             hintText: 'Entrer le mot de passe de l\'utilisateur ici'),
                       ),
                       TextButton(
-                          onPressed: () {
-                            //updateUser(firstName.text, lastName.text,birthDate.text,gender.text,areaCode.text,email.text,password.text);
+                          onPressed: () async {
+                            await deleteUser(widget.user.idUser!);
                             Navigator.pop(context);
                           },
-                          child: Text("Créer l'utilisateur")),
+                          child: Text("Supprimer l'utilisateur")),
                     ],
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/Child/Details/detailsuserview.dart';
 import 'package:exprimons_nous/Child/adduserview.dart';
 import 'package:exprimons_nous/Child/invitationview.dart';
 import 'package:exprimons_nous/Colors.dart';
@@ -154,33 +155,15 @@ class _UserViewState extends State<UserView> {
                         return MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
-                                onTap: () => showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        title: Text(
-                                            'Supression de l\'utilisateur ${users[index].firstName} ${users[index].lastName}'),
-                                        content: const Text(
-                                            'Voullez vous vraiment supprimer cette utilisateur ?'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                            child: const Text('Non'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () async {
-                                              Navigator.pop(context, 'OK');
+                              onTap: () async {
+                                final value = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>  DetailsUserView(user: users[index])),
+                                );
+                                refreshUsers();
+                              },
 
-                                              await deleteUser(
-                                                  users[index].idUser);
-                                              refreshUsers();
-                                            },
-                                            child: const Text('Oui'),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
                                 child: UserListLine(user: users[index])));
                       }),
                 ],
