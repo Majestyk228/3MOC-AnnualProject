@@ -99,7 +99,7 @@ public class PostFeedActivity extends AppCompatActivity {
                             }
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        adapter = new PostAdapter(getApplicationContext(), posts);
+                        //adapter = new PostAdapter(getApplicationContext(), posts);
                         recyclerView.setAdapter(adapter);
                     }
                 },

@@ -106,7 +106,7 @@ public class PostFragment extends Fragment {
         recyclerView = view.findViewById(R.id.postsList1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new PostAdapter(getActivity(), posts);
+        adapter = new PostAdapter(getActivity(), posts, communityId, userId);
         recyclerView.setAdapter(adapter);
 
         swipeRefreshPosts = view.findViewById(R.id.swipeRefreshPosts);
@@ -234,7 +234,7 @@ public class PostFragment extends Fragment {
                             }
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new PostAdapter(getContext(), posts);
+                        adapter = new PostAdapter(getContext(), posts, communityId,userId);
                         recyclerView.setAdapter(adapter);
                     }
                 },

@@ -7,6 +7,7 @@ import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.IdVote;
 import com.example.exprimonsnousapp.models.NewAccount;
 import com.example.exprimonsnousapp.models.NewAccountResponse;
+import com.example.exprimonsnousapp.models.NewComment;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.Post;
 import com.example.exprimonsnousapp.models.UserCreds;
@@ -95,6 +96,11 @@ public interface ApiInterface {
 
     // GET COMMENT FROM A POST
     @Headers({"Content-Type: application/json"})
-    @HTTP(method = "GET", path = "/post/{idPost}", hasBody = false)
-    Call <Object> getPost(@Path("idPost") int idPost);
+    @HTTP(method = "GET", path = "/post/formattedPost/{idPost}", hasBody = false)
+    Call <Post> getPost(@Path("idPost") int idPost);
+
+    // CREATE COMMENT
+    @Headers({"Conten-Type: application/json"})
+    @HTTP(method = "POST", path = "/comment/create", hasBody = true)
+    Call<Object> sendComment(@Body NewComment newComment);
 }

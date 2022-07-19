@@ -7,141 +7,147 @@
     tools:context=".CommentFragment"
     android:background="@color/background">
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:id="@+id/coordinatorLayout">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <!-- THE POST ITSELF -->
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:elevation="10dp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/post">
+                android:layout_height="match_parent">
 
-                <!--Partie 1 : Prénom nom du propriétaire du poste-->
+                <!-- THE POST ITSELF -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@color/white"
+                    android:elevation="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/post">
 
-                    <TextView
-                        android:id="@+id/fullnameTXT"
-                        android:layout_width="wrap_content"
+                    <!--Partie 1 : Prénom nom du propriétaire du poste-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="John DOE !"
-                        android:layout_margin="15dp"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"
-                        >
-                    </TextView>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/fullnameTXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="John DOE !"
+                            android:layout_margin="15dp"
+                            android:textSize="17sp"
+                            android:textColor="@color/black"
+                            >
+                        </TextView>
+
+                    </LinearLayout>
+                    <!--Partie 2 : Le corps du poste-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/bodyTXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam a est aliquet finibus. Cras gravida mi sit amet dui viverra rhoncus vitae fermentum urna. Aliquam sit amet mauris vitae leo egestas sollicitudin. Aenean id libero vel velit blandit vestibulum. Mauris sem eros, dictum ac nisl quis, sagittis lobortis."
+                            android:textSize="14sp"
+                            android:layout_margin="20dp"
+                            />
+                    </LinearLayout>
 
                 </LinearLayout>
-                <!--Partie 2 : Le corps du poste-->
-                <LinearLayout
+
+                <!-- TITLE OR RECYCLERVIEW -->
+                <TextView
+                    android:id="@+id/textview_comment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:text="@string/commentaires_title"
+                    android:background="@color/background"
+                    android:textSize="30sp"
+                    app:layout_constraintTop_toBottomOf="@id/post"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-                    <TextView
-                        android:id="@+id/bodyTXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam a est aliquet finibus. Cras gravida mi sit amet dui viverra rhoncus vitae fermentum urna. Aliquam sit amet mauris vitae leo egestas sollicitudin. Aenean id libero vel velit blandit vestibulum. Mauris sem eros, dictum ac nisl quis, sagittis lobortis."
-                        android:textSize="14sp"
-                        android:layout_margin="20dp"
-                        />
-                </LinearLayout>
+                <!-- TITLE OR RECYCLERVIEW -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/textview_comment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:listitem="@layout/item_comment"
+                    tools:itemCount="2"/>
 
-            </LinearLayout>
+                <EditText
+                    android:id="@+id/newCommentEdittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center|start|top"
+                    android:hint="@string/create_post_hint"
+                    android:layout_margin="24dp"
+                    android:elevation="5dp"
+                    android:padding="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewComment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- TITLE OR RECYCLERVIEW -->
-            <TextView
-                android:id="@+id/textview_comment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="@string/commentaires_title"
-                android:background="@color/background"
-                android:textSize="30sp"
-                app:layout_constraintTop_toBottomOf="@id/post"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/postCommentBtn"
+                    android:layout_width="320dp"
+                    android:layout_height="75dp"
+                    app:layout_constraintTop_toBottomOf="@id/newCommentEdittext"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/blueBtn"
+                    android:fontFamily="@font/quicksandbold"
+                    android:gravity="center"
+                    android:text="@string/new_post"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-            <!-- TITLE OR RECYCLERVIEW -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewComment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/textview_comment"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:listitem="@layout/item_comment"
-                tools:itemCount="2"/>
-
-            <EditText
-                android:id="@+id/newCommentEdittext"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/edittext_bg"
-                android:gravity="center|start|top"
-                android:hint="@string/create_post_hint"
-                android:layout_margin="24dp"
-                android:elevation="5dp"
-                android:padding="16dp"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewComment"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/postCommentBtn"
-                android:layout_width="320dp"
-                android:layout_height="75dp"
-                app:layout_constraintTop_toBottomOf="@id/newCommentEdittext"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/blueBtn"
-                android:fontFamily="@font/quicksandbold"
-                android:gravity="center"
-                android:text="@string/new_post"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/anonymousCommmentBtn"
-                android:layout_width="320dp"
-                android:layout_height="75dp"
-                app:layout_constraintTop_toBottomOf="@id/postCommentBtn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/quicksandbold"
-                android:gravity="center"
-                android:text="@string/anonyme_comment_button"
-                android:textColor="@color/backgroundBlue"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/anonymousCommmentBtn"
+                    android:layout_width="320dp"
+                    android:layout_height="75dp"
+                    app:layout_constraintTop_toBottomOf="@id/postCommentBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/quicksandbold"
+                    android:gravity="center"
+                    android:text="@string/anonyme_comment_button"
+                    android:textColor="@color/backgroundBlue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
 

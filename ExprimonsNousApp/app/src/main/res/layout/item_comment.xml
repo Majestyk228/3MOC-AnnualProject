@@ -18,7 +18,7 @@
             android:id="@+id/fullnameTXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="John DOE !"
+            android:text="@string/loading_string"
             android:layout_margin="15dp"
             android:textSize="17sp"
             android:layout_weight="1"
@@ -30,7 +30,7 @@
             android:id="@+id/report"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_report"/>
+            android:src="@drawable/ic_information"/>
     </LinearLayout>
     <!--Partie 2 : Le corps du commentaire-->
     <LinearLayout
@@ -42,7 +42,7 @@
             android:id="@+id/commentTXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac."
+            android:text="@string/loading_string"
             android:textSize="14sp"
             android:layout_margin="20dp"
             />

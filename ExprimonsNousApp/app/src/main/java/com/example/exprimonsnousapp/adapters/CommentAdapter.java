@@ -19,7 +19,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     LayoutInflater inflater;
     List<CommentPost> commentsPost;
     ApiInterface apiInterface;
@@ -43,7 +43,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         //bind the data
-        holder.fullnameTXT.setText(commentsPost.get(holder.getAdapterPosition()).getFirstName()+ " " + commentsPost.get(holder.getAdapterPosition()).getLastName());
+        if (commentsPost.get(holder.getAdapterPosition()).getAnonymous() == 1) {
+            // changer le fullname
+            holder.fullnameTXT.setText(R.string.anonymous_fullname);
+
+        } else {
+            //garder la ligne
+            holder.fullnameTXT.setText(commentsPost.get(holder.getAdapterPosition()).getFirstName() + " " + commentsPost.get(holder.getAdapterPosition()).getLastName());
+        }
         holder.commentTXT.setText(commentsPost.get(holder.getAdapterPosition()).getBody());
 
         // TODO : Not implemented yet
@@ -56,7 +63,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fullnameTXT,commentTXT;
+        TextView fullnameTXT, commentTXT;
         ImageView report;
         MaterialButton postCommentBtn, anonymousCommmentBtn;
 
@@ -70,10 +77,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             postCommentBtn = itemView.findViewById(R.id.postCommentBtn);
             anonymousCommmentBtn = itemView.findViewById(R.id.anonymousCommmentBtn);
-
-
         }
-
-
     }
 }

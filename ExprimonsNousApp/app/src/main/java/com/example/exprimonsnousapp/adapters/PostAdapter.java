@@ -40,13 +40,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     List<Post> posts;
     ApiInterface apiInterface;
     Context context;
+    int communityId;
+    int idUser;
 
 
     //constructeur de l'adapteur
-    public PostAdapter(Context context, List<Post> posts) {
+    public PostAdapter(Context context, List<Post> posts, int communityId, int idUser) {
         this.inflater = LayoutInflater.from(context);
         this.posts = posts;
         this.context = context;
+        this.communityId = communityId;
+        this.idUser = idUser;
     }
 
     @NonNull
@@ -96,6 +100,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Fragment mFragment = new CommentFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("idPost", Integer.parseInt(posts.get(holder.getAdapterPosition()).getIdPost()));
+                bundle.putInt("idCommunity", communityId);
+                bundle.putInt("idUser", idUser);
                 mFragment.setArguments(bundle);
 
                 /*Bundle bundle = new Bundle();

@@ -112,9 +112,9 @@
         <item>Femelle</item>
         <item>Autre</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="anonymous_fullname">Utilisateur Anonyme</string>
     <string name="anonyme_comment_button">POSTER EN ANONYME</string>
     <string name="commentaires_title">Commentaires</string>
+    <string name="loading_string">Loading...</string>
 
 </resources>

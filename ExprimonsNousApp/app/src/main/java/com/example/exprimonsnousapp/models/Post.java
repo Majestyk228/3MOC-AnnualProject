@@ -3,8 +3,8 @@ package com.example.exprimonsnousapp.models;
 public class Post {
     //attributes
     private int idPost;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String body;
     private int likes;
     private int dislikes;
@@ -15,8 +15,8 @@ public class Post {
     public Post() { }
 
     public Post(String firstname, String lastname, String body, int likes, int dislikes, int nbComments, int nbRewards,int idPost) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstname;
+        this.lastName = lastname;
         this.body = body;
         this.likes = likes;
         this.dislikes = dislikes;
@@ -29,19 +29,19 @@ public class Post {
     // GETTERS & SETTERS
 
     public String getFirstname() {
-        return firstname;
+        return firstName;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.firstName = firstname;
     }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public String getBody() {
@@ -90,5 +90,20 @@ public class Post {
 
     public void setIdPost(int idPost) {
         this.idPost = idPost;
+    }
+
+    // TO STRING
+    @Override
+    public String toString() {
+        return "Post{" +
+                "idPost=" + idPost +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", body='" + body + '\'' +
+                ", likes=" + likes +
+                ", dislikes=" + dislikes +
+                ", nbComments=" + nbComments +
+                ", nbRewards=" + nbRewards +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package com.example.exprimonsnousapp;
 
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,16 +13,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.exprimonsnousapp.adapters.CommentAdapter;
 import com.example.exprimonsnousapp.adapters.PostAdapter;
 import com.example.exprimonsnousapp.models.CommentPost;
+import com.example.exprimonsnousapp.models.NewComment;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.Post;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -38,14 +43,23 @@ public class CommentFragment extends Fragment {
     CommentAdapter adapter;
     List<CommentPost> commentsPost;
     int idPost;
+    int idCommunity;
+    int idUser;
 
     // UI ELEMENTS
     TextView fullnameTXT;
     TextView bodyTXT;
     TextView textview_comment;
+    MaterialButton postCommentBtn;
+    MaterialButton anonymousCommmentBtn;
+    EditText newCommentEdittext;
 
     // OTHER
     ApiInterface apiInterface;
+    private CoordinatorLayout coordinatorLayout;
+
+
+
 
     public CommentFragment() {
         // Required empty public constructor
@@ -63,6 +77,8 @@ public class CommentFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             idPost = getArguments().getInt("idPost");
+            idCommunity = getArguments().getInt("idCommunity");
+            idUser = getArguments().getInt("idUser");
         }
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -81,6 +97,33 @@ public class CommentFragment extends Fragment {
         fullnameTXT = view.findViewById(R.id.fullnameTXT);
         bodyTXT = view.findViewById(R.id.bodyTXT);
         textview_comment = view.findViewById(R.id.textview_comment);
+
+        postCommentBtn = view.findViewById(R.id.postCommentBtn);
+        anonymousCommmentBtn = view.findViewById(R.id.anonymousCommmentBtn);
+
+        newCommentEdittext = view.findViewById(R.id.newCommentEdittext);
+
+        this.coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
+
+        // LISTENING TO BUTTONS
+
+        postCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComment newComment = new NewComment(idCommunity,newCommentEdittext.getText().toString(),false,idPost,idUser);
+                sendComment(newComment);
+                Toast.makeText(getContext(), "Le commentaire a été ajouté.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        anonymousCommmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComment newComment = new NewComment(idCommunity,newCommentEdittext.getText().toString(),true,idPost,idUser);
+                sendComment(newComment);
+                Toast.makeText(getContext(), "Le commentaire a été ajouté en anonyme.", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         extractComments(idPost);
@@ -140,18 +183,46 @@ public class CommentFragment extends Fragment {
 
 
     private void getPost(int idPost) {
-        Call<Object> call = apiInterface.getPost(idPost);
+        Call<Post> call = apiInterface.getPost(idPost);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                Log.i("GETPOST", "onResponse getPost: " + response.body().getFirstname());
+
+                fullnameTXT.setText(response.body().getFirstname() + " " + response.body().getLastname());
+                bodyTXT.setText(response.body().getBody());
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                //Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                Log.i("GETPOST", "onFail getPost: " + t.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void sendComment(NewComment newComment) {
+        // API CALL
+        Call<Object> call = apiInterface.sendComment(newComment);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.i("GETPOST", "onResponse getPost: " + response.body());
+                Log.i("POSTCOMMENT", "onResponse sendComment: " + response.body());
+
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("CommentFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
                 //Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-                Log.i("GETPOST", "onFail getPost: " + t.getLocalizedMessage());
+                Log.i("POSTCOMMENT", "onFail sendComment: " + t.getLocalizedMessage());
             }
         });
+    }
+
+    private void sendAnonymousComment(NewComment newComment) {
+        // API CALL
     }
 }
