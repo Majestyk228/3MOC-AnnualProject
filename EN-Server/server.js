@@ -47,7 +47,35 @@ server.use('/rewards', rewardRouter);
 server.use('/comment', commentRouter);
 server.use('/vote', voteRouter);
 
-server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs));
+
+
+
+// SWWAGGER SETUP
+
+// REMOVING THE TRY NOW BUTTON
+const DisableTryItOutPlugin = function () {
+	return {
+		statePlugins: {
+			spec: {
+				wrapSelectors: {
+					allowTryItOutFor: () => () => false
+				}
+			}
+		}
+	}
+}
+
+const options = {
+	swaggerOptions: {
+		plugins: [
+			DisableTryItOutPlugin
+		]
+	}
+};
+
+
+server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs, options));
+
 
 
 

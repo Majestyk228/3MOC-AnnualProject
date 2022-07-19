@@ -15,7 +15,7 @@ module.exports = {
 		"/invite/allByCommunity/{idCommunity}": {
 			...getAllByCommunity,
 		},
-		"/invite/delete": {
+		"/invite/delete/{code}": {
 			...deleteInvite,
 		},
 		"/invite/getCommunity/{code}": {
