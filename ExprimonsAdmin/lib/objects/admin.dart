@@ -41,12 +41,15 @@ Future logAdmin(String email, String password) async {
       },
       body: body);
   var data = json.decode(response.body);
-  currentAdmin=Admin(
-    idAdmin: data[0]['idAdmin'],
-    email: data[0]['email'],
-    password: data[0]['password'],
-    idCommunity: data[0]['idCommunity'],
 
-  ) ;
-  return true;
+  if(data.length!=0){
+    currentAdmin=Admin(
+      idAdmin: data[0]['idAdmin'],
+      email: data[0]['email'],
+      password: data[0]['password'],
+      idCommunity: data[0]['idCommunity'],
+
+    ) ;
+  }
+
 }

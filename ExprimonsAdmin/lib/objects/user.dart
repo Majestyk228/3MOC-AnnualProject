@@ -46,7 +46,7 @@ class User {
 }
 Future addUser(String firstName,String lastName,String birthDate,String gender,String areaCode,String email,String password) async {
   Uri uri = Uri.parse("https://titan-photography.com/user/register/admin");
-  print(uri);
+
   var body = jsonEncode({
     "firstName": firstName,
     "lastName": lastName,
@@ -57,7 +57,7 @@ Future addUser(String firstName,String lastName,String birthDate,String gender,S
     "password": password,
     "idCommunity": currentAdmin.idCommunity
   });
-  print(body);
+  
   final response = await http.post(uri,
       headers: {
         "Access-Control-Allow-Origin": "*",

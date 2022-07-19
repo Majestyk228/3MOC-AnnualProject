@@ -81,21 +81,37 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () async {
-                  await logAdmin(email.text, password.text);
+
+                     await logAdmin(email.text, password.text);
 
 
-                  if(currentAdmin!=null){
+
+
+                  if (currentAdmin.idCommunity == null) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Alerte'),
+                        content: const Text(
+                            'votre email ou votre mot de passe est erroné'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () async {
+                              Navigator.pop(context, 'ok');
+                            },
+                            child: const Text('Ok'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }else{
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeView(),
-                    ),
-                  );
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeView(),
+                      ),
+                    );
                   }
-                  else{
-                    print("Can't Connect");
-                  }
-
                 },
                 child: Text("LOGIN")),
           )

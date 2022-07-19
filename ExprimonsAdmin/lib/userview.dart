@@ -59,7 +59,7 @@ class _UserViewState extends State<UserView> {
           points: data[i]['points'],
           signInDate: data[i]['signInDate'],
         );
-        print(unUser.firstName);
+
         users.add(unUser);
       }
     });

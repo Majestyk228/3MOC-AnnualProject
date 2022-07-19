@@ -161,7 +161,7 @@ class _InvitationViewState extends State<InvitationView> {
                                   TextButton(
                                     onPressed: () async {
                                       Navigator.pop(context, 'OK');
-                                      print(invitation[index].code);
+
                                       await deleteInvitation(invitation[index].code);
                                       refreshInvitation();
                                     },

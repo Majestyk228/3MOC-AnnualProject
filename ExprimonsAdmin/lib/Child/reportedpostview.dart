@@ -41,7 +41,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
-    print(data);
+
     this.posts = [];
     setState(() {
       for (var i = 0; i < data.length; i++) {
