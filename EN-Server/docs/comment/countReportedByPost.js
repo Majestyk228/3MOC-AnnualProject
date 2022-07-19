@@ -1,7 +1,7 @@
 module.exports = {
 	get: {
 		tags: ["comment"],
-		description: "Get the number of reported comment from a post.",
+		description: "Get the number of reported comment from a given post.",
 		operationId: "countReportedByPost",
 		parameters: [
 			{
@@ -19,7 +19,7 @@ module.exports = {
 		],
 		responses: {
 			200: {
-				description: "Get the count of reported comment throughout the plateform.",
+				description: "Get the number of reported comment from a given post.",
 				content: {
 					"application/json": {
 						schema: {

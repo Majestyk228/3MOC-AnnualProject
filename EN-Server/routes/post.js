@@ -159,7 +159,7 @@ router.put('/updatePost', async function (req, res, next) {
 
 
 // get reported posts
-router.get('/delete/:idPost', async function (req, res, next) {
+router.delete('/delete/:idPost', async function (req, res, next) {
 	try {
 		await post.deletePost(req.params.idPost);
 		res.status(200).json([{ "Message": "Post deleted successfully" }]);

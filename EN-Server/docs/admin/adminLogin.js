@@ -1,7 +1,7 @@
 module.exports = {
     post: {
         tags: ["admin"],
-        description: "Login of admin",
+        description: "Login procedure of admin",
         operationId: "adminLogin",
         parameters: [],
         requestBody: {
@@ -19,7 +19,7 @@ module.exports = {
         },
         responses: {
             200: {
-                description: "Admin login",
+                description: "Login successuful",
                 content: {
                     "application/json": {
                         schema: {

@@ -23,11 +23,23 @@ module.exports = {
 					"application/json": {
 						schema: {
 							type: "object",
-							example: {
-								idUser: 7,
-								firstName: "Bo",
-								lastName: "BURNHAM"
-							}
+							example: [
+								{
+									idUser: 7,
+									firstName: "Bo",
+									lastName: "BURNHAM"
+								},
+								{
+									idUser: 6,
+									firstName: "Fally",
+									lastName: "IPUPA"
+								},
+								{
+									idUser: 8,
+									firstName: "Master",
+									lastName: "KJ"
+								}
+							]
 						},
 					},
 				},

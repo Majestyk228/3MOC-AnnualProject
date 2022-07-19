@@ -2,7 +2,7 @@ module.exports = {
 	post: {
 		tags: ["user"],
 		description: "Gives idUser, idCommunity and JWT token",
-		operationId: "getAllPosts",
+		operationId: "login",
 		requestBody: {
 			content: {
 				"application/json": {

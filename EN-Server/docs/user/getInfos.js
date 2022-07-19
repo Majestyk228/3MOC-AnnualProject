@@ -2,7 +2,7 @@ module.exports = {
 	post: {
 		tags: ["user"],
 		description: "Get all informations on a specific user",
-		operationId: "getAllPosts",
+		operationId: "getAllInfos",
 		requestBody: {
 			content: {
 				"application/json": {

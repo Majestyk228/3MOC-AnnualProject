@@ -2,7 +2,7 @@ module.exports = {
     get: {
         tags: ["admin"],
         description: "Get all admins",
-        operationId: "getAllInvites",
+        operationId: "getAllAdmin",
         parameters: [],
         responses: {
             200: {

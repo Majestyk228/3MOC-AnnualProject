@@ -74,8 +74,11 @@ async function updatePasswordUser(password, idUser) {
 
 
 async function deleteUser(idUser) {
-    const request = "DELETE FROM User WHERE idUser = " + idUser + ";";
-    const rows = await db.query(request, "");
+    var request = "DELETE FROM Associate WHERE idUser = " + idUser + ";";
+    var rows = await db.query(request, "");
+
+    request = "DELETE FROM User WHERE idUser = " + idUser + ";";
+    rows = await db.query(request, "");
     return rows;
 }
 

@@ -1,7 +1,7 @@
 module.exports = {
 	post: {
 		tags: ["comment"],
-		description: "Create a comment (idUser and idAdmin must be in body but only one of those need to have a value ; other one can be null",
+		description: "Create a comment",
 		operationId: "createComment",
 		requestBody: {
 			content: {
