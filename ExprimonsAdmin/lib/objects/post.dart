@@ -57,8 +57,30 @@ Future addPost(String Title,String Body) async {
     "idUser": null,
     "idAdmin": currentAdmin.idAdmin
   });
-  print(body);
+
   final response = await http.post(uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      body: body);
+}
+
+Future updatePost(int idPost,String Title,String Body) async {
+  Uri uri = Uri.parse("https://titan-photography.com/post/updatePost");
+
+  var body = jsonEncode({
+    "idPost":idPost,
+    "title": Title,
+    "body": Body
+
+  });
+
+  final response = await http.put(uri,
       headers: {
         "Access-Control-Allow-Origin": "*",
         // Required for CORS support to work

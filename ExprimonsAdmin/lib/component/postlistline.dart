@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Child/Details/detailspostview.dart';
 import 'package:flutter/material.dart';
 
 import '../objects/post.dart';
@@ -17,6 +18,11 @@ class _PostListLineState extends State<PostListLine> {
       child: GestureDetector(
         onTap: () {
           //go to  post details
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailsPostView(post: widget.post)),
+          );
         },
         child: Container(
           width: 300,

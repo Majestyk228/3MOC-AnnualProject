@@ -14,7 +14,7 @@ class AddPostView extends StatefulWidget {
 class _AddPostViewState extends State<AddPostView> {
   late TextEditingController title;
   late TextEditingController body;
-  late TextEditingController nbChoice;
+
   bool important = false;
 
   @override
@@ -22,7 +22,7 @@ class _AddPostViewState extends State<AddPostView> {
     super.initState();
     title = TextEditingController();
     body = TextEditingController();
-    nbChoice = TextEditingController();
+
   }
 
   @override
