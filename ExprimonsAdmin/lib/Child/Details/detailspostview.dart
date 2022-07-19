@@ -27,8 +27,8 @@ class _DetailsPostViewState extends State<DetailsPostView> {
 
     title = TextEditingController();
     body = TextEditingController();
-    title.text="${widget.post.title}";
-    body.text="${widget.post.body}";
+    title.text = "${widget.post.title}";
+    body.text = "${widget.post.body}";
   }
 
   @override
@@ -123,10 +123,10 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                           hintText: 'Entrer le descriptif du Post ici'),
                     ),
                     TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (isAdmin) {
                             if (widget.post.idPost != null) {
-                              updatePost(
+                              await updatePost(
                                   widget.post.idPost!, title.text, body.text);
                             }
 
@@ -153,8 +153,28 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                         child: Text("Mettre a jour le post")),
                     TextButton(
                         onPressed: () {
-                          deletePost(widget.post.idPost!);
-                          Navigator.pop(context);
+                          showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    title: Text(
+                                        'Supression du post ${widget.post.title}'),
+                                    content: const Text(
+                                        'Voullez vous vraiment supprimer le Post ?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Non'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await deletePost(widget.post.idPost!);
+                                          Navigator.pop(context, 'OK');
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Oui'),
+                                      ),
+                                    ],
+                                  ));
                         },
                         child: Text("Supprimer le post")),
                   ],

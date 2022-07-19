@@ -6,6 +6,7 @@ import '../Colors.dart';
 import '../Globals.dart';
 import '../component/postlistline.dart';
 import '../objects/post.dart';
+import 'Details/detailspostview.dart';
 
 class ReportedPostView extends StatefulWidget {
   const ReportedPostView({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
       headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Headers":
-        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
     );
@@ -95,7 +96,6 @@ class _ReportedPostViewState extends State<ReportedPostView> {
                   ),
                 ),
               ),
-
             ],
           ),
           SizedBox(
@@ -119,10 +119,11 @@ class _ReportedPostViewState extends State<ReportedPostView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-
-                              child: Text("Post signalé",style: TextStyle(fontWeight: FontWeight.bold),),
+                              child: Text(
+                                "Post signalé",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ],
                         ),
                       ),
@@ -134,7 +135,20 @@ class _ReportedPostViewState extends State<ReportedPostView> {
                       addRepaintBoundaries: false,
                       itemCount: posts.length,
                       itemBuilder: (context, index) {
-                        return PostListLine(post: posts[index]);
+                        return MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () async {
+                                  //go to  post details
+                                  final value = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsPostView(
+                                            post: posts[index])),
+                                  );
+                                  refreshPosts();
+                                },
+                                child: PostListLine(post: posts[index])));
                       }),
                 ],
               ),

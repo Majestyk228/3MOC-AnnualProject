@@ -27,14 +27,15 @@ class _UserViewState extends State<UserView> {
 
   Future refreshUsers() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/user/all/${currentAdmin.idCommunity}");
+    Uri uri = Uri.parse(
+        "https://www.titan-photography.com/user/all/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
       headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Headers":
-        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
     );
@@ -45,7 +46,6 @@ class _UserViewState extends State<UserView> {
     this.users = [];
     setState(() {
       for (var i = 0; i < data.length; i++) {
-
         User unUser = User(
           idUser: data[i]['idUser'],
           firstName: data[i]['firstName'],
@@ -57,12 +57,10 @@ class _UserViewState extends State<UserView> {
           password: data[i]['password'],
           points: data[i]['points'],
           signInDate: data[i]['signInDate'],
-
         );
         print(unUser.firstName);
         users.add(unUser);
       }
-
     });
   }
 
@@ -94,7 +92,6 @@ class _UserViewState extends State<UserView> {
                         child: Text("Add User"),
                       ),
                     )),
-
               ),
               Card(
                 elevation: 2,
@@ -114,7 +111,6 @@ class _UserViewState extends State<UserView> {
                         child: Text("Invitation"),
                       ),
                     )),
-
               ),
             ],
           ),
@@ -139,10 +135,11 @@ class _UserViewState extends State<UserView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-
-                              child: Text("Utilisateurs de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                              child: Text(
+                                "Utilisateurs de la communauté",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ],
                         ),
                       ),
@@ -154,7 +151,37 @@ class _UserViewState extends State<UserView> {
                       addRepaintBoundaries: false,
                       itemCount: users.length,
                       itemBuilder: (context, index) {
-                        return UserListLine(user: users[index]);
+                        return MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: Text(
+                                            'Supression de l\'utilisateur ${users[index].firstName} ${users[index].lastName}'),
+                                        content: const Text(
+                                            'Voullez vous vraiment supprimer cette utilisateur ?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: const Text('Non'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              Navigator.pop(context, 'OK');
+
+                                              await deleteUser(
+                                                  users[index].idUser);
+                                              refreshUsers();
+                                            },
+                                            child: const Text('Oui'),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                child: UserListLine(user: users[index])));
                       }),
                 ],
               ),

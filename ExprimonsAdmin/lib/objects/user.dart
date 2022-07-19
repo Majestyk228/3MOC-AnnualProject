@@ -69,3 +69,19 @@ Future addUser(String firstName,String lastName,String birthDate,String gender,S
       },
       body: body);
 }
+
+Future deleteUser(int idUser) async {
+  Uri uri = Uri.parse("https://titan-photography.com/user/delete/${idUser}");
+
+
+
+  final response = await http.delete(uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+}

@@ -12,38 +12,30 @@ class UserListLine extends StatefulWidget {
 class _UserListLineState extends State<UserListLine> {
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          //go to  user details
-        },
-        child: Container(
-          width: 300,
-          height: 100,
+    return Container(
+      width: 300,
+      height: 100,
 
-          //child: Text(votes[index]["title"])
-          child: Card(
-            elevation: 2,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 150,
-                  child: Text(widget.user.lastName ?? "Failed to load"),
-                ),
-                Container(
-                  width: 150,
-                  child: Text(widget.user.firstName ?? "Failed to load"),
-                ),
-                Container(
-                  width: 150,
-                  child: Text("${widget.user.points}"),
-                )
-              ],
+      //child: Text(votes[index]["title"])
+      child: Card(
+        elevation: 2,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              width: 150,
+              child: Text(widget.user.lastName ?? "Failed to load"),
             ),
-          ),
+            Container(
+              width: 150,
+              child: Text(widget.user.firstName ?? "Failed to load"),
+            ),
+            Container(
+              width: 150,
+              child: Text("${widget.user.points}"),
+            )
+          ],
         ),
       ),
     );

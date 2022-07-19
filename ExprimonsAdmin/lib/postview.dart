@@ -99,12 +99,13 @@ class _PostViewState extends State<PostView> {
                 elevation: 2,
                 color: Colors.white,
                 child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final value = await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const ReportedPostView()),
                       );
+                      refreshPosts();
                     },
                     child: Container(
                       width: 200,
@@ -161,7 +162,8 @@ class _PostViewState extends State<PostView> {
                                   final value = await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DetailsPostView(post:posts[index])),
+                                        builder: (context) => DetailsPostView(
+                                            post: posts[index])),
                                   );
                                   refreshPosts();
                                 },

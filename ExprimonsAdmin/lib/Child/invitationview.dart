@@ -150,7 +150,7 @@ class _InvitationViewState extends State<InvitationView> {
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
                                 title:
-                                    const Text('Supression de l\'invitation'),
+                                     Text('Supression de l\'invitation ${invitation[index].code}'),
                                 content: const Text(
                                     'Voullez vous vraiment supprimer cette invitation ?'),
                                 actions: <Widget>[
