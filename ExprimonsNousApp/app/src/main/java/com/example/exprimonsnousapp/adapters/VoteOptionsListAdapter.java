@@ -21,7 +21,6 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
 
     LayoutInflater inflater;
     List<VoteOption> choices;
-    //ApiInterface apiInterface;
     Context context;
 
     public VoteOptionsListAdapter( List<VoteOption> choices, Context context) {
@@ -34,7 +33,6 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.vote_options, parent, false);
-        //apiInterface = ApiClient.getClient().create(ApiInterface.class);
         return new ViewHolder(view);
     }
 

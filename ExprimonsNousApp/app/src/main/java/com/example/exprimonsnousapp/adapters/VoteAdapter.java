@@ -34,9 +34,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
     Context context;
     Toolbar myToolbar;
 
-    // CONSTRUCTEUR DE L'ADAPTEUR
-
-
+    // ADAPTER'S CONSTRUCTOR
     public VoteAdapter(Context context, List<Vote> votes) {
         this.inflater = LayoutInflater.from(context);
         this.votes = votes;
@@ -61,8 +59,6 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
         holder.participationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // APPEL DE LA ROUTE POUR AVOIR LES DETAILS D'UN VOTE
-                // OUVERTURE D'UN FRAGMENT POUR LES INFOS DU VOTE ET LES OPTIONS
 
                 Fragment mFragment = new VoteParticipationFragment();
 

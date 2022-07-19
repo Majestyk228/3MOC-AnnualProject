@@ -44,7 +44,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     int idUser;
 
 
-    //constructeur de l'adapteur
+    // ADAPTER'S CONSTRUTOR
     public PostAdapter(Context context, List<Post> posts, int communityId, int idUser) {
         this.inflater = LayoutInflater.from(context);
         this.posts = posts;
@@ -75,7 +75,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN LIKE AU POST AVEC L'idPost
-                Log.i("RVButton", "Bouton like post " + posts.get(holder.getAdapterPosition()).getBody());
                 IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
                 addLike(idPost);
             }
@@ -85,7 +84,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN DISLIKE AU POST AVEC L'idPost
-                Log.i("RVButton", "Bouton dislike post " + posts.get(holder.getAdapterPosition()).getBody());
                 IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
                 addDislike(idPost);
             }
@@ -95,19 +93,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR OUVRIR LA PAGE DES COMMENTAIRES
-                Log.i("RVButton", "Bouton comment post " + posts.get(holder.getAdapterPosition()).getBody());
-
                 Fragment mFragment = new CommentFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("idPost", Integer.parseInt(posts.get(holder.getAdapterPosition()).getIdPost()));
                 bundle.putInt("idCommunity", communityId);
                 bundle.putInt("idUser", idUser);
                 mFragment.setArguments(bundle);
-
-                /*Bundle bundle = new Bundle();
-                bundle.putInt("idUser", userId);
-                bundle.putInt("idCommunity", communityId);
-                mFragment.setArguments(bundle);*/
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
@@ -120,14 +111,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 // APPEL DE LA ROUTE POUR AJOUTER UN REWARD AU POST AVEC L'idPost
-                Log.i("RVButton", "Bouton reward post " + posts.get(holder.getAdapterPosition()).getIdPost());
-
                 Fragment mFragment = new BottomSheetFrag();
-
-                /*Bundle bundle = new Bundle();
-                bundle.putInt("idUser", userId);
-                bundle.putInt("idCommunity", communityId);
-                mFragment.setArguments(bundle);*/
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
@@ -135,8 +119,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 ft.commit();
             }
         });
-
-        //holder.fullnameTXT
     }
 
     @Override
@@ -171,7 +153,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private void addLike(IdPost idPost) {
         //IdPost idPost1 = new IdPost("1");
         Call<Object> call = apiInterface.likePost(idPost);
-        Log.i("SKYYYYYY", String.valueOf(call.request()));
 
         call.enqueue(new Callback<Object>() {
             @Override
@@ -188,7 +169,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private void addDislike(IdPost idPost) {
         Call<Object> call = apiInterface.dislikePost(idPost);
-        Log.i("SKYYYYYY", String.valueOf(call.request()));
 
         call.enqueue(new Callback<Object>() {
             @Override

@@ -64,8 +64,6 @@ public class CommentFragment extends Fragment {
     Toolbar myToolbar;
 
 
-
-
     public CommentFragment() {
         // Required empty public constructor
     }
@@ -115,7 +113,7 @@ public class CommentFragment extends Fragment {
         postCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewComment newComment = new NewComment(idCommunity,newCommentEdittext.getText().toString(),false,idPost,idUser);
+                NewComment newComment = new NewComment(idCommunity, newCommentEdittext.getText().toString(), false, idPost, idUser);
                 sendComment(newComment);
                 Toast.makeText(getContext(), "Le commentaire a été ajouté.", Toast.LENGTH_LONG).show();
             }
@@ -124,7 +122,7 @@ public class CommentFragment extends Fragment {
         anonymousCommmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewComment newComment = new NewComment(idCommunity,newCommentEdittext.getText().toString(),true,idPost,idUser);
+                NewComment newComment = new NewComment(idCommunity, newCommentEdittext.getText().toString(), true, idPost, idUser);
                 sendComment(newComment);
                 Toast.makeText(getContext(), "Le commentaire a été ajouté en anonyme.", Toast.LENGTH_LONG).show();
             }
@@ -154,24 +152,12 @@ public class CommentFragment extends Fragment {
                 // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
-                //myToolbar.setTitle("Les posts");
             }
         });
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         myToolbar.setTitle("Les posts");
-
-        // FAKE DELAY
-        /*final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 5s = 5000ms
-                Log.i("WAIT","WAIT DONE");
-            }
-        }, 1200);
-        Log.i("EXTRACTCOMMENT", "onCreateView: commentsPosts = " + commentsPost.toString());*/
 
         recyclerViewComment = view.findViewById(R.id.recyclerViewComment);
         recyclerViewComment.setHasFixedSize(true);
@@ -220,16 +206,13 @@ public class CommentFragment extends Fragment {
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                Log.i("GETPOST", "onResponse getPost: " + response.body().getFirstname());
-
                 fullnameTXT.setText(response.body().getFirstname() + " " + response.body().getLastname());
                 bodyTXT.setText(response.body().getBody());
             }
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-                //Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-                Log.i("GETPOST", "onFail getPost: " + t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -240,22 +223,15 @@ public class CommentFragment extends Fragment {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.i("POSTCOMMENT", "onResponse sendComment: " + response.body());
-
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                fm.popBackStack ("CommentFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fm.popBackStack("CommentFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                //Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-                Log.i("POSTCOMMENT", "onFail sendComment: " + t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void sendAnonymousComment(NewComment newComment) {
-        // API CALL
     }
 }

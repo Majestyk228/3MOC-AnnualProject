@@ -44,16 +44,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         //bind the data
         if (commentsPost.get(holder.getAdapterPosition()).getAnonymous() == 1) {
-            // changer le fullname
+            // change fullname
             holder.fullnameTXT.setText(R.string.anonymous_fullname);
 
         } else {
-            //garder la ligne
+            //keep the line
             holder.fullnameTXT.setText(commentsPost.get(holder.getAdapterPosition()).getFirstName() + " " + commentsPost.get(holder.getAdapterPosition()).getLastName());
         }
         holder.commentTXT.setText(commentsPost.get(holder.getAdapterPosition()).getBody());
-
-        // TODO : Not implemented yet
     }
 
     @Override

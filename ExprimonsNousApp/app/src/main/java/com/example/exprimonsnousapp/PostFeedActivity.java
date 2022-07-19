@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -99,14 +100,13 @@ public class PostFeedActivity extends AppCompatActivity {
                             }
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        //adapter = new PostAdapter(getApplicationContext(), posts);
                         recyclerView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("errorAPI","onErrorResponse:"+error.getMessage());
+                        Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                     }
                 });
 

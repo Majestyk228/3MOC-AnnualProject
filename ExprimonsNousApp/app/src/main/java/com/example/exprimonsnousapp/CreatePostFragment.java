@@ -60,7 +60,6 @@ public class CreatePostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_create_post, container, false);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -84,9 +83,7 @@ public class CreatePostFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //code...
-                Log.i("SKY_ESGI","New post created for userID = "+ idUser + " et idCommunity = " + idCommunity);
                 NewPost newPost = new NewPost(postTitle.getText().toString(),postBody.getText().toString(),idCommunity,idUser,"null");
-                Log.i("SKY_ESGI","NewPost = "+newPost.toString());
                 sendNewPost(newPost);
             }
         });
@@ -95,8 +92,6 @@ public class CreatePostFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                //code...
-                Log.i("SKY_ESGI","New post cancelled");
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
                 fm.popBackStack ("CreatePostFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -112,13 +107,6 @@ public class CreatePostFragment extends Fragment {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.i("SKY_ESGI","Post créé");
-                // NOTIFY USER THAT THE POST GOT CREATED
-                // Snackbar.make(coordinatorLayout,R.string.postCreated, Snackbar.LENGTH_SHORT).show();
-                //Snackbar.make(coordinatorLayout,"Le post a été créé", Snackbar.LENGTH_SHORT).show();
-
-
-
                 // RETURN TO LAST FRANGMENT
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
@@ -129,42 +117,8 @@ public class CreatePostFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Log.i("SKY_ESGI",t.getLocalizedMessage());
-
-
                 Snackbar.make(coordinatorLayout,R.string.createPostError, Snackbar.LENGTH_SHORT).show();
             }
         });
     }
-
-    /*
-    * private void updateUserInfo(UserUpdatedInfos userUpdatedInfos) {
-
-        UserUpdatedInfos userUpdatedInfos1 = userUpdatedInfos;
-
-        Call<UserUpdateResponse> call = apiInterface.updateUserInfo(userUpdatedInfos1);
-
-        Log.i("SKY_ESGI",userUpdatedInfos.toString());
-
-
-        call.enqueue(new Callback<UserUpdateResponse>(){
-            UserUpdateResponse responseStr;
-
-            @Override
-            public void onResponse(Call<UserUpdateResponse> call, Response<UserUpdateResponse> response) {
-                if (response.isSuccessful()) {
-                    responseStr = response.body();
-                } else {
-                    responseStr = new UserUpdateResponse("Erreur");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
-                Log.i("SKY_ESGI", "onFailure: "+t.getLocalizedMessage());
-            }
-        });
-    }
-    *
-    * */
 }

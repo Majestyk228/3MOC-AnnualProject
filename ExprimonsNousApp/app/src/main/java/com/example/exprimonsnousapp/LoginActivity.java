@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserCreds> call, Throwable t) {
-                Log.i("API RESPONSE", "onFailure: "+t.getLocalizedMessage());
+                Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -94,8 +94,6 @@ public class LoginActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Do something after 5s = 5000ms
-                Log.i("WAIT","WAIT DONE");
                 connexion(userCreds);
             }
         }, 1200);

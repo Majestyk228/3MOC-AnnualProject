@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -83,15 +84,6 @@ public class VoteFragment extends Fragment {
             this.userId = bundle.getInt("idUser", -1);
             this.communityId = bundle.getInt("idCommunity", -1);
         }
-
-        //IdCommunity idCommunity = new IdCommunity(communityId);
-        /*try {
-            extractVoteBis(idCommunity);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-
-        //extractVote(idCommunity);
     }
 
     @Override
@@ -153,13 +145,13 @@ public class VoteFragment extends Fragment {
                     votes = response.body();
                 } else {
                     // BAD REQUEST CASE
-                    Log.i("API RESPONSE", response.toString());
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Vote>> call, Throwable t) {
-                Log.i("API RESPONSE", "onFailure: " + t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -169,24 +161,19 @@ public class VoteFragment extends Fragment {
 
 
         JSONArray array = new JSONArray();
-        JSONObject obj=new JSONObject();
+        JSONObject obj = new JSONObject();
         try {
-            obj.put("idCommunity",String.valueOf(idCommunity.getIdCommunity()));
+            obj.put("idCommunity", String.valueOf(idCommunity.getIdCommunity()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         array.put(obj);
 
-
-        /*Map<String, String> params = new HashMap<String, String>();
-        params.put("idCommunity", String.valueOf(idCommunity.getIdCommunity()));
-        Array body = new A*/
-
         //API call made here
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                URL+"/"+idCommunity.getIdCommunity(),
+                URL + "/" + idCommunity.getIdCommunity(),
                 array,
                 new com.android.volley.Response.Listener<JSONArray>() {
                     @Override
@@ -202,7 +189,6 @@ public class VoteFragment extends Fragment {
                                 vote.setBody(voteObject.getString("body"));
                                 vote.setNbChoice(voteObject.getInt("nbChoices"));
                                 vote.setImportant(voteObject.getInt("important"));
-                                //vote.setIdUser(voteObject.getInt("idUser"));
                                 vote.setIdUser(-1);//No user ever post a servey from now on
                                 vote.setIdAdmin(voteObject.getInt("idAdmin"));
                                 vote.setVoteBegins(Date.valueOf(voteObject.get("voteBegins").toString()));
@@ -223,7 +209,7 @@ public class VoteFragment extends Fragment {
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
+                        Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                     }
                 });
 

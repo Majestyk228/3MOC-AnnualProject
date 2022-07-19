@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.exprimonsnousapp.adapters.VoteOptionsListAdapter;
 import com.example.exprimonsnousapp.models.IdVote;
@@ -70,10 +71,6 @@ public class VoteParticipationFragment extends Fragment {
 
         vote = extractVote(idVote);
         extractVoteOptions(idVote);
-
-
-        // CHANGING TEXTVIEWS TO MATCH TITLE AND SUBJECT
-
     }
 
     @Override
@@ -85,8 +82,6 @@ public class VoteParticipationFragment extends Fragment {
         this.sujet_vote_name = view.findViewById(R.id.sujet_vote_name);
         this.title_vote_name = view.findViewById(R.id.title_vote_name);
 
-        Log.i("Test",vote.toString());
-
         this.sujet_vote_name.setText(this.vote.getTitle());
         this.title_vote_name.setText(this.vote.getBody());
 
@@ -94,27 +89,27 @@ public class VoteParticipationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.voteOptionsList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new VoteOptionsListAdapter(voteOptions,getContext());
+        adapter = new VoteOptionsListAdapter(voteOptions, getContext());
         recyclerView.setAdapter(adapter);
         return view;
     }
 
     public void extractVoteOptions(IdVote idVote) {
         Call<VoteOption> call = apiInterface.getVoteOptions(idVote);
-        call.enqueue(new Callback<VoteOption>(){
+        call.enqueue(new Callback<VoteOption>() {
 
             @Override
             public void onResponse(Call<VoteOption> call, Response<VoteOption> response) {
                 if (response.isSuccessful()) {
                     voteOptions = (List<VoteOption>) response.body();
                 } else {
-                    Log.i("VOTEOPTIONS","ERROR");
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<VoteOption> call, Throwable t) {
-                Log.i("VOTEOPTIONS",t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -125,15 +120,11 @@ public class VoteParticipationFragment extends Fragment {
         Vote voteBuffer = new Vote();
 
         Call<List<Vote>> call = apiInterface.getVote(idVote);
-
-        //Log.i("VOTEREFERENCE",call.request().body().toString());
-
-        call.enqueue(new Callback<List<Vote>>(){
+        call.enqueue(new Callback<List<Vote>>() {
 
             @Override
-            public void onResponse(Call<List<Vote>> call, Response<List<Vote>>response) {
+            public void onResponse(Call<List<Vote>> call, Response<List<Vote>> response) {
                 if (response.isSuccessful()) {
-                    //vote = response.body().get(0);
                     voteBuffer.setIdVote(response.body().get(0).getIdVote());
                     voteBuffer.setTitle(response.body().get(0).getTitle());
                     voteBuffer.setBody(response.body().get(0).getBody());
@@ -146,17 +137,16 @@ public class VoteParticipationFragment extends Fragment {
                     voteBuffer.setIdCommunity(response.body().get(0).getIdCommunity());
                     setVote(voteBuffer);
                 } else {
-                    Log.i("VOTEOPTIONS","the fuck");
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Vote>> call, Throwable t) {
-                Log.i("VOTEOPTIONS",t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
             }
         });
 
-        Log.i("VOTEREFERENCE", voteBuffer.toString());
         return voteBuffer;
     }
 

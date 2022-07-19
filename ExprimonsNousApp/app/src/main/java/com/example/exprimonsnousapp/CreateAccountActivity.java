@@ -32,12 +32,11 @@ import retrofit2.Response;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    //Private declaration of all objects in layout
+    // PRIVATE DECLARATION OF ALL OBJECTS IN LAYOUT
     private EditText firstname;
     private EditText lastname;
     private EditText birthdate;
     private EditText email;
-    //private EditText gender;
     private Spinner gender_spinner;
     private EditText areaCode;
     private EditText passwd;
@@ -68,7 +67,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         this.lastname = (EditText) findViewById(R.id.lastname);
 
         this.email = (EditText) findViewById(R.id.email);
-        //this.gender = (EditText) findViewById(R.id.gender);
         this.gender_spinner = (Spinner) findViewById(R.id.gender_spinner);
         this.areaCode = (EditText) findViewById(R.id.areaCode);
         this.passwd = (EditText) findViewById(R.id.passwd);
@@ -95,17 +93,16 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
 
-        // Specify the layout to use when the list of choices appears
+        // SPECIFY TH ELAYOUT TO USE WHEN THE LIST OF CHOICES APPEARS
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
+        // APPLY THE ADAPTER TO THE SPINNER
         gender_spinner.setAdapter(adapter);
 
-        //Listening to the SignInBtn press
+        // LISTENING TO THE SIGNINBTN PRESS
         this.signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //getting strings from every EditTexts
                 String firstnameTXT = firstname.getText().toString();
                 String lastnameTXT = lastname.getText().toString();
                 String birthdateTXT = birthdate.getText().toString();
@@ -123,16 +120,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                     // CONVERT TEXT VARIABLES TO OBJECT
                     NewAccount newAccount = new NewAccount(firstnameTXT, lastnameTXT, birthdateTXT, emailTXT, genderTXT, areaCodeTXT, passwdTXT);
-
-                    /*
-                    //adding extras from the strings from EditTexts
-                    joinCommunityActivity.putExtra("firstname",firstnameTXT);
-                    joinCommunityActivity.putExtra("lastname",lastnameTXT);
-                    joinCommunityActivity.putExtra("birthdate",birthdateTXT);
-                    joinCommunityActivity.putExtra("email",emailTXT);
-                    joinCommunityActivity.putExtra("gender",genderTXT);
-                    joinCommunityActivity.putExtra("areaCode",areaCodeTXT);
-                    joinCommunityActivity.putExtra("passwd",passwdTXT);*/
 
 
                     // FAKE DELAY
@@ -164,18 +151,15 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<NewAccountResponse> call, Response<NewAccountResponse> response) {
                 if (response.isSuccessful()) {
-                    //idUser = (int) response.body();
                     idUser = response.body().getIdUser();
-                    Log.i("REGISTER", "onResponse: "+response.body());
                 } else {
-                    //idUser = -1;
-                    Log.i("REGISTER", "onResponse: "+response.body());
+                    idUser = -1;
                 }
             }
 
             @Override
             public void onFailure(Call<NewAccountResponse> call, Throwable t) {
-                Log.i("REGISTER", "onFailure: "+t.getLocalizedMessage());
+                Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
             }
         });
     }

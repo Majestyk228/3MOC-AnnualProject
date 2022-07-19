@@ -46,11 +46,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
     // BOUTONS
@@ -76,8 +71,6 @@ public class ProfileFragment extends Fragment {
     // OTHER VARIABLES
     private int idUser;
     private AlertDialog dialog;
-    private TextView newPasswordLb;
-    private TextView confirmationPasswordLb;
 
 
     public ProfileFragment() {
@@ -130,7 +123,6 @@ public class ProfileFragment extends Fragment {
 
 
         this.submit_button.setOnClickListener(view12 -> {
-            Log.i("SKY_ESGI", "Bouton Submit");
 
             String firstNameTxt = firstName.getText().toString();
             String lastNameTxt = lastName.getText().toString();
@@ -148,7 +140,6 @@ public class ProfileFragment extends Fragment {
         this.reset_password.setOnClickListener(view1 -> {
             //Toast.makeText(view.getContext(),"Changement du mot de passe...", Toast.LENGTH_SHORT).show();
 
-            Log.i("SKY_ESGI", "Bouton Reset");
             // OPEN FRAGMENT TO RESET PASSWORD SCREEN
             dialog.show();
         });
@@ -189,11 +180,9 @@ public class ProfileFragment extends Fragment {
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if(newPassword.getText().toString().equals(confirmationPassword.getText().toString())){
-                            Log.i("SKY_ESGI","Same");
                             // POUSSER UN DES DEUX CHAMPS VERS L'API
                             updateUserPassword(newPassword.getText().toString(), idUser);
                         } else {
-                            Log.i("SKY_ESGI","Different");
                             // LAISSER LA FENETRE ET FAIRE UN TOAST POUR NOTIFIER L'UTILISATEUR
                             Toast.makeText(getActivity(),R.string.different_passwords,Toast.LENGTH_SHORT).show();
                         }
@@ -218,9 +207,6 @@ public class ProfileFragment extends Fragment {
 
         Call<UserUpdateResponse> call = apiInterface.updateUserInfo(userUpdatedInfos1);
 
-        Log.i("SKY_ESGI",userUpdatedInfos.toString());
-
-
         call.enqueue(new Callback<UserUpdateResponse>(){
             UserUpdateResponse responseStr;
 
@@ -235,7 +221,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
-                Log.i("SKY_ESGI", "onFailure: "+t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -264,7 +250,6 @@ public class ProfileFragment extends Fragment {
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //Log.i("responseAPI",response.toString());
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Vos informations ont été mises à jour.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
@@ -272,7 +257,6 @@ public class ProfileFragment extends Fragment {
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Log.d("errorAPI","onErrorResponse:"+error.getMessage());
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
@@ -301,7 +285,6 @@ public class ProfileFragment extends Fragment {
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //Log.i("responseAPI",response.toString());
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Votre mot de passe a été mises à jour.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
@@ -309,11 +292,6 @@ public class ProfileFragment extends Fragment {
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("errorAPI","onErrorResponse:"+error.getLocalizedMessage());
-                        //if(error.getLocalizedMessage().equals())
-
-                        // TEMPORARY FIX
-                        //Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Votre mot de passe a été mises à jour.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }

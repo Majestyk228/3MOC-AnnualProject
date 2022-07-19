@@ -43,8 +43,6 @@ public class MainActivity2 extends AppCompatActivity {
         CommunityInsert communityInsert = new CommunityInsert(userId,communityId);
         addUserInCommunity(communityInsert);
 
-        Log.i("COMMUNITYID", "onCreateMainActyvity2 idUser: "+userId);
-
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle("Les posts");
@@ -94,7 +92,6 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void addUserInCommunity(CommunityInsert communityInsert) {
-        // TODO : make api call
         Call<Object> call = apiInterface.addUserInCommunity(communityInsert);
         Log.i("GETIDCOMMUNITY", "addUserInCommunity request: "+ call.request().toString());
         call.enqueue(new Callback<Object>(){

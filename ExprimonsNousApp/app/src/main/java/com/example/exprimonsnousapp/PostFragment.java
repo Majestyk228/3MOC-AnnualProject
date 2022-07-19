@@ -85,8 +85,6 @@ public class PostFragment extends Fragment {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Log.i("FragmentIDs", "onCreatePostFragment: idCommunity = "+communityId+" / idUser = "+userId);
-
         posts = new ArrayList<>();
 
         extractPost();
@@ -248,49 +246,4 @@ public class PostFragment extends Fragment {
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
     }
-
-    /*private int getNbCommentsAPI(int idPost) {
-        // TODO : Code goes here
-        final int[] nbComment = {-1};
-        //API call made here
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                URLComment + idPost,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject postObject = response.getJSONObject(i);
-
-                                nbComment[0] = postObject.getInt("nbComment");
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new PostAdapter(getContext(), posts);
-                        recyclerView.setAdapter(adapter);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
-                    }
-                });
-
-        //ajouter la requete à la queue d'exécution
-        queue.add(jsonArrayRequest);
-
-        return nbComment[0];
-    }*/
-
-    /*private void getNbRewardsAPI(IdPost idPost) {
-        // TODO : Code goes here
-    }*/
 }
