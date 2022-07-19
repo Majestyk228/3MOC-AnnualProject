@@ -12,7 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/fullnameTXT"
@@ -20,10 +21,17 @@
             android:layout_height="wrap_content"
             android:text="John DOE !"
             android:layout_margin="15dp"
+            android:layout_weight="1"
             android:textSize="17sp"
             android:textColor="@color/black"
             >
         </TextView>
+
+        <ImageView
+            android:id="@+id/report"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_information"/>
 
     </LinearLayout>
     <!--Partie 2 : Le corps du poste-->

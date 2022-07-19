@@ -2,6 +2,8 @@ package com.example.exprimonsnousapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -57,6 +59,9 @@ public class CommentFragment extends Fragment {
     // OTHER
     ApiInterface apiInterface;
     private CoordinatorLayout coordinatorLayout;
+
+    // TOOLBAR
+    Toolbar myToolbar;
 
 
 
@@ -128,6 +133,34 @@ public class CommentFragment extends Fragment {
 
         extractComments(idPost);
         getPost(idPost);
+
+
+        // RECUPERATION DE LA TOOLBAR DU PARENT, CHANGEMENT DU TITRE ET AJOUT DU BOUTON RETOUR
+        myToolbar = getActivity().findViewById(R.id.my_toolbar);
+        myToolbar.setTitle("Commentaires");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(myToolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // MISE EN ÉCOUTE DU BOUTON RETOUR
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // RETRAIT DU FRAGMENT CreatePostFragment
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("CommentFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+                //myToolbar.setTitle("Les posts");
+            }
+        });
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        myToolbar.setTitle("Les posts");
 
         // FAKE DELAY
         /*final Handler handler = new Handler();
