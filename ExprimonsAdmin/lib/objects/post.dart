@@ -91,3 +91,20 @@ Future updatePost(int idPost,String Title,String Body) async {
       },
       body: body);
 }
+
+Future deletePost(int idPost) async{
+  Uri uri = Uri.parse("https://titan-photography.com/post/delete/${idPost}");
+
+
+
+  final response = await http.delete(uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      );
+}

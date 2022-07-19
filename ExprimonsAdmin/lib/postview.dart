@@ -5,6 +5,7 @@ import 'package:exprimons_nous/component/postlistline.dart';
 import 'package:exprimons_nous/objects/post.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'Child/Details/detailspostview.dart';
 import 'Globals.dart';
 import 'package:http/http.dart' as http;
 
@@ -78,12 +79,13 @@ class _PostViewState extends State<PostView> {
                 elevation: 2,
                 color: Colors.white,
                 child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final value = await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const AddPostView()),
                       );
+                      refreshPosts();
                     },
                     child: Container(
                       width: 200,
@@ -135,10 +137,11 @@ class _PostViewState extends State<PostView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-
-                              child: Text("Post de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                              child: Text(
+                                "Post de la communauté",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ],
                         ),
                       ),
@@ -150,7 +153,19 @@ class _PostViewState extends State<PostView> {
                       addRepaintBoundaries: false,
                       itemCount: posts.length,
                       itemBuilder: (context, index) {
-                        return PostListLine(post: posts[index]);
+                        return MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () async {
+                                  //go to  post details
+                                  final value = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsPostView(post:posts[index])),
+                                  );
+                                  refreshPosts();
+                                },
+                                child: PostListLine(post: posts[index])));
                       }),
                 ],
               ),

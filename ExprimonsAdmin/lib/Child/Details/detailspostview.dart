@@ -151,6 +151,12 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                           }
                         },
                         child: Text("Mettre a jour le post")),
+                    TextButton(
+                        onPressed: () {
+                          deletePost(widget.post.idPost!);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Supprimer le post")),
                   ],
                 ),
               ),

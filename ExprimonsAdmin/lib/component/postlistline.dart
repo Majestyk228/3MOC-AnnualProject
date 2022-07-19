@@ -13,43 +13,30 @@ class PostListLine extends StatefulWidget {
 class _PostListLineState extends State<PostListLine> {
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          //go to  post details
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailsPostView(post: widget.post)),
-          );
-        },
-        child: Container(
-          width: 300,
-          height: 100,
+    return Container(
+      width: 300,
+      height: 100,
 
-          //child: Text(votes[index]["title"])
-          child: Card(
-            elevation: 2,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 150,
-                  child: Text(widget.post.title ?? "Failed to load"),
-                ),
-                Container(
-                  width: 150,
-                  child: Text(widget.post.date ?? "Failed to load"),
-                ),
-                Container(
-                  width: 150,
-                  child: Text("${widget.post.reported}"),
-                )
-              ],
+      //child: Text(votes[index]["title"])
+      child: Card(
+        elevation: 2,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              width: 150,
+              child: Text(widget.post.title ?? "Failed to load"),
             ),
-          ),
+            Container(
+              width: 150,
+              child: Text(widget.post.date ?? "Failed to load"),
+            ),
+            Container(
+              width: 150,
+              child: Text("${widget.post.reported}"),
+            )
+          ],
         ),
       ),
     );
