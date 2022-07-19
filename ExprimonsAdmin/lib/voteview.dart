@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Child/Details/detailsvoteview.dart';
 import 'package:exprimons_nous/Child/addvoteview.dart';
 import 'package:exprimons_nous/Globals.dart';
 import 'package:exprimons_nous/component/voteslistline.dart';
@@ -27,7 +28,8 @@ class _VoteViewState extends State<VoteView> {
 
   Future refreshVotes() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteList/${currentAdmin.idCommunity}");
+    Uri uri = Uri.parse(
+        "https://www.titan-photography.com/vote/voteList/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -61,8 +63,6 @@ class _VoteViewState extends State<VoteView> {
       }
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +116,11 @@ class _VoteViewState extends State<VoteView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-
-                              child: Text("Vote de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                              child: Text(
+                                "Vote de la communauté",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ],
                         ),
                       ),
@@ -131,7 +132,19 @@ class _VoteViewState extends State<VoteView> {
                       addRepaintBoundaries: false,
                       itemCount: votes.length,
                       itemBuilder: (context, index) {
-                        return VotesListLine(votes: votes[index]);
+                        return MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () async {
+                                  final value = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsVoteView(
+                                              vote: votes[index],
+                                            )),
+                                  );
+                                },
+                                child: VotesListLine(votes: votes[index])));
                       }),
                 ],
               ),
@@ -142,5 +155,3 @@ class _VoteViewState extends State<VoteView> {
     );
   }
 }
-
-
