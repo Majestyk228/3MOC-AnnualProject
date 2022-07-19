@@ -42,9 +42,9 @@ class Vote {
   }
 
 }
-Future addVotes(String Title,String Body,String nbChoice,bool important) async {
+Future<int> addVotes(String Title,String Body,String nbChoice,bool important) async {
   Uri uri = Uri.parse("https://titan-photography.com/vote/create");
-  print(uri);
+
   var body = jsonEncode({
     "title": Title,
     "body": Body,
@@ -53,7 +53,7 @@ Future addVotes(String Title,String Body,String nbChoice,bool important) async {
     "idAdmin": currentAdmin.idAdmin,
     "idCommunity": currentAdmin.idCommunity
   });
-print(body);
+
   final response = await http.post(uri,
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -64,4 +64,8 @@ print(body);
         'Content-Type': 'application/json; charset=UTF-8'
       },
       body: body);
+
+  var data = json.decode(response.body);
+
+  return data['idVote'];
 }
