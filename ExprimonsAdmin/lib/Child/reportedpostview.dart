@@ -1,56 +1,64 @@
 import 'dart:convert';
 
-import 'package:exprimons_nous/objects/invitation.dart';
 import 'package:flutter/material.dart';
-
-import '../Colors.dart';
 import 'package:http/http.dart' as http;
+import '../Colors.dart';
 import '../Globals.dart';
+import '../component/postlistline.dart';
+import '../objects/post.dart';
 
-class InvitationView extends StatefulWidget {
-  const InvitationView({Key? key}) : super(key: key);
+class ReportedPostView extends StatefulWidget {
+  const ReportedPostView({Key? key}) : super(key: key);
 
   @override
-  State<InvitationView> createState() => _InvitationViewState();
+  State<ReportedPostView> createState() => _ReportedPostViewState();
 }
 
-class _InvitationViewState extends State<InvitationView> {
-  var invitation = [];
+class _ReportedPostViewState extends State<ReportedPostView> {
+  var posts = [];
 
   @override
   void initState() {
-    refreshInvitation();
+    refreshPosts();
     super.initState();
   }
 
-  Future refreshInvitation() async {
+  Future refreshPosts() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/invite/allByCommunity/${currentAdmin.idCommunity}");
+    Uri uri = Uri.parse(
+        "https://www.titan-photography.com/post/reportedPosts/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
       headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Headers":
-            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
     );
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
-
-    this.invitation = [];
+    print(data);
+    this.posts = [];
     setState(() {
       for (var i = 0; i < data.length; i++) {
-        Invitation uneInvitation = Invitation(
-          code: data[i]['code'],
+        Post unPost = Post(
+          idPost: data[i]['idPost'],
+          title: data[i]['title'],
+          body: data[i]['body'],
+          date: data[i]['date'],
+          time: data[i]['time'],
+          likes: data[i]['likes'],
+          dislikes: data[i]['dislikes'],
           idCommunity: data[i]['idCommunity'],
-          creationDate: data[i]['creationDate'],
-          endDate: data[i]['endDate'],
+          idUser: data[i]['idUser'],
+          idAdmin: data[i]['idAdmin'],
+          reported: data[i]['reported'],
         );
 
-        invitation.add(uneInvitation);
+        posts.add(unPost);
       }
     });
   }
@@ -87,22 +95,7 @@ class _InvitationViewState extends State<InvitationView> {
                   ),
                 ),
               ),
-              Card(
-                elevation: 2,
-                color: Colors.white,
-                child: TextButton(
-                    onPressed: () async {
-                      await addInvitation();
-                      refreshInvitation();
-                    },
-                    child: Container(
-                      width: 200,
-                      height: 75,
-                      child: Center(
-                        child: Text("Add Invitation"),
-                      ),
-                    )),
-              ),
+
             ],
           ),
           SizedBox(
@@ -127,7 +120,7 @@ class _InvitationViewState extends State<InvitationView> {
                           children: [
                             Container(
 
-                              child: Text("Invitation de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                              child: Text("Post signalé",style: TextStyle(fontWeight: FontWeight.bold),),
                             ),
 
                           ],
@@ -139,31 +132,9 @@ class _InvitationViewState extends State<InvitationView> {
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       addRepaintBoundaries: false,
-                      itemCount: invitation.length,
+                      itemCount: posts.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          width: 300,
-                          height: 100,
-
-                          //child: Text(votes[index]["title"])
-                          child: Card(
-                            elevation: 2,
-                            color: Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  width: 150,
-                                  child: Text("${invitation[index].code}"),
-                                ),
-                                Container(
-                                  width: 150,
-                                  child: Text(invitation[index].endDate),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                        return PostListLine(post: posts[index]);
                       }),
                 ],
               ),

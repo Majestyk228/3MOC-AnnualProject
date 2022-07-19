@@ -124,14 +124,40 @@ class _UserViewState extends State<UserView> {
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  addRepaintBoundaries: false,
-                  itemCount: users.length,
-                  itemBuilder: (context, index) {
-                    return UserListLine(user: users[index]);
-                  }),
+              child: Wrap(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 100,
+
+                      //child: Text(votes[index]["title"])
+                      child: Card(
+                        elevation: 2,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+
+                              child: Text("Utilisateurs de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      addRepaintBoundaries: false,
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        return UserListLine(user: users[index]);
+                      }),
+                ],
+              ),
             ),
           )
         ],

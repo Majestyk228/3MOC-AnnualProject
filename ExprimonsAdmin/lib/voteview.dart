@@ -101,14 +101,40 @@ class _VoteViewState extends State<VoteView> {
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  addRepaintBoundaries: false,
-                  itemCount: votes.length,
-                  itemBuilder: (context, index) {
-                    return VotesListLine(votes: votes[index]);
-                  }),
+              child: Wrap(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 100,
+
+                      //child: Text(votes[index]["title"])
+                      child: Card(
+                        elevation: 2,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+
+                              child: Text("Vote de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      addRepaintBoundaries: false,
+                      itemCount: votes.length,
+                      itemBuilder: (context, index) {
+                        return VotesListLine(votes: votes[index]);
+                      }),
+                ],
+              ),
             ),
           )
         ],

@@ -1,4 +1,5 @@
 import 'package:exprimons_nous/Child/addpostview.dart';
+import 'package:exprimons_nous/Child/reportedpostview.dart';
 import 'package:exprimons_nous/Colors.dart';
 import 'package:exprimons_nous/component/postlistline.dart';
 import 'package:exprimons_nous/objects/post.dart';
@@ -100,14 +101,14 @@ class _PostViewState extends State<PostView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AddPostView()),
+                            builder: (context) => const ReportedPostView()),
                       );
                     },
                     child: Container(
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Comments"),
+                        child: Text("Post reporté"),
                       ),
                     )),
               ),
@@ -119,14 +120,40 @@ class _PostViewState extends State<PostView> {
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  addRepaintBoundaries: false,
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return PostListLine(post: posts[index]);
-                  }),
+              child: Wrap(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 100,
+
+                      //child: Text(votes[index]["title"])
+                      child: Card(
+                        elevation: 2,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+
+                              child: Text("Post de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      addRepaintBoundaries: false,
+                      itemCount: posts.length,
+                      itemBuilder: (context, index) {
+                        return PostListLine(post: posts[index]);
+                      }),
+                ],
+              ),
             ),
           )
         ],
