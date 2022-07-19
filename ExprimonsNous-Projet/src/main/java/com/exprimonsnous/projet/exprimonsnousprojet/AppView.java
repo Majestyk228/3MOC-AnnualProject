@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AppView {
 
     private static Stage stage;
-    private Scene scene;
+    private static Scene scene;
 
     @FXML
     static Rectangle ReferenceRectangle;

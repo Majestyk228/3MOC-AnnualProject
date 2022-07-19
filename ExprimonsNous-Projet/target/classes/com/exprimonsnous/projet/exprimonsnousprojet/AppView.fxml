@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exprimonsnous.projet.exprimonsnousprojet.AppView">
    <children>
       <Rectangle fx:id="ReferenceRectangle" fill="#ffea7e" height="41.0" layoutX="119.0" layoutY="-3.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="484.0" />
-      <MenuButton layoutX="512.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #4173FF; -fx-border-radius: 5px;" text="Options" textFill="WHITE">
+      <MenuButton fx:id="OptionsButton" layoutX="512.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #4173FF; -fx-border-radius: 5px;" text="Options" textFill="WHITE">
         <items>
           <MenuItem fx:id="HomeButton" mnemonicParsing="false" onAction="#SwitchToHome" text="Acceuil" />
           <MenuItem fx:id="ExitButton" mnemonicParsing="false" onAction="#ExitApp" text="Quitter" />
@@ -25,7 +25,7 @@
       </MenuButton>
       <VBox fx:id="VBOX" layoutX="119.0" layoutY="37.0" prefHeight="363.0" prefWidth="484.0" style="-fx-background-image: url(Images/backgroundApp.png);">
          <children>
-            <GridPane fx:id="ListPane" prefHeight="166.0" prefWidth="484.0" VBox.vgrow="ALWAYS">
+            <GridPane fx:id="GridPane" prefHeight="166.0" prefWidth="484.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" prefWidth="150.0" />
               </columnConstraints>
