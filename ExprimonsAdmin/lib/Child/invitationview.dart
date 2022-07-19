@@ -25,7 +25,8 @@ class _InvitationViewState extends State<InvitationView> {
 
   Future refreshInvitation() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/invite/allByCommunity/${currentAdmin.idCommunity}");
+    Uri uri = Uri.parse(
+        "https://www.titan-photography.com/invite/allByCommunity/${currentAdmin.idCommunity}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -126,10 +127,11 @@ class _InvitationViewState extends State<InvitationView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-
-                              child: Text("Invitation de la communauté",style: TextStyle(fontWeight: FontWeight.bold),),
+                              child: Text(
+                                "Invitation de la communauté",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ],
                         ),
                       ),
@@ -141,26 +143,56 @@ class _InvitationViewState extends State<InvitationView> {
                       addRepaintBoundaries: false,
                       itemCount: invitation.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          width: 300,
-                          height: 100,
+                        return MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () => showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title:
+                                    const Text('Supression de l\'invitation'),
+                                content: const Text(
+                                    'Voullez vous vraiment supprimer cette invitation ?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('Non'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      Navigator.pop(context, 'OK');
+                                      print(invitation[index].code);
+                                      await deleteInvitation(invitation[index].code);
+                                      refreshInvitation();
+                                    },
+                                    child: const Text('Oui'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            child: Container(
+                              width: 300,
+                              height: 100,
 
-                          //child: Text(votes[index]["title"])
-                          child: Card(
-                            elevation: 2,
-                            color: Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  width: 150,
-                                  child: Text("${invitation[index].code}"),
+                              //child: Text(votes[index]["title"])
+                              child: Card(
+                                elevation: 2,
+                                color: Colors.white,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      width: 150,
+                                      child: Text("${invitation[index].code}"),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      child: Text(invitation[index].endDate),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  width: 150,
-                                  child: Text(invitation[index].endDate),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         );
