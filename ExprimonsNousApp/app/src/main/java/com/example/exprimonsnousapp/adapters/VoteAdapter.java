@@ -30,15 +30,17 @@ import java.util.List;
 public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
 
     LayoutInflater inflater;
+    int idUser;
     List<Vote> votes;
     Context context;
     Toolbar myToolbar;
 
     // ADAPTER'S CONSTRUCTOR
-    public VoteAdapter(Context context, List<Vote> votes) {
+    public VoteAdapter(Context context, List<Vote> votes, int idUser) {
         this.inflater = LayoutInflater.from(context);
         this.votes = votes;
         this.context = context;
+        this.idUser = idUser;
     }
 
 
@@ -64,6 +66,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("idVote", votes.get(holder.getAbsoluteAdapterPosition()).getIdVote());
+                bundle.putInt("idUser", idUser);
                 mFragment.setArguments(bundle);
 
                 FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();

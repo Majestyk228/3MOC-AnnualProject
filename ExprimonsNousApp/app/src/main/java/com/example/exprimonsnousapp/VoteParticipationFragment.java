@@ -45,6 +45,8 @@ public class VoteParticipationFragment extends Fragment {
 
     // IMPORTANT DATA
     private int pidVote;
+    int idUser;
+
 
     // OTHER
     ApiInterface apiInterface;
@@ -66,6 +68,7 @@ public class VoteParticipationFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.pidVote = getArguments().getInt("idVote");
+            this.idUser = getArguments().getInt("iduser");
         }
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -95,6 +98,8 @@ public class VoteParticipationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // API CALL TO SUBMIT VOTE
+                // SEND
+                VoteOptionsListAdapter.selectedChoice();
                 Toast.makeText(view.getContext(), "Votre vote a été pris en compte.", Toast.LENGTH_LONG).show();
             }
         });
@@ -115,9 +120,6 @@ public class VoteParticipationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.voteOptionsList);
         recyclerView.setHasFixedSize(true);
 
-        // SEND
-        //VoteOptionsListAdapter.selectedChoice();
-
         return view;
     }
 
@@ -135,7 +137,7 @@ public class VoteParticipationFragment extends Fragment {
                     }
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    adapter = new VoteOptionsListAdapter(voteOptions, getContext());
+                    adapter = new VoteOptionsListAdapter(voteOptions, getContext(),pidVote, idUser);
                     recyclerView.setAdapter(adapter);
 
                 } else {

@@ -102,7 +102,7 @@ public class VoteFragment extends Fragment {
         recyclerView = view.findViewById(R.id.voteList);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new VoteAdapter(getActivity(), votes);
+        adapter = new VoteAdapter(getActivity(), votes, userId);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -202,7 +202,7 @@ public class VoteFragment extends Fragment {
                         }
 
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new VoteAdapter(getContext(), votes);
+                        adapter = new VoteAdapter(getContext(), votes,userId);
                         recyclerView.setAdapter(adapter);
                     }
                 },

@@ -14,6 +14,7 @@ import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.UserUpdateResponse;
 import com.example.exprimonsnousapp.models.UserUpdatedInfos;
+import com.example.exprimonsnousapp.models.UserVote;
 import com.example.exprimonsnousapp.models.Vote;
 import com.example.exprimonsnousapp.models.VoteOption;
 
@@ -104,8 +105,8 @@ public interface ApiInterface {
     @HTTP(method = "POST", path = "/comment/create", hasBody = true)
     Call<Object> sendComment(@Body NewComment newComment);
 
-    // CREATE COMMENT
+    // SUBMIT VOTE
     @Headers({"Conten-Type: application/json"})
-    @HTTP(method = "POST", path = "/comment/create", hasBody = true)
-    Call<Object> sendUserVote(@Body VoteOption voteOption);
+    @HTTP(method = "POST", path = "/vote/anwserVote", hasBody = true)
+    Call<Object> sendUserVote(@Body UserVote userVote);
 }

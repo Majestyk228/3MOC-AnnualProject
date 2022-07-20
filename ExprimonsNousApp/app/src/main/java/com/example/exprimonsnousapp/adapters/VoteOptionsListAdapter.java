@@ -22,6 +22,7 @@ import com.example.exprimonsnousapp.R;
 import com.example.exprimonsnousapp.models.Post;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
+import com.example.exprimonsnousapp.models.UserVote;
 import com.example.exprimonsnousapp.models.VoteOption;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
@@ -35,22 +36,51 @@ import retrofit2.Response;
 
 public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsListAdapter.ViewHolder> {
 
+    private static int idUser;
+    private static int idVote;
+    private static VoteOption selectedChoice;
+
     LayoutInflater inflater;
     List<VoteOption> choices;
     Context context;
     private int lastCheckedPosition = -1;
     Toolbar myToolbar;
-    VoteOption selectedChoice;
+    //VoteOption selectedChoice;
 
     MaterialButton submitVoteBtn, cancelVoteBtn;
 
     // API CALL
-    ApiInterface apiInterface;
+    static ApiInterface apiInterface;
 
-    public VoteOptionsListAdapter(List<VoteOption> choices, Context context) {
+    public VoteOptionsListAdapter(List<VoteOption> choices, Context context, int idVote, int idUser) {
         this.inflater = LayoutInflater.from(context);
         this.choices = choices;
         this.context = context;
+        this.idUser = idUser;
+        this.idVote = idVote;
+    }
+
+    public static void selectedChoice() {
+        UserVote userVote = new UserVote(idUser,idVote,selectedChoice.getIdVoteOptions());
+
+        Call<Object> call = apiInterface.sendUserVote(userVote);
+        call.enqueue(new Callback<Object>() {
+
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    Log.i("VOTEOPTIONENVOI", "onResponse success : "+response.body());
+                } else {
+                    Log.i("VOTEOPTIONENVOI", "onResponse else : "+response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                //Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                Log.i("VOTEOPTIONENVOI", "onResponse success : "+t.getLocalizedMessage());
+            }
+        });
     }
 
     @NonNull
@@ -131,25 +161,14 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
         }
     }
 
-    public static void sendSelectedChoice() {
-        Call<Object> call = apiInterface.sendUserVote(selectedChoice);
-        call.enqueue(new Callback<UserCreds>() {
 
-            @Override
-            public void onResponse(Call<UserCreds> call, Response<UserCreds> response) {
-                if (response.isSuccessful()) {
-                    userCreds = response.body();
-                } else {
-                    userCreds = new UserCreds(-1, "", -1);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<UserCreds> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+
+
+
+
+
+    //public static void sendSelectedChoice() {}
     //return selectedChoice();
 
 }
