@@ -195,4 +195,16 @@ router.post('/newVoteOptions', async function (req, res, next) {
 
 
 
+router.post('/userVote', async function (req, res, next) {
+	try {
+		await vote.insertVoteUser(req.body);
+		res.status(200).json([{ "Message": "Vote User submitted successfully" }]);
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+})
+
+
+
 module.exports = router;

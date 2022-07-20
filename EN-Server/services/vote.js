@@ -166,6 +166,13 @@ async function getLastVote() {
 	return rows;
 }
 
+
+async function insertVoteUser(body) {
+	const request = "INSERT INTO Votes (idUser, idVote, choice) VALUES (" + body.idUser + "," + body.idVote + "," + body.choice + ");";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getVoteListByCommunity,
 	getVoteTitleBody,
@@ -180,5 +187,6 @@ module.exports = {
 	updatePost,
 	getVoteOptionsAndroid,
 	insertVoteOptions,
-	getLastVote
+	getLastVote,
+	insertVoteUser
 }

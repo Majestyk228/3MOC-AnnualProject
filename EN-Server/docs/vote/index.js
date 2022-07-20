@@ -8,6 +8,7 @@ const updateVote = require('./updateVote.js');
 const voteOptions = require('./voteOptions.js');
 const infos = require('./infos.js');
 const newVoteOptions = require('./newVoteOptions.js');
+const userVote = require("./userVote.js");
 const schema = require("./_model.js");
 module.exports = {
 	paths: {
@@ -40,6 +41,9 @@ module.exports = {
 		},
 		"/vote/newVoteOptions": {
 			...newVoteOptions
+		},
+		"/vote/userVote": {
+			...userVote
 		}
 	},
 	schema: {
