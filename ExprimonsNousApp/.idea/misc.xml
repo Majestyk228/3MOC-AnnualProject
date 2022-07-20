@@ -37,6 +37,7 @@
         <entry key="app/src/main/res/layout/fragment_reset_password.xml" value="0.13632246376811594" />
         <entry key="app/src/main/res/layout/fragment_reward.xml" value="0.16802536231884058" />
         <entry key="app/src/main/res/layout/fragment_vote.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_vote_participation.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/fragment_votes.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.47125470264848457" />
@@ -52,6 +53,7 @@
         <entry key="app/src/main/res/layout/select_company_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/signup_page.xml" value="0.21621621621621623" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.10648148148148148" />
+        <entry key="app/src/main/res/layout/vote_options.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/waiting_layout.xml" value="0.15913238525390627" />
         <entry key="app/src/main/res/menu/appbar_menu.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />

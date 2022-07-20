@@ -82,34 +82,39 @@ public class VoteParticipationFragment extends Fragment {
         this.sujet_vote_name = view.findViewById(R.id.sujet_vote_name);
         this.title_vote_name = view.findViewById(R.id.title_vote_name);
 
-        this.sujet_vote_name.setText(this.vote.getTitle());
-        this.title_vote_name.setText(this.vote.getBody());
-
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.voteOptionsList);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new VoteOptionsListAdapter(voteOptions, getContext());
-        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
     public void extractVoteOptions(IdVote idVote) {
-        Call<VoteOption> call = apiInterface.getVoteOptions(idVote);
-        call.enqueue(new Callback<VoteOption>() {
+        Call<List<VoteOption>> call = apiInterface.getVoteOptions(idVote);
+        call.enqueue(new Callback<List<VoteOption>>() {
 
             @Override
-            public void onResponse(Call<VoteOption> call, Response<VoteOption> response) {
+            public void onResponse(Call<List<VoteOption>> call, Response<List<VoteOption>> response) {
                 if (response.isSuccessful()) {
-                    voteOptions = (List<VoteOption>) response.body();
+                    //voteOptions = (List<VoteOption>) response.body();
+                    Log.i("VOTEDETAIL", "Erreur Else : " + response.body());
+                    for(int i=0 ; i<response.body().size() ; i++) {
+                        voteOptions.add(response.body().get(i));
+                    }
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    adapter = new VoteOptionsListAdapter(voteOptions, getContext());
+                    recyclerView.setAdapter(adapter);
+
                 } else {
                     Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<VoteOption> call, Throwable t) {
+            public void onFailure(Call<List<VoteOption>> call, Throwable t) {
                 Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                Log.i("VOTEDETAIL", "Erreur Else : " + t.getLocalizedMessage());
             }
         });
     }
@@ -136,6 +141,10 @@ public class VoteParticipationFragment extends Fragment {
                     voteBuffer.setVoteEnds(response.body().get(0).getVoteEnds());
                     voteBuffer.setIdCommunity(response.body().get(0).getIdCommunity());
                     setVote(voteBuffer);
+
+                    sujet_vote_name.setText(voteBuffer.getTitle());
+                    title_vote_name.setText(voteBuffer.getBody());
+
                 } else {
                     Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                 }
