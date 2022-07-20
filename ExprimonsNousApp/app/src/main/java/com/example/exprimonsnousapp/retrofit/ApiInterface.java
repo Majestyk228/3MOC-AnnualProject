@@ -107,6 +107,6 @@ public interface ApiInterface {
 
     // SUBMIT VOTE
     @Headers({"Conten-Type: application/json"})
-    @HTTP(method = "POST", path = "/vote/anwserVote", hasBody = true)
+    @HTTP(method = "POST", path = "/vote/userVote", hasBody = true)
     Call<Object> sendUserVote(@Body UserVote userVote);
 }
