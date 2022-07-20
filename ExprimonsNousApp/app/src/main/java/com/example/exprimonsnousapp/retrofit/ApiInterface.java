@@ -103,4 +103,9 @@ public interface ApiInterface {
     @Headers({"Conten-Type: application/json"})
     @HTTP(method = "POST", path = "/comment/create", hasBody = true)
     Call<Object> sendComment(@Body NewComment newComment);
+
+    // CREATE COMMENT
+    @Headers({"Conten-Type: application/json"})
+    @HTTP(method = "POST", path = "/comment/create", hasBody = true)
+    Call<Object> sendUserVote(@Body VoteOption voteOption);
 }

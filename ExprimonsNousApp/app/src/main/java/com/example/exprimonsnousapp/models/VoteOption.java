@@ -12,6 +12,9 @@ public class VoteOption {
         this.label = label;
     }
 
+    public VoteOption() {
+    }
+
     // GETTERS & SETTERS
     public int getIdVoteOptions() {
         return idVoteOptions;

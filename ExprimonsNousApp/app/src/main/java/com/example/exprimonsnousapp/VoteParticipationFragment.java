@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.exprimonsnousapp.adapters.VoteOptionsListAdapter;
 import com.example.exprimonsnousapp.models.IdVote;
@@ -20,6 +22,7 @@ import com.example.exprimonsnousapp.models.Vote;
 import com.example.exprimonsnousapp.models.VoteOption;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +41,14 @@ public class VoteParticipationFragment extends Fragment {
 
     // INTERFACE
     private TextView title_vote_name, sujet_vote_name;
+    private MaterialButton submitVoteBtn, cancelVoteBtn;
 
     // IMPORTANT DATA
     private int pidVote;
 
     // OTHER
     ApiInterface apiInterface;
+    Toolbar myToolbar;
 
     public VoteParticipationFragment() {
         // Required empty public constructor
@@ -82,9 +87,36 @@ public class VoteParticipationFragment extends Fragment {
         this.sujet_vote_name = view.findViewById(R.id.sujet_vote_name);
         this.title_vote_name = view.findViewById(R.id.title_vote_name);
 
+        submitVoteBtn = (MaterialButton) view.findViewById(R.id.submitVoteBtn);
+        cancelVoteBtn = (MaterialButton) view.findViewById(R.id.cancelVoteBtn);
+
+        // LISTENING TO BUTTONS
+        submitVoteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // API CALL TO SUBMIT VOTE
+                Toast.makeText(view.getContext(), "Votre vote a été pris en compte.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        cancelVoteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // POP FRAGMENT OFF
+                // RETRAIT DU FRAGMENT CreatePostFragment
+
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("VoteParticipation", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        });
+
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.voteOptionsList);
         recyclerView.setHasFixedSize(true);
+
+        // SEND
+        //VoteOptionsListAdapter.selectedChoice();
 
         return view;
     }

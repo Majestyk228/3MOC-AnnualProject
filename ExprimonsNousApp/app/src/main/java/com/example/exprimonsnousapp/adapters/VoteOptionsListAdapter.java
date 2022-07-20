@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.exprimonsnousapp.MainActivity2;
 import com.example.exprimonsnousapp.R;
 import com.example.exprimonsnousapp.models.Post;
+import com.example.exprimonsnousapp.models.UserCreds;
+import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.VoteOption;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsListAdapter.ViewHolder> {
 
@@ -33,8 +40,12 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
     Context context;
     private int lastCheckedPosition = -1;
     Toolbar myToolbar;
+    VoteOption selectedChoice;
 
     MaterialButton submitVoteBtn, cancelVoteBtn;
+
+    // API CALL
+    ApiInterface apiInterface;
 
     public VoteOptionsListAdapter(List<VoteOption> choices, Context context) {
         this.inflater = LayoutInflater.from(context);
@@ -46,6 +57,10 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.vote_options, parent, false);
+
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        selectedChoice = new VoteOption();
 
         //submitVoteBtn = (MaterialButton) view.findViewById(R.id.submitVoteBtn);
         //cancelVoteBtn = (MaterialButton) view.findViewById(R.id.cancelVoteBtn);
@@ -109,9 +124,32 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
                     notifyItemChanged(copyOfLastCheckedPosition);
                     notifyItemChanged(lastCheckedPosition);
 
-                    Log.i("VOTEOPTIONADAPTER", "idVoteOption selectionné : " + choices.get(getAdapterPosition()));
+                    selectedChoice = choices.get(getAdapterPosition());
+                    Log.i("VOTEOPTIONADAPTER", "idVoteOption selectionné : " + selectedChoice);
                 }
             });
         }
     }
+
+    public static void sendSelectedChoice() {
+        Call<Object> call = apiInterface.sendUserVote(selectedChoice);
+        call.enqueue(new Callback<UserCreds>() {
+
+            @Override
+            public void onResponse(Call<UserCreds> call, Response<UserCreds> response) {
+                if (response.isSuccessful()) {
+                    userCreds = response.body();
+                } else {
+                    userCreds = new UserCreds(-1, "", -1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserCreds> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    //return selectedChoice();
+
 }
