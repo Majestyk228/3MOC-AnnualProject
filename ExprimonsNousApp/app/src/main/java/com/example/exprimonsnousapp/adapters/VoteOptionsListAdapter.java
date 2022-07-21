@@ -41,9 +41,9 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
     private static VoteOption selectedChoice;
 
     LayoutInflater inflater;
-    List<VoteOption> choices;
-    Context context;
-    private int lastCheckedPosition = -1;
+    static List<VoteOption> choices;
+    static Context context;
+    private static int lastCheckedPosition = -1;
     Toolbar myToolbar;
     //VoteOption selectedChoice;
 
@@ -60,17 +60,26 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
         this.idVote = idVote;
     }
 
-    public static void selectedChoice() {
-        UserVote userVote = new UserVote(idUser,idVote,selectedChoice.getIdVoteOptions());
+    public static void selectedChoice(int idUser) {
+        int choiceInt = choices.get(lastCheckedPosition).getIdVoteOptions();
+
+        UserVote userVote = new UserVote(idUser,idVote,choiceInt);
 
         Call<Object> call = apiInterface.sendUserVote(userVote);
+
+        Log.i("VOTEOPTIONENVOI", "selectedChoice -> call: "+ choices.get(lastCheckedPosition).getIdVoteOptions());
+        Log.i("VOTEOPTIONENVOI", "idUser = "+idUser);
         call.enqueue(new Callback<Object>() {
 
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.isSuccessful()) {
+                    // TOAST
+                    Toast.makeText(context, R.string.vote_submitted, Toast.LENGTH_LONG).show();
                     Log.i("VOTEOPTIONENVOI", "onResponse success : "+response.body());
                 } else {
+                    // ALREADY VOTED
+                    Toast.makeText(context, R.string.already_participated, Toast.LENGTH_LONG).show();
                     Log.i("VOTEOPTIONENVOI", "onResponse else : "+response.body());
                 }
             }

@@ -116,6 +116,13 @@ public class CommentFragment extends Fragment {
                 NewComment newComment = new NewComment(idCommunity, newCommentEdittext.getText().toString(), false, idPost, idUser);
                 sendComment(newComment);
                 Toast.makeText(getContext(), "Le commentaire a été ajouté.", Toast.LENGTH_LONG).show();
+
+                commentsPost=new ArrayList<>();
+                extractComments(idPost);
+                adapter.notifyDataSetChanged();
+
+                // EMPTY THE EDITTEXT
+                newCommentEdittext.setText("");
             }
         });
 
@@ -125,6 +132,11 @@ public class CommentFragment extends Fragment {
                 NewComment newComment = new NewComment(idCommunity, newCommentEdittext.getText().toString(), true, idPost, idUser);
                 sendComment(newComment);
                 Toast.makeText(getContext(), "Le commentaire a été ajouté en anonyme.", Toast.LENGTH_LONG).show();
+
+
+                commentsPost=new ArrayList<>();
+                extractComments(idPost);
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -223,9 +235,9 @@ public class CommentFragment extends Fragment {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                FragmentManager fm = getActivity()
+                /*FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                fm.popBackStack("CommentFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fm.popBackStack("CommentFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);*/
             }
 
             @Override

@@ -116,5 +116,7 @@
     <string name="anonyme_comment_button">POSTER EN ANONYME</string>
     <string name="commentaires_title">Commentaires</string>
     <string name="loading_string">Loading...</string>
+    <string name="already_participated">Vous avez déjà participé à ce vote.</string>
+    <string name="vote_submitted">Votre vote a été pris en compte.</string>
 
 </resources>

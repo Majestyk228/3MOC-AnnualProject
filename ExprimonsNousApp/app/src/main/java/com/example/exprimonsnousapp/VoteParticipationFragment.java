@@ -68,7 +68,7 @@ public class VoteParticipationFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.pidVote = getArguments().getInt("idVote");
-            this.idUser = getArguments().getInt("iduser");
+            this.idUser = getArguments().getInt("idUser");
         }
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -99,8 +99,11 @@ public class VoteParticipationFragment extends Fragment {
             public void onClick(View view) {
                 // API CALL TO SUBMIT VOTE
                 // SEND
-                VoteOptionsListAdapter.selectedChoice();
-                Toast.makeText(view.getContext(), "Votre vote a été pris en compte.", Toast.LENGTH_LONG).show();
+                VoteOptionsListAdapter.selectedChoice(idUser);
+                // EXIT FROM THE FRAGMENT
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("VoteParticipation", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
