@@ -77,6 +77,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 // APPEL DE LA ROUTE POUR AJOUTER UN LIKE AU POST AVEC L'idPost
                 IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
                 addLike(idPost);
+
+                // Fake refresh of the number of likes
+                int nblikes = Integer.parseInt((String)holder.likesTXT.getText())+1;
+                holder.likesTXT.setText(nblikes+"");
             }
         });
 
@@ -86,6 +90,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 // APPEL DE LA ROUTE POUR AJOUTER UN DISLIKE AU POST AVEC L'idPost
                 IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
                 addDislike(idPost);
+
+                // Fake refresh of the number of dislikes
+                int nblikes = Integer.parseInt((String)holder.dislikesTXT.getText())+1;
+                holder.dislikesTXT.setText(nblikes+"");
             }
         });
 
@@ -100,7 +108,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 bundle.putInt("idUser", idUser);
                 mFragment.setArguments(bundle);
 
-                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
                 ft.addToBackStack("CommentFragment");
                 ft.commit();
@@ -113,7 +121,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 // APPEL DE LA ROUTE POUR AJOUTER UN REWARD AU POST AVEC L'idPost
                 Fragment mFragment = new BottomSheetFrag();
 
-                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
                 ft.addToBackStack("BottomSheetFrag");
                 ft.commit();
@@ -157,12 +165,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Toast.makeText(inflater.getContext(), R.string.like_toast,Toast.LENGTH_SHORT).show();
+                Toast.makeText(inflater.getContext(), R.string.like_toast, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(inflater.getContext(), R.string.error,Toast.LENGTH_SHORT).show();
+                Toast.makeText(inflater.getContext(), R.string.error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -173,12 +181,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Toast.makeText(inflater.getContext(), R.string.dislike_toast,Toast.LENGTH_SHORT).show();
+                Toast.makeText(inflater.getContext(), R.string.dislike_toast, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(inflater.getContext(), R.string.error,Toast.LENGTH_SHORT).show();
+                Toast.makeText(inflater.getContext(), R.string.error, Toast.LENGTH_SHORT).show();
             }
         });
     }

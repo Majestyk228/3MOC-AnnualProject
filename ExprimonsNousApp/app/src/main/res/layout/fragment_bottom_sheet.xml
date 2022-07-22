@@ -11,6 +11,17 @@
         android:layout_height="match_parent">
 
         <!-- INCLUDE TYPICAL NOTCH OF MODAL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_reward_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="50sp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -26,6 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:elevation="5dp"
                 android:gravity="center"
                 android:orientation="vertical">
                 <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
@@ -52,6 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="vertical">
                 <!-- CONTIENT EN VERTICAL UNE IMAGE ET UN TEXTVIEW -->
@@ -86,6 +104,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -112,6 +133,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:orientation="vertical">
