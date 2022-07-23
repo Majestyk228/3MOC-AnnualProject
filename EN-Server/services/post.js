@@ -45,7 +45,8 @@ async function nbReportedPosts(idCommunity) {
 
 async function createPost(body) {
 
-	const request = "INSERT INTO Post(idPost, title, body, date, time, likes, dislikes, idCommunity, idUser, idAdmin, reported) VALUES (null,'" + body.title.replace("'", "\'") + "', '" + body.body.replace("'", "\'") + "', '" + today + "','" + time + "',0,0," + body.idCommunity + "," + body.idUser + "," + body.idAdmin + ",0);";
+	const request = "INSERT INTO Post(idPost, title, body, date, time, likes, dislikes, idCommunity, idUser, idAdmin, reported) VALUES (null,\"" + body.title + "\", \"" + body.body + "\", '" + today + "','" + time + "',0,0," + body.idCommunity + "," + body.idUser + "," + body.idAdmin + ",0);";
+	console.log(request + "\n\n")
 	const rows = await db.query(request, "");
 	return rows;
 }
