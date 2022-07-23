@@ -99,6 +99,8 @@ public class VoteFragment extends Fragment {
             e.printStackTrace();
         }
 
+        votes = new ArrayList<>();
+
         recyclerView = view.findViewById(R.id.voteList);
         recyclerView.setHasFixedSize(true);
 
