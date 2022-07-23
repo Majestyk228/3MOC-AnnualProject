@@ -67,7 +67,7 @@ async function getListOfNumber(idVote, choice) {
 
 
 async function createVote(body) {
-	const request = "INSERT INTO Vote(idVote, title, body, nbChoices, important, idAdmin, voteBegins, voteEnds, idCommunity) VALUES (null, '" + body.title + "', '" + body.body + "', " + body.nbChoice + ", " + body.important + ", " + body.idAdmin + ",'" + today + "', '" + nextDay + "', " + body.idCommunity + ");";
+	const request = "INSERT INTO Vote(idVote, title, body, nbChoices, important, idAdmin, voteBegins, voteEnds, idCommunity) VALUES (null, \"" + body.title + "\", \"" + body.body + "\", " + body.nbChoice + ", " + body.important + ", " + body.idAdmin + ",'" + today + "', '" + nextDay + "', " + body.idCommunity + ");";
 
 	const rows = await db.query(request, "");
 	return rows;
@@ -145,7 +145,7 @@ async function insertVoteOptions(body) {
 
 	// BUILDING REQUEST
 	body.forEach(voteOption => {
-		request += "(null, '" + voteOption.label + "', " + voteOption.idVote + "),";
+		request += "(null, \"" + voteOption.label + "\", " + voteOption.idVote + "),";
 	});
 
 
