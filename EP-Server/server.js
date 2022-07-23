@@ -1,14 +1,11 @@
 //importations
 var express = require('express');
 
-// CORS
-//var cors = require('cors');
-
-// File-Morgan
 
 
 //instanciation du serveur
 var server = express();
+const port = process.env.PORT || 3000
 
 // INSTANCIATION DES LOG DE REQUEST ET REPONSES
 
@@ -67,6 +64,6 @@ const options = {
 server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs, options));
 
 //lancement du serveur sur le port 8080
-server.listen(8080, function () {
+server.listen(port, function () {
     console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
 });
