@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +57,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_post, parent, false);
+        View view = inflater.inflate(R.layout.item_post2, parent, false);
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         return new ViewHolder(view);
     }
@@ -138,7 +139,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT;
-        Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
+        //Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
+        LinearLayout likeBtn, dislikeBtn, commentBtn, rewardBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

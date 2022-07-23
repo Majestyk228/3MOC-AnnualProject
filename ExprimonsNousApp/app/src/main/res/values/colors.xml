@@ -32,4 +32,5 @@
 
     <!-- COMMENT FRAGMENT COLORS -->
     <color name="medium_dark_grey">#FFD9D9D9</color>
+    <color name="red">#FFFF0000</color>
 </resources>
