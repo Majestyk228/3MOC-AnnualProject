@@ -13,7 +13,14 @@ async function nbRewardByPost(idPost) {
 }
 
 
+async function useReward(body) {
+	const request = "INSERT INTO Congratulate(idRewards, idPost,idUser) VALUES (" + body.idRewards + "," + body.idPost + "," + body.idUser + ");";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getAllRewards,
-	nbRewardByPost
+	nbRewardByPost,
+	useReward
 }

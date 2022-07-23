@@ -22,4 +22,15 @@ router.get('/nbReward/:idPost', async function (req, res, next) {
 	}
 });
 
+/* POST user Reward*/
+router.post('/useReward', async function (req, res, next) {
+	try {
+		await reward.useReward(req.body);
+		res.status(200).json({ "Message": "Reward added successfully." });
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
 module.exports = router;
