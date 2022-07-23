@@ -21,9 +21,10 @@ public class NewAccount {
     private String gender;
     private String areaCode;
     private String password;
+    private int idCommunity;
 
     // CONSTRUCTOR
-    public NewAccount(String firstName, String lastName, String birthDate, String email, String gender, String areaCode, String password) {
+    public NewAccount(String firstName, String lastName, String birthDate, String email, String gender, String areaCode, String password, int idCommunity) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -31,6 +32,7 @@ public class NewAccount {
         this.gender = gender;
         this.areaCode = areaCode;
         this.password = password;
+        this.idCommunity = idCommunity;
     }
 
     // GETTERS & SETTERS

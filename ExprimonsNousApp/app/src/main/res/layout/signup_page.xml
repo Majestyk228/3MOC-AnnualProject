@@ -258,17 +258,48 @@
                 android:textSize="16sp"
                 android:textStyle="italic" />
 
+            <TextView
+                android:id="@+id/companyLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/passwd"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="@string/companyTXT"
+                android:textColor="@color/black" />
+
+            <!--ADD EditText HERE-->
+            <EditText
+                android:id="@+id/companyCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/companyLabel"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="#60123456"
+                android:drawablePadding="20dp"
+                android:fontFamily="@font/quicksandregular"
+                android:hint="@string/companyHint"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+            <!--ADD EditText HERE-->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signInBtn"
                 android:layout_width="320dp"
                 android:layout_height="75dp"
-                android:layout_below="@id/passwd"
+                android:layout_below="@id/companyCode"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="15dp"
                 android:backgroundTint="@color/blueBtn"
                 android:fontFamily="@font/quicksandbold"
                 android:gravity="center"
-                android:text="@string/login"
+                android:text="@string/sign_in"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />

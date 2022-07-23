@@ -77,7 +77,7 @@ public interface ApiInterface {
 
     //CREATE ACCOUNT
     @Headers({"Content-Type: application/json"})
-    @HTTP(method = "POST", path = "/user/register", hasBody = true)
+    @HTTP(method = "POST", path = "/user/register/admin", hasBody = true)
     Call<NewAccountResponse> userRegister(@Body NewAccount newAccount);
 
     //CREATE ACCOUNT

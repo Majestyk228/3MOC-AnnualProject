@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.NewAccount;
 import com.example.exprimonsnousapp.models.NewAccountResponse;
 import com.example.exprimonsnousapp.models.UserCreds;
@@ -40,11 +41,13 @@ public class CreateAccountActivity extends AppCompatActivity {
     private Spinner gender_spinner;
     private EditText areaCode;
     private EditText passwd;
+    private EditText companyCode;
     private MaterialButton signInBtn;
 
     // OTHER
     private String gender_selection;
     private int idUser;
+    private int idCommunity;
 
     // API
     ApiInterface apiInterface;
@@ -72,6 +75,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         this.passwd = (EditText) findViewById(R.id.passwd);
         this.signInBtn = (MaterialButton) findViewById(R.id.signInBtn);
         this.birthdate = (EditText) findViewById(R.id.bithdate);
+        this.companyCode = (EditText) findViewById(R.id.companyCode);
 
         // DATE SELECTOR
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -110,6 +114,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 String genderTXT = gender_spinner.getSelectedItem().toString();
                 String areaCodeTXT = areaCode.getText().toString();
                 String passwdTXT = passwd.getText().toString();
+                String companyCodeTXT = companyCode.getText().toString();
 
 
                 if (firstnameTXT == "" || lastnameTXT == "" || birthdateTXT == "0000-00-00" || emailTXT == "" || areaCodeTXT == "" || passwdTXT == "") {
@@ -119,24 +124,24 @@ public class CreateAccountActivity extends AppCompatActivity {
                     // PUT CODE FOR API CALL AND NEXT ACTIVITY
 
                     // CONVERT TEXT VARIABLES TO OBJECT
-                    NewAccount newAccount = new NewAccount(firstnameTXT, lastnameTXT, birthdateTXT, emailTXT, genderTXT, areaCodeTXT, passwdTXT);
-
+                    //NewAccount newAccount = new NewAccount(firstnameTXT, lastnameTXT, birthdateTXT, emailTXT, genderTXT, areaCodeTXT, passwdTXT);
+                    extractIdCommunity(Integer.parseInt(companyCodeTXT), firstnameTXT, lastnameTXT, birthdateTXT,emailTXT, genderTXT, areaCodeTXT, passwdTXT);
 
                     // FAKE DELAY
-                    final Handler handler = new Handler();
+                    /*final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             // API CALL TO CREATE ACCOUNT
                             userRegister(newAccount);
                         }
-                    }, 1200);
+                    }, 1200);*/
 
                     //starting activity
-                    Intent joinCommunityActivity = new Intent(getApplicationContext(), JoinCompanyActivity.class);
+                    /*Intent joinCommunityActivity = new Intent(getApplicationContext(), JoinCompanyActivity.class);
                     joinCommunityActivity.putExtra("idUser",idUser);
                     startActivity(joinCommunityActivity);
-                    finish();
+                    finish();*/
 
                 }
             }
@@ -160,6 +165,37 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<NewAccountResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    // API CALL FOR COMPANY CODE
+    private void extractIdCommunity(int code, String firstnameTXT, String lastnameTXT, String birthdateTXT, String emailTXT, String genderTXT, String areaCodeTXT, String passwdTXT) {
+
+        Call<IdCommunity> call = apiInterface.extractIdCommunity(code);
+        call.enqueue(new Callback<IdCommunity>() {
+            @Override
+            public void onResponse(Call<IdCommunity> call, Response<IdCommunity> response) {
+                if (response.isSuccessful()) {
+                    idCommunity = response.body().getIdCommunity();
+                    NewAccount newAccount = new NewAccount(firstnameTXT, lastnameTXT, birthdateTXT, emailTXT, genderTXT, areaCodeTXT, passwdTXT, response.body().getIdCommunity());
+
+                    userRegister(newAccount);
+
+                    Intent nextActivity = new Intent(getApplicationContext(), MainActivity2.class);
+                    nextActivity.putExtra("userId", idUser);
+                    nextActivity.putExtra("communityId", response.body().getIdCommunity());
+                    startActivity(nextActivity);
+                    finish();
+                } else {
+                    //idCommunity = -1;
+                    Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IdCommunity> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
             }
         });
     }

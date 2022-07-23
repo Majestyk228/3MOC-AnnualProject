@@ -119,5 +119,6 @@
     <string name="already_participated">Vous avez déjà participé à ce vote.</string>
     <string name="vote_submitted">Votre vote a été pris en compte.</string>
     <string name="add_reward_text">Ajouter une récompense</string>
+    <string name="sign_in">Inscrivez-vous</string>
 
 </resources>
