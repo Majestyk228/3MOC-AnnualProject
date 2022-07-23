@@ -9,8 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.exprimonsnousapp.models.Post;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BottomSheetFrag extends BottomSheetDialogFragment {
 
@@ -18,6 +26,9 @@ public class BottomSheetFrag extends BottomSheetDialogFragment {
     LinearLayout interessant_reward_layout;
     LinearLayout bof_reward_layout;
     LinearLayout pas_interessant_reward_layout;
+
+    // API
+    ApiInterface apiInterface;
 
     public BottomSheetFrag() {
         // Required empty public constructor
@@ -42,6 +53,8 @@ public class BottomSheetFrag extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
+
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         super_reward_layout = view.findViewById(R.id.super_reward_layout);
         interessant_reward_layout = view.findViewById(R.id.interessant_reward_layout);
@@ -78,4 +91,20 @@ public class BottomSheetFrag extends BottomSheetDialogFragment {
 
         return view;
     }
+
+    /*private void sendReward(int idReward) {
+        Call<Post> call = apiInterface.sendReward(idPost);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                fullnameTXT.setText(response.body().getFirstname() + " " + response.body().getLastname());
+                bodyTXT.setText(response.body().getBody());
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+            }
+        });
+    }*/
 }
