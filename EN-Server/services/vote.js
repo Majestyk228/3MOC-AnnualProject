@@ -25,7 +25,7 @@ async function getVoteListByCommunity(idCommunity) {
 
 
 async function getVoteListByCommunityAndroid(idCommunity) {
-	const rows = await db.query("SELECT idVote, title, body FROM Vote WHERE idCommunity = " + idCommunity + ";", "");
+	const rows = await db.query("SELECT idVote, title, body FROM Vote WHERE idCommunity = " + idCommunity + " ORDER BY idVote DESC;", "");
 	return rows;
 }
 
