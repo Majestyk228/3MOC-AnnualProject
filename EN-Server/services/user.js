@@ -30,15 +30,15 @@ async function getUserCredentials(email) {
 
 async function insertUser(userReq) {
     //const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + bcryptUtils.hashPwd(userReq.password) + "', 0);";
-    const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + userReq.password + "', 0);";
+    const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points, signInDate) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + userReq.password + "', 0, CURDATE());";
     const results = await db.query(requete, "");
 
     //message to output at the end of the function
-    let message = 'Error in creating contact';
+    let message = 'Error in creating User';
     let idUser;
 
     if (results.affectedRows) {
-        message = 'Contact created successfully';
+        message = 'User created successfully';
         idUser = await getLastUserRegistered()
     }
 
