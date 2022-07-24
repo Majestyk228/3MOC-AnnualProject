@@ -19,6 +19,7 @@ const commentRouter = require("./routes/comment.js");
 const taskRouter = require("./routes/task.js");
 const listRouter = require("./routes/list.js");
 const tagRouter = require("./routes/tag.js");
+const userRouter = require("./routes/user.js");
 
 // SWAGGER
 const swaggerUI = require('swagger-ui-express');
@@ -37,6 +38,7 @@ server.use('/comment', commentRouter);
 server.use('/task', taskRouter);
 server.use('/list', listRouter);
 server.use('/tag', tagRouter);
+server.use('/user', userRouter);
 
 // SWAGGER SETUP
 // REMOVING THE TRY NOW BUTTON

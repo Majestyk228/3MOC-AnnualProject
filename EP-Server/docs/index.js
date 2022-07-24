@@ -2,7 +2,7 @@ const comment = require('./comment/index.js')
 const list = require('./list/index.js')
 //const tag = require('./tag/index.js')
 const task = require('./task/index.js')
-//const user = require('./user/index.js')
+const user = require('./user/index.js')
 
 module.exports = {
     openapi: "3.0.1",
@@ -27,7 +27,7 @@ module.exports = {
         ...list.paths,
         //...tag.paths,
         ...task.paths,
-        //...user.paths,
+        ...user.paths,
     },
     components: {
         schemas: {
@@ -35,7 +35,7 @@ module.exports = {
             ...list.schema,
             //...tag.schema,
             ...task.schema,
-            //...user.schema
+            ...user.schema
         },
     },
 }
