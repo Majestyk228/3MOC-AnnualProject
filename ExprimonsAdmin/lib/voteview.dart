@@ -126,6 +126,41 @@ class _VoteViewState extends State<VoteView> {
                       ),
                     ),
                   ),
+                  Container(
+                    width: double.infinity,
+                    height: 100,
+
+                    //child: Text(votes[index]["title"])
+                    child: Card(
+                      elevation: 2,
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 150,
+                            child: Text("Titre"),
+                          ),
+                          Container(
+                            width: 150,
+                            child: Text("Nb choix"),
+                          ),
+                          Container(
+                            width: 150,
+                            child: Text("Début du vote"),
+                          ),
+                          Container(
+                            width: 150,
+                            child: Text("Fin du vote"),
+                          ),
+                          Container(
+                            width: 150,
+                            child: Text("Important ?"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,

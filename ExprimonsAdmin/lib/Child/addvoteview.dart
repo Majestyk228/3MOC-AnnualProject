@@ -129,8 +129,8 @@ class _AddVoteViewState extends State<AddVoteView> {
                               ),
                             );
                           } else {
-                            optionVotes = List<OptionVotes>.filled(
-                                int.parse(nbChoice.text), OptionVotes());
+
+                            optionVotes = List<OptionVotes>.generate(int.parse(nbChoice.text), (int index) =>OptionVotes());
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -172,9 +172,7 @@ class _AddVoteViewState extends State<AddVoteView> {
                                                                       TextField(
                                                                     onChanged:
                                                                         (text) {
-                                                                      optionVotes[index]
-                                                                              .label =
-                                                                          text;
+                                                                      optionVotes[index].label = text;
                                                                     },
                                                                     autocorrect:
                                                                         true,
@@ -199,9 +197,11 @@ class _AddVoteViewState extends State<AddVoteView> {
                                                     body.text,
                                                     nbChoice.text,
                                                     important);
+
                                                 for (int i = 0;
                                                     i < optionVotes.length;
                                                     i++) {
+                                                  print(optionVotes[i].label);
                                                   optionVotes[i].idVote =
                                                       idVote;
                                                 }

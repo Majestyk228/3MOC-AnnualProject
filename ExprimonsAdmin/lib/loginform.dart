@@ -70,22 +70,12 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "Recovery password",
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
+
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () async {
-
-                     await logAdmin(email.text, password.text);
-
-
-
+                  await logAdmin(email.text, password.text);
 
                   if (currentAdmin.idCommunity == null) {
                     showDialog(
@@ -104,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
                         ],
                       ),
                     );
-                  }else{
+                  } else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
