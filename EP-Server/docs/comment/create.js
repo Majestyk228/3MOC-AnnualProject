@@ -3,7 +3,20 @@ module.exports = {
 		tags: ["comment"],
 		description: "Creates a new list for a user.",
 		operationId: "createComment",
-		parameters: [],
+		requestBody: {
+			content: {
+				"application/json": {
+					schema: {
+						type: "object",
+						example: {
+							body: "ceci est un commentaire",
+							idTask: 5,
+							idUser: 1
+						}
+					}
+				},
+			},
+		},
 		responses: {
 			200: {
 				description: "List created successfully.",
