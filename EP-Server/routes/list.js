@@ -12,4 +12,15 @@ router.get('/all/:idUser', async function (req, res, next) {
     }
 });
 
+
+router.post('/create', async function (req, res, next) {
+    try {
+        await list.insertList(req.body);
+        res.status(200).json({ "Message": "List created successfully" });
+    } catch (err) {
+        res.status(400).json({ "ERROR": err.message });
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -12,4 +12,14 @@ router.get('/taskInfo/:idTask', async function (req, res, next) {
     }
 });
 
+router.post('/create', async function (req, res, next) {
+    try {
+        await task.insertTask(req.body)
+        res.status(200).json({ "Message": "Task created successfully." });
+    } catch (err) {
+        res.status(400).json([{ "ERROR": err.message }]);
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -3,7 +3,20 @@ module.exports = {
         tags: ["comment"],
         description: "Get all comments from a task.",
         operationId: "commentsFromTask",
-        parameters: [],
+        parameters: [
+            {
+                in: "path",
+                required: true,
+                type: "int",
+                name: "idTask",
+                schema: {
+                    type: "integer",
+                    example: {
+                        idTask: 2
+                    }
+                }
+            },
+        ],
         responses: {
             200: {
                 description: "Get all comments from a task.",

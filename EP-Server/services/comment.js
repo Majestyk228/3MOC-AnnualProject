@@ -6,6 +6,14 @@ async function getAllCommentsFromTask(idTask) {
     return rows;
 }
 
+
+async function inserComment(body) {
+    const request = "INSERT INTO Comment VALUES (null, \"" + body.body + "\",CURDATE(), " + body.idTask + ", " + body.idUser + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
-    getAllCommentsFromTask
+    getAllCommentsFromTask,
+    inserComment
 }
