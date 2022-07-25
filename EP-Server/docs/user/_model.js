@@ -29,7 +29,7 @@ module.exports = {
 			}
 		},
 	},
-	tasks: {
+	users: {
 		type: "object",
 		additionalProperties: { $ref: "#/components/schemas/user" },
 	},

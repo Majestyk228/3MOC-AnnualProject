@@ -12,7 +12,19 @@ async function insertList(body) {
     return rows;
 }
 
+async function deleteList(idList) {
+    // DELETING ALL TASK IN THE LIST
+    var request = "DELETE FROM Task WHERE idList = " + idList + ";";
+    var rows = await db.query(request, "");
+
+    // DELETING THE EMPTY LIST
+    request = "DELETE FROM List WHERE idList = " + idList + ";";
+    rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getListOfUser,
-    insertList
+    insertList,
+    deleteList
 }

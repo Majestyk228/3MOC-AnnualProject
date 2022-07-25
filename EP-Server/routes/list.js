@@ -23,4 +23,14 @@ router.post('/create', async function (req, res, next) {
     }
 });
 
+router.delete('/delete/:idList', async function (req, res, next) {
+    try {
+        await list.deleteList(req.params.idList);
+        res.status(200).json({ "Message": "List deleted successfully" });
+    } catch (err) {
+        res.status(400).json({ "ERROR": err.message });
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
 const db = require('./database.js');
 
 async function getAllCommentsFromTask(idTask) {
-    const request = "SELECT u.firstname, u.lastname, c.body, c.date FROM Comment c, User u WHERE u.idUser = c.idUser AND idTask = " + idTask + ";";
+    const request = "SELECT c.idComment, u.firstname, u.lastname, c.body, c.date FROM Comment c, User u WHERE u.idUser = c.idUser AND idTask = " + idTask + ";";
     const rows = await db.query(request, "");
     return rows;
 }
@@ -13,7 +13,14 @@ async function inserComment(body) {
     return rows;
 }
 
+async function deleteComment(idComment) {
+    const request = "DELETE FROM Comment WHERE idComment = " + idComment + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getAllCommentsFromTask,
-    inserComment
+    inserComment,
+    deleteComment
 }

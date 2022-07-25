@@ -13,8 +13,15 @@ async function getUserCredentials(email) {
 	return rows;
 }
 
+async function getUserInfos(idUser) {
+	const request = "SELECT firstname, lastname, email FROM User WHERE idUser = " + idUser + ";";
+	const rows = await db.query(request, "");
+	return rows[0];
+}
+
 
 module.exports = {
 	getUserCredentials,
-	userLogin
+	userLogin,
+	getUserInfos
 }

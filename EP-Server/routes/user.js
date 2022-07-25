@@ -37,4 +37,13 @@ router.post('/login', async function (req, res, next) {
 	}
 });
 
+router.get('/userInfos/:idUser', async function (req, res, next) {
+	try {
+		res.status(200).json(await user.getUserInfos(req.params.idUser));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+})
+
 module.exports = router;

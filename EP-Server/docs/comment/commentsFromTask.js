@@ -23,7 +23,14 @@ module.exports = {
                 content: {
                     "application/json": {
                         schema: {
-                            $ref: "#/components/schemas/comments",
+                            type: "object",
+                            example: {
+                                idComment: 1,
+                                firstname: "Sarah",
+                                lastname: "KOUTA",
+                                body: "Début de tâche prévu la semaine prochaine.",
+                                date: "2022-07-21"
+                            }
                         },
                     },
                 },

@@ -22,4 +22,23 @@ router.post('/create', async function (req, res, next) {
     }
 });
 
+router.delete('/delete/:idTask', async function (req, res, next) {
+    try {
+        await task.deleteTask(req.params.idTask)
+        res.status(200).json({ "Message": "Task deleted successfully." });
+    } catch (err) {
+        res.status(400).json([{ "ERROR": err.message }]);
+        next(err);
+    }
+});
+
+router.get('/tasks/:idList', async function (req, res, next) {
+    try {
+        res.status(200).json(await task.getTasksFromList(req.params.idList));
+    } catch (err) {
+        res.status(400).json([{ "ERROR": err.message }]);
+        next(err);
+    }
+});
+
 module.exports = router;
