@@ -41,4 +41,38 @@ router.get('/tasks/:idList', async function (req, res, next) {
     }
 });
 
+
+router.put('/update', async function (req, res, next) {
+    const oldTask = await task.getTask(req.body.idTask);
+
+    try {
+        // récupération de champs de la requete
+        var newTitle = req.body.title;
+        var newDescription = req.body.description;
+        var newIdList = req.body.idList;
+        var newIdTag = req.body.idTag;
+
+        if (newTitle == null) {
+            newTitle = oldTask.title;
+        }
+
+        if (newDescription == null) {
+            newDescription = oldTask.description;
+        }
+
+        if (newIdList == null) {
+            newIdList = oldTask.idList;
+        }
+
+        if (newIdTag == null) {
+            newIdTag = oldTask.idTag;
+        }
+
+        await task.updateTask(req.body.idTask, newTitle, newDescription, newIdList, newIdTag)
+        res.status(200).json({ "Message": "Task updated successfully" });
+    } catch (err) {
+        res.status(400).json([{ "ERROR": err.message }]);
+        next(err);
+    }
+});
 module.exports = router;

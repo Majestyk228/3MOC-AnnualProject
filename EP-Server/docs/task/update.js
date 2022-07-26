@@ -1,16 +1,19 @@
 module.exports = {
 	put: {
-		tags: ["list"],
-		description: "Update a given list.",
-		operationId: "updateList",
+		tags: ["task"],
+		description: "Update a given task.",
+		operationId: "updateTask",
 		requestBody: {
 			content: {
 				"application/json": {
 					schema: {
 						type: "object",
 						example: {
+							idTask: 1,
+							title: "Connexion user à l'application Android",
+							description: "Faire la requete vers l'API afin d'assurer la connexion de l'utilisateur de l'application Android",
 							idList: 1,
-							title: "ceci est une liste mise à jour"
+							idTag: 1
 						}
 					}
 				},
@@ -18,12 +21,12 @@ module.exports = {
 		},
 		responses: {
 			200: {
-				description: "List updated successfully.",
+				description: "Task updated successfully.",
 				content: {
 					"application/json": {
 						schema: {
 							example: {
-								Message: "List updated successfully"
+								Message: "Task updated successfully"
 							}
 						},
 					},
@@ -41,20 +44,7 @@ module.exports = {
 						},
 					},
 				},
-			},
-			404: {
-				description: "Missing title argument",
-				content: {
-					"application/json": {
-						schema: {
-							type: "object",
-							example: {
-								ERROR: "Missing title argument"
-							}
-						},
-					},
-				},
-			},
+			}
 		},
 	},
 }

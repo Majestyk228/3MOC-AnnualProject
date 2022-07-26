@@ -1,16 +1,18 @@
 module.exports = {
 	put: {
-		tags: ["list"],
-		description: "Update a given list.",
-		operationId: "updateList",
+		tags: ["user"],
+		description: "Update a given user.",
+		operationId: "updateUser",
 		requestBody: {
 			content: {
 				"application/json": {
 					schema: {
 						type: "object",
 						example: {
-							idList: 1,
-							title: "ceci est une liste mise à jour"
+							idUser: 1,
+							firstname: "Sarah",
+							lastname: "KOUTA-LOPATEY",
+							email: "skoutalopatey@myges.fr"
 						}
 					}
 				},
@@ -18,12 +20,12 @@ module.exports = {
 		},
 		responses: {
 			200: {
-				description: "List updated successfully.",
+				description: "User updated successfully.",
 				content: {
 					"application/json": {
 						schema: {
 							example: {
-								Message: "List updated successfully"
+								Message: "User updated successfully"
 							}
 						},
 					},
@@ -41,20 +43,7 @@ module.exports = {
 						},
 					},
 				},
-			},
-			404: {
-				description: "Missing title argument",
-				content: {
-					"application/json": {
-						schema: {
-							type: "object",
-							example: {
-								ERROR: "Missing title argument"
-							}
-						},
-					},
-				},
-			},
+			}
 		},
 	},
 }

@@ -3,7 +3,7 @@ const db = require('./database.js');
 async function getTask(idTask) {
     const request = "SELECT * FROM Task WHERE idTask = " + idTask + ";";
     const rows = await db.query(request, "");
-    return rows;
+    return rows[0];
 }
 
 async function insertTask(body) {
@@ -24,9 +24,18 @@ async function getTasksFromList(idList) {
     return rows;
 }
 
+
+async function updateTask(idTask, newTitle, newDescription, newIdList, newIdTag) {
+    const request = "UPDATE Task SET title = \"" + newTitle + "\",description = \"" + newDescription + "\",idList = " + newIdList + ", idTag = " + newIdTag + " WHERE idTask = " + idTask + "; ";
+    console.log("request DB = " + request + "\n\n");
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getTask,
     insertTask,
     deleteTask,
-    getTasksFromList
+    getTasksFromList,
+    updateTask
 }

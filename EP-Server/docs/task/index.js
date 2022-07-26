@@ -2,6 +2,7 @@ const getTaskInfo = require("./getTaskInfo.js");
 const create = require("./create.js");
 const deleteTask = require("./delete.js");
 const tasksFromList = require('./tasksFromList.js');
+const updateTask = require('./update.js');
 const schema = require("./_model.js")
 module.exports = {
     paths: {
@@ -16,6 +17,9 @@ module.exports = {
         },
         "/task/delete/{idTask}": {
             ...deleteTask,
+        },
+        "/task/update": {
+            ...updateTask,
         },
     },
     schema: {
