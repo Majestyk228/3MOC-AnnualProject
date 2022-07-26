@@ -1,12 +1,16 @@
 package application;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Objects;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MainController {
+public class MainController<APOD> {
 	
 	private Stage stage;
     private Scene scene;
@@ -35,22 +39,39 @@ public class MainController {
     	
     	// API CALL FOR LOGIN
     	
-    	/*HttpResponse <String> httpResponse = Unirest.get("<some_url>/<endpoint>?param1=value1&param2=value2")
-    		       .header("header1", header1)
-    		       .header("header2", header2);
-    		       .asString();
-    		System.out.println( httpResponse.getHeaders().get("Content-Type"));*/
-    	
-    	
-    	try {
-			HttpResponse<String> response = Unirest.get("https://www.titan-photography.com/post/all")
-				      .header("accept", "application/json").asString();
-			
-			System.out.println(response.getBody());
-		} catch (UnirestException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+    	URL obj = new URL(POST_URL);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Content-Type", "application/json");
+
+		// For POST only - START
+		con.setDoOutput(true);
+		OutputStream os = con.getOutputStream();
+		os.write(POST_PARAMS.getBytes());
+		os.flush();
+		os.close();
+		// For POST only - END
+
+		int responseCode = con.getResponseCode();
+		System.out.println("POST Response Code :: " + responseCode);
+
+		if (responseCode == HttpURLConnection.HTTP_OK) { //success
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+
+			// print result
+			System.out.println(response.toString());
+		} else {
+			System.out.println("POST request not worked");
 		}
+		
     	// API CALL FOR LOGIN
     	
         if (Objects.equals(email, "Sarah") && Objects.equals(password, "test1234")){
