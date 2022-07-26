@@ -43,7 +43,7 @@ class _VoteViewState extends State<VoteView> {
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
-
+    print(data);
     this.votes = [];
     setState(() {
       for (var i = 0; i < data.length; i++) {
@@ -51,7 +51,7 @@ class _VoteViewState extends State<VoteView> {
           idVote: data[i]['idVote'],
           title: data[i]['title'],
           body: data[i]['body'],
-          nbChoice: data[i]['nbChoice'],
+          nbChoice: data[i]['nbChoices'],
           important: data[i]['important'],
           idUser: data[i]['idUser'],
           idAdmin: data[i]['idAdmin'],
@@ -98,69 +98,99 @@ class _VoteViewState extends State<VoteView> {
           SizedBox(
             height: 100,
           ),
+          Center(
+            child: Container(
+              width: 600,
+              height: 100,
+
+              //child: Text(votes[index]["title"])
+              child: Card(
+                elevation: 2,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Vote de la communauté",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 100,
+
+            //child: Text(votes[index]["title"])
+            child: Card(
+              elevation: 2,
+              color: veryDarkRedColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Titre",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 160,
+                    child: Text(
+                      "Nb choix",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 200,
+                    child: Text(
+                      "Début du vote",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 160,
+                    child: Text(
+                      "Fin du vote",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Important",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Wrap(
                 children: [
-                  Center(
-                    child: Container(
-                      width: 300,
-                      height: 100,
-
-                      //child: Text(votes[index]["title"])
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Vote de la communauté",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 100,
-
-                    //child: Text(votes[index]["title"])
-                    child: Card(
-                      elevation: 2,
-                      color: Colors.white,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: 150,
-                            child: Text("Titre"),
-                          ),
-                          Container(
-                            width: 150,
-                            child: Text("Nb choix"),
-                          ),
-                          Container(
-                            width: 150,
-                            child: Text("Début du vote"),
-                          ),
-                          Container(
-                            width: 150,
-                            child: Text("Fin du vote"),
-                          ),
-                          Container(
-                            width: 150,
-                            child: Text("Important ?"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -179,7 +209,7 @@ class _VoteViewState extends State<VoteView> {
                                             )),
                                   );
                                 },
-                                child: VotesListLine(votes: votes[index])));
+                                child: VotesListLine(votes: votes[index],index: index,)));
                       }),
                 ],
               ),
