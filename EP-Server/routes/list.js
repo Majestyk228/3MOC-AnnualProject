@@ -33,4 +33,25 @@ router.delete('/delete/:idList', async function (req, res, next) {
     }
 });
 
+router.put('/update', async function (req, res, next) {
+    try {
+        // Récupération des champs de la requete
+        const newTitle = req.body.title;
+        // Récupération des champs en BDD
+        const oldTitle = await list.getList(req.body.idList);
+        console.log(oldTitle)
+
+        // Si champ vide -> mettre champ BDD à la place
+        if (newTitle == null) {
+            res.status(404).json({ "ERROR": "Missing title argument" });
+        } else {
+            await list.updateList(req.body.idList, newTitle);
+        }
+        res.status(200).json({ "Message": "List updated successfully" });
+    } catch (err) {
+        res.status(400).json({ "ERROR": err.message });
+        next(err);
+    }
+})
+
 module.exports = router;
