@@ -1,15 +1,30 @@
 import 'package:exprimons_nous/objects/user.dart';
 import 'package:flutter/material.dart';
 
-class UserListLine extends StatefulWidget {
-  const UserListLine({Key? key, required this.user}) : super(key: key);
-  final User user;
+import '../Colors.dart';
 
+class UserListLine extends StatefulWidget {
+  const UserListLine({Key? key, required this.user, required this.index}) : super(key: key);
+  final User user;
+  final int index;
   @override
   State<UserListLine> createState() => _UserListLineState();
 }
 
 class _UserListLineState extends State<UserListLine> {
+
+  @override
+  late Color color;
+  void initState() {
+    if(widget.index % 2 == 0){
+      color=Colors.white;
+    }
+    else{
+      color=veryLightRedColor;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +34,7 @@ class _UserListLineState extends State<UserListLine> {
       //child: Text(votes[index]["title"])
       child: Card(
         elevation: 2,
-        color: Colors.white,
+        color: color,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

@@ -43,7 +43,7 @@ class _VoteViewState extends State<VoteView> {
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
-    print(data);
+
     this.votes = [];
     setState(() {
       for (var i = 0; i < data.length; i++) {
@@ -113,7 +113,8 @@ class _VoteViewState extends State<VoteView> {
                     Container(
                       child: Text(
                         "Vote de la communauté",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 32),
                       ),
                     ),
                   ],
@@ -209,7 +210,10 @@ class _VoteViewState extends State<VoteView> {
                                             )),
                                   );
                                 },
-                                child: VotesListLine(votes: votes[index],index: index,)));
+                                child: VotesListLine(
+                                  votes: votes[index],
+                                  index: index,
+                                )));
                       }),
                 ],
               ),
