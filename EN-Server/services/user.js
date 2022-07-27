@@ -1,6 +1,7 @@
 const db = require('./database.js');
 ////const helper = require('../helper');
 ////const config = require('../config/config.js');
+var bcrypt = require('bcryptjs');
 const bcryptUtils = require('../utils/bcrypt.utils.js');
 
 //gives the list of All users on the platform
@@ -30,8 +31,11 @@ async function getUserCredentials(email) {
 
 async function insertUser(userReq) {
     //const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + bcryptUtils.hashPwd(userReq.password) + "', 0);";
-    const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points, signInDate) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + userReq.password + "', 0, CURDATE());";
-    const results = await db.query(requete, "");
+
+
+    var request = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points, signInDate) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + userReq.password + "', 0, CURDATE());";
+    var results = await db.query(request, "");
+
 
     //message to output at the end of the function
     let message = 'Error in creating User';
@@ -41,6 +45,14 @@ async function insertUser(userReq) {
         message = 'User created successfully';
         idUser = await getLastUserRegistered()
     }
+
+    bcrypt.genSalt(10, async function (err, salt) {
+        bcrypt.hash(userReq, salt, async function (err, hash) {
+            // Store hash in your password DB.
+            const request = "UPDATE User SET password = \"" + hash + "\" WHERE idUser = " + idUser.idUser + ";";
+            const results = await db.query(request, "");
+        });
+    });
 
     return { idUser };
 }
