@@ -1,19 +1,19 @@
+// ===== IMPORTS =====
 const db = require('./database.js');
-////const helper = require('../helper');
-////const config = require('../config/config.js');
 var bcrypt = require('bcryptjs');
-const bcryptUtils = require('../utils/bcrypt.utils.js');
+
+
+// ===== FUNCTIONS ======
+
+
+
 
 //gives the list of All users on the platform
 async function getAllUsers(idCommunity) {
-    /*query below for debugging purposes DO NOT USE IN PROD
-    *
-    *const rows = await db.query("SELECT * FROM User;", "");
-    */
-
     const rows = await db.query("SELECT u.idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User u, Associate a WHERE a.idCommunity = " + idCommunity + " ANd u.idUser = a.idUser;", "");
     return rows;
 }
+
 
 //gives every information on ONE specific user passed in parameter
 async function getUserInfo(idUser) {
@@ -21,15 +21,17 @@ async function getUserInfo(idUser) {
     return rows;
 }
 
+
 //get idUser and Password by email
 async function getUserCredentials(email) {
     /* ======= password will be crypted ======= */
-
-    const rows = await db.query("SELECT u.idUser, u.password, a.idCommunity FROM User u, Associate a WHERE a.idUser = u.idUser AND email='" + email + "';", "");
+    const request = "SELECT u.idUser, u.password, a.idCommunity FROM User u, Associate a WHERE a.idUser = u.idUser AND email=\"" + email + "\";";
+    const rows = await db.query(request, "");
     return rows;
 }
 
-async function insertUser(userReq) {
+
+async function insertUser(userReq) { // WILL BE DELETED
     //const requete = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + bcryptUtils.hashPwd(userReq.password) + "', 0);";
 
 
@@ -57,20 +59,41 @@ async function insertUser(userReq) {
     return { idUser };
 }
 
+
+async function insertUser1(userReq) {
+
+    var hash = bcrypt.hashSync(userReq.password, 10);
+    var request = "INSERT INTO User (idUser, firstName, lastName, birthDate, gender, areaCode, email, password, points, signInDate) VALUES (null,'" + userReq.firstName + "','" + userReq.lastName + "','" + userReq.birthDate + "','" + userReq.gender + "', '" + userReq.areaCode + "','" + userReq.email + "','" + hash + "', 0, CURDATE());";
+    var results = await db.query(request, "");
+
+    let idUser;
+
+
+    message = 'User created successfully';
+    idUser = await getLastUserRegistered()
+
+    return { idUser };
+}
+
+
 async function findUser(email) {
     const rows = await db.query("SELECT idUser FROM User WHERE email='" + email + "';", "");
     return rows[0];
 }
+
 
 async function getAllReportedUsers() {
     const rows = await db.query("SELECT u.idUser, c.reports FROM User u, Comment c WHERE c.idUser = u.idUser and c.reports>0;", "");
     return rows;
 }
 
+
+
 async function getAllPointOrderedUsers() {
     const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User ORDER BY points DESC;", "");
     return rows;
 }
+
 
 async function updateUser(idUser, firstName, lastName, birthDate, gender, areaCode, email) {
     const request = "UPDATE User SET firstName = '" + firstName + "', lastName = '" + lastName + "', birthDate = '" + birthDate + "', gender = '" + gender + "', areaCode = '" + areaCode + "', email = '" + email + "' WHERE idUser = " + idUser + ";";
@@ -78,8 +101,10 @@ async function updateUser(idUser, firstName, lastName, birthDate, gender, areaCo
     return rows;
 }
 
+
 async function updatePasswordUser(password, idUser) {
-    const request = "UPDATE User SET password = '" + password + "' WHERE idUser = " + idUser + ";";
+    var hash = bcrypt.hashSync(password, 10);
+    const request = "UPDATE User SET password = '" + hash + "' WHERE idUser = " + idUser + ";";
     const rows = await db.query(request, "");
     return rows;
 }
@@ -95,8 +120,6 @@ async function deleteUser(idUser) {
 }
 
 
-
-
 async function getLastRegisteredUsers(idCommunity) {
     const request = "SELECT u.idUser, firstName, lastName FROM User u, Associate a WHERE a.idCommunity = " + idCommunity + " AND u.idUser = a.idUser ORDER BY u.idUser DESC LIMIT 5;";
     const rows = await db.query(request, "");
@@ -104,13 +127,11 @@ async function getLastRegisteredUsers(idCommunity) {
 }
 
 
-
 async function getLastUserRegistered() {
     const request = "SELECT idUser FROM User ORDER BY idUser DESC LIMIT 1;";
     const rows = await db.query(request, "");
     return rows;
 }
-
 
 
 async function addUserToCommunity(idUser, idCommunity) {
@@ -132,5 +153,6 @@ module.exports = {
     deleteUser,
     getLastRegisteredUsers,
     getLastUserRegistered,
-    addUserToCommunity
+    addUserToCommunity,
+    insertUser1
 }

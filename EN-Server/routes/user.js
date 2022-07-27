@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user = require('../services/user.js');
 const jwtUtils = require('../utils/jwt.utils.js');
+var bcrypt = require('bcryptjs');
 
 
 /* GET allUsers*/
@@ -47,7 +48,12 @@ router.post('/login', async function (req, res, next) {
 		res.status(404).json({ 'ERROR': "cannot find user" });
 		next();
 	} else {
-		if (req.body.password != userCredentials[0].password) {
+		//if (req.body.password != userCredentials[0].password) {
+
+		//console.log("DB => " + userCredentials[0].password)
+		console.log("compareSync => " + bcrypt.compareSync(req.body.password, userCredentials[0].password))
+
+		if (bcrypt.compareSync(req.body.password, userCredentials[0].password) == false) {
 			res.status(403).json({ 'ERROR': "incorrect password" });
 			next();
 		} else {
@@ -76,8 +82,9 @@ router.post('/register', async function (req, res) {
 	//check if user isnt already registered
 	if (!await user.findUser(req.body.email)) {
 		//insert in db
-		const idUser = await user.insertUser(req.body);
+		const idUser = await user.insertUser1(req.body);
 		//const idUser = await user.getLastUserRegistered()[0]
+		console.log(idUser)
 		res.status(201).json(
 			{
 				"message": "User successufully registered",
