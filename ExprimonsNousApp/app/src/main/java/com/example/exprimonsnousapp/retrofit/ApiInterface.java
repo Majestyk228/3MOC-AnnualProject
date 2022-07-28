@@ -113,6 +113,6 @@ public interface ApiInterface {
 
     // SUBMIT REWARD
     @Headers({"Content-Type: application/json"})
-    @HTTP(method = "POST", path = "/reward/useReward", hasBody = true)
+    @HTTP(method = "POST", path = "/rewards/useReward", hasBody = true)
     Call<Object> sendReward(@Body RewardSend rewardSend);
 }

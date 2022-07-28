@@ -150,6 +150,7 @@ public class BottomSheetFrag extends Fragment {
 
     private void sendReward(RewardSend rewardSend) {
         Call<Object> call = apiInterface.sendReward(rewardSend);
+        Log.i("SendReward", "sendReward object: "+rewardSend.toString());
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
