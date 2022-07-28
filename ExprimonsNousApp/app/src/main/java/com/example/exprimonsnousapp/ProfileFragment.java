@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -72,6 +73,9 @@ public class ProfileFragment extends Fragment {
     private int idUser;
     private AlertDialog dialog;
 
+    // TOOLBAR
+    Toolbar myToolbar;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -96,6 +100,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        myToolbar = getActivity().findViewById(R.id.my_toolbar);
 
         // DIALOGUE
         createResetPasswordDialog();
@@ -143,6 +149,9 @@ public class ProfileFragment extends Fragment {
             // OPEN FRAGMENT TO RESET PASSWORD SCREEN
             dialog.show();
         });
+
+        myToolbar.setTitle(R.string.profile_title);
+
         return view;
     }
 

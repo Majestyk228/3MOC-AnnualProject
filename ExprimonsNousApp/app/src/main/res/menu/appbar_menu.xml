@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/switch_community"
-        android:title="@string/switch_community"
+        android:id="@+id/get_help"
+        android:title="@string/get_help"
         android:icon="@drawable/ic_user_fill"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
 </menu>

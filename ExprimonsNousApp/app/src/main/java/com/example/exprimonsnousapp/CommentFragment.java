@@ -137,6 +137,9 @@ public class CommentFragment extends Fragment {
                 commentsPost=new ArrayList<>();
                 extractComments(idPost);
                 adapter.notifyDataSetChanged();
+
+                // EMPTY THE EDITTEXT
+                newCommentEdittext.setText("");
             }
         });
 
@@ -167,9 +170,9 @@ public class CommentFragment extends Fragment {
             }
         });
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        /*((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
-        myToolbar.setTitle("Les posts");
+        myToolbar.setTitle("Les posts");*/
 
         recyclerViewComment = view.findViewById(R.id.recyclerViewComment);
         recyclerViewComment.setHasFixedSize(true);

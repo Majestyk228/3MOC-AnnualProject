@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -43,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
     private String URL_LOGIN = "https://www.titan-photography.com/user/login";
     ApiInterface apiInterface;
     UserCreds userCreds = new UserCreds(-1,"", -1);
+
+
 
 
     @Override

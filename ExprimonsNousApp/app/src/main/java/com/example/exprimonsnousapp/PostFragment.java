@@ -96,6 +96,8 @@ public class PostFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
 
+        myToolbar = getActivity().findViewById(R.id.my_toolbar);
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             this.userId = bundle.getInt("idUser", -1);
@@ -182,6 +184,8 @@ public class PostFragment extends Fragment {
 
             }
         });
+
+        myToolbar.setTitle(R.string.posts_title);
 
         return view;
     }

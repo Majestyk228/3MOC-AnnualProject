@@ -120,5 +120,12 @@
     <string name="vote_submitted">Votre vote a été pris en compte.</string>
     <string name="add_reward_text">Ajouter une récompense</string>
     <string name="sign_in">Inscrivez-vous</string>
+    <string name="get_help">FAQ Exprimons-Nous</string>
+    <string name="get_help_logo_description">Get Help Logo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="posts_title">Les posts</string>
+    <string name="vote_title">Les votes</string>
+    <string name="profile_title">Mon profil</string>
 
 </resources>

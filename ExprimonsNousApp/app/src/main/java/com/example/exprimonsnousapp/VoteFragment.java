@@ -2,6 +2,7 @@ package com.example.exprimonsnousapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,9 @@ public class VoteFragment extends Fragment {
     // OTHER
     ApiInterface apiInterface;
 
+    // TOOLBAR
+    Toolbar myToolbar;
+
     public VoteFragment() {
         // Required empty public constructor
     }
@@ -91,6 +95,8 @@ public class VoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vote, container, false);
+
+        myToolbar = getActivity().findViewById(R.id.my_toolbar);
 
         IdCommunity idCommunity = new IdCommunity(communityId);
         try {
@@ -132,6 +138,7 @@ public class VoteFragment extends Fragment {
             }
         });
 
+        myToolbar.setTitle(R.string.vote_title);
 
         return view;
     }
