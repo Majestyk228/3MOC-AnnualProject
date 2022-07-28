@@ -122,6 +122,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 // APPEL DE LA ROUTE POUR AJOUTER UN REWARD AU POST AVEC L'idPost
                 Fragment mFragment = new BottomSheetFrag();
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("idPost", Integer.parseInt(posts.get(holder.getAdapterPosition()).getIdPost()));
+                bundle.putInt("idCommunity", communityId);
+                bundle.putInt("idUser", idUser);
+                mFragment.setArguments(bundle);
+
                 FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.activity_main_frame_layout, mFragment);
                 ft.addToBackStack("BottomSheetFrag");

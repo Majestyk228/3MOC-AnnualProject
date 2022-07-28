@@ -10,6 +10,7 @@ import com.example.exprimonsnousapp.models.NewAccountResponse;
 import com.example.exprimonsnousapp.models.NewComment;
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.models.Post;
+import com.example.exprimonsnousapp.models.RewardSend;
 import com.example.exprimonsnousapp.models.UserCreds;
 import com.example.exprimonsnousapp.models.UserLoginCreds;
 import com.example.exprimonsnousapp.models.UserUpdateResponse;
@@ -101,12 +102,17 @@ public interface ApiInterface {
     Call <Post> getPost(@Path("idPost") int idPost);
 
     // CREATE COMMENT
-    @Headers({"Conten-Type: application/json"})
+    @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/comment/create", hasBody = true)
     Call<Object> sendComment(@Body NewComment newComment);
 
     // SUBMIT VOTE
-    @Headers({"Conten-Type: application/json"})
+    @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/vote/userVote", hasBody = true)
     Call<Object> sendUserVote(@Body UserVote userVote);
+
+    // SUBMIT REWARD
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/reward/useReward", hasBody = true)
+    Call<Object> sendReward(@Body RewardSend rewardSend);
 }

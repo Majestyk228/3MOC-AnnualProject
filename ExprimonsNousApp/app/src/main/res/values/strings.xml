@@ -81,7 +81,7 @@
     <string name="super_reward">Super !</string>
     <string name="interesting_reward">Intéressant !</string>
     <string name="bof_reward">Bof...</string>
-    <string name="not_interesting_reward">Pas Intéressant...</string>
+    <string name="not_interesting_reward">Pas Intéressant</string>
     <string name="like_toast">Je like !</string>
     <string name="error">Une erreur est survenue.</string>
     <string name="dislike_toast">Je dislike !</string>
