@@ -1,8 +1,8 @@
 module.exports = {
     post: {
         tags: ["admin"],
-        description: "Login procedure of admin [DEPRECIATED]",
-        operationId: "adminLogin",
+        description: "Login procedure of admin",
+        operationId: "adminLoginSecure",
         parameters: [],
         requestBody: {
             content: {
@@ -26,9 +26,8 @@ module.exports = {
                             type: "object",
                             example: {
                                 idAdmin: 1,
-                                email: "root@root.fr",
-                                password: "IMAGINARY PASSWORD",
-                                idCommunity: 2
+                                idCommunity: 2,
+                                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6I[...]oxNjU5MDQ2OTEzfQ.0lBdZ-HdQpUwqe9XY3eCg0wdtsLTt0E_RrYVLBEpamw"
                             }
                         },
                     },

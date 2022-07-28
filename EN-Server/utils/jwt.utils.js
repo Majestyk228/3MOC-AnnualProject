@@ -29,5 +29,34 @@ module.exports = {
 			} catch (err) { }
 		}
 		return idUser;
+	},
+
+	generateTokenForAdmin: function (adminData) {
+		return jwt.sign({
+			idAdmin: adminData.idAdmin,
+			idCommunity: adminData.idCommunity
+		},
+			JWT_SIGN_SECRET,
+			{
+				expiresIn: '2h'
+			})
+	},
+	parseAuthorization: function (authorization) {
+		return (authorization != null) ? authorization.replace('Bearer ', '') : null;
+	},
+	getIdUser: function (authorization) {
+		var idAdmin = -1;
+		var idCommunity = -1;
+		var token = module.exports.parseAuthorization(authorization);
+		if (token != null) {
+			try {
+				var jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
+				if (jwtToken != null) {
+					idAdmin = jwtToken.idAdmin;
+					idCommunity = jwtToken.idCommunity;
+				}
+			} catch (err) { }
+		}
+		return idAdmin;
 	}
 }

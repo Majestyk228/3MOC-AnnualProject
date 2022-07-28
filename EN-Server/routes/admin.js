@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('../services/admin.js');
+const jwtUtils = require('../utils/jwt.utils.js');
 
 
 
@@ -44,17 +45,27 @@ router.post('/loginSecure', async function (req, res, next) {
 	}
 
 	//Searching for user with email entered
-	const userCredentials = await user.getUserCredentials(req.body.email);
-	if (JSON.stringify(userCredentials) == "[]") {
-		res.status(404).json({ 'ERROR': "cannot find user" });
+	const adminCredentials = await admin.getAdminCredentials(req.body.email);
+	if (JSON.stringify(adminCredentials) == "[]") {
+		res.status(404).json({ 'ERROR': "cannot find admin" });
 		next();
 	} else {
 		//if (req.body.password != userCredentials[0].password) {
 
 		//console.log("DB => " + userCredentials[0].password)
-		console.log("compareSync => " + bcrypt.compareSync(req.body.password, userCredentials[0].password))
+		//console.log("compareSync => " + bcrypt.compareSync(req.body.password, userCredentials[0].password))
 
-		if (bcrypt.compareSync(req.body.password, userCredentials[0].password) == false) {
+		if (req.body.password != adminCredentials[0].password) {
+			res.status(403).json({ 'ERROR': "incorrect password" });
+		} else {
+			res.status(201).json({
+				"idAdmin": adminCredentials[0].idAdmin,
+				"idCommunity": adminCredentials[0].idCommunity,
+				"token": jwtUtils.generateTokenForAdmin(adminCredentials[0])
+			});
+		}
+
+		/*if (bcrypt.compareSync(req.body.password, userCredentials[0].password) == false) {
 			res.status(403).json({ 'ERROR': "incorrect password" });
 			next();
 		} else {
@@ -64,7 +75,7 @@ router.post('/loginSecure', async function (req, res, next) {
 				"idCommunity": userCredentials[0].idCommunity,
 				"token": jwtUtils.generateTokenForUser(userCredentials[0].idUser)
 			});
-		}
+		}*/
 	}
 });
 
