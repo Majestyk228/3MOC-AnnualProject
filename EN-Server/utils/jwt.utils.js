@@ -44,7 +44,7 @@ module.exports = {
 	parseAuthorization: function (authorization) {
 		return (authorization != null) ? authorization.replace('Bearer ', '') : null;
 	},
-	getIdUser: function (authorization) {
+	getIdAdmin: function (authorization) {
 		var idAdmin = -1;
 		var idCommunity = -1;
 		var token = module.exports.parseAuthorization(authorization);
