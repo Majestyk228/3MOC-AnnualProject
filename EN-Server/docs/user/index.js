@@ -13,7 +13,7 @@ const addToCommunity = require('./addToCommunity.js');
 const schema = require("./_model.js")
 module.exports = {
 	paths: {
-		"/user/all": {
+		"/user/all/{idCommunity}": {
 			...getAll,
 		},
 		"/user/infos": {

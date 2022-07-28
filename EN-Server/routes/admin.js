@@ -34,4 +34,23 @@ router.post('/login', async function (req, res, next) {
 	}
 });
 
+
+// email must be in body request
+/*router.post('/login', async function (req, res, next) {
+	try {
+		const adminCredentials = 
+		res.status(200).json(await admin.getAdminCredentials(req.body.email));
+
+		if (bcrypt.compareSync(req.body.password, userCredentials[0].password) == false) {
+			res.status(403).json({ 'ERROR': "incorrect password" });
+			next();
+		}
+
+
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});*/
+
 module.exports = router;
