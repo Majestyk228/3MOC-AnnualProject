@@ -127,5 +127,6 @@
     <string name="posts_title">Les posts</string>
     <string name="vote_title">Les votes</string>
     <string name="profile_title">Mon profil</string>
+    <string name="report_post">Signaler le post</string>
 
 </resources>

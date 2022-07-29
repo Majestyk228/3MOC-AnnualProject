@@ -4,15 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -59,6 +63,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_post2, parent, false);
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+
         return new ViewHolder(view);
     }
 
@@ -135,6 +141,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 ft.commit();
             }
         });
+
+        holder.menu_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // CREATING POPUP MENU
+                PopupMenu popup = new PopupMenu(context, holder.menu_post);
+                // INFLATE OBJECT
+                popup.inflate(R.menu.report_menu);
+                popup.setForceShowIcon(true);
+                // LISTENING TO EVENTS
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.report:
+                                //handle menu1 click
+                                IdPost idPost = new IdPost(posts.get(holder.getAbsoluteAdapterPosition()).getIdPost());
+                                reportPost(Integer.parseInt(idPost.getIdPost()));
+                                Toast.makeText(inflater.getContext(), "Report done.", Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popup.show();
+            }
+        });
     }
 
     @Override
@@ -148,6 +182,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT,avatar_textfield;
         //Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
         LinearLayout likeBtn, dislikeBtn, commentBtn, rewardBtn;
+
+        ImageView menu_post;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,6 +202,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             avatar_textfield = itemView.findViewById(R.id.avatar_textfield);
 
+            menu_post = itemView.findViewById(R.id.menu_post);
         }
     }
 
@@ -201,4 +238,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
     }
+
+
+    private void reportPost(int idPost) {
+        Call<Object> call = apiInterface.reportPost(idPost);
+        Log.i("REPORT", "Request  : "+call.request().body());
+
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.i("REPORT", "onResponse: Success : "+response.body());
+                Toast.makeText(inflater.getContext(), R.string.dislike_toast, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.i("REPORT", "onResponse: Success : "+t.getLocalizedMessage());
+                Toast.makeText(inflater.getContext(), R.string.error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
