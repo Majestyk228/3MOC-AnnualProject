@@ -29,18 +29,21 @@ module.exports = {
 									firstName: "Black",
 									lastName: "Sherif",
 									body: "40354eme comm du val de marne haha",
+									idComment: 1,
 									anonymous: "True"
 								},
 								{
 									firstName: "Black",
 									lastName: "Sherif",
 									body: "40355eme comm du val de marne haha",
+									idComment: 3,
 									anonymous: "True"
 								},
 								{
 									firstName: "Black",
 									lastName: "Sherif",
 									body: "40356eme comm du val de marne haha",
+									idComment: 8,
 									anonymous: "True"
 								}
 							]

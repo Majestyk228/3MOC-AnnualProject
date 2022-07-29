@@ -101,7 +101,7 @@ async function reportCommentReinit(idComment) {
 }
 
 async function commmentByPost(idPost) {
-	const request = "SELECT u.firstName, u.lastName, c.body, c.anonymous FROM User u, Comment c WHERE c.idPost = " + idPost + " GROUP BY idComment;";
+	const request = "SELECT u.firstName, u.lastName, c.body,c.idComment, c.anonymous FROM User u, Comment c WHERE c.idPost = " + idPost + " GROUP BY idComment;";
 	const rows = await db.query(request, "");
 	return rows;
 }
