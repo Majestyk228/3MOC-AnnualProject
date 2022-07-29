@@ -63,6 +63,7 @@
         <entry key="app/src/main/res/menu/appbar_menu.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/report_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/report_menu_comment.xml" value="0.15416666666666667" />
       </map>
     </option>
   </component>

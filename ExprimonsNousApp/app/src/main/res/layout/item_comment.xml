@@ -26,10 +26,14 @@
         </TextView>
 
         <ImageView
-            android:id="@+id/report"
+            android:id="@+id/report_comment"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_information"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_menu_post_variant"
+            android:focusable="true"
+            android:clickable="true"/>
     </LinearLayout>
     <!--Partie 2 : Le corps du commentaire-->
     <LinearLayout
