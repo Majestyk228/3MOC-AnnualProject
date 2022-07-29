@@ -18,14 +18,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/avatar_textfied"
+            android:id="@+id/avatar_textfield"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="15dp"
             android:background="@drawable/avatar_bg"
             android:gravity="center"
             android:text="JD"
-            android:textColor="#80000000"
+            android:textColor="@color/lettering_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 

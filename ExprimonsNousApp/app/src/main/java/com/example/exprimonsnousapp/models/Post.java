@@ -98,6 +98,10 @@ public class Post {
         return userInitials;
     }
 
+    public void setUserInitials(String firstname, String lastname) {
+        this.userInitials = firstname.charAt(0) +""+ lastname.charAt(0);
+    }
+
     // TO STRING
     @Override
     public String toString() {

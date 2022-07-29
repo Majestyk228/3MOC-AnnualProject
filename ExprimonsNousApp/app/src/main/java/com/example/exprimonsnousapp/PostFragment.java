@@ -225,6 +225,7 @@ public class PostFragment extends Fragment {
                                 } else {
                                     post.setNbRewards(0);
                                 }
+                                post.setUserInitials(postObject.getString("firstName"),postObject.getString("lastName"));
                                 //post.setDislikes(postObject.getInt("dislikes"));
                                 //post.setNbComments(postObject.getInt("comments"));
                                 //post.setNbRewards(postObject.getInt("rewards"));

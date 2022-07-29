@@ -71,6 +71,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.dislikesTXT.setText(posts.get(holder.getAdapterPosition()).getDislikes());
         holder.commentTXT.setText(posts.get(holder.getAdapterPosition()).getNbComments());
         holder.rewardTXT.setText(posts.get(holder.getAdapterPosition()).getNbRewards());
+        holder.avatar_textfield.setText(posts.get(holder.getAdapterPosition()).getUserInitials());
 
         holder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +145,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT;
+        TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT,avatar_textfield;
         //Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
         LinearLayout likeBtn, dislikeBtn, commentBtn, rewardBtn;
 
@@ -162,6 +163,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             dislikeBtn = itemView.findViewById(R.id.dislikeBtn);
             commentBtn = itemView.findViewById(R.id.commentBtn);
             rewardBtn = itemView.findViewById(R.id.rewardBtn);
+
+            avatar_textfield = itemView.findViewById(R.id.avatar_textfield);
 
         }
     }
