@@ -10,6 +10,7 @@ public class Post {
     private int dislikes;
     private int nbComments;
     private int nbRewards;
+    private String userInitials;
 
     // CONSTRUCTEURS
     public Post() { }
@@ -23,6 +24,7 @@ public class Post {
         this.nbComments = nbComments;
         this.nbRewards = nbRewards;
         this.idPost = idPost;
+        this.userInitials = firstname.charAt(0) +""+ lastname.charAt(0);
     }
 
 
@@ -90,6 +92,10 @@ public class Post {
 
     public void setIdPost(int idPost) {
         this.idPost = idPost;
+    }
+
+    public String getUserInitials() {
+        return userInitials;
     }
 
     // TO STRING
