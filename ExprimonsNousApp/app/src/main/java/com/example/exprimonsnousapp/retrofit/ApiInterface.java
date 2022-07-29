@@ -116,8 +116,13 @@ public interface ApiInterface {
     @HTTP(method = "POST", path = "/rewards/useReward", hasBody = true)
     Call<Object> sendReward(@Body RewardSend rewardSend);
 
-    // SUBMIT REWARD
+    // REPORTING POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/post/report/{idPost}", hasBody = false)
     Call<Object> reportPost(@Path("idPost") int idPost);
+
+    // REPORTING COMMENT
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "GET", path = "/comment/report/{idComment}", hasBody = false)
+    Call<Object> reportComment(@Path("idComment") int idComment);
 }

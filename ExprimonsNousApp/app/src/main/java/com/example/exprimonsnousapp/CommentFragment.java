@@ -187,6 +187,7 @@ public class CommentFragment extends Fragment {
             public void onResponse(Call<List<CommentPost>> call, Response<List<CommentPost>> response) {
 
                 for (int i = 0; i < response.body().size(); i++) {
+                    Log.i("REPPORT", "onResponse: "+response.body().get(i));
                     commentsPost.add(response.body().get(i));
                 }
                 recyclerViewComment.setLayoutManager(new LinearLayoutManager(getContext()));
