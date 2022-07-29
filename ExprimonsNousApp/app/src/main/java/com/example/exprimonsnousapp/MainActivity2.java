@@ -106,7 +106,7 @@ public class MainActivity2 extends AppCompatActivity {
                     bundle.putInt("idCommunity", communityId);
                     selectedFragment.setArguments(bundle);
 
-                    myToolbar.setTitle("Les posts");
+                    myToolbar.setTitle(R.string.posts_title);
                     break;
                 case R.id.action_votes:
                     selectedFragment = new VoteFragment();
@@ -114,14 +114,17 @@ public class MainActivity2 extends AppCompatActivity {
                     bundle.putInt("idUser", userId);
                     bundle.putInt("idCommunity", communityId);
                     selectedFragment.setArguments(bundle);
-                    myToolbar.setTitle("Les votes");
+                    myToolbar.setTitle(R.string.vote_title);
                     break;
                 case R.id.action_profile:
                     selectedFragment = new ProfileFragment();
                     bundle = new Bundle();
                     bundle.putInt("idUser", userId);
                     selectedFragment.setArguments(bundle);
-                    myToolbar.setTitle("Mon profil");
+                    myToolbar.setTitle(R.string.profile_title);
+                    break;
+                default:
+                    myToolbar.setTitle(R.string.posts_title);
                     break;
             }
 

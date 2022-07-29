@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.example.exprimonsnousapp.models.RewardSend;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
 import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,6 +88,15 @@ public class BottomSheetFrag extends Fragment {
 
                 RewardSend rewardSend = new RewardSend(1,idPost,idUser);
                 sendReward(rewardSend);
+
+                // RETRAIT DU FRAGMENT CreatePostFragment
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("BottomSheetFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
             }
         });
 
@@ -96,6 +107,15 @@ public class BottomSheetFrag extends Fragment {
 
                 RewardSend rewardSend = new RewardSend(2,idPost,idUser);
                 sendReward(rewardSend);
+
+                // RETRAIT DU FRAGMENT CreatePostFragment
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("BottomSheetFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
             }
         });
 
@@ -106,6 +126,15 @@ public class BottomSheetFrag extends Fragment {
 
                 RewardSend rewardSend = new RewardSend(3,idPost,idUser);
                 sendReward(rewardSend);
+
+                // RETRAIT DU FRAGMENT CreatePostFragment
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("BottomSheetFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
             }
         });
 
@@ -116,6 +145,15 @@ public class BottomSheetFrag extends Fragment {
 
                 RewardSend rewardSend = new RewardSend(4,idPost,idUser);
                 sendReward(rewardSend);
+
+                // RETRAIT DU FRAGMENT CreatePostFragment
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack("BottomSheetFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                // DESABLING RETURN BUTTON OF TOOLBAR AND CHANGING TITLE
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
             }
         });
 
@@ -155,13 +193,26 @@ public class BottomSheetFrag extends Fragment {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 Log.i("SendReward", "onResponse success: "+response.body());
+
+                if(response.body()=="{Message=Reward added successfully.}") {
+                    //Toast.makeText((FragmentActivity)getContext(), "Reward ajouté !", Toast.LENGTH_LONG).show();
+                    //createToast("Reward ajouté !");
+                } else {
+                    //Toast.makeText((FragmentActivity)getContext(), "Vous avez déjà récompensé ce post.", Toast.LENGTH_LONG).show();
+                    //createToast("Vous avez déjà récompensé ce post.");
+                }
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                //createToast("Une erreur est survenue");
                 Log.i("SendReward", "onResponse fail: "+t.getLocalizedMessage());
             }
         });
+    }
+
+    private void createToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
