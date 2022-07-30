@@ -35,10 +35,10 @@ public class MainActivity2 extends AppCompatActivity {
     ApiInterface apiInterface;
 
     // SHARED PREFERENCES
-    /*SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USER = "idUser";
-    private static final String KEY_COMMUNITY = "idCommunity";*/
+    private static final String KEY_COMMUNITY = "idCommunity";
 
     // OTHER
     ImageView get_help_logo;
@@ -55,10 +55,13 @@ public class MainActivity2 extends AppCompatActivity {
         userId = extras.getInt("userId");
         communityId = extras.getInt("communityId");
 
-        /*sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
+
+        // LOGIN PERSISTANCE
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_USER,userId);
-        editor.putInt(KEY_COMMUNITY,communityId);*/
+        editor.putInt(KEY_COMMUNITY,communityId);
+        editor.apply();
 
         CommunityInsert communityInsert = new CommunityInsert(userId,communityId);
         addUserInCommunity(communityInsert);

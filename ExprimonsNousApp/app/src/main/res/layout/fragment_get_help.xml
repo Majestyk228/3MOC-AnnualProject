@@ -6,22 +6,167 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".GetHelpFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/grey">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FRAGMENT FAQ"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundBlue"
+            tools:context=".MainActivity">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/logo"
+                android:layout_margin="20dp"
+                android:src="@drawable/logoexprimonsnous2"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/logo_description"
+                />
 
+            <RelativeLayout
+                android:id="@+id/whiteRoundedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logo"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/layout_bg">
+
+                <TextView
+                    android:id="@+id/exprimonsNousGetHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:fontFamily="@font/quicksandsemibold"
+                    android:gravity="center"
+                    android:text="@string/app_get_help_title"
+                    android:textColor="@color/black"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/contact_us_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/exprimonsNousGetHelp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="start"
+                    android:text="@string/contact_us_title"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/exprimonsDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contact_us_title"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:fontFamily="@font/quicksandregular"
+                    android:gravity="center"
+                    android:text="@string/contact_us_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/contactform_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/exprimonsDescription"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/edittext_bg"
+                    android:elevation="5dp"
+                    android:gravity="center|start|top"
+                    android:hint="Sujet du pessage (en quelques mots)"
+                    android:padding="16dp" />
+
+                <EditText
+                    android:id="@+id/contactform_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/contactform_title"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@drawable/edittext_bg"
+                    android:elevation="5dp"
+                    android:gravity="center|start|top"
+                    android:hint="Votre message..."
+                    android:padding="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/send_message_support"
+                    android:layout_width="320dp"
+                    android:layout_height="75dp"
+                    android:layout_below="@id/contactform_body"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/blueBtn"
+                    android:fontFamily="@font/quicksandbold"
+                    android:gravity="center"
+                    android:text="envoyer le message"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/log_out_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/send_message_support"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="start"
+                    android:text="@string/log_out_title"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/logoutDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/log_out_title"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:fontFamily="@font/quicksandregular"
+                    android:gravity="center"
+                    android:text="@string/log_out_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/logoutBtn"
+                    android:layout_width="320dp"
+                    android:layout_height="75dp"
+                    android:layout_below="@id/logoutDescription"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/lightBlueBtn"
+                    android:fontFamily="@font/quicksandbold"
+                    android:gravity="center"
+                    android:text="Déconnexion"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

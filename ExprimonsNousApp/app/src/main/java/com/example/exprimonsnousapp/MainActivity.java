@@ -30,20 +30,22 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton loginBtn;
 
     // SHARED PREFERENCES
-    /*SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USER = "idUser";
-    private static final String KEY_COMMUNITY = "idCommunity";*/
+    private static final String KEY_COMMUNITY = "idCommunity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
 
-        /*sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
 
         int idUser = sharedPreferences.getInt(KEY_USER, -1);
         int idCommunity = sharedPreferences.getInt(KEY_COMMUNITY, -1);
+
+        Log.i("PERSISTANCE", "MainActivity -> idUser: "+idUser);
 
         if(idUser != -1 || idCommunity != -1 ) {
             // start mainActivity with shared preferences
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             nextActivity.putExtra("communityId", idCommunity);
             startActivity(nextActivity);
             finish();
-        }*/
+        }
 
         this.createAccountBtn = findViewById(R.id.createAccountBtn);
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
