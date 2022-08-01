@@ -6,6 +6,7 @@ const community = require('./community/index.js')
 const vote = require('./vote/index.js')
 const user = require('./user/index.js')
 const comment = require('./comment/index.js')
+const support = require('./support/index.js')
 
 module.exports = {
 	openapi: "3.0.1",
@@ -34,6 +35,7 @@ module.exports = {
 		...reward.paths,
 		...user.paths,
 		...vote.paths,
+		...support.paths
 	},
 	components: {
 		schemas: {
