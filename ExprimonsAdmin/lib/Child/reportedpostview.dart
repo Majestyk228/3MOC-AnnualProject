@@ -101,34 +101,100 @@ class _ReportedPostViewState extends State<ReportedPostView> {
           SizedBox(
             height: 100,
           ),
+          Center(
+            child: Container(
+              width: 300,
+              height: 100,
+
+              //child: Text(votes[index]["title"])
+              child: Card(
+                elevation: 2,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Post signalé",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 100,
+
+            //child: Text(votes[index]["title"])
+            child: Card(
+              elevation: 2,
+              color: veryDarkRedColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Titre",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Date",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Like",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Dislike",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Reported",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Wrap(
                 children: [
-                  Center(
-                    child: Container(
-                      width: 300,
-                      height: 100,
 
-                      //child: Text(votes[index]["title"])
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Post signalé",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -148,7 +214,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
                                   );
                                   refreshPosts();
                                 },
-                                child: PostListLine(post: posts[index])));
+                                child: PostListLine(post: posts[index],index: index,)));
                       }),
                 ],
               ),
