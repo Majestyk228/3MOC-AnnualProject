@@ -5,6 +5,7 @@ import com.example.exprimonsnousapp.models.CommunityInsert;
 import com.example.exprimonsnousapp.models.IdCommunity;
 import com.example.exprimonsnousapp.models.IdPost;
 import com.example.exprimonsnousapp.models.IdVote;
+import com.example.exprimonsnousapp.models.MessageSupport;
 import com.example.exprimonsnousapp.models.NewAccount;
 import com.example.exprimonsnousapp.models.NewAccountResponse;
 import com.example.exprimonsnousapp.models.NewComment;
@@ -125,4 +126,9 @@ public interface ApiInterface {
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/comment/report/{idComment}", hasBody = false)
     Call<Object> reportComment(@Path("idComment") int idComment);
+
+    // SENDING MESSAGE TO SUPPORT
+    @Headers({"Content-Type: application/json"})
+    @HTTP(method = "POST", path = "/support/", hasBody = true)
+    Call<Object> sendMessageSupport(@Body MessageSupport messageSupport);
 }

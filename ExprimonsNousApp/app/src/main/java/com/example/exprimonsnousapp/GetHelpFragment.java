@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.exprimonsnousapp.models.MessageSupport;
+import com.example.exprimonsnousapp.models.NewPost;
+import com.example.exprimonsnousapp.retrofit.ApiClient;
+import com.example.exprimonsnousapp.retrofit.ApiInterface;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GetHelpFragment extends Fragment {
 
@@ -43,6 +52,9 @@ public class GetHelpFragment extends Fragment {
     // IMPORTANT DATA
     private int idUser;
     private int idCommunity;
+
+    // API
+    ApiInterface apiInterface;
 
     public GetHelpFragment() {
         // Required empty public constructor
@@ -70,6 +82,8 @@ public class GetHelpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_get_help, container, false);
+
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         /*
         *
@@ -161,6 +175,23 @@ public class GetHelpFragment extends Fragment {
     }
 
     private void sendMessage(MessageSupport messageSupport) {
-        // TODO : API CALL
+        Call<Object> call = apiInterface.sendMessageSupport(messageSupport);
+
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                // RETURN TO LAST FRANGMENT
+                //FragmentManager fm = getActivity().getSupportFragmentManager();
+                //fm.popBackStack ("CreatePostFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Log.i("SUPPORTMESSAGE", "onResponse: " + response.body());
+
+                //Snackbar.make(coordinatorLayout,"Le post a été créé", Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                //Snackbar.make(coordinatorLayout,R.string.createPostError, Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }
