@@ -22,7 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MainController<APOD> {
+public class MainController {
 	
 	private Stage stage;
     private Scene scene;
@@ -39,7 +39,7 @@ public class MainController<APOD> {
     	
     	// API CALL FOR LOGIN
     	
-    	URL obj = new URL(POST_URL);
+    	/*URL obj = new URL(POST_URL);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json");
@@ -70,7 +70,7 @@ public class MainController<APOD> {
 			System.out.println(response.toString());
 		} else {
 			System.out.println("POST request not worked");
-		}
+		}*/
 		
     	// API CALL FOR LOGIN
     	

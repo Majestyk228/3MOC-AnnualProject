@@ -34,6 +34,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -43,7 +45,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HomeController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: E3E1E1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -59,7 +61,7 @@
                               <Image url="@../images/exprimonprojet.png" />
                            </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Utilisateur">
+                        <Text fx:id="Username" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Utilisateur">
                            <HBox.margin>
                               <Insets left="8.0" top="25.0" />
                            </HBox.margin>
@@ -69,7 +71,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
+                  <HBox fx:id="ListButton" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -89,7 +91,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
+                  <HBox fx:id="AccountButton" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -109,7 +111,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="131.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
+                  <HBox fx:id="SettingsButton" layoutX="10.0" layoutY="131.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -156,29 +158,33 @@
             </VBox>
          </children>
       </AnchorPane>
-      <Accordion layoutX="230.0" layoutY="30.0" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="30.0">
-         <panes>
-            <TitledPane animated="false" prefHeight="450.0" prefWidth="202.0" text="Tâches à faire">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="182.0" />
-               </content>
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </TitledPane>
-         </panes>
-      </Accordion>
-      <Accordion layoutX="457.0" layoutY="30.0">
-         <panes>
-            <TitledPane animated="false" prefHeight="450.0" prefWidth="202.0" text="Tâches en cours">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="182.0" />
-               </content>
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </TitledPane>
-         </panes>
-      </Accordion>
+      <ScrollPane layoutX="200.0" prefHeight="500.0" prefWidth="600.0">
+         <content>
+            <HBox fx:id="HostList" prefHeight="500.0" prefWidth="600.0">
+               <children>
+                  <Accordion>
+                     <panes>
+                        <TitledPane animated="true" prefHeight="450.0" prefWidth="202.0" text="Tâches à faire">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="182.0" />
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+                  <Button fx:id="NewListButton" alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createList" text="Nouvelle liste" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="32.0" right="32.0" top="250.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
