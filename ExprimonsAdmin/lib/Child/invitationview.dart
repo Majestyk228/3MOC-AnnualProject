@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/component/invitationline.dart';
 import 'package:exprimons_nous/objects/invitation.dart';
 import 'package:flutter/material.dart';
 
@@ -109,34 +110,79 @@ class _InvitationViewState extends State<InvitationView> {
           SizedBox(
             height: 100,
           ),
+          Center(
+            child: Container(
+              width: 600,
+              height: 100,
+
+              //child: Text(votes[index]["title"])
+              child: Card(
+                elevation: 2,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Invitation de la communauté",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 100,
+
+            //child: Text(votes[index]["title"])
+            child: Card(
+              elevation: 2,
+              color: veryDarkRedColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "Code",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 200,
+                    child: Text(
+                      "Date de création",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 200,
+                    child: Text(
+                      "Date de fin",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Wrap(
                 children: [
-                  Center(
-                    child: Container(
-                      width: 300,
-                      height: 100,
-
-                      //child: Text(votes[index]["title"])
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Invitation de la communauté",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -149,8 +195,8 @@ class _InvitationViewState extends State<InvitationView> {
                             onTap: () => showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
-                                title:
-                                     Text('Supression de l\'invitation ${invitation[index].code}'),
+                                title: Text(
+                                    'Supression de l\'invitation ${invitation[index].code}'),
                                 content: const Text(
                                     'Voullez vous vraiment supprimer cette invitation ?'),
                                 actions: <Widget>[
@@ -162,7 +208,8 @@ class _InvitationViewState extends State<InvitationView> {
                                     onPressed: () async {
                                       Navigator.pop(context, 'OK');
 
-                                      await deleteInvitation(invitation[index].code);
+                                      await deleteInvitation(
+                                          invitation[index].code);
                                       refreshInvitation();
                                     },
                                     child: const Text('Oui'),
@@ -170,30 +217,7 @@ class _InvitationViewState extends State<InvitationView> {
                                 ],
                               ),
                             ),
-                            child: Container(
-                              width: 300,
-                              height: 100,
-
-                              //child: Text(votes[index]["title"])
-                              child: Card(
-                                elevation: 2,
-                                color: Colors.white,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      width: 150,
-                                      child: Text("${invitation[index].code}"),
-                                    ),
-                                    Container(
-                                      width: 150,
-                                      child: Text(invitation[index].endDate),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            child: InvitationLine(invitation: invitation[index], index: index),
                           ),
                         );
                       }),
