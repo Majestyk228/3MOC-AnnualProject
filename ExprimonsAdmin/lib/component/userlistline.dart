@@ -39,16 +39,20 @@ class _UserListLineState extends State<UserListLine> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              width: 150,
-              child: Text(widget.user.lastName ?? "Failed to load"),
+              width: 200,
+              child: Text(widget.user.lastName ?? "Failed to load",style: TextStyle(fontSize: 16),),
+            ),
+            Container(
+              width: 200,
+              child: Text(widget.user.firstName ?? "Failed to load",style: TextStyle(fontSize: 16),),
+            ),
+            Container(
+              width: 190,
+              child: Text("${widget.user.areaCode}",style: TextStyle(fontSize: 16),),
             ),
             Container(
               width: 150,
-              child: Text(widget.user.firstName ?? "Failed to load"),
-            ),
-            Container(
-              width: 150,
-              child: Text("${widget.user.points}"),
+              child: Text("${widget.user.points}",style: TextStyle(fontSize: 16),),
             )
           ],
         ),

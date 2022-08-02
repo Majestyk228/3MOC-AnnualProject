@@ -3,33 +3,33 @@ import 'package:exprimons_nous/Globals.dart';
 import 'package:http/http.dart' as http;
 class Admin {
   int? idAdmin;
-  String? email;
-  String? password;
   int? idCommunity;
+  String? token;
 
   Admin({
     this.idAdmin,
-    this.email,
-    this.password,
     this.idCommunity,
+    this.token
   });
 
   factory Admin.fromJson(Map<String, dynamic> json) {
     return Admin(
       idAdmin: json['idAdmin'],
-      email: json['email'],
-      password: json['password'],
       idCommunity: json['idCommunity'],
+      token: json['token']
     );
   }
 }
 
 Future logAdmin(String email, String password) async {
-  Uri uri = Uri.parse("https://titan-photography.com/admin/login");
+  Uri uri = Uri.parse("https://titan-photography.com/admin/loginSecure");
   var body = jsonEncode({
     "email": email,
     "password": password
+
   });
+
+
   final response = await http.post(uri,
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -40,16 +40,18 @@ Future logAdmin(String email, String password) async {
         'Content-Type': 'application/json; charset=UTF-8'
       },
       body: body);
+
+
   var data = json.decode(response.body);
 
   if(data.length!=0){
-    currentAdmin=Admin(
-      idAdmin: data[0]['idAdmin'],
-      email: data[0]['email'],
-      password: data[0]['password'],
-      idCommunity: data[0]['idCommunity'],
 
+    currentAdmin=Admin(
+      idAdmin: data['idAdmin'],
+      idCommunity: data['idCommunity'],
+      token: data['token'],
     ) ;
+
   }
 
 }

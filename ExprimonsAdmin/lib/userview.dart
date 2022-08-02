@@ -120,7 +120,7 @@ class _UserViewState extends State<UserView> {
           ),
           Center(
             child: Container(
-              width: 300,
+              width: 600,
               height: 100,
 
               //child: Text(votes[index]["title"])
@@ -133,7 +133,7 @@ class _UserViewState extends State<UserView> {
                     Container(
                       child: Text(
                         "Utilisateurs de la communauté",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                       ),
                     ),
                   ],
@@ -173,7 +173,7 @@ class _UserViewState extends State<UserView> {
                     ),
                   ),
                   Container(
-                    width: 150,
+                    width: 190,
                     child: Text(
                       "Département",
                       style: TextStyle(
