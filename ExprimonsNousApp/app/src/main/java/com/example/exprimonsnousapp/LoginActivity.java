@@ -3,6 +3,7 @@ package com.example.exprimonsnousapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -69,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                 UserLoginCreds userLoginCreds = new UserLoginCreds(emailTXT,passwordTXT);
 
                 getUserCreds(userLoginCreds);
+                ProgressDialog.show(LoginActivity.this, "",
+                        "Connexion en cours... Veuillez patienter...", true);
             }
         });
     }
