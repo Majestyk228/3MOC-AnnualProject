@@ -1,5 +1,6 @@
 package com.example.exprimonsnousapp;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,6 +50,7 @@ public class PostFragment extends Fragment {
     PostAdapter adapter;
     List<Post> posts;
     private final String URL = "https://www.titan-photography.com/post/formatted/";
+    private final String URLAdmin = "https://www.titan-photography.com/post/formatted/admin/";
     private final String URLComment = "https://www.titan-photography.com/comment/count/";
     private final String URLReward = "https://www.titan-photography.com/rewards/nbReward/";
 
@@ -88,6 +91,12 @@ public class PostFragment extends Fragment {
         posts = new ArrayList<>();
 
         extractPost();
+
+        // TODO : get admin posts and order the list to have the news posts at the top
+        /*extractAdminPost();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            posts.sort(Comparator.comparing(Post::getIdPost));
+        }*/
     }
 
     @Override
@@ -226,9 +235,71 @@ public class PostFragment extends Fragment {
                                     post.setNbRewards(0);
                                 }
                                 post.setUserInitials(postObject.getString("firstName"),postObject.getString("lastName"));
-                                //post.setDislikes(postObject.getInt("dislikes"));
-                                //post.setNbComments(postObject.getInt("comments"));
-                                //post.setNbRewards(postObject.getInt("rewards"));
+
+                                // CLASSICAL USER POST
+                                post.setAdmin(false);
+                                posts.add(post);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        adapter = new PostAdapter(getContext(), posts, communityId,userId);
+                        recyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
+                    }
+                });
+
+        //ajouter la requete à la queue d'exécution
+        queue.add(jsonArrayRequest);
+    }
+
+    // TODO : TEST API CALL
+    public void extractAdminPost() {
+        //API call made here
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                URLAdmin + communityId,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject postObject = response.getJSONObject(i);
+
+                                Post post = new Post();
+                                post.setIdPost(postObject.getInt("idPost"));
+                                post.setFirstname(postObject.getString("firstName"));
+                                post.setLastname(postObject.getString("lastName"));
+                                post.setBody(postObject.getString("body"));
+                                post.setLikes(postObject.getInt("likes"));
+                                post.setDislikes(postObject.getInt("dislikes"));
+
+                                if (postObject.get("comments") != null) {
+                                    post.setNbComments(postObject.getInt("comments"));
+                                } else {
+                                    post.setNbComments(0);
+                                }
+
+
+                                if (postObject.get("rewards") != null) {
+                                    post.setNbRewards(postObject.getInt("rewards"));
+                                } else {
+                                    post.setNbRewards(0);
+                                }
+                                post.setUserInitials(postObject.getString("firstName"),postObject.getString("lastName"));
+
+                                // ADMIN POST
+                                post.setAdmin(true);
                                 posts.add(post);
 
 

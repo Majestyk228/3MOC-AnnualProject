@@ -79,6 +79,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.rewardTXT.setText(posts.get(holder.getAdapterPosition()).getNbRewards());
         holder.avatar_textfield.setText(posts.get(holder.getAdapterPosition()).getUserInitials());
 
+        // IF A POST IS NOT AN ADMIN POST, HIDE THE ADMIN LOGO FROM THE POST
+        if(!posts.get(position).isAdmin()) {
+            holder.is_admin_post.setVisibility(View.INVISIBLE);
+        }
+
         holder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +188,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         //Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
         LinearLayout likeBtn, dislikeBtn, commentBtn, rewardBtn;
 
-        ImageView menu_post;
+        ImageView menu_post,is_admin_post;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -203,6 +208,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             avatar_textfield = itemView.findViewById(R.id.avatar_textfield);
 
             menu_post = itemView.findViewById(R.id.menu_post);
+
+            is_admin_post = itemView.findViewById(R.id.is_admin_post);
         }
     }
 

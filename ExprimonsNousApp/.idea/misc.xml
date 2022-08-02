@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/bottom_navigation_colors.xml" value="0.1725" />
         <entry key="app/src/main/res/drawable/edittext_bg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/exprimonsnousicon_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_admin_bis.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/ic_bof_reward_background.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/ic_chat_fill.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
@@ -45,7 +46,7 @@
         <entry key="app/src/main/res/layout/fragment_votes.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.47125470264848457" />
-        <entry key="app/src/main/res/layout/item_post2.xml" value="0.17554779052734376" />
+        <entry key="app/src/main/res/layout/item_post2.xml" value="0.47114257812500004" />
         <entry key="app/src/main/res/layout/item_vote.xml" value="0.1" />
         <entry key="app/src/main/res/layout/landing_page.xml" value="0.18862275449101795" />
         <entry key="app/src/main/res/layout/layout_bg.xml" value="0.1" />

@@ -11,6 +11,7 @@ public class Post {
     private int nbComments;
     private int nbRewards;
     private String userInitials;
+    private boolean isAdmin;
 
     // CONSTRUCTEURS
     public Post() { }
@@ -100,6 +101,14 @@ public class Post {
 
     public void setUserInitials(String firstname, String lastname) {
         this.userInitials = firstname.charAt(0) +""+ lastname.charAt(0);
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     // TO STRING

@@ -59,7 +59,7 @@
             android:layout_height="25dp"
             android:layout_gravity="center|start"
             android:src="@drawable/ic_admin_bis"
-            android:visibility="invisible" />
+            android:visibility="visible" />
     </LinearLayout>
 
     <TextView
