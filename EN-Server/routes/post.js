@@ -29,6 +29,27 @@ router.get('/formatted/:idCommunity', async function (req, res, next) {
 
 
 
+/* GET allPosts formated to fit Exprimons-Nous Android App input*/
+router.get('/formatted/admin/:idCommunity', async function (req, res, next) {
+	try {
+		var posts = await post.getAllPostsFormattedAdmin(req.params.idCommunity);
+		var newPosts = [];
+
+		posts.forEach((post) => post.comments = 0);
+		posts.forEach((post) => post.rewards = 0);
+
+		newPosts = posts;
+
+		res.status(200).send(JSON.stringify(newPosts));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
 
 
 /* GET allPosts*/

@@ -14,6 +14,7 @@ const report = require('./report.js');
 const reportReinit = require('./reportReinit.js');
 const getFormattedPost = require('./getFormattedPost.js');
 const schema = require("./_model.js")
+const getAllPostsFormatedAdmin = require("./getAllPostsFormatedAdmin.js")
 module.exports = {
     paths: {
         "/post/all": {
@@ -60,6 +61,9 @@ module.exports = {
         },
         "/post/formattedPost/{idPost}": {
             ...getFormattedPost,
+        },
+        "/post/formatted/admin/{idCommunity}": {
+            ...getAllPostsFormatedAdmin,
         }
     },
     schema: {
