@@ -1,5 +1,6 @@
 package com.example.exprimonsnousapp;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,13 +19,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.exprimonsnousapp.models.MessageSupport;
 import com.google.android.material.button.MaterialButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GetHelpFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class GetHelpFragment extends Fragment {
 
     // OBJECTS
@@ -42,6 +39,10 @@ public class GetHelpFragment extends Fragment {
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USER = "idUser";
     private static final String KEY_COMMUNITY = "idCommunity";
+
+    // IMPORTANT DATA
+    private int idUser;
+    private int idCommunity;
 
     public GetHelpFragment() {
         // Required empty public constructor
@@ -80,6 +81,11 @@ public class GetHelpFragment extends Fragment {
         *
         * */
 
+        // RETREIVE SHARED PREFERENCES
+        sharedPreferences = getContext().getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        idUser = sharedPreferences.getInt(KEY_USER, -1);
+        idCommunity = sharedPreferences.getInt(KEY_COMMUNITY, -1);
+
         send_message_support = (MaterialButton)view.findViewById(R.id.send_message_support);
         logoutBtn = (MaterialButton)view.findViewById(R.id.logoutBtn);
 
@@ -90,6 +96,11 @@ public class GetHelpFragment extends Fragment {
         send_message_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // CREATE OBJECT TO SEND TO API
+
+                // TODO : FINISH API CALL
+                MessageSupport messageSupport = new MessageSupport(idUser, idCommunity,contactform_title.getText().toString(),contactform_body.getText().toString());
+                sendMessage(messageSupport);
                 Toast.makeText(getContext(), "Envoi du message vers le support...", Toast.LENGTH_LONG).show();
                 contactform_body.setText("");
                 contactform_title.setText("");
@@ -147,5 +158,9 @@ public class GetHelpFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void sendMessage(MessageSupport messageSupport) {
+        // TODO : API CALL
     }
 }
