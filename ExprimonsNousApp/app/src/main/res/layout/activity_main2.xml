@@ -23,10 +23,10 @@
 
         <ImageView
             android:id="@+id/get_help_logo"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:src="@drawable/logoexprimonsnous2"
+            android:src="@drawable/exprimons_help"
             android:contentDescription="@string/get_help_logo_description" />
 
     </androidx.appcompat.widget.Toolbar>

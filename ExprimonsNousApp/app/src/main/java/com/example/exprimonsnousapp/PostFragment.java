@@ -91,12 +91,10 @@ public class PostFragment extends Fragment {
         posts = new ArrayList<>();
 
         extractPost();
-
-        // TODO : get admin posts and order the list to have the news posts at the top
-        /*extractAdminPost();
+        extractAdminPost();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             posts.sort(Comparator.comparing(Post::getIdPost));
-        }*/
+        }
     }
 
     @Override
@@ -128,6 +126,7 @@ public class PostFragment extends Fragment {
 
                 //réextraction de la liste des posts
                 extractPost();
+                extractAdminPost();
 
                 //implémeenter le changement de données
                 adapter.notifyDataSetChanged();
