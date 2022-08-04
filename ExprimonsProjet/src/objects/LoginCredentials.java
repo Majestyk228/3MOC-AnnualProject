@@ -33,7 +33,7 @@ public class LoginCredentials {
 	// TO STRING
 	@Override
 	public String toString() {
-		return "LoginCredentials [email=" + email + ", password=" + password + "]";
+		return "{email:'" + email + "', password:'" + password + "'}";
 	}
 	
 }

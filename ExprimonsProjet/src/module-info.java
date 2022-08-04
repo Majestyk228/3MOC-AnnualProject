@@ -3,8 +3,13 @@ module ExprimonsProjet {
 	requires javafx.fxml;
 	requires javafx.graphics;
 	requires javafx.base;
-	requires unirest.java;
-	requires com.fasterxml.jackson.databind;
+	
+	//needed for HTTP
+    requires unirest.java;
+    
+    //needed for JSON
+    requires gson;
+    requires java.sql;
 	
 	opens application to javafx.graphics, javafx.fxml;
 }
