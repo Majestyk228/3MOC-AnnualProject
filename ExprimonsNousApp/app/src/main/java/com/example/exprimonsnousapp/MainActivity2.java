@@ -30,6 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
     private Toolbar myToolbar;
     private int userId = -1;
     private int communityId = -1;
+    private String token = "";
 
     // API
     ApiInterface apiInterface;
@@ -39,6 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USER = "idUser";
     private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     // OTHER
     ImageView get_help_logo;
@@ -54,6 +56,7 @@ public class MainActivity2 extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         userId = extras.getInt("userId");
         communityId = extras.getInt("communityId");
+        token = extras.getString("token");
 
 
         // LOGIN PERSISTANCE
@@ -61,6 +64,7 @@ public class MainActivity2 extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_USER,userId);
         editor.putInt(KEY_COMMUNITY,communityId);
+        editor.putString(KEY_TOKEN,token);
         editor.apply();
 
         CommunityInsert communityInsert = new CommunityInsert(userId,communityId);

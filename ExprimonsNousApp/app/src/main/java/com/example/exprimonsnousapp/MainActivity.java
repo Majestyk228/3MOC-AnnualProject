@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USER = "idUser";
     private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +45,17 @@ public class MainActivity extends AppCompatActivity {
 
         int idUser = sharedPreferences.getInt(KEY_USER, -1);
         int idCommunity = sharedPreferences.getInt(KEY_COMMUNITY, -1);
+        String token = sharedPreferences.getString(KEY_TOKEN,"");
 
-        Log.i("PERSISTANCE", "MainActivity -> idUser: "+idUser);
+        Log.i("PERSISTANCE", "MainActivity -> token: "+token);
 
-        if(idUser != -1 || idCommunity != -1 ) {
+        if(idUser != -1 || idCommunity != -1 || token !="") {
             // start mainActivity with shared preferences
             Intent nextActivity = new Intent(getApplicationContext(), MainActivity2.class);
             //extras will be added
             nextActivity.putExtra("userId", idUser);
             nextActivity.putExtra("communityId", idCommunity);
+            nextActivity.putExtra("token", token);
             startActivity(nextActivity);
             finish();
         }

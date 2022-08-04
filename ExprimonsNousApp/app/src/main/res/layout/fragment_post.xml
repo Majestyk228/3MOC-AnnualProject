@@ -41,6 +41,7 @@
             app:backgroundTint="@color/backgroundBlue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/white"/>
+            app:rippleColor="@color/white"
+            android:contentDescription="@string/add_post_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

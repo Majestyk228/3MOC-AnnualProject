@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".GetHelpFragment">
 
     <ScrollView
@@ -12,7 +11,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/backgroundBlue"
             tools:context=".MainActivity">
 
@@ -85,8 +84,10 @@
                     android:background="@drawable/edittext_bg"
                     android:elevation="5dp"
                     android:gravity="center|start|top"
-                    android:hint="Sujet du pessage (en quelques mots)"
-                    android:padding="16dp" />
+                    android:hint="@string/support_message_hint"
+                    android:padding="16dp"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences" />
 
                 <EditText
                     android:id="@+id/contactform_body"
@@ -100,8 +101,10 @@
                     android:background="@drawable/edittext_bg"
                     android:elevation="5dp"
                     android:gravity="center|start|top"
-                    android:hint="Votre message..."
-                    android:padding="16dp" />
+                    android:hint="@string/votre_message"
+                    android:padding="16dp"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/send_message_support"
@@ -116,7 +119,7 @@
                     android:backgroundTint="@color/blueBtn"
                     android:fontFamily="@font/quicksandbold"
                     android:gravity="center"
-                    android:text="envoyer le message"
+                    android:text="@string/send_message"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -162,7 +165,7 @@
                     android:backgroundTint="@color/lightBlueBtn"
                     android:fontFamily="@font/quicksandbold"
                     android:gravity="center"
-                    android:text="Déconnexion"
+                    android:text="@string/log_out"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />

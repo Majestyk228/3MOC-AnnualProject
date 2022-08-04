@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             //extras will be added
             nextActivity.putExtra("userId", userCreds.getIdUser());
             nextActivity.putExtra("communityId", userCreds.getIdCommunity());
+            nextActivity.putExtra("token", userCreds.getToken());
             startActivity(nextActivity);
             finish();
         }

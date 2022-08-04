@@ -16,7 +16,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -36,21 +36,21 @@
                     <EditText
                         android:id="@+id/firstnameUpdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_below="@id/firstNameLabelUpdate"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="name"
-                        android:background="#60123456"
                         android:drawablePadding="20dp"
-                        android:fontFamily="@font/quicksandregular"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center|start"
                         android:hint="@string/firstnameHint"
                         android:inputType="textPersonName"
                         android:minHeight="48dp"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
                         android:textSize="17sp"
                         android:textStyle="italic" />
 
@@ -68,21 +68,21 @@
                     <EditText
                         android:id="@+id/lastnameUpdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_below="@id/lastNameLabelUpdate"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="name"
-                        android:background="#60123456"
                         android:drawablePadding="20dp"
-                        android:fontFamily="@font/quicksandregular"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center|start"
                         android:hint="@string/lastnameHint"
                         android:inputType="textPersonName"
                         android:minHeight="48dp"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
                         android:textSize="16sp"
                         android:textStyle="italic" />
 
@@ -100,22 +100,23 @@
                     <EditText
                         android:id="@+id/bithdateUpdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_below="@id/bithdayLabelUpdate"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp"
-                        android:background="#60123456"
                         android:drawablePadding="20dp"
-                        android:fontFamily="@font/quicksandregular"
                         android:hint="@string/birthdateHint"
                         android:inputType="date"
                         android:minHeight="48dp"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center|start"
                         android:textSize="16sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:autofillHints="no" />
 
                     <TextView
                         android:id="@+id/emailLabelUpdate"
@@ -131,21 +132,21 @@
                     <EditText
                         android:id="@+id/emailUpdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_below="@id/emailLabelUpdate"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="emailAddress"
-                        android:background="#60123456"
                         android:drawablePadding="20dp"
-                        android:fontFamily="@font/quicksandregular"
                         android:hint="@string/emailHint"
                         android:inputType="textEmailAddress"
                         android:minHeight="48dp"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center|start"
                         android:textSize="16sp"
                         android:textStyle="italic" />
 
@@ -163,22 +164,23 @@
                     <EditText
                         android:id="@+id/genderUpdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_below="@id/genderLabelUpdate"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp"
-                        android:background="#60123456"
                         android:drawablePadding="20dp"
-                        android:fontFamily="@font/quicksandregular"
                         android:hint="@string/genderHint"
                         android:inputType="text"
                         android:minHeight="48dp"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center|start"
                         android:textSize="16sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:autofillHints="no" />
 
                     <TextView
                         android:id="@+id/areaCodeLabelUpdate"
@@ -194,21 +196,21 @@
                     <EditText
                         android:id="@+id/areaCodeUpdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_below="@id/areaCodeLabelUpdate"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp"
                         android:autofillHints="postalAddress"
-                        android:background="#60123456"
                         android:drawablePadding="20dp"
-                        android:fontFamily="@font/quicksandregular"
                         android:hint="@string/areaCodeHint"
                         android:inputType="number"
                         android:minHeight="48dp"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/quicksandsemibold"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center|start"
                         android:textSize="16sp"
                         android:textStyle="italic" />
 

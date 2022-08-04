@@ -1,5 +1,7 @@
 package com.example.exprimonsnousapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,7 +41,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,8 +74,16 @@ public class PostFragment extends Fragment {
 
     // OTHER
     ApiInterface apiInterface;
+    String token = "";
 
-    public PostFragment(int communityId,int userId) {
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
+
+    public PostFragment(int communityId, int userId) {
         this.communityId = communityId;
         this.userId = userId;
     }
@@ -90,8 +103,12 @@ public class PostFragment extends Fragment {
 
         posts = new ArrayList<>();
 
-        extractPost();
-        extractAdminPost();
+        try {
+            extractPost();
+            extractAdminPost();
+        } catch (AuthFailureError e) {
+            e.printStackTrace();
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             posts.sort(Comparator.comparing(Post::getIdPost));
         }
@@ -102,6 +119,9 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         myToolbar = getActivity().findViewById(R.id.my_toolbar);
 
@@ -125,8 +145,12 @@ public class PostFragment extends Fragment {
                 posts = new ArrayList<>();
 
                 //réextraction de la liste des posts
-                extractPost();
-                extractAdminPost();
+                try {
+                    extractPost();
+                    extractAdminPost();
+                } catch (AuthFailureError e) {
+                    e.printStackTrace();
+                }
 
                 //implémeenter le changement de données
                 adapter.notifyDataSetChanged();
@@ -141,11 +165,11 @@ public class PostFragment extends Fragment {
 
                 /*
                  *
-                 * Sur action du floating action button, on passe sur la stack le fragment de
-                 * création de poste en identifiant le fragment d'un tag 'CreatePostFragment'
+                 *  Sur action du floating action button, on passe sur la stack le fragment de
+                 *  création de poste en identifiant le fragment d'un tag 'CreatePostFragment'
                  *
-                 * ce tag servira à retirer le fragment de la stack sur l'appui du bouton retour
-                 * (ou de l'envoi d'un post en ligne)
+                 *  ce tag servira à retirer le fragment de la stack sur l'appui du bouton retour
+                 *  (ou de l'envoi d'un post en ligne)
                  *
                  * */
 
@@ -199,7 +223,7 @@ public class PostFragment extends Fragment {
     }
 
 
-    public void extractPost() {
+    public void extractPost() throws AuthFailureError {
         //API call made here
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -233,7 +257,7 @@ public class PostFragment extends Fragment {
                                 } else {
                                     post.setNbRewards(0);
                                 }
-                                post.setUserInitials(postObject.getString("firstName"),postObject.getString("lastName"));
+                                post.setUserInitials(postObject.getString("firstName"), postObject.getString("lastName"));
 
                                 // CLASSICAL USER POST
                                 post.setAdmin(false);
@@ -245,23 +269,33 @@ public class PostFragment extends Fragment {
                             }
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new PostAdapter(getContext(), posts, communityId,userId);
+                        adapter = new PostAdapter(getContext(), posts, communityId, userId);
                         recyclerView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        // NOTIFY USER SESSION HAS EXPIRED
+                        // CLEAR SHARED PREFERENCES
+                        // GO TO LOGIN ACTIVITY
                         Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
                     }
-                });
+                }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+
+                return params;
+            }
+        };
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
     }
 
     // TODO : TEST API CALL
-    public void extractAdminPost() {
+    public void extractAdminPost() throws AuthFailureError {
         //API call made here
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -295,7 +329,7 @@ public class PostFragment extends Fragment {
                                 } else {
                                     post.setNbRewards(0);
                                 }
-                                post.setUserInitials(postObject.getString("firstName"),postObject.getString("lastName"));
+                                post.setUserInitials(postObject.getString("firstName"), postObject.getString("lastName"));
 
                                 // ADMIN POST
                                 post.setAdmin(true);
@@ -307,16 +341,29 @@ public class PostFragment extends Fragment {
                             }
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new PostAdapter(getContext(), posts, communityId,userId);
+                        adapter = new PostAdapter(getContext(), posts, communityId, userId);
                         recyclerView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        // NOTIFY USER SESSION HAS EXPIRED
+                        // CLEAR SHARED PREFERENCES
+                        // GO TO LOGIN ACTIVITY
                         Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
                     }
-                });
+                }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+
+                return params;
+            }
+        };
+
+        Log.i("POSTSADMIN", "extractPost: request = " + jsonArrayRequest.getHeaders());
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);

@@ -134,5 +134,24 @@
     <string name="contact_us_text">Vous avez une suggestion d\'amélioration ? Vous rencontrez un problème avec notre plateforme ?\n\n N\'hésitez pas à nous contacter par le formulaire ci-dessous !</string>
     <string name="log_out_title">Déconnectez-vous</string>
     <string name="log_out_text">Cliquez sur le bouton ci-dessous pour vous déconnecter de votre compte.\n\n Vous pourez retourver toutes les actualités de l\'entreprise en vous reconnectant à votre compte !</string>
+    <string name="reinit_password">Réinitialisation de votre mot de passe</string>
+    <string name="reinit_password_intructions">Entrez deux fois votre nouveau mot de passe.</string>
+    <string name="support_message_hint">Sujet du message (en quelques mots)</string>
+    <string name="join_us_title">Rejoignez-nous !</string>
+    <string name="placeholder_avatar">...</string>
+    <string name="menu_icon">Menu icon</string>
+    <string name="admin_post_logo_description">Admin post logo</string>
+    <string name="like_icon">Like icon</string>
+    <string name="dislike_icon">Dislike icon</string>
+    <string name="comment_icon">Comment icon</string>
+    <string name="reward_icon">Reward icon</string>
+    <string name="add_post_icon">Add post icon</string>
+    <string name="votre_message">Votre message...</string>
+    <string name="send_message">Envoyer le message</string>
+    <string name="log_out">Déconnexion</string>
+    <string name="reward_super">Reward super</string>
+    <string name="reward_interessant">Reward interessant</string>
+    <string name="reward_bof">Reward bof</string>
+    <string name="reward_pas_interessant">Reward pas interessant</string>
 
 </resources>

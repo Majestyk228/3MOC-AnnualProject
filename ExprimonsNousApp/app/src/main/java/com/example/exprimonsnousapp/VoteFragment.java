@@ -1,5 +1,7 @@
 package com.example.exprimonsnousapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -56,12 +59,20 @@ public class VoteFragment extends Fragment {
     // IMPORTANTES DATA
     private int communityId;
     private int userId;
+    String token = "";
 
     // OTHER
     ApiInterface apiInterface;
 
     // TOOLBAR
     Toolbar myToolbar;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     public VoteFragment() {
         // Required empty public constructor
@@ -95,6 +106,9 @@ public class VoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vote, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         myToolbar = getActivity().findViewById(R.id.my_toolbar);
 
@@ -211,7 +225,7 @@ public class VoteFragment extends Fragment {
                         }
 
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new VoteAdapter(getContext(), votes,userId);
+                        adapter = new VoteAdapter(getContext(), votes, userId);
                         recyclerView.setAdapter(adapter);
                     }
                 },
@@ -220,7 +234,14 @@ public class VoteFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                     }
-                });
+                }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+
+                return params;
+            }
+        };
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);

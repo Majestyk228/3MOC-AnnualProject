@@ -48,7 +48,8 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="16dp"
-                    android:src="@drawable/ic_super_reward" />
+                    android:src="@drawable/ic_super_reward"
+                    android:contentDescription="@string/reward_super" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,6 +77,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:contentDescription="@string/reward_interessant"
                     android:layout_margin="16dp"
                     android:src="@drawable/ic_interessant_reward" />
 
@@ -114,6 +116,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:contentDescription="@string/reward_bof"
                     android:layout_margin="16dp"
                     android:src="@drawable/ic_bof_reward" />
 
@@ -143,6 +146,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:contentDescription="@string/reward_pas_interessant"
                     android:layout_margin="16dp"
                     android:src="@drawable/ic_pas_interessant" />
 

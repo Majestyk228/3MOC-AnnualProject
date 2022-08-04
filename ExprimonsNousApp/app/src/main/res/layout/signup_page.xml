@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/backgroundBlue"
         tools:context=".MainActivity">
 
@@ -17,7 +16,7 @@
             android:layout_margin="20dp"
             android:src="@drawable/logoexprimonsnous2"
             android:layout_centerHorizontal="true"
-            />
+            android:contentDescription="@string/logo_description" />
 
         <RelativeLayout
             android:id="@+id/whiteRoundedLayout"
@@ -35,7 +34,7 @@
                 android:layout_margin="20dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:gravity="center"
-                android:text="Rejoignez-nous !"
+                android:text="@string/join_us_title"
                 android:textColor="@color/black"
                 android:textSize="40sp" />
 
@@ -56,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/signInDescription"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/firstnameTXT"
@@ -65,27 +64,29 @@
             <EditText
                 android:id="@+id/firstname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/firstNameLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg"
                 android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
+                android:elevation="5dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:gravity="center|start"
                 android:hint="@string/firstnameHint"
                 android:padding="10dp"
-                android:gravity="center|start"
-                android:background="@drawable/edittext_bg"
-                android:elevation="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:inputType="textPersonName"
+                android:autofillHints="name" />
 
             <TextView
                 android:id="@+id/lastNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/firstname"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/lastnameTXT"
@@ -94,27 +95,29 @@
             <EditText
                 android:id="@+id/lastname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/lastNameLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg"
                 android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
+                android:elevation="5dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:gravity="center|start"
                 android:hint="@string/lastnameHint"
                 android:padding="10dp"
-                android:gravity="center|start"
-                android:background="@drawable/edittext_bg"
-                android:elevation="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:inputType="textPersonName"
+                android:autofillHints="name" />
 
             <TextView
                 android:id="@+id/bithdayLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lastname"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/birthdateTXT"
@@ -123,24 +126,26 @@
             <EditText
                 android:id="@+id/bithdate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/bithdayLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
-                android:hint="@string/birthdateHint"
-                android:padding="10dp"
-                android:gravity="center|start"
                 android:background="@drawable/edittext_bg"
-                android:elevation="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic"
                 android:clickable="false"
                 android:cursorVisible="false"
+                android:drawablePadding="20dp"
+                android:elevation="5dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 android:focusable="false"
-                android:focusableInTouchMode="false"/>
+                android:focusableInTouchMode="false"
+                android:gravity="center|start"
+                android:hint="@string/birthdateHint"
+                android:padding="10dp"
+                android:textStyle="italic"
+                android:autofillHints=""
+                android:inputType="date" />
 
 
             <TextView
@@ -148,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bithdate"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/emailTXT"
@@ -157,20 +162,22 @@
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/emailLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 android:hint="@string/emailHint"
                 android:padding="10dp"
                 android:gravity="center|start"
                 android:background="@drawable/edittext_bg"
                 android:elevation="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:autofillHints="emailAddress"
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/genderLabel"
@@ -186,15 +193,18 @@
             <Spinner
                 android:id="@+id/gender_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/genderLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edittext_bg"
                 android:elevation="5dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 android:foregroundTint="#FFFFFF"
                 android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp" />
 
@@ -203,7 +213,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gender_spinner"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/areaCodeTXT"
@@ -212,19 +222,21 @@
             <EditText
                 android:id="@+id/areaCode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/areaCodeLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
-                android:hint="@string/areaCodeHint"
-                android:padding="10dp"
-                android:gravity="center|start"
+                android:autofillHints="postalCode"
                 android:background="@drawable/edittext_bg"
+                android:drawablePadding="20dp"
                 android:elevation="5dp"
-                android:textSize="16sp"
+                android:fontFamily="@font/quicksandsemibold"
+                android:gravity="center|start"
+                android:hint="@string/areaCodeHint"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="20sp"
                 android:textStyle="italic" />
 
             <TextView
@@ -232,7 +244,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/areaCode"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/passwdTXT"
@@ -241,28 +253,29 @@
             <EditText
                 android:id="@+id/passwd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/passwdLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 android:hint="@string/passwdHint"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:gravity="center|start"
                 android:background="@drawable/edittext_bg"
                 android:elevation="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:autofillHints="password" />
 
             <TextView
                 android:id="@+id/companyLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passwd"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/companyTXT"
@@ -272,20 +285,22 @@
             <EditText
                 android:id="@+id/companyCode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/companyLabel"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:drawablePadding="20dp"
-                android:fontFamily="@font/quicksandregular"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 android:hint="@string/companyHint"
                 android:padding="10dp"
                 android:gravity="center|start"
                 android:background="@drawable/edittext_bg"
                 android:elevation="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:autofillHints=""
+                android:inputType="number" />
             <!--ADD EditText HERE-->
 
             <com.google.android.material.button.MaterialButton
@@ -302,8 +317,6 @@
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
-
         </RelativeLayout>
-
     </RelativeLayout>
 </ScrollView>

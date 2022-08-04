@@ -21,6 +21,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="@font/quicksandsemibold"
                 android:text="@string/whats_new"
                 android:textSize="25sp"
                 android:textColor="@color/black"
@@ -36,9 +37,13 @@
                 android:layout_margin="24dp"
                 android:elevation="5dp"
                 android:padding="16dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 app:layout_constraintTop_toBottomOf="@id/whats_new"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:autofillHints="no"
+                android:inputType="textCapSentences" />
 
             <EditText
                 android:id="@+id/newPostEdittext"
@@ -50,9 +55,13 @@
                 android:layout_margin="24dp"
                 android:elevation="5dp"
                 android:padding="16dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksandsemibold"
                 app:layout_constraintTop_toBottomOf="@id/newPostTitleEdittext"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/postBtn"

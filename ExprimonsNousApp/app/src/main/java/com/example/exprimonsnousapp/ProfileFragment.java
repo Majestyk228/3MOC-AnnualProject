@@ -2,7 +2,9 @@ package com.example.exprimonsnousapp;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -72,9 +75,17 @@ public class ProfileFragment extends Fragment {
     // OTHER VARIABLES
     private int idUser;
     private AlertDialog dialog;
+    String token="";
 
     // TOOLBAR
     Toolbar myToolbar;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
 
     public ProfileFragment() {
@@ -100,6 +111,9 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         myToolbar = getActivity().findViewById(R.id.my_toolbar);
 
@@ -183,8 +197,8 @@ public class ProfileFragment extends Fragment {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Don't answer, yes he is.")
-                .setTitle("Is Thanos bae ?")
+        builder.setMessage(R.string.reinit_password)
+                .setTitle(R.string.reinit_password_intructions)
                 .setView(lp)
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -269,7 +283,14 @@ public class ProfileFragment extends Fragment {
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Une erreur est survenue.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
-                });
+                }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+
+                return params;
+            }
+        };
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
@@ -304,7 +325,14 @@ public class ProfileFragment extends Fragment {
                         Snackbar snackbar=  Snackbar.make(coordinatorLayout,"Votre mot de passe a été mises à jour.", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
-                });
+                }){
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+
+                return params;
+            }
+        };
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);

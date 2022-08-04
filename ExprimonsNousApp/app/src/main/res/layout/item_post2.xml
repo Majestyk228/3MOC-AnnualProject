@@ -15,7 +15,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:focusable="true"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:contentDescription="@string/menu_icon" />
 
 
     <LinearLayout
@@ -35,7 +36,7 @@
             android:layout_marginStart="15dp"
             android:background="@drawable/avatar_bg"
             android:gravity="center"
-            android:text="JD"
+            android:text="@string/placeholder_avatar"
             android:textColor="@color/lettering_color"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -49,7 +50,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:text="John DOE !"
+            android:text="@string/loading_string"
             android:textColor="@color/black"
             android:textSize="17sp" />
 
@@ -59,7 +60,8 @@
             android:layout_height="25dp"
             android:layout_gravity="center|start"
             android:src="@drawable/ic_admin_bis"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:contentDescription="@string/admin_post_logo_description" />
     </LinearLayout>
 
     <TextView
@@ -71,7 +73,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam a est aliquet finibus. Cras gravida mi sit amet dui viverra rhoncus vitae fermentum urna. Aliquam sit amet mauris vitae leo egestas sollicitudin. Aenean id libero vel velit blandit vestibulum. Mauris sem eros, dictum ac nisl quis, sagittis lobortis."
+        android:text="@string/loading_string"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -100,7 +102,7 @@
                 android:id="@+id/likesTXT"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="5" />
+                android:text="@string/placeholder_avatar"/>
 
             <View
                 android:layout_width="10dp"
@@ -117,7 +119,7 @@
                 android:id="@+id/dislikesTXT"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="66" />
+                android:text="@string/placeholder_avatar" />
 
             <View
                 android:layout_width="10dp"
@@ -135,7 +137,7 @@
                 android:id="@+id/commentTXT"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="0464"
+                android:text="@string/placeholder_avatar"
                 android:visibility="gone" />
 
             <View
@@ -154,7 +156,7 @@
                 android:id="@+id/rewardTXT"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="5"
+                android:text="@string/placeholder_avatar"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -186,7 +188,8 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_like" />
+                        android:src="@drawable/ic_like"
+                        android:contentDescription="@string/like_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -214,7 +217,8 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_dislike" />
+                        android:src="@drawable/ic_dislike"
+                        android:contentDescription="@string/dislike_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -242,7 +246,8 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_comment" />
+                        android:src="@drawable/ic_comment"
+                        android:contentDescription="@string/comment_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -270,7 +275,8 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_reward" />
+                        android:src="@drawable/ic_reward"
+                        android:contentDescription="@string/reward_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
