@@ -1,4 +1,5 @@
 const db = require('./database.js');
+const bcrypt = require('bcryptjs');
 
 async function getAllAdmin() {
 	const rows = await db.query("SELECT * FROM Admin;", "");
@@ -17,7 +18,15 @@ async function getAdminCredentials(email) {
 	return rows;
 }
 
+async function updatePasswordAdmin(password, idAdmin) {
+	var hash = bcrypt.hashSync(password, 10);
+	const request = "UPDATE Admin SET password = '" + hash + "' WHERE idAdmin = " + idAdmin + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getAllAdmin,
-	getAdminCredentials
+	getAdminCredentials,
+	updatePasswordAdmin
 }

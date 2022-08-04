@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const admin = require('../services/admin.js');
 const jwtUtils = require('../utils/jwt.utils.js');
+var bcrypt = require('bcryptjs');
 
 
 
 
-
-
+// ! ENDPOINT MUST BE REMOVED
 router.get('/all', async function (_, res, next) {
 
 	try {
@@ -24,8 +24,7 @@ router.get('/all', async function (_, res, next) {
 
 
 
-
-// email must be in body request
+// ! ENDPOINT MUST BE REMOVED
 router.post('/login', async function (req, res, next) {
 	try {
 		res.status(200).json(await admin.getAdminCredentials(req.body.email));
@@ -50,13 +49,9 @@ router.post('/loginSecure', async function (req, res, next) {
 		res.status(404).json({ 'ERROR': "cannot find admin" });
 		next();
 	} else {
-		//if (req.body.password != userCredentials[0].password) {
-
-		//console.log("DB => " + userCredentials[0].password)
-		//console.log("compareSync => " + bcrypt.compareSync(req.body.password, userCredentials[0].password))
-
-		if (req.body.password != adminCredentials[0].password) {
+		if (bcrypt.compareSync(req.body.password, adminCredentials[0].password) == false) {
 			res.status(403).json({ 'ERROR': "incorrect password" });
+			next();
 		} else {
 			res.status(201).json({
 				"idAdmin": adminCredentials[0].idAdmin,
@@ -64,19 +59,26 @@ router.post('/loginSecure', async function (req, res, next) {
 				"token": jwtUtils.generateTokenForAdmin(adminCredentials[0])
 			});
 		}
+	}
+});
 
-		/*if (bcrypt.compareSync(req.body.password, userCredentials[0].password) == false) {
-			res.status(403).json({ 'ERROR': "incorrect password" });
-			next();
+
+
+router.put('/password/reset', async function (req, res, next) {
+	try {
+		if (req.body.password == null || req.body.idAdmin == null) {
+			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
 		} else {
-			//generate token
-			res.status(201).json({
-				"idUser": userCredentials[0].idUser,
-				"idCommunity": userCredentials[0].idCommunity,
-				"token": jwtUtils.generateTokenForUser(userCredentials[0].idUser)
-			});
-		}*/
+			await admin.updatePasswordAdmin(req.body.password, req.body.idAdmin);
+			res.status(200).json([{ "Message": "Admin password updated successfully" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
 	}
 });
 
 module.exports = router;
+
+
+//updateAdminPassword.js
