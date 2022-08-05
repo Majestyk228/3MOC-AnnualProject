@@ -9,7 +9,9 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import controllers.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +20,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import modele.Modele;
 import objects.LoginCredentials;
 import objects.LoginCredentialsResponse;
 
@@ -35,25 +39,30 @@ public class MainController {
 		String email = EmailTextfield.getText();
 		String password = PasswordTextfield.getText();
 
-		LoginCredentials lc = new LoginCredentials(email, password);
-
-		// API CALL
-
-		/*
-		 * if (Objects.equals(email, "Sarah") && Objects.equals(password, "test1234")){
-		 * FXMLLoader loader = new
-		 * FXMLLoader(Main.class.getResource("/resources/HomePage.fxml")); stage =
-		 * (Stage) ((Node)event.getSource()).getScene().getWindow(); scene = new
-		 * Scene(loader.load()); stage.setScene(scene); stage.show();
-		 * stage.setOnCloseRequest(closeEvent -> { closeEvent.consume(); try {
-		 * ExitApp(event); } catch (IOException e) { throw new RuntimeException(e); }
-		 * }); System.out.println("bon credential"); } else {
-		 * //ErrorField.setText("Identifiants incorrects!");
-		 * System.out.println("Mauvais credentials"); }
-		 */
+		User user = Modele.verifConnexion(email, password);
+		
+		if (user == null) {
+			System.out.println("Erreur de connexion, vérifiez vos identifiants.");
+		}else {
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/HomePage.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setUserData(user);
+			scene = new Scene(loader.load());
+			stage.setScene(scene);
+			stage.show();
+			stage.setOnCloseRequest(closeEvent -> {
+				closeEvent.consume();
+				try {
+					ExitApp(event);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			});
+			System.out.println("bon credential");
+		}
 
 		
-		if (sendLoginCredentials(lc) != null) {
+		/*if (sendLoginCredentials(lc) != null) {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/HomePage.fxml"));
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(loader.load());
@@ -71,7 +80,7 @@ public class MainController {
 		} else {
 			// ErrorField.setText("Identifiants incorrects!");
 			System.out.println("Mauvais credentials");
-		}
+		}*/
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
