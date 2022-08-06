@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import controllers.ListTask;
+import controllers.Task;
 import controllers.User;
 
 public class Modele {
@@ -64,4 +65,34 @@ public class Modele {
 		return allLists;
 
 	}
+	
+	
+	
+	// =====================================================================================================
+
+		public static ArrayList<Task> getTasksFromList(int idList) { // RETREIVE LISTS WITHOUT TASKS
+
+			ArrayList<Task> allTasks = new ArrayList<Task>();
+			String request = "SELECT * FROM Task WHERE idList = " + idList + ";";
+
+			try {
+				// CONNECT TO DB
+				db.seConnecter();
+				Statement unStat = db.getMaConnexion().createStatement();
+
+				// EXECUTE REQUEST
+				ResultSet unRes = unStat.executeQuery(request);
+
+				while (unRes.next()) {
+					allTasks.add(new Task(unRes.getInt("idTask"), unRes.getString("title"), unRes.getString("description"), unRes.getInt("idUser"), unRes.getInt("idList"), unRes.getInt("idTag")));
+				}
+				unRes.close();
+				unStat.close();
+				db.seDeconnecter();
+			} catch (SQLException exp) {
+				System.out.println("Erreur d'exécution de la requete : " + request);
+			}
+
+			return allTasks;
+		}
 }

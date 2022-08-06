@@ -4,16 +4,21 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controllers.ListTask;
+import controllers.Task;
 import controllers.User;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -49,27 +54,23 @@ public class HomeController implements Initializable {
 	private Button NewListButton;
 	@FXML
 	private HBox HostList; // THIS IS THE LAYOUT THAT HOSTS ALL THE LISTS
-	
-	private User user;
-	//private 
 
-	
+	private User user;
+
+	private ArrayList<ListTask> lists;
+
 	public HomeController(User user) {
 		this.user = user;
 	}
 
-	/*public void receiveData(ActionEvent event) {
-		// Step 1
-		Object node = event.getSource();
-		Stage stage = (Stage) ((Stage) node).getScene().getWindow();
-		// Step 2
-		User user = (User) stage.getUserData();
-		// Step 3
-		// String name = u.getName();
-		// String email = u.getEmail();
-		System.out.println("mes fesses");
-		//UsernameText.setText(user.getFirstname() + " " + user.getLastname());
-	}*/
+	/*
+	 * public void receiveData(ActionEvent event) { // Step 1 Object node =
+	 * event.getSource(); Stage stage = (Stage) ((Stage)
+	 * node).getScene().getWindow(); // Step 2 User user = (User)
+	 * stage.getUserData(); // Step 3 // String name = u.getName(); // String email
+	 * = u.getEmail(); System.out.println("mes fesses");
+	 * //UsernameText.setText(user.getFirstname() + " " + user.getLastname()); }
+	 */
 
 	public void createDialogue(ActionEvent event) {
 		// create a text input dialog
@@ -129,12 +130,10 @@ public class HomeController implements Initializable {
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
+		addTaskToList(vbox, lists);
 	}
 
 	private void shittyFunction(Parent parent) {
-		System.out.println("Prout");
-
-		// parent.getChildren().add(HostList.getChildren().indexOf(NewListButton),accord);
 
 		// BUILD TASK ELEMENT
 
@@ -147,7 +146,7 @@ public class HomeController implements Initializable {
 		nameTask.setFont(new Font("System Bold", 22));
 
 		ImageView tag = new ImageView();
-		Image image = new Image(new File("ios_tag.png").toURI().toString());
+		Image image = new Image("file:///images\\ios_tag.png", 50, 50, false, true);
 		tag.setImage(image);
 		tag.prefHeight(50);
 		tag.prefWidth(50);
@@ -175,14 +174,87 @@ public class HomeController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("mes fesses");
+		// CHANGING USER NAME
 		UsernameText.setText(user.getFirstname() + " " + user.getLastname());
-		System.out.println(user.getFirstname() + " " + user.getLastname());
-		
-		
+
+		// RETREIVING ALL THE LIST OWNED BY THE USER
 		ArrayList<ListTask> listTask = Modele.getUsersTaskList(user.getIdUser());
-		System.out.println(listTask);
-		//receiveData();
+		lists = listTask;
+
+		// CREATING INTERFACE AND FILLING ALL LISTS WITH ITS TASK
+		for (int i = 0; i < listTask.size(); i++) {
+			// System.out.println(listTask.get(i).getTitle());
+			createList(listTask.get(i).getTitle());
+			ArrayList<Task> tasksForList = Modele.getTasksFromList(listTask.get(i).getIdList());
+			// System.out.println(tasksForList);
+			listTask.get(i).setListTask(tasksForList);
+		}
+		// receiveData();
+
+	}
+
+	public void addTaskToList(Node host, ArrayList<ListTask> lists) {
 		
+		//List<String> urlToTag = new ArrayList<String>();
+		
+		HashMap<Integer, String> urlToTag = new HashMap<Integer, String>();		
+		urlToTag.put(1, "file:///images\\java_tag.png");
+		urlToTag.put(2, "file:///images\\android_tag.png");
+		urlToTag.put(3, "file:///images\\flutter_tag.png");
+		urlToTag.put(4, "file:///images\\ios_tag.png");
+		urlToTag.put(5, "file:///images\\api_tag.png");
+		
+
+		System.out.println("Will build tasks in lists");
+
+		System.out.println(HostList.getChildren());
+
+		ObservableList<Node> hostChildren = (ObservableList<Node>) HostList.getChildren();
+
+		for (int i = 0; i < hostChildren.size(); i++) {
+
+			HBox task = new HBox();
+			task.prefWidth(200);
+			task.prefHeight(50);
+			// HBox.setMargin(task, new Insets(550, 0, 0, 50));
+
+			Label nameTask = new Label(lists.get(i).getTitle()); // TODO : Fix this => should be task name
+			nameTask.setFont(new Font("System Bold", 22));
+
+			ImageView tag = new ImageView();
+			Image image = new Image(urlToTag.get(lists.get(i).getIdList()), 50, 50, false, true); // TODO : Fix this => should be task idTag
+			tag.setImage(image);
+			tag.prefHeight(50);
+			tag.prefWidth(50);
+
+			task.getChildren().add(nameTask);
+			task.getChildren().add(tag);
+
+			// arent.getChildrenUnmodifiable().add(task);
+
+			((VBox) host).getChildren().add(((VBox) host).getChildren().indexOf(host.lookup("AddTaskButton")) + 1,
+					task);
+
+		}
+
+		/*
+		 * HBox task = new HBox(); task.prefWidth(200); task.prefHeight(50); //
+		 * HBox.setMargin(task, new Insets(550, 0, 0, 50));
+		 * 
+		 * Label nameTask = new Label("Lorem Ipsum"); nameTask.setFont(new
+		 * Font("System Bold", 22));
+		 * 
+		 * ImageView tag = new ImageView(); Image image = new
+		 * Image("file:///images\\ios_tag.png",50,50,false,true); tag.setImage(image);
+		 * tag.prefHeight(50); tag.prefWidth(50);
+		 * 
+		 * task.getChildren().add(nameTask); task.getChildren().add(tag);
+		 * 
+		 * // arent.getChildrenUnmodifiable().add(task);
+		 * 
+		 * ((VBox) parent).getChildren().add(((VBox)
+		 * parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1, task);
+		 */
+
 	}
 }

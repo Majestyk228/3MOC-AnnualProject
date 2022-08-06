@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListTask {
 
@@ -23,7 +22,7 @@ public class ListTask {
 	
 
 	// GETTER & SETTER
-	public List getListTask() {
+	public ArrayList<Task> getListTask() {
 		return listTask;
 	}
 
@@ -47,6 +46,16 @@ public class ListTask {
 		this.idUser = idUser;
 	}
 	
+	public int getIdList() {
+		return idList;
+	}
+
+	public void setIdList(int idList) {
+		this.idList = idList;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ListTask [idList=" + idList + ", listTask=" + listTask + ", title=" + title + ", idUser=" + idUser
