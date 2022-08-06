@@ -58,6 +58,8 @@ public class HomeController implements Initializable {
 	private User user;
 
 	private ArrayList<ListTask> lists;
+	
+	private HashMap<Integer, String> urlToTag;
 
 	public HomeController(User user) {
 		this.user = user;
@@ -105,7 +107,7 @@ public class HomeController implements Initializable {
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				shittyFunction(button.getParent());
+				createTask(button.getParent());
 				// System.out.println("Prout");
 			}
 		});
@@ -130,10 +132,10 @@ public class HomeController implements Initializable {
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
-		addTaskToList(vbox, lists);
+		//addTaskToList(vbox, lists);
 	}
 
-	private void shittyFunction(Parent parent) {
+	private void createTask(Parent parent) {
 
 		// BUILD TASK ELEMENT
 
@@ -143,10 +145,10 @@ public class HomeController implements Initializable {
 		// HBox.setMargin(task, new Insets(550, 0, 0, 50));
 
 		Label nameTask = new Label("Lorem Ipsum");
-		nameTask.setFont(new Font("System Bold", 22));
+		nameTask.setFont(new Font("System Bold", 21));
 
 		ImageView tag = new ImageView();
-		Image image = new Image("file:///images\\ios_tag.png", 50, 50, false, true);
+		Image image = new Image(urlToTag.get(1), 50, 50, false, true);
 		tag.setImage(image);
 		tag.prefHeight(50);
 		tag.prefWidth(50);
@@ -174,6 +176,14 @@ public class HomeController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// SET TAGS VALUES
+		urlToTag = new HashMap<Integer, String>();		
+		urlToTag.put(1, "file:///images\\java_tag.png");
+		urlToTag.put(2, "file:///images\\android_tag.png");
+		urlToTag.put(3, "file:///images\\flutter_tag.png");
+		urlToTag.put(4, "file:///images\\ios_tag.png");
+		urlToTag.put(5, "file:///images\\api_tag.png");
+		
 		// CHANGING USER NAME
 		UsernameText.setText(user.getFirstname() + " " + user.getLastname());
 
@@ -194,67 +204,7 @@ public class HomeController implements Initializable {
 	}
 
 	public void addTaskToList(Node host, ArrayList<ListTask> lists) {
-		
-		//List<String> urlToTag = new ArrayList<String>();
-		
-		HashMap<Integer, String> urlToTag = new HashMap<Integer, String>();		
-		urlToTag.put(1, "file:///images\\java_tag.png");
-		urlToTag.put(2, "file:///images\\android_tag.png");
-		urlToTag.put(3, "file:///images\\flutter_tag.png");
-		urlToTag.put(4, "file:///images\\ios_tag.png");
-		urlToTag.put(5, "file:///images\\api_tag.png");
-		
 
 		System.out.println("Will build tasks in lists");
-
-		System.out.println(HostList.getChildren());
-
-		ObservableList<Node> hostChildren = (ObservableList<Node>) HostList.getChildren();
-
-		for (int i = 0; i < hostChildren.size(); i++) {
-
-			HBox task = new HBox();
-			task.prefWidth(200);
-			task.prefHeight(50);
-			// HBox.setMargin(task, new Insets(550, 0, 0, 50));
-
-			Label nameTask = new Label(lists.get(i).getTitle()); // TODO : Fix this => should be task name
-			nameTask.setFont(new Font("System Bold", 22));
-
-			ImageView tag = new ImageView();
-			Image image = new Image(urlToTag.get(lists.get(i).getIdList()), 50, 50, false, true); // TODO : Fix this => should be task idTag
-			tag.setImage(image);
-			tag.prefHeight(50);
-			tag.prefWidth(50);
-
-			task.getChildren().add(nameTask);
-			task.getChildren().add(tag);
-
-			// arent.getChildrenUnmodifiable().add(task);
-
-			((VBox) host).getChildren().add(((VBox) host).getChildren().indexOf(host.lookup("AddTaskButton")) + 1,
-					task);
-
-		}
-
-		/*
-		 * HBox task = new HBox(); task.prefWidth(200); task.prefHeight(50); //
-		 * HBox.setMargin(task, new Insets(550, 0, 0, 50));
-		 * 
-		 * Label nameTask = new Label("Lorem Ipsum"); nameTask.setFont(new
-		 * Font("System Bold", 22));
-		 * 
-		 * ImageView tag = new ImageView(); Image image = new
-		 * Image("file:///images\\ios_tag.png",50,50,false,true); tag.setImage(image);
-		 * tag.prefHeight(50); tag.prefWidth(50);
-		 * 
-		 * task.getChildren().add(nameTask); task.getChildren().add(tag);
-		 * 
-		 * // arent.getChildrenUnmodifiable().add(task);
-		 * 
-		 * ((VBox) parent).getChildren().add(((VBox)
-		 * parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1, task);
-		 */
-
 	}
 }
