@@ -2,16 +2,18 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
+import controllers.ListTask;
 import controllers.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -19,11 +21,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -32,13 +31,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import modele.Modele;
 
-public class HomeController {
+public class HomeController implements Initializable {
 
 	private Stage stage;
 	private Scene scene;
 	@FXML
-	private static Text Username;
+	private Text UsernameText;
 	@FXML
 	private HBox ListButton;
 	@FXML
@@ -49,25 +49,27 @@ public class HomeController {
 	private Button NewListButton;
 	@FXML
 	private HBox HostList; // THIS IS THE LAYOUT THAT HOSTS ALL THE LISTS
+	
+	private User user;
+	//private 
 
-	@FXML
-	public void initialize() {
-		System.out.println("mes fesses");
-		//receiveData(new ActionEvent());
+	
+	public HomeController(User user) {
+		this.user = user;
 	}
 
-	public void receiveData(ActionEvent event) {
+	/*public void receiveData(ActionEvent event) {
 		// Step 1
-		Node node = (Node) event.getSource();
-		Stage stagebuffer = (Stage) stage.getScene().getWindow();
+		Object node = event.getSource();
+		Stage stage = (Stage) ((Stage) node).getScene().getWindow();
 		// Step 2
 		User user = (User) stage.getUserData();
 		// Step 3
 		// String name = u.getName();
 		// String email = u.getEmail();
 		System.out.println("mes fesses");
-		Username.setText(user.getFirstname() + " " + user.getLastname());
-	}
+		//UsernameText.setText(user.getFirstname() + " " + user.getLastname());
+	}*/
 
 	public void createDialogue(ActionEvent event) {
 		// create a text input dialog
@@ -169,5 +171,18 @@ public class HomeController {
 			System.out.println("User exited the app");
 			stage.close();
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		System.out.println("mes fesses");
+		UsernameText.setText(user.getFirstname() + " " + user.getLastname());
+		System.out.println(user.getFirstname() + " " + user.getLastname());
+		
+		
+		ArrayList<ListTask> listTask = Modele.getUsersTaskList(user.getIdUser());
+		System.out.println(listTask);
+		//receiveData();
+		
 	}
 }

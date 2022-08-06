@@ -1,17 +1,8 @@
 package application;
 
 import java.io.IOException;
-import java.util.Objects;
-
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import controllers.User;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,10 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import modele.Modele;
-import objects.LoginCredentials;
-import objects.LoginCredentialsResponse;
 
 public class MainController {
 
@@ -45,6 +33,9 @@ public class MainController {
 			System.out.println("Erreur de connexion, vérifiez vos identifiants.");
 		}else {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/HomePage.fxml"));
+			HomeController controller = new HomeController(user);
+			
+			loader.setController(controller);
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			stage.setUserData(user);
 			scene = new Scene(loader.load());
@@ -95,9 +86,36 @@ public class MainController {
 		}
 	}
 
-	// API CALL FUNCTIONS
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// API CALL FUNCTIONS KEPT IN COMMENT BLOCK
 
-	public static LoginCredentialsResponse sendLoginCredentials(LoginCredentials lc) {
+	/*public static LoginCredentialsResponse sendLoginCredentials(LoginCredentials lc) {
 		HttpResponse<JsonNode> response;
 		try {
 			response = makeRequestToAPI(lc);
@@ -116,5 +134,5 @@ public class MainController {
 				.header("Content-Type", "application/json")
 	            .body(lc.toString())
 	            .asJson();
-	}
+	}*/
 }
