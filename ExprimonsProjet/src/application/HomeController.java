@@ -58,21 +58,12 @@ public class HomeController implements Initializable {
 	private User user;
 
 	private ArrayList<ListTask> lists;
-	
+
 	private HashMap<Integer, String> urlToTag;
 
 	public HomeController(User user) {
 		this.user = user;
 	}
-
-	/*
-	 * public void receiveData(ActionEvent event) { // Step 1 Object node =
-	 * event.getSource(); Stage stage = (Stage) ((Stage)
-	 * node).getScene().getWindow(); // Step 2 User user = (User)
-	 * stage.getUserData(); // Step 3 // String name = u.getName(); // String email
-	 * = u.getEmail(); System.out.println("mes fesses");
-	 * //UsernameText.setText(user.getFirstname() + " " + user.getLastname()); }
-	 */
 
 	public void createDialogue(ActionEvent event) {
 		// create a text input dialog
@@ -87,18 +78,23 @@ public class HomeController implements Initializable {
 			createList(listName);
 		});
 	}
+	
+	
+	public void createDialogueTask(ActionEvent event) {
+		// create a text input dialog
+		TextInputDialog td = new TextInputDialog("Nom de la tâche...");
+
+		// setHeaderText
+		td.setHeaderText("Nommez la nouvelle tâche");
+
+		Optional<String> result = td.showAndWait();
+
+		result.ifPresent(listName -> {
+			createTask(((Parent)event.getSource()));
+		});
+	}
 
 	public void createList(String listName) {
-
-		/*
-		 * TODO : ACTION TO MAKE IN THIS CREATE LIST FUNCTION
-		 * 
-		 * 1) create the Accordion with the TitledPane
-		 *
-		 * Button new Task VBox a TitledPane t Accordion acc
-		 *
-		 * Put a in t ; put t in acc and put acc in HostList
-		 */
 
 		Button button = new Button();
 		button.setId("AddTaskButton");
@@ -132,7 +128,96 @@ public class HomeController implements Initializable {
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
-		//addTaskToList(vbox, lists);
+		// addTaskToList(vbox, lists);
+	}
+
+	public void createListWithTask(String listName, ArrayList<Task> tasks) {
+
+		Button button = new Button();
+		button.setId("AddTaskButton");
+		button.setText("Nouvelle tâche");
+		button.setFont(new Font("System Bold", 17));
+		button.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				createTask(button.getParent());
+				// System.out.println("Prout");
+			}
+		});
+
+		VBox vbox = new VBox();
+		vbox.prefWidth(182);
+		vbox.prefHeight(450);
+		vbox.getChildren().add(button);
+		vbox.setAlignment(Pos.TOP_CENTER);
+
+		AnchorPane anchor = new AnchorPane();
+		anchor.prefWidth(182);
+		anchor.prefHeight(450);
+
+		TitledPane tpane = new TitledPane(listName, vbox);
+		tpane.prefWidth(202);
+		tpane.prefHeight(450);
+		tpane.setFont(new Font("System Bold", 22));
+
+		Accordion accord = new Accordion();
+		accord.getPanes().add(tpane);
+
+		// ADD accor in HostList
+		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
+		// addTaskToList(vbox, lists);
+
+		
+		for(int i=0 ; i<tasks.size(); i++) {
+			//  TODO : code
+			
+			HBox task = new HBox();
+			task.prefWidth(200);
+			task.prefHeight(50);
+			// HBox.setMargin(task, new Insets(550, 0, 0, 50));
+
+			Label nameTask = new Label(tasks.get(i).getTitle());
+			nameTask.setFont(new Font("System Bold", 21));
+
+			ImageView tag = new ImageView();
+			Image image = new Image(urlToTag.get(tasks.get(i).getIdTag()), 50, 50, false, true);
+			tag.setImage(image);
+			tag.prefHeight(50);
+			tag.prefWidth(50);
+
+			task.getChildren().add(nameTask);
+			task.getChildren().add(tag);
+
+			// arent.getChildrenUnmodifiable().add(task);
+
+			vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1,
+					task);
+		}
+		
+		
+		// BUILD TASK ELEMENT
+
+		/*HBox task = new HBox();
+		task.prefWidth(200);
+		task.prefHeight(50);
+		// HBox.setMargin(task, new Insets(550, 0, 0, 50));
+
+		Label nameTask = new Label("Lorem Ipsum");
+		nameTask.setFont(new Font("System Bold", 21));
+
+		ImageView tag = new ImageView();
+		Image image = new Image(urlToTag.get(1), 50, 50, false, true);
+		tag.setImage(image);
+		tag.prefHeight(50);
+		tag.prefWidth(50);
+
+		task.getChildren().add(nameTask);
+		task.getChildren().add(tag);
+
+		// arent.getChildrenUnmodifiable().add(task);
+
+		vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1,
+				task);*/
 	}
 
 	private void createTask(Parent parent) {
@@ -148,7 +233,7 @@ public class HomeController implements Initializable {
 		nameTask.setFont(new Font("System Bold", 21));
 
 		ImageView tag = new ImageView();
-		Image image = new Image(urlToTag.get(1), 50, 50, false, true);
+		Image image = new Image("file:///images\\java_tag.png", 50, 50, false, true);
 		tag.setImage(image);
 		tag.prefHeight(50);
 		tag.prefWidth(50);
@@ -177,13 +262,13 @@ public class HomeController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// SET TAGS VALUES
-		urlToTag = new HashMap<Integer, String>();		
+		urlToTag = new HashMap<Integer, String>();
 		urlToTag.put(1, "file:///images\\java_tag.png");
 		urlToTag.put(2, "file:///images\\android_tag.png");
 		urlToTag.put(3, "file:///images\\flutter_tag.png");
 		urlToTag.put(4, "file:///images\\ios_tag.png");
 		urlToTag.put(5, "file:///images\\api_tag.png");
-		
+
 		// CHANGING USER NAME
 		UsernameText.setText(user.getFirstname() + " " + user.getLastname());
 
@@ -192,19 +277,17 @@ public class HomeController implements Initializable {
 		lists = listTask;
 
 		// CREATING INTERFACE AND FILLING ALL LISTS WITH ITS TASK
-		for (int i = 0; i < listTask.size(); i++) {
+		for (int i=0 ; i<listTask.size() ; i++) {
 			// System.out.println(listTask.get(i).getTitle());
-			createList(listTask.get(i).getTitle());
 			ArrayList<Task> tasksForList = Modele.getTasksFromList(listTask.get(i).getIdList());
-			// System.out.println(tasksForList);
+			createListWithTask(listTask.get(i).getTitle(), tasksForList);
 			listTask.get(i).setListTask(tasksForList);
 		}
-		// receiveData();
-
 	}
 
 	public void addTaskToList(Node host, ArrayList<ListTask> lists) {
 
-		System.out.println("Will build tasks in lists");
+		System.out.println("Will build tasks in lists with action button");
+		
 	}
 }
