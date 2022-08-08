@@ -37,7 +37,7 @@ class _AddUserViewState extends State<AddUserView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Row(
@@ -137,3 +137,11 @@ class _AddUserViewState extends State<AddUserView> {
     );
   }
 }
+
+
+
+
+
+
+
+

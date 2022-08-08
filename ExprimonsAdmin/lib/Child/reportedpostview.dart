@@ -69,7 +69,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Row(

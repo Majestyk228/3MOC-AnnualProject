@@ -100,7 +100,7 @@ class _DashboardViewState extends State<DashboardView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Center(

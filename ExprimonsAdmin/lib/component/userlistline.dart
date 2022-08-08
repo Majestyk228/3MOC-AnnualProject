@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/objects/user.dart';
 import 'package:flutter/material.dart';
 
@@ -40,19 +41,19 @@ class _UserListLineState extends State<UserListLine> {
           children: [
             Container(
               width: 200,
-              child: Text(widget.user.lastName ?? "Failed to load",style: TextStyle(fontSize: 16),),
+              child: Text(widget.user.lastName ?? "Failed to load",style: DataTableStyle,),
             ),
             Container(
               width: 200,
-              child: Text(widget.user.firstName ?? "Failed to load",style: TextStyle(fontSize: 16),),
+              child: Text(widget.user.firstName ?? "Failed to load",style: DataTableStyle,),
             ),
             Container(
               width: 190,
-              child: Text("${widget.user.areaCode}",style: TextStyle(fontSize: 16),),
+              child: Text("${widget.user.areaCode}",style: DataTableStyle,),
             ),
             Container(
               width: 150,
-              child: Text("${widget.user.points}",style: TextStyle(fontSize: 16),),
+              child: Text("${widget.user.points}",style: DataTableStyle,),
             )
           ],
         ),

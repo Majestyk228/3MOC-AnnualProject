@@ -31,7 +31,7 @@ class _AddVoteViewState extends State<AddVoteView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Row(

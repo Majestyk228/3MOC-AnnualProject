@@ -4,6 +4,7 @@ import 'package:exprimons_nous/Child/Details/detailsuserview.dart';
 import 'package:exprimons_nous/Child/adduserview.dart';
 import 'package:exprimons_nous/Child/invitationview.dart';
 import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/component/userlistline.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -70,14 +71,16 @@ class _UserViewState extends State<UserView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Row(
             children: [
               Card(
+                shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
                 elevation: 2,
-                color: Colors.white,
+                color: DarkRedColor,
                 child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -90,13 +93,18 @@ class _UserViewState extends State<UserView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Add User"),
+                        child: Text(
+                          "Add User",
+                          style: RedButtonStyle
+                        ),
                       ),
                     )),
               ),
               Card(
+                shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
                 elevation: 2,
-                color: Colors.white,
+                color: DarkRedColor,
                 child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -109,7 +117,14 @@ class _UserViewState extends State<UserView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Invitation"),
+                        child: Text(
+                          "Invitation",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'QuickSand',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24),
+                        ),
                       ),
                     )),
               ),
@@ -120,20 +135,20 @@ class _UserViewState extends State<UserView> {
           ),
           Center(
             child: Container(
-              width: 600,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
                 elevation: 2,
-                color: Colors.white,
+                color: Colors.grey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Text(
                         "Utilisateurs de la communauté",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                        style: TitleTableStyle,
                       ),
                     ),
                   ],
@@ -156,40 +171,28 @@ class _UserViewState extends State<UserView> {
                     width: 200,
                     child: Text(
                       "Nom",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 200,
                     child: Text(
                       "Prénom",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 190,
                     child: Text(
                       "Département",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 150,
                     child: Text(
                       "Points",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                 ],
@@ -210,16 +213,17 @@ class _UserViewState extends State<UserView> {
                         return MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
-                              onTap: () async {
-                                final value = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>  DetailsUserView(user: users[index])),
-                                );
-                                refreshUsers();
-                              },
-
-                                child: UserListLine(user: users[index],index:index)));
+                                onTap: () async {
+                                  final value = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsUserView(
+                                            user: users[index])),
+                                  );
+                                  refreshUsers();
+                                },
+                                child: UserListLine(
+                                    user: users[index], index: index)));
                       }),
                 ],
               ),
