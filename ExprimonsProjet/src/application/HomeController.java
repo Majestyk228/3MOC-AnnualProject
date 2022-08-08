@@ -177,6 +177,7 @@ public class HomeController implements Initializable {
 			// HBox.setMargin(task, new Insets(550, 0, 0, 50));
 
 			Label nameTask = new Label(tasks.get(i).getTitle());
+			nameTask.setId("titleTask");
 			nameTask.setFont(new Font("System Bold", 21));
 
 			ImageView tag = new ImageView();
@@ -192,6 +193,11 @@ public class HomeController implements Initializable {
 
 			vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1,
 					task);
+			
+			vbox.setOnMouseClicked( ( e ) ->
+		      {
+		        System.out.println("Tâche cliquée");
+		      } );
 		}
 		
 		
