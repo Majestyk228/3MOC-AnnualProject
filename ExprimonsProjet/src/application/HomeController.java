@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -30,12 +31,15 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import modele.Modele;
 
 public class HomeController implements Initializable {
@@ -78,8 +82,7 @@ public class HomeController implements Initializable {
 			createList(listName);
 		});
 	}
-	
-	
+
 	public void createDialogueTask(ActionEvent event) {
 		// create a text input dialog
 		TextInputDialog td = new TextInputDialog("Nom de la tâche...");
@@ -90,7 +93,7 @@ public class HomeController implements Initializable {
 		Optional<String> result = td.showAndWait();
 
 		result.ifPresent(listName -> {
-			createTask(((Parent)event.getSource()));
+			createTask(((Parent) event.getSource()));
 		});
 	}
 
@@ -167,10 +170,9 @@ public class HomeController implements Initializable {
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
 		// addTaskToList(vbox, lists);
 
-		
-		for(int i=0 ; i<tasks.size(); i++) {
-			//  TODO : code
-			
+		for (int i = 0; i < tasks.size(); i++) {
+			// TODO : code
+
 			HBox task = new HBox();
 			task.prefWidth(200);
 			task.prefHeight(50);
@@ -191,39 +193,21 @@ public class HomeController implements Initializable {
 
 			// arent.getChildrenUnmodifiable().add(task);
 
-			vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1,
-					task);
-			
-			vbox.setOnMouseClicked( ( e ) ->
-		      {
-		        System.out.println("Tâche cliquée");
-		      } );
+			vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1, task);
+
+			vbox.setOnMouseClicked((event) -> {
+
+				System.out.println("Tache à ouvrir...");
+				//Window window = ((Node) event.getTarget()).getScene().getWindow();
+				try {
+					showDetailPage(event);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			});
 		}
-		
-		
-		// BUILD TASK ELEMENT
-
-		/*HBox task = new HBox();
-		task.prefWidth(200);
-		task.prefHeight(50);
-		// HBox.setMargin(task, new Insets(550, 0, 0, 50));
-
-		Label nameTask = new Label("Lorem Ipsum");
-		nameTask.setFont(new Font("System Bold", 21));
-
-		ImageView tag = new ImageView();
-		Image image = new Image(urlToTag.get(1), 50, 50, false, true);
-		tag.setImage(image);
-		tag.prefHeight(50);
-		tag.prefWidth(50);
-
-		task.getChildren().add(nameTask);
-		task.getChildren().add(tag);
-
-		// arent.getChildrenUnmodifiable().add(task);
-
-		vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1,
-				task);*/
 	}
 
 	private void createTask(Parent parent) {
@@ -283,7 +267,7 @@ public class HomeController implements Initializable {
 		lists = listTask;
 
 		// CREATING INTERFACE AND FILLING ALL LISTS WITH ITS TASK
-		for (int i=0 ; i<listTask.size() ; i++) {
+		for (int i = 0; i < listTask.size(); i++) {
 			// System.out.println(listTask.get(i).getTitle());
 			ArrayList<Task> tasksForList = Modele.getTasksFromList(listTask.get(i).getIdList());
 			createListWithTask(listTask.get(i).getTitle(), tasksForList);
@@ -294,6 +278,16 @@ public class HomeController implements Initializable {
 	public void addTaskToList(Node host, ArrayList<ListTask> lists) {
 
 		System.out.println("Will build tasks in lists with action button");
-		
+
+	}
+
+	private void showDetailPage(MouseEvent event) throws IOException {
+		Stage stage = new Stage();
+		Parent root = FXMLLoader.load(DetailController.class.getResource("/resources/DetailPage.fxml"));
+		stage.setScene(new Scene(root));
+		stage.setTitle("Details");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+		stage.show();
 	}
 }

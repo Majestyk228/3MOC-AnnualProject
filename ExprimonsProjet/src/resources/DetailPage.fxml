@@ -45,7 +45,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DetailController">
    <children>
       <VBox prefHeight="341.0" prefWidth="600.0">
          <children>
@@ -142,7 +142,7 @@
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="addComment" mnemonicParsing="false" onAction="#addComment" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: F3BD51;" text="Valider">
+                  <Button fx:id="addComment" mnemonicParsing="false" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: F3BD51;" text="Valider">
                      <HBox.margin>
                         <Insets left="18.0" top="6.0" />
                      </HBox.margin>
