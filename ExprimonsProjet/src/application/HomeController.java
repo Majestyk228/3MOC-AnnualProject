@@ -1,6 +1,5 @@
 package application;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,29 +9,39 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controllers.ListTask;
+import controllers.Tag;
 import controllers.Task;
 import controllers.User;
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -40,6 +49,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Pair;
 import modele.Modele;
 
 public class HomeController implements Initializable {
@@ -60,6 +70,8 @@ public class HomeController implements Initializable {
 	private HBox HostList; // THIS IS THE LAYOUT THAT HOSTS ALL THE LISTS
 
 	private User user;
+
+	private ArrayList<Tag> tags;
 
 	private ArrayList<ListTask> lists;
 
@@ -83,6 +95,79 @@ public class HomeController implements Initializable {
 		});
 	}
 
+	public void createDialogueTask2(ActionEvent event) {
+		// Create the custom dialog.
+		Dialog<Pair<String, String>> dialog = new Dialog<>();
+		dialog.setTitle("TestName");
+
+		// Set the button types.
+		ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+		VBox dialogVbox = new VBox();
+		dialogVbox.setPadding(new Insets(20, 150, 10, 10));
+
+		TextField from = new TextField();
+		from.setPromptText("From");
+		TextField to = new TextField();
+		to.setPromptText("To");
+
+		dialogVbox.getChildren().add(from);
+		dialogVbox.getChildren().add(to);
+
+		dialog.getDialogPane().setContent(dialogVbox);
+
+		// Request focus on the username field by default.
+		Platform.runLater(() -> from.requestFocus());
+
+		// Convert the result to a username-password-pair when the login button is
+		// clicked.
+		dialog.setResultConverter(dialogButton -> {
+			if (dialogButton == loginButtonType) {
+				return new Pair<>(from.getText(), to.getText());
+			}
+			return null;
+		});
+
+		Optional<Pair<String, String>> result = dialog.showAndWait();
+
+		result.ifPresent(pair -> {
+			System.out.println("From=" + pair.getKey() + ", To=" + pair.getValue());
+		});
+	}
+
+	public void createDialogueTask3(ActionEvent event) {
+		Dialog<ButtonType> alert = new Dialog();
+		alert.setTitle("Ajout d'une tâche");
+		alert.setHeaderText("Entrez les informations de votre nouvelle tâche");
+		
+		DialogPane dialogPane = new DialogPane();
+		dialogPane.getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
+		
+		TextField titleTXT = new TextField();
+		TextField descriptionTXT = new TextField();
+		ComboBox<Tag> tag = new ComboBox<>();
+		tag.getItems().addAll(tags);
+		
+		VBox layout = new VBox();
+		layout.getChildren().addAll(titleTXT, descriptionTXT, tag);
+		
+		dialogPane.setContent(layout);
+		//alert.setContentText("Choose your option.");
+
+		//ButtonType buttonTypeOne = new ButtonType("One");
+		//ButtonType buttonTypeTwo = new ButtonType("Two");
+		//ButtonType buttonTypeThree = new ButtonType("Three");
+		//ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		
+		
+
+		//alert.setDialogPane(new DialogPane().);
+		//alert.getButtonTypes().setAll(titleTXT, descriptionTXT, tag, buttonTypeCancel);
+
+		Optional<ButtonType> result = alert.showAndWait();
+	}
+
 	public void createDialogueTask(ActionEvent event) {
 		// create a text input dialog
 		TextInputDialog td = new TextInputDialog("Nom de la tâche...");
@@ -92,8 +177,18 @@ public class HomeController implements Initializable {
 
 		Optional<String> result = td.showAndWait();
 
-		result.ifPresent(listName -> {
-			createTask(((Parent) event.getSource()));
+		result.ifPresent(taskName -> {
+			createTask(((Parent) event.getSource()).getParent(), taskName);
+			System.out.println(((Node) ((Parent) event.getSource()).getParent()).getParent().getParent().getId());
+			int idList = 0;
+
+			/*
+			 * for(int i=0 ; i<lists.size() ; i++) { if(lists.get(i).getTitle() == ) }
+			 */
+
+			// TODO : insert task in list
+			// Task taskToInsert = new Task(0, taskName, "", user.getIdUser(), idList,
+			// idTag);
 		});
 	}
 
@@ -106,7 +201,8 @@ public class HomeController implements Initializable {
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				createTask(button.getParent());
+				//createDialogueTask2(event);
+				createDialogueTask3(event);
 				// System.out.println("Prout");
 			}
 		});
@@ -134,7 +230,7 @@ public class HomeController implements Initializable {
 		// addTaskToList(vbox, lists);
 	}
 
-	public void createListWithTask(String listName, ArrayList<Task> tasks) {
+	public void createListWithTask(String listName, ArrayList<Task> tasks, int idList) {
 
 		Button button = new Button();
 		button.setId("AddTaskButton");
@@ -143,8 +239,8 @@ public class HomeController implements Initializable {
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				createTask(button.getParent());
-				// System.out.println("Prout");
+				//createDialogueTask2(event);
+				createDialogueTask3(event);
 			}
 		});
 
@@ -159,6 +255,7 @@ public class HomeController implements Initializable {
 		anchor.prefHeight(450);
 
 		TitledPane tpane = new TitledPane(listName, vbox);
+		tpane.setId("idList = " + idList);
 		tpane.prefWidth(202);
 		tpane.prefHeight(450);
 		tpane.setFont(new Font("System Bold", 22));
@@ -198,19 +295,18 @@ public class HomeController implements Initializable {
 			vbox.setOnMouseClicked((event) -> {
 
 				System.out.println("Tache à ouvrir...");
-				//Window window = ((Node) event.getTarget()).getScene().getWindow();
+				// Window window = ((Node) event.getTarget()).getScene().getWindow();
 				try {
 					showDetailPage(event);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			});
 		}
 	}
 
-	private void createTask(Parent parent) {
+	private void createTask(Parent parent, String taskName) {
 
 		// BUILD TASK ELEMENT
 
@@ -219,7 +315,7 @@ public class HomeController implements Initializable {
 		task.prefHeight(50);
 		// HBox.setMargin(task, new Insets(550, 0, 0, 50));
 
-		Label nameTask = new Label("Lorem Ipsum");
+		Label nameTask = new Label(taskName);
 		nameTask.setFont(new Font("System Bold", 21));
 
 		ImageView tag = new ImageView();
@@ -235,6 +331,18 @@ public class HomeController implements Initializable {
 
 		((VBox) parent).getChildren().add(((VBox) parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1,
 				task);
+
+		((VBox) parent).setOnMouseClicked((event) -> {
+
+			System.out.println("Tache à ouvrir...");
+			// Window window = ((Node) event.getTarget()).getScene().getWindow();
+			try {
+				showDetailPage(event);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
@@ -270,9 +378,13 @@ public class HomeController implements Initializable {
 		for (int i = 0; i < listTask.size(); i++) {
 			// System.out.println(listTask.get(i).getTitle());
 			ArrayList<Task> tasksForList = Modele.getTasksFromList(listTask.get(i).getIdList());
-			createListWithTask(listTask.get(i).getTitle(), tasksForList);
+			createListWithTask(listTask.get(i).getTitle(), tasksForList, listTask.get(i).getIdList());
 			listTask.get(i).setListTask(tasksForList);
 		}
+
+		// NewListButton.setOnAction(null)
+		// RETREIVING ALL THE TAGS FROM DATABASE
+		tags = Modele.getAllTags();
 	}
 
 	public void addTaskToList(Node host, ArrayList<ListTask> lists) {

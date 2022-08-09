@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import controllers.ListTask;
+import controllers.Tag;
 import controllers.Task;
 import controllers.User;
 
@@ -13,6 +14,25 @@ public class Modele {
 
 	private static Database db = new Database("exprimons-projet.c50gqqod3ibz.eu-west-3.rds.amazonaws.com",
 			"exprimonsnousprojet", "admin", "kB9qG7e3zEU3");
+	
+	
+	// =====================================
+	
+	public static void executerRequete (String requete)
+	{
+		try {
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement(); 
+			unStat.execute(requete); 
+			unStat.close();
+			db.seDeconnecter();
+		}
+		catch(SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + requete );
+		}
+	}
+	
+	// =====================================
 
 	public static User verifConnexion(String email, String password) {
 		User unUser = null;
@@ -65,34 +85,70 @@ public class Modele {
 		return allLists;
 
 	}
-	
-	
-	
+
 	// =====================================================================================================
 
-		public static ArrayList<Task> getTasksFromList(int idList) { // RETREIVE LISTS WITHOUT TASKS
+	public static ArrayList<Task> getTasksFromList(int idList) { // RETREIVE LISTS WITHOUT TASKS
 
-			ArrayList<Task> allTasks = new ArrayList<Task>();
-			String request = "SELECT * FROM Task WHERE idList = " + idList + ";";
+		ArrayList<Task> allTasks = new ArrayList<Task>();
+		String request = "SELECT * FROM Task WHERE idList = " + idList + ";";
 
-			try {
-				// CONNECT TO DB
-				db.seConnecter();
-				Statement unStat = db.getMaConnexion().createStatement();
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
 
-				// EXECUTE REQUEST
-				ResultSet unRes = unStat.executeQuery(request);
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
 
-				while (unRes.next()) {
-					allTasks.add(new Task(unRes.getInt("idTask"), unRes.getString("title"), unRes.getString("description"), unRes.getInt("idUser"), unRes.getInt("idList"), unRes.getInt("idTag")));
-				}
-				unRes.close();
-				unStat.close();
-				db.seDeconnecter();
-			} catch (SQLException exp) {
-				System.out.println("Erreur d'exécution de la requete : " + request);
+			while (unRes.next()) {
+				allTasks.add(new Task(unRes.getInt("idTask"), unRes.getString("title"), unRes.getString("description"),
+						unRes.getInt("idUser"), unRes.getInt("idList"), unRes.getInt("idTag")));
 			}
-
-			return allTasks;
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
 		}
+
+		return allTasks;
+	}
+
+	// =====================================================================================================
+
+	public static void insertTask(Task task) { // RETREIVE LISTS WITHOUT TASKS
+
+		String requete = "INSERT INTO Task VALUES (null, '" + task.getTitle() + "','" + task.getDescription() + "',"
+				+ task.getIdUser() + "," + task.getIdList() + ", " + task.getIdTag() + " );";
+		executerRequete(requete);
+	}
+	
+	// =====================================================================================================
+	
+	public static ArrayList<Tag> getAllTags() { // RETREIVE LISTS WITHOUT TASKS
+
+		ArrayList<Tag> allTags = new ArrayList<Tag>();
+		String request = "SELECT * FROM Tag;";
+
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
+
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
+
+			while (unRes.next()) {
+				allTags.add(new Tag(unRes.getInt("idTag"), unRes.getString("name")));
+			}
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
+		}
+
+		return allTags;
+	}
 }
