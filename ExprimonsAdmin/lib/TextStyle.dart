@@ -26,3 +26,14 @@ TextStyle DataTableStyle = TextStyle(
   fontFamily: 'QuickSand',
   fontSize: 16
 );
+TextStyle InputStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontFamily: 'QuickSand',
+  fontSize: 16,
+);
+TextStyle InputButtonDateStyle=TextStyle(
+  fontWeight: FontWeight.bold,
+  fontFamily: 'QuickSand',
+  fontSize: 16,
+  color: Colors.white
+);
