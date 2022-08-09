@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -105,21 +106,20 @@ class _DashboardViewState extends State<DashboardView> {
         children: [
           Center(
             child: Container(
-              width: 300,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
-                elevation: 2,
-                color: Colors.white,
+                elevation: 10,
+                color: Colors.grey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Text(
                         title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 42),
+                        style: TitleTableStyle,
                       ),
                     ),
                   ],
@@ -144,7 +144,7 @@ class _DashboardViewState extends State<DashboardView> {
                     Container(
                       height: 150,
                       width: 200,
-                      child: Center(child: Text("Reported Post")),
+                      child: Center(child: Text("Post signalé")),
                     ),
                   ],
                 ),

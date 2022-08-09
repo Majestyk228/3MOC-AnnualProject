@@ -1,6 +1,7 @@
 import 'package:exprimons_nous/Child/Details/detailsvoteview.dart';
 import 'package:exprimons_nous/Child/addvoteview.dart';
 import 'package:exprimons_nous/Globals.dart';
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/component/voteslistline.dart';
 import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
@@ -75,8 +76,10 @@ class _VoteViewState extends State<VoteView> {
           Row(
             children: [
               Card(
-                elevation: 2,
-                color: Colors.white,
+                shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 10,
+                color: DarkRedColor,
                 child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -89,7 +92,7 @@ class _VoteViewState extends State<VoteView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Add Vote"),
+                        child: Text("Add Vote",style: RedButtonStyle),
                       ),
                     )),
               ),
@@ -100,21 +103,20 @@ class _VoteViewState extends State<VoteView> {
           ),
           Center(
             child: Container(
-              width: 600,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
                 elevation: 2,
-                color: Colors.white,
+                color: Colors.grey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Text(
                         "Vote de la communauté",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 32),
+                        style: TitleTableStyle,
                       ),
                     ),
                   ],
@@ -137,50 +139,35 @@ class _VoteViewState extends State<VoteView> {
                     width: 150,
                     child: Text(
                       "Titre",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 160,
                     child: Text(
                       "Nb choix",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 200,
                     child: Text(
                       "Début du vote",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 160,
                     child: Text(
                       "Fin du vote",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 150,
                     child: Text(
                       "Important",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                 ],

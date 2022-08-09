@@ -10,6 +10,11 @@ TextStyle TitleTableStyle = TextStyle(
     fontFamily: 'QuickSand',
     fontWeight: FontWeight.bold,
     fontSize: 48);
+TextStyle TitleAddStyle = TextStyle(
+    color: Colors.white,
+    fontFamily: 'QuickSand',
+    fontWeight: FontWeight.bold,
+    fontSize: 48);
 TextStyle HeaderTableStyle = TextStyle(
   color: Colors.white,
   fontSize: 28,

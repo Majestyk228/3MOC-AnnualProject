@@ -5,23 +5,24 @@ import 'package:flutter/material.dart';
 import '../Colors.dart';
 
 class UserListLine extends StatefulWidget {
-  const UserListLine({Key? key, required this.user, required this.index}) : super(key: key);
+  const UserListLine({Key? key, required this.user, required this.index})
+      : super(key: key);
   final User user;
   final int index;
+
   @override
   State<UserListLine> createState() => _UserListLineState();
 }
 
 class _UserListLineState extends State<UserListLine> {
-
   @override
   late Color color;
+
   void initState() {
-    if(widget.index % 2 == 0){
-      color=Colors.white;
-    }
-    else{
-      color=veryLightRedColor;
+    if (widget.index % 2 == 0) {
+      color = Colors.white;
+    } else {
+      color = veryLightRedColor;
     }
     super.initState();
   }
@@ -41,19 +42,31 @@ class _UserListLineState extends State<UserListLine> {
           children: [
             Container(
               width: 200,
-              child: Text(widget.user.lastName ?? "Failed to load",style: DataTableStyle,),
+              child: Text(
+                widget.user.lastName ?? "Failed to load",
+                style: DataTableStyle,
+              ),
             ),
             Container(
               width: 200,
-              child: Text(widget.user.firstName ?? "Failed to load",style: DataTableStyle,),
+              child: Text(
+                widget.user.firstName ?? "Failed to load",
+                style: DataTableStyle,
+              ),
             ),
             Container(
               width: 190,
-              child: Text("${widget.user.areaCode}",style: DataTableStyle,),
+              child: Text(
+                "${widget.user.areaCode}",
+                style: DataTableStyle,
+              ),
             ),
             Container(
               width: 150,
-              child: Text("${widget.user.points}",style: DataTableStyle,),
+              child: Text(
+                "${widget.user.points}",
+                style: DataTableStyle,
+              ),
             )
           ],
         ),

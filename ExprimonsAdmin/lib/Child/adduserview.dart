@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/objects/user.dart';
 import 'package:flutter/material.dart';
 
@@ -13,23 +14,43 @@ class AddUserView extends StatefulWidget {
 class _AddUserViewState extends State<AddUserView> {
   late TextEditingController firstName;
   late TextEditingController lastName;
-  late TextEditingController birthDate;
-  late TextEditingController gender;
+
+  String gender = "Veuillez spécifier un genre";
   late TextEditingController areaCode;
   late TextEditingController email;
   late TextEditingController password;
 
+  bool _validatefirstName = false;
+  bool _validatelastName = false;
+  bool _validateareaCode = false;
+  bool _validateEmail = false;
+  bool _validatePassword = false;
+
+  DateTime selectedDate = DateTime.now();
+
+  _selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null && selected != selectedDate)
+      setState(() {
+        selectedDate = selected;
+      });
+  }
 
   @override
   void initState() {
     super.initState();
     firstName = TextEditingController();
     lastName = TextEditingController();
-    birthDate = TextEditingController();
-    gender = TextEditingController();
+
     areaCode = TextEditingController();
     email = TextEditingController();
     password = TextEditingController();
+    print(selectedDate);
   }
 
   @override
@@ -41,15 +62,16 @@ class _AddUserViewState extends State<AddUserView> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -57,7 +79,7 @@ class _AddUserViewState extends State<AddUserView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -69,63 +91,271 @@ class _AddUserViewState extends State<AddUserView> {
           ),
           Center(
             child: Container(
-              width: 500,
+              width: 1000,
+              height: 100,
 
+              //child: Text(votes[index]["title"])
               child: Card(
-                elevation: 10,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 2,
+                color: DarkRedColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Ajout d'utilisateur",
+                        style: TitleAddStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 100,
+          ),
+          Center(
+            child: Container(
+              width: 1000,
+              child: Card(
+                shadowColor: DarkRedColor,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                elevation: 25,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      TextField(
-                        controller: firstName,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le prénom de l\'utilisateur ici'),
-                      ),
-                      TextField(
-                        controller: lastName,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le nom de l\'utilisateur ici'),
-                      ),
-                      TextField(
-                        controller: birthDate,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer la date de naissance de l\'utilisateur ici'),
-                      ),
-                      TextField(
-                        controller: gender,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le genre de l\'utilisateur ici'),
-                      ),
-                      TextField(
-                        controller: areaCode,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le code postale de l\'utilisateur ici'),
-                      ),
-                      TextField(
-                        controller: email,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer l\'email de l\'utilisateur ici'),
-                      ),
-                      TextField(
-                        obscureText: true,
-                        controller: password,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le mot de passe de l\'utilisateur ici'),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            addUser(firstName.text, lastName.text,birthDate.text,gender.text,areaCode.text,email.text,password.text);
-                            Navigator.pop(context);
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: firstName,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrer le prénom de l\'utilisateur ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validatefirstName
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validatefirstName = true;
+                              } else {
+                                _validatefirstName = false;
+                              }
+                            });
                           },
-                          child: Text("Créer l'utilisateur")),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: lastName,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrez le nom de l\'utilisateur ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validatelastName
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validatelastName = true;
+                              } else {
+                                _validatelastName = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                _selectDate(context);
+                              },
+                              child: Text("Choisisez une date"),
+                            ),
+                            Text(
+                                "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: DropdownButton<String>(
+                            value: gender,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            underline: Container(
+                              height: 2,
+                              color: Colors.grey,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                gender = newValue!;
+                              });
+                            },
+                            items: <String>[
+                              'Veuillez spécifier un genre',
+                              'Homme',
+                              'Femme',
+                              'Autre'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: areaCode,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText:
+                                'Entrer le code postale de l\'utilisateur ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validateareaCode
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validateareaCode = true;
+                              } else {
+                                _validateareaCode = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: email,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrer l\'email de l\'utilisateur ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validateEmail
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validateEmail = true;
+                              } else {
+                                _validateEmail = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          obscureText: true,
+                          controller: password,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText:
+                                'Entrer le mot de passe de l\'utilisateur ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validatePassword
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validatePassword = true;
+                              } else {
+                                _validatePassword = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                                onPressed: () {
+                                  addUser(
+                                      firstName.text,
+                                      lastName.text,
+                                      "${selectedDate.year.toString()}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}",
+                                      gender,
+                                      areaCode.text,
+                                      email.text,
+                                      password.text);
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "Créer l'utilisateur",
+                                  style: RedButtonStyle,
+                                )),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -137,11 +367,3 @@ class _AddUserViewState extends State<AddUserView> {
     );
   }
 }
-
-
-
-
-
-
-
-

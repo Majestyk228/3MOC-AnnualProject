@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/objects/invitation.dart';
 import 'package:flutter/material.dart';
 
@@ -44,21 +45,21 @@ class _InvitationLineState extends State<InvitationLine> {
               width: 150,
               child: Text(
                 "${widget.invitation.code}",
-                style: TextStyle(fontSize: 16),
+                style: DataTableStyle,
               ),
             ),
             Container(
-              width: 150,
+              width: 230,
               child: Text(
                 "${widget.invitation.creationDate}",
-                style: TextStyle(fontSize: 16),
+                style: DataTableStyle,
               ),
             ),
             Container(
-              width: 150,
+              width: 200,
               child: Text(
                 "${widget.invitation.endDate}",
-                style: TextStyle(fontSize: 16),
+                style: DataTableStyle,
               ),
             ),
           ],

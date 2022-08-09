@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/component/invitationline.dart';
 import 'package:exprimons_nous/objects/invitation.dart';
 import 'package:flutter/material.dart';
@@ -70,10 +71,12 @@ class _InvitationViewState extends State<InvitationView> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -81,7 +84,7 @@ class _InvitationViewState extends State<InvitationView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -90,8 +93,10 @@ class _InvitationViewState extends State<InvitationView> {
                 ),
               ),
               Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
                 elevation: 2,
-                color: Colors.white,
+                color: DarkRedColor,
                 child: TextButton(
                     onPressed: () async {
                       await addInvitation();
@@ -101,7 +106,10 @@ class _InvitationViewState extends State<InvitationView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Add Invitation"),
+                        child: Text(
+                          "Add Invitation",
+                          style: RedButtonStyle,
+                        ),
                       ),
                     )),
               ),
@@ -112,20 +120,20 @@ class _InvitationViewState extends State<InvitationView> {
           ),
           Center(
             child: Container(
-              width: 600,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
                 elevation: 2,
-                color: Colors.white,
+                color: Colors.grey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Text(
                         "Invitation de la communauté",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                        style: TitleTableStyle,
                       ),
                     ),
                   ],
@@ -148,30 +156,21 @@ class _InvitationViewState extends State<InvitationView> {
                     width: 150,
                     child: Text(
                       "Code",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
-                    width: 200,
+                    width: 230,
                     child: Text(
                       "Date de création",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 200,
                     child: Text(
                       "Date de fin",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                 ],
@@ -217,7 +216,8 @@ class _InvitationViewState extends State<InvitationView> {
                                 ],
                               ),
                             ),
-                            child: InvitationLine(invitation: invitation[index], index: index),
+                            child: InvitationLine(
+                                invitation: invitation[index], index: index),
                           ),
                         );
                       }),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../Colors.dart';
@@ -77,10 +78,12 @@ class _ReportedPostViewState extends State<ReportedPostView> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -88,7 +91,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -103,20 +106,20 @@ class _ReportedPostViewState extends State<ReportedPostView> {
           ),
           Center(
             child: Container(
-              width: 300,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
                 elevation: 2,
-                color: Colors.white,
+                color: Colors.grey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Text(
                         "Post signalé",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                        style: TitleTableStyle,
                       ),
                     ),
                   ],
@@ -194,7 +197,6 @@ class _ReportedPostViewState extends State<ReportedPostView> {
               scrollDirection: Axis.vertical,
               child: Wrap(
                 children: [
-
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -214,7 +216,10 @@ class _ReportedPostViewState extends State<ReportedPostView> {
                                   );
                                   refreshPosts();
                                 },
-                                child: PostListLine(post: posts[index],index: index,)));
+                                child: PostListLine(
+                                  post: posts[index],
+                                  index: index,
+                                )));
                       }),
                 ],
               ),

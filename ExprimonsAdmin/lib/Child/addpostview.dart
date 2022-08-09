@@ -1,5 +1,5 @@
 import 'package:exprimons_nous/objects/post.dart';
-
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 
 import '../Colors.dart';
@@ -34,15 +34,16 @@ class _AddPostViewState extends State<AddPostView> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -50,7 +51,7 @@ class _AddPostViewState extends State<AddPostView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -59,6 +60,34 @@ class _AddPostViewState extends State<AddPostView> {
                 ),
               ),
             ],
+          ),
+          Center(
+            child: Container(
+              width: 1000,
+              height: 100,
+
+              //child: Text(votes[index]["title"])
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 2,
+                color: DarkRedColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Ajout de Post",
+                        style: TitleAddStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 100,
           ),
           Center(
             child: Container(

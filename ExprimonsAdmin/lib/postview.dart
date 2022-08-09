@@ -1,6 +1,7 @@
 import 'package:exprimons_nous/Child/addpostview.dart';
 import 'package:exprimons_nous/Child/reportedpostview.dart';
 import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/component/postlistline.dart';
 import 'package:exprimons_nous/objects/post.dart';
 import 'package:flutter/material.dart';
@@ -76,8 +77,10 @@ class _PostViewState extends State<PostView> {
           Row(
             children: [
               Card(
-                elevation: 2,
-                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 10,
+                color: DarkRedColor,
                 child: TextButton(
                     onPressed: () async {
                       final value = await Navigator.push(
@@ -91,13 +94,18 @@ class _PostViewState extends State<PostView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Add Post"),
+                        child: Text(
+                          "Add Post",
+                          style: RedButtonStyle,
+                        ),
                       ),
                     )),
               ),
               Card(
-                elevation: 2,
-                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 10,
+                color: DarkRedColor,
                 child: TextButton(
                     onPressed: () async {
                       final value = await Navigator.push(
@@ -111,7 +119,10 @@ class _PostViewState extends State<PostView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Post reporté"),
+                        child: Text(
+                          "Post reporté",
+                          style: RedButtonStyle,
+                        ),
                       ),
                     )),
               ),
@@ -122,20 +133,20 @@ class _PostViewState extends State<PostView> {
           ),
           Center(
             child: Container(
-              width: 600,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
                 elevation: 2,
-                color: Colors.white,
+                color: Colors.grey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Text(
                         "Post de la communauté",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                        style: TitleTableStyle,
                       ),
                     ),
                   ],
@@ -158,50 +169,35 @@ class _PostViewState extends State<PostView> {
                     width: 150,
                     child: Text(
                       "Titre",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 150,
                     child: Text(
                       "Date",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 150,
                     child: Text(
                       "Like",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 150,
                     child: Text(
                       "Dislike",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                   Container(
                     width: 150,
                     child: Text(
                       "Reported",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
+                      style: HeaderTableStyle,
                     ),
                   ),
                 ],
@@ -213,7 +209,6 @@ class _PostViewState extends State<PostView> {
               scrollDirection: Axis.vertical,
               child: Wrap(
                 children: [
-
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -233,7 +228,10 @@ class _PostViewState extends State<PostView> {
                                   );
                                   refreshPosts();
                                 },
-                                child: PostListLine(post: posts[index],index: index,)));
+                                child: PostListLine(
+                                  post: posts[index],
+                                  index: index,
+                                )));
                       }),
                 ],
               ),

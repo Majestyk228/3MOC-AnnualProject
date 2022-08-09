@@ -1,6 +1,7 @@
 import 'package:exprimons_nous/Colors.dart';
 import 'package:exprimons_nous/objects/optionvote.dart';
 import 'package:exprimons_nous/objects/votes.dart';
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,15 +36,16 @@ class _AddVoteViewState extends State<AddVoteView> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -51,7 +53,7 @@ class _AddVoteViewState extends State<AddVoteView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -60,6 +62,34 @@ class _AddVoteViewState extends State<AddVoteView> {
                 ),
               ),
             ],
+          ),
+          Center(
+            child: Container(
+              width: 1000,
+              height: 100,
+
+              //child: Text(votes[index]["title"])
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 2,
+                color: DarkRedColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Ajout de Post",
+                        style: TitleAddStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 100,
           ),
           Center(
             child: Container(

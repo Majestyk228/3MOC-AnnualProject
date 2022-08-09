@@ -79,7 +79,7 @@ class _UserViewState extends State<UserView> {
               Card(
                 shape:  RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25)),
-                elevation: 2,
+                elevation: 10,
                 color: DarkRedColor,
                 child: TextButton(
                     onPressed: () {
@@ -103,7 +103,7 @@ class _UserViewState extends State<UserView> {
               Card(
                 shape:  RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25)),
-                elevation: 2,
+                elevation: 10,
                 color: DarkRedColor,
                 child: TextButton(
                     onPressed: () {
@@ -119,11 +119,7 @@ class _UserViewState extends State<UserView> {
                       child: Center(
                         child: Text(
                           "Invitation",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'QuickSand',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24),
+                            style: RedButtonStyle
                         ),
                       ),
                     )),
