@@ -17,16 +17,16 @@ class Post {
 
   Post({
     this.idPost,
-    this.title,
-    this.body,
-    this.date,
-    this.time,
-    this.likes,
-    this.dislikes,
+    this.title,//
+    this.body,//
+    this.date,//
+    this.time,//
+    this.likes,//
+    this.dislikes,//
     this.idCommunity,
     this.idUser,
     this.idAdmin,
-    this.reported,
+    this.reported,//
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {

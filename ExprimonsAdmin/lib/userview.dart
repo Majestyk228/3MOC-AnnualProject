@@ -47,6 +47,7 @@ class _UserViewState extends State<UserView> {
 
     this.users = [];
     setState(() {
+      print("Bark3");
       for (var i = 0; i < data.length; i++) {
         User unUser = User(
           idUser: data[i]['idUser'],
@@ -82,12 +83,14 @@ class _UserViewState extends State<UserView> {
                 elevation: 10,
                 color: DarkRedColor,
                 child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final value = await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const AddUserView()),
                       );
+                      print("Bark");
+                      refreshUsers();
                     },
                     child: Container(
                       width: 200,

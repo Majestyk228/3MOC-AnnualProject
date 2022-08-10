@@ -14,6 +14,8 @@ class AddPostView extends StatefulWidget {
 class _AddPostViewState extends State<AddPostView> {
   late TextEditingController title;
   late TextEditingController body;
+  bool _validateTitle = true;
+  bool _validateBody = true;
 
   bool important = false;
 
@@ -22,7 +24,6 @@ class _AddPostViewState extends State<AddPostView> {
     super.initState();
     title = TextEditingController();
     body = TextEditingController();
-
   }
 
   @override
@@ -91,31 +92,109 @@ class _AddPostViewState extends State<AddPostView> {
           ),
           Center(
             child: Container(
-              width: 500,
-              height: 300,
+              width: 1000,
               child: Card(
-                elevation: 10,
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: title,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le titre du Post ici'),
-                    ),
-                    TextField(
-                      controller: body,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le descriptif du Post ici'),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          addPost(title.text, body.text);
-                          Navigator.pop(context);
-                        },
-                        child: Text("Créer le Post")),
-                  ],
+                shadowColor: DarkRedColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 25,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          controller: title,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrer le titre du post ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validateTitle
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validateTitle = true;
+                              } else {
+                                _validateTitle = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          minLines: 1,
+                          maxLines: 5,
+                          controller: body,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrer le descriptif du post ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validateBody
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validateBody = true;
+                              } else {
+                                _validateBody = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                                onPressed: () {
+                                  if (_validateBody == true ||
+                                      _validateTitle == true) {
+                                    setState(() {});
+                                  } else {
+                                    addPost(title.text, body.text);
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                child: Text(
+                                  "Créer le Post",
+                                  style: RedButtonStyle,
+                                )),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

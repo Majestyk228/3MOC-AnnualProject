@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 
 import '../../Colors.dart';
@@ -14,6 +15,12 @@ class DetailsPostView extends StatefulWidget {
 class _DetailsPostViewState extends State<DetailsPostView> {
   late TextEditingController title;
   late TextEditingController body;
+  late TextEditingController date;
+  late TextEditingController time;
+  late TextEditingController likes;
+  late TextEditingController dislikes;
+  late TextEditingController reported;
+
   late bool isAdmin = false;
   bool important = false;
 
@@ -27,8 +34,19 @@ class _DetailsPostViewState extends State<DetailsPostView> {
 
     title = TextEditingController();
     body = TextEditingController();
+    date = TextEditingController();
+    time = TextEditingController();
+    likes = TextEditingController();
+    dislikes = TextEditingController();
+    reported = TextEditingController();
+
     title.text = "${widget.post.title}";
     body.text = "${widget.post.body}";
+    date.text = "${widget.post.date}";
+    time.text = "${widget.post.time}";
+    likes.text = "${widget.post.likes}";
+    dislikes.text = "${widget.post.dislikes}";
+    reported.text = "${widget.post.reported}";
   }
 
   @override
@@ -36,19 +54,20 @@ class _DetailsPostViewState extends State<DetailsPostView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -56,7 +75,7 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -68,31 +87,22 @@ class _DetailsPostViewState extends State<DetailsPostView> {
           ),
           Center(
             child: Container(
-              width: 300,
+              width: 1000,
               height: 100,
 
               //child: Text(votes[index]["title"])
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
                 elevation: 2,
-                color: Colors.white,
+                color: DarkRedColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Column(
-                        children: [
-                          Text(
-                            "Detail du post",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text((() {
-                            if (isAdmin) {
-                              return " Modification autorisée";
-                            }
-
-                            return "Modification non autorisée";
-                          })()),
-                        ],
+                      child: Text(
+                        "Details du Post",
+                        style: TitleAddStyle,
                       ),
                     ),
                   ],
@@ -100,84 +110,211 @@ class _DetailsPostViewState extends State<DetailsPostView> {
               ),
             ),
           ),
+          SizedBox(
+            height: 100,
+          ),
           Center(
             child: Container(
-              width: 500,
-              height: 300,
+              width: 1000,
               child: Card(
-                elevation: 10,
-                child: Column(
-                  children: [
-                    TextField(
-                      enabled: isAdmin,
-                      controller: title,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le titre du Post ici'),
-                    ),
-                    TextField(
-                      enabled: isAdmin,
-                      controller: body,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le descriptif du Post ici'),
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          if (isAdmin) {
-                            if (widget.post.idPost != null) {
-                              await updatePost(
-                                  widget.post.idPost!, title.text, body.text);
-                            }
-
-                            Navigator.pop(context);
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Alerte'),
-                                content: const Text(
-                                    'Vous ne pouvez pas mettre a jour ce post car c\'est le post d\'un utilisateur'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () async {
-                                      Navigator.pop(context, 'ok');
-                                    },
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
+                shadowColor: DarkRedColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 25,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: title,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Titre du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          minLines: 1,
+                          maxLines: 5,
+                          style: InputStyle,
+                          enabled: false,
+                          controller: body,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Descriptif du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: date,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Date du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: time,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Heure du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: likes,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Likes du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: dislikes,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Dislikes du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: reported,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Nombre de signalement du post',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                              onPressed: () {
+                                showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: Text(
+                                              'Supression du post ${widget.post.title}'),
+                                          content: const Text(
+                                              'Voullez vous vraiment supprimer le Post ?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: const Text('Non'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await deletePost(
+                                                    widget.post.idPost!);
+                                                Navigator.pop(context, 'OK');
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Oui'),
+                                            ),
+                                          ],
+                                        ));
+                              },
+                              child: Text(
+                                "Supprimer le post",
+                                style: RedButtonStyle,
                               ),
-                            );
-                          }
-                        },
-                        child: Text("Mettre a jour le post")),
-                    TextButton(
-                        onPressed: () {
-                          showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'Supression du post ${widget.post.title}'),
-                                    content: const Text(
-                                        'Voullez vous vraiment supprimer le Post ?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Non'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          await deletePost(widget.post.idPost!);
-                                          Navigator.pop(context, 'OK');
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Oui'),
-                                      ),
-                                    ],
-                                  ));
-                        },
-                        child: Text("Supprimer le post")),
-                  ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

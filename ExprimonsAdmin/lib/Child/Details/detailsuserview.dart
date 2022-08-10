@@ -47,15 +47,16 @@ class _DetailsUserViewState extends State<DetailsUserView> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   child: Card(
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: DarkRedColor,
                     elevation: 2,
                     child: TextButton(
                       onPressed: () {
@@ -63,7 +64,7 @@ class _DetailsUserViewState extends State<DetailsUserView> {
                       },
                       child: Center(
                         child: Text(
-                          style: TextStyle(fontSize: 30),
+                          style: RedButtonStyle,
                           "<",
                         ),
                       ),
@@ -244,10 +245,38 @@ class _DetailsUserViewState extends State<DetailsUserView> {
                             color: DarkRedColor,
                             elevation: 5,
                             child: TextButton(
+                              onPressed: () {
+                                showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: Text(
+                                              'Supression de l\'utilisateur ${widget.user.lastName} ${widget.user.firstName}'),
+                                          content: const Text(
+                                              'Voullez vous vraiment supprimer l\'utilisateur ?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: const Text('Non'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await deleteUser(
+                                                    widget.user.idUser!);
+                                                Navigator.pop(context, 'OK');
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Oui'),
+                                            ),
+                                          ],
+                                        ));
+                              },
+    /*
                               onPressed: () async {
                                 await deleteUser(widget.user.idUser!);
                                 Navigator.pop(context);
-                              },
+                              },*/
                               child: Text(
                                 "Supprimer l'utilisateur",
                                 style: RedButtonStyle,
