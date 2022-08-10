@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -122,143 +123,174 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
           ),
           Center(
             child: Container(
+              width: 1000,
+              height: 100,
+
+              //child: Text(votes[index]["title"])
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 2,
+                color: DarkRedColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Detail d'un Vote",
+                        style: TitleAddStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 100,
+          ),
+          Center(
+            child: Container(
               width: 500,
-              height: 300,
+
               child: Card(
                 elevation: 10,
-                child: Column(
-                  children: [
-                    TextField(
-                      enabled: false,
-                      controller: title,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le titre du vote ici'),
-                    ),
-                    TextField(
-                      enabled: false,
-                      controller: body,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le descriptif du vote ici'),
-                    ),
-                    TextField(
-                      enabled: false,
-                      controller: nbChoice,
-                      autocorrect: true,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        // for below version 2 use this
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        // for version 2 and greater youcan also use this
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le nombre de choix ici'),
-                    ),
-                    Row(
-                      children: [
-                        Text("si coché le vote est important"),
-                        Checkbox(
-                          value: important,
-                          onChanged: null,
-                        ),
-                      ],
-                    ),
-                   /* TextButton(
-                        onPressed: () async {
-                          if (nbChoice.text == "" ||
-                              int.parse(nbChoice.text) >= 5 ||
-                              int.parse(nbChoice.text) <= 1) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Alerte'),
-                                content: const Text(
-                                    'il faut mettre entre 2 et 4 nombre de choix pour un vote'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () async {
-                                      Navigator.pop(context, 'ok');
-                                    },
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            optionVotes = List<OptionVotes>.filled(
-                                int.parse(nbChoice.text), OptionVotes());
-                            showDialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        enabled: false,
+                        controller: title,
+                        autocorrect: true,
+                        decoration: InputDecoration(
+                            hintText: 'Entrer le titre du vote ici'),
+                      ),
+                      TextField(
+                        enabled: false,
+                        controller: body,
+                        autocorrect: true,
+                        decoration: InputDecoration(
+                            hintText: 'Entrer le descriptif du vote ici'),
+                      ),
+                      TextField(
+                        enabled: false,
+                        controller: nbChoice,
+                        autocorrect: true,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          // for below version 2 use this
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          // for version 2 and greater youcan also use this
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration: InputDecoration(
+                            hintText: 'Entrer le nombre de choix ici'),
+                      ),
+                      Row(
+                        children: [
+                          Text("si coché le vote est important"),
+                          Checkbox(
+                            value: important,
+                            onChanged: null,
+                          ),
+                        ],
+                      ),
+                     /* TextButton(
+                          onPressed: () async {
+                            if (nbChoice.text == "" ||
+                                int.parse(nbChoice.text) >= 5 ||
+                                int.parse(nbChoice.text) <= 1) {
+                              showDialog(
                                 context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    child: Container(
-                                      width: 700,
-                                      height: 300,
-                                      color: ultraLightRedColor,
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 700,
-                                            height: 200,
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: ListView.builder(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      shrinkWrap: true,
-                                                      addRepaintBoundaries:
-                                                          true,
-                                                      itemCount: int.parse(
-                                                          nbChoice.text),
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Card(
-                                                          elevation: 10,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Column(
-                                                              children: [
-                                                                Container(
-                                                                  width: 150,
-                                                                  height: 100,
-                                                                  child:
-                                                                      TextField(
-                                                                    onChanged:
-                                                                        (text) {
-                                                                      optionVotes[index]
-                                                                              .label =
-                                                                          text;
-                                                                    },
-                                                                    autocorrect:
-                                                                        true,
-                                                                    decoration: InputDecoration(
-                                                                        hintText:
-                                                                            'option ${index + 1} '),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Alerte'),
+                                  content: const Text(
+                                      'il faut mettre entre 2 et 4 nombre de choix pour un vote'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context, 'ok');
+                                      },
+                                      child: const Text('Ok'),
                                     ),
-                                  );
-                                });
-                          }
-                        },
-                        child: Text("Créer le vote")),*/
-                  ],
+                                  ],
+                                ),
+                              );
+                            } else {
+                              optionVotes = List<OptionVotes>.filled(
+                                  int.parse(nbChoice.text), OptionVotes());
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      child: Container(
+                                        width: 700,
+                                        height: 300,
+                                        color: ultraLightRedColor,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 700,
+                                              height: 200,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        shrinkWrap: true,
+                                                        addRepaintBoundaries:
+                                                            true,
+                                                        itemCount: int.parse(
+                                                            nbChoice.text),
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return Card(
+                                                            elevation: 10,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Column(
+                                                                children: [
+                                                                  Container(
+                                                                    width: 150,
+                                                                    height: 100,
+                                                                    child:
+                                                                        TextField(
+                                                                      onChanged:
+                                                                          (text) {
+                                                                        optionVotes[index]
+                                                                                .label =
+                                                                            text;
+                                                                      },
+                                                                      autocorrect:
+                                                                          true,
+                                                                      decoration: InputDecoration(
+                                                                          hintText:
+                                                                              'option ${index + 1} '),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
+                            }
+                          },
+                          child: Text("Créer le vote")),*/
+                    ],
+                  ),
                 ),
               ),
             ),

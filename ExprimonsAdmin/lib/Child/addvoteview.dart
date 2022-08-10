@@ -79,7 +79,7 @@ class _AddVoteViewState extends State<AddVoteView> {
                   children: [
                     Container(
                       child: Text(
-                        "Ajout de Post",
+                        "Ajout de Vote",
                         style: TitleAddStyle,
                       ),
                     ),

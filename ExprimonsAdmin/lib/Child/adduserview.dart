@@ -16,7 +16,7 @@ class _AddUserViewState extends State<AddUserView> {
   late TextEditingController firstName;
   late TextEditingController lastName;
 
-  String gender = "Veuillez spécifier un genre";
+  String gender= 'Veuillez spécifier un genre';
   late TextEditingController areaCode;
   late TextEditingController email;
   late TextEditingController password;
@@ -224,18 +224,24 @@ class _AddUserViewState extends State<AddUserView> {
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              width: 15,
+                            ),
                             Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25)),
                               color: DarkRedColor,
                               elevation: 5,
-                              child: TextButton(
-                                onPressed: () {
-                                  _selectDate(context);
-                                },
-                                child: Text(
-                                  "Choisisez une date",
-                                  style: InputButtonDateStyle,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    _selectDate(context);
+                                  },
+                                  child: Text(
+                                    "Choisisez une date",
+                                    style: InputButtonDateStyle,
+                                  ),
                                 ),
                               ),
                             )
@@ -297,21 +303,20 @@ class _AddUserViewState extends State<AddUserView> {
                             labelText:
                                 'Entrer le code postale de l\'utilisateur ici',
                             floatingLabelStyle: TextStyle(color: Colors.red),
-                            errorText: _validateareaCode
-                                ? errorMessageAreaCode
-                                : null,
+                            errorText:
+                                _validateareaCode ? errorMessageAreaCode : null,
                           ),
                           onChanged: (text) {
                             setState(() {
                               if (text == "") {
                                 _validateareaCode = true;
-                                errorMessageAreaCode = "Cette valeur ne peut etre vide";
-                              } else if(text.length!=5){
-                                _validateareaCode=true;
-                                errorMessageAreaCode = "Code Postale non valide";
-
-                              }
-                              else {
+                                errorMessageAreaCode =
+                                    "Cette valeur ne peut etre vide";
+                              } else if (text.length != 5) {
+                                _validateareaCode = true;
+                                errorMessageAreaCode =
+                                    "Code Postale non valide";
+                              } else {
                                 _validateareaCode = false;
                               }
                             });
@@ -334,19 +339,19 @@ class _AddUserViewState extends State<AddUserView> {
                             ),
                             labelText: 'Entrer l\'email de l\'utilisateur ici',
                             floatingLabelStyle: TextStyle(color: Colors.red),
-                            errorText: _validateEmail
-                                ? errorMessageEmail
-                                : null,
+                            errorText:
+                                _validateEmail ? errorMessageEmail : null,
                           ),
                           onChanged: (text) {
                             setState(() {
                               if (text == "") {
                                 _validateEmail = true;
-                                errorMessageEmail="Cette valeur ne peut etre vide";
+                                errorMessageEmail =
+                                    "Cette valeur ne peut etre vide";
                               } else if (!text.contains('@') ||
                                   !text.contains('.')) {
                                 _validateEmail = true;
-                                errorMessageEmail="Email non valide";
+                                errorMessageEmail = "Email non valide";
                               } else {
                                 _validateEmail = false;
                               }
@@ -407,6 +412,7 @@ class _AddUserViewState extends State<AddUserView> {
                                   if (_validatefirstName == true ||
                                       _validatelastName == true ||
                                       _validateareaCode == true ||
+                                      gender == "Veuillez spécifier un genre" ||
                                       _validateEmail == true ||
                                       _validatePassword == true ||
                                       birthDate.text == "00/00/0000") {
