@@ -198,14 +198,26 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		button.setOnAction(new EventHandler<ActionEvent>() {
+		/*button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				//createDialogueTask2(event);
-				createDialogueTask3(event);
+				///createDialogueTask3(event);
 				// System.out.println("Prout");
 			}
-		});
+		});*/
+		
+		/*button.setOnMouseClicked((event) -> {
+
+			System.out.println("Tache à ouvrir...");
+			// Window window = ((Node) event.getTarget()).getScene().getWindow();
+			try {
+				showAddTask(event);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});*/
 
 		VBox vbox = new VBox();
 		vbox.prefWidth(182);
@@ -236,13 +248,24 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		button.setOnAction(new EventHandler<ActionEvent>() {
+		/*button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				//createDialogueTask2(event);
-				createDialogueTask3(event);
+				
 			}
-		});
+		});*/
+		button.setOnMouseClicked((event) -> {
+
+				System.out.println("Tache à ouvrir...");
+				// Window window = ((Node) event.getTarget()).getScene().getWindow();
+				try {
+					showAddTask2(event, idList);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 
 		VBox vbox = new VBox();
 		vbox.prefWidth(182);
@@ -401,5 +424,35 @@ public class HomeController implements Initializable {
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 		stage.show();
+	}
+	
+	private void showAddTask(MouseEvent event, int idList) throws IOException {
+		Stage stage = new Stage();
+		FXMLLoader root = FXMLLoader.load(CreateTaskModalController.class.getResource("/resources/CreateTaskModal.fxml"));
+		Parent parent = FXMLLoader.load(CreateTaskModalController.class.getResource("/resources/CreateTaskModal.fxml"));
+;		CreateTaskModalController controller = new CreateTaskModalController(user, idList, tags);
+		
+		root.setController(controller);
+		stage.setScene(new Scene(parent));
+		stage.setTitle("Nouvelle tâche");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+		stage.show();
+	}
+	
+	private void showAddTask2(MouseEvent event, int idList) throws IOException {
+		Stage modalDialog = new Stage();
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource( "/resources/CreateTaskModal.fxml" ));
+	    CreateTaskModalController controller = new CreateTaskModalController(user, idList, tags);
+	    loader.setController(controller);
+	    Parent modalDialogRoot = loader.load();
+	    //CreateTaskModalController controller = loader.getController(); // Retrieve the controller
+	    Scene modalScene = new Scene( modalDialogRoot);
+	    modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+	    modalDialog.setScene(modalScene);
+	    modalDialog.setResizable(false);
+
+	    // You need Platform.runLater() so that this method doesn't get blocked
+	    Platform.runLater(() -> modalDialog.showAndWait());
 	}
 }
