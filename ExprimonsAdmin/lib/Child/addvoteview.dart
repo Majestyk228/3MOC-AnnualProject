@@ -1,4 +1,5 @@
 import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/component/dialogaddoptionvote.dart';
 import 'package:exprimons_nous/objects/optionvote.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:exprimons_nous/TextStyle.dart';
@@ -18,6 +19,11 @@ class _AddVoteViewState extends State<AddVoteView> {
   late TextEditingController nbChoice;
   bool important = false;
   late List<OptionVotes> optionVotes;
+  bool _validateTitle = true;
+  bool _validateBody = true;
+  bool _validateNbChoice = true;
+
+  String errorMessageNbChoice = "Cette valeur ne peut etre vide";
 
   @override
   void initState() {
@@ -93,163 +99,180 @@ class _AddVoteViewState extends State<AddVoteView> {
           ),
           Center(
             child: Container(
-              width: 500,
-              height: 300,
+              width: 1000,
               child: Card(
-                elevation: 10,
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: title,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le titre du vote ici'),
-                    ),
-                    TextField(
-                      controller: body,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le descriptif du vote ici'),
-                    ),
-                    TextField(
-                      controller: nbChoice,
-                      autocorrect: true,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        // for below version 2 use this
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        // for version 2 and greater youcan also use this
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: InputDecoration(
-                          hintText: 'Entrer le nombre de choix ici'),
-                    ),
-                    Row(
-                      children: [
-                        Text("Si c'est un vote important cocher la case"),
-                        Checkbox(
-                          value: important,
-                          onChanged: (bool? value) {
+                shadowColor: DarkRedColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 25,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          controller: title,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrer le titre du vote ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validateTitle
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
                             setState(() {
-                              important = value!;
+                              if (text == "") {
+                                _validateTitle = true;
+                              } else {
+                                _validateTitle = false;
+                              }
                             });
                           },
                         ),
-                      ],
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          if (nbChoice.text == "" ||
-                              int.parse(nbChoice.text) >= 5 ||
-                              int.parse(nbChoice.text) <= 1) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Alerte'),
-                                content: const Text(
-                                    'il faut mettre entre 2 et 4 nombre de choix pour un vote'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () async {
-                                      Navigator.pop(context, 'ok');
-                                    },
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-
-                            optionVotes = List<OptionVotes>.generate(int.parse(nbChoice.text), (int index) =>OptionVotes());
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    child: Container(
-                                      width: 700,
-                                      height: 300,
-                                      color: ultraLightRedColor,
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 700,
-                                            height: 200,
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: ListView.builder(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      shrinkWrap: true,
-                                                      addRepaintBoundaries:
-                                                          true,
-                                                      itemCount: int.parse(
-                                                          nbChoice.text),
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Card(
-                                                          elevation: 10,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Column(
-                                                              children: [
-                                                                Container(
-                                                                  width: 150,
-                                                                  height: 100,
-                                                                  child:
-                                                                      TextField(
-                                                                    onChanged:
-                                                                        (text) {
-                                                                      optionVotes[index].label = text;
-                                                                    },
-                                                                    autocorrect:
-                                                                        true,
-                                                                    decoration: InputDecoration(
-                                                                        hintText:
-                                                                            'option ${index + 1} '),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          TextButton(
-                                              onPressed: () async {
-                                                final idVote = await addVotes(
-                                                    title.text,
-                                                    body.text,
-                                                    nbChoice.text,
-                                                    important);
-
-                                                for (int i = 0;
-                                                    i < optionVotes.length;
-                                                    i++) {
-                                                  print(optionVotes[i].label);
-                                                  optionVotes[i].idVote =
-                                                      idVote;
-                                                }
-                                                addOptionVotes(optionVotes);
-                                                Navigator.pop(context);
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                  "Créer les options du vote")),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          minLines: 1,
+                          maxLines: 5,
+                          controller: body,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Entrer le descriptif du vote ici',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText: _validateBody
+                                ? 'Cette valeur ne peut etre vide'
+                                : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validateBody = true;
+                              } else {
+                                _validateBody = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          controller: nbChoice,
+                          autocorrect: true,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            // for below version 2 use this
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                            // for version 2 and greater youcan also use this
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: "Entrer le Nombre d'options de vote ici",
+                            hintText: "3",
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                            errorText:
+                                _validateNbChoice ? errorMessageNbChoice : null,
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              if (text == "") {
+                                _validateNbChoice = true;
+                                errorMessageNbChoice =
+                                    'Cette valeur ne peut etre vide';
+                              } else if (int.parse(text) >= 5 ||
+                                  int.parse(text) <= 1) {
+                                _validateNbChoice = true;
+                                errorMessageNbChoice =
+                                    "Veuillez rentrer un chiffre entre 2 et 4";
+                              } else {
+                                _validateNbChoice = false;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Si c'est un vote important cocher la case",
+                              style: InputStyle,
+                            ),
+                            Checkbox(
+                              value: important,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  important = value!;
                                 });
-                          }
-                        },
-                        child: Text("Créer le vote")),
-                  ],
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                                onPressed: () async {
+                                  if (_validateTitle == true ||
+                                      _validateBody == true ||
+                                      _validateNbChoice == true) {
+                                    setState(() {});
+                                  } else {
+                                    optionVotes = List<OptionVotes>.generate(
+                                        int.parse(nbChoice.text),
+                                        (int index) => OptionVotes());
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return DialogAddOptionVote(nbChoice: int.parse(nbChoice.text),title: title.text,body: body.text,important: important,) ;
+                                        });
+                                  }
+                                },
+                                child: Text(
+                                  "Créer le vote",
+                                  style: RedButtonStyle,
+                                )),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -259,3 +282,6 @@ class _AddVoteViewState extends State<AddVoteView> {
     );
   }
 }
+
+
+
