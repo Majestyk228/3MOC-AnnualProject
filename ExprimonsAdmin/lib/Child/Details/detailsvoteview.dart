@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/Globals.dart';
 import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,11 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
 
   bool important = false;
 
-  //late List<OptionVotes> optionVotes;
+  var optionVotes = [];
 
   @override
   void initState() {
-    /*refreshOptionVotes();*/
+    refreshOptionVotes();
     super.initState();
     title = TextEditingController();
     body = TextEditingController();
@@ -46,41 +47,40 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
     }
   }
 
-  /*Future refreshOptionVotes() async {
+  Future refreshOptionVotes() async {
     //endpoint
-    Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteinfo");
+    Uri uri = Uri.parse("https://www.titan-photography.com/vote/voteInfo");
     //methode get du package HTTP
-    print(widget.vote.idVote);
-    var body = jsonEncode({
-      "idVote": 53
-      //"idVote": widget.vote.idVote
-    });
-    print(body);
+
+    var body = jsonEncode({"idVote": widget.vote.idVote});
+
     final response = await http.post(uri,
         headers: {
           "Access-Control-Allow-Origin": "*",
           // Required for CORS support to work
           "Access-Control-Allow-Headers":
               "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-          "Access-Control-Allow-Methods": "POST, OPTIONS"
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          'Content-Type': 'application/json; charset=UTF-8',
+          "token": currentAdmin.token!
         },
         body: body);
 
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
-  print(data);
+
     this.optionVotes = [];
     setState(() {
-      for (var i = 0; i < data[0]['voteOptions'].length; i++) {
+      for (var i = 0; i < data[0]["voteOptions"].length; i++) {
         OptionVotes uneOptionVote = OptionVotes(
-          label: data[0]['voteOptions']['label'],
-          idVote: widget.vote.idVote
+          label: data[0]["voteOptions"][i]["label"],
+          idVote: widget.vote.idVote,
+          nbChoice: data[0]["nbChoiceVoteOptions"][i]["nbChoice"],
         );
-
         optionVotes.add(uneOptionVote);
       }
     });
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderSide:
-                                BorderSide(color: DarkRedColor, width: 2)),
+                                    BorderSide(color: DarkRedColor, width: 2)),
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Color(0xFFFFCBD0), width: 3.0),
@@ -224,7 +224,6 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
                             labelText: 'le nombre de choix',
                             floatingLabelStyle: TextStyle(color: Colors.red),
                           ),
-
                         ),
                       ),
                       Padding(
@@ -236,8 +235,65 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
                                 child: Text(
                                   style: InputStyle,
                                   "Ce vote est important",
-
                                 )),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Options du votes",
+                          style: TextStyle(
+                            fontFamily: 'QuickSand',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 48,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 800,
+                              height: 300,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  addRepaintBoundaries: false,
+                                  itemCount: optionVotes.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      width: 500,
+                                      height: 75,
+                                      child: Card(
+                                        shadowColor: DarkRedColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        elevation: 25,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "Titre du vote: ${optionVotes[index].label ?? "Loading"}.",
+                                                style: InputStyle,
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Text(
+                                                "Nombre de votes:${optionVotes[index].nbChoice ?? "0"}.",
+                                                style: InputStyle,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
                           ],
                         ),
                       ),
@@ -292,99 +348,6 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
                           ),
                         ),
                       ),
-                      /* TextButton(
-                          onPressed: () async {
-                            if (nbChoice.text == "" ||
-                                int.parse(nbChoice.text) >= 5 ||
-                                int.parse(nbChoice.text) <= 1) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Alerte'),
-                                  content: const Text(
-                                      'il faut mettre entre 2 et 4 nombre de choix pour un vote'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () async {
-                                        Navigator.pop(context, 'ok');
-                                      },
-                                      child: const Text('Ok'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              optionVotes = List<OptionVotes>.filled(
-                                  int.parse(nbChoice.text), OptionVotes());
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Dialog(
-                                      child: Container(
-                                        width: 700,
-                                        height: 300,
-                                        color: ultraLightRedColor,
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              width: 700,
-                                              height: 200,
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        shrinkWrap: true,
-                                                        addRepaintBoundaries:
-                                                            true,
-                                                        itemCount: int.parse(
-                                                            nbChoice.text),
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          return Card(
-                                                            elevation: 10,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Column(
-                                                                children: [
-                                                                  Container(
-                                                                    width: 150,
-                                                                    height: 100,
-                                                                    child:
-                                                                        TextField(
-                                                                      onChanged:
-                                                                          (text) {
-                                                                        optionVotes[index]
-                                                                                .label =
-                                                                            text;
-                                                                      },
-                                                                      autocorrect:
-                                                                          true,
-                                                                      decoration: InputDecoration(
-                                                                          hintText:
-                                                                              'option ${index + 1} '),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            }
-                          },
-                          child: Text("Créer le vote")),*/
                     ],
                   ),
                 ),

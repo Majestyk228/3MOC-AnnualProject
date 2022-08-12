@@ -5,16 +5,20 @@ import 'package:http/http.dart' as http;
 class OptionVotes {
   String? label;
   int? idVote;
+  int? nbChoice;
 
   OptionVotes({
     this.label,
     this.idVote,
+    this.nbChoice,
+
   });
 
   factory OptionVotes.fromJson(Map<String, dynamic> json) {
     return OptionVotes(
       label: json['label'],
       idVote: json['idVote'],
+      nbChoice: json['nbChoice']
     );
   }
 }

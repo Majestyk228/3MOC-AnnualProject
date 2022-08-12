@@ -48,7 +48,7 @@ class _UserViewState extends State<UserView> {
 
     this.users = [];
     setState(() {
-      print("Bark3");
+
       for (var i = 0; i < data.length; i++) {
         User unUser = User(
           idUser: data[i]['idUser'],
@@ -90,7 +90,7 @@ class _UserViewState extends State<UserView> {
                         MaterialPageRoute(
                             builder: (context) => const AddUserView()),
                       );
-                      print("Bark");
+
                       refreshUsers();
                     },
                     child: Container(
