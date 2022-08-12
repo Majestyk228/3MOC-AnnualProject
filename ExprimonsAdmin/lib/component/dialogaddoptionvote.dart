@@ -83,61 +83,59 @@ class _DialogAddOptionVoteState extends State<DialogAddOptionVote> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Expanded(
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              addRepaintBoundaries: true,
-                              itemCount: widget.nbChoice,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  shadowColor: DarkRedColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  elevation: 25,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 200,
-                                          height: 100,
-                                          child: TextField(
-                                            style: InputStyle,
-                                            minLines: 1,
-                                            maxLines: 5,
-                                            onChanged: (text) {
-                                              optionVotes[index].label = text;
-                                            },
-                                            autocorrect: true,
-                                            decoration: InputDecoration(
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: DarkRedColor,
-                                                      width: 2)),
-                                              border: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    color: Color(0xFFFFCBD0),
-                                                    width: 3.0),
-                                              ),
-                                              labelText: 'option ${index + 1} ',
-                                              floatingLabelStyle:
-                                                  TextStyle(color: Colors.red),
-                                              /*
-                                              errorText: _validateBody
-                                                  ? 'Cette valeur ne peut etre vide'
-                                                  : null,
-
-                                               */
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            addRepaintBoundaries: true,
+                            itemCount: widget.nbChoice,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                shadowColor: DarkRedColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 25,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        height: 100,
+                                        child: TextField(
+                                          style: InputStyle,
+                                          minLines: 1,
+                                          maxLines: 5,
+                                          onChanged: (text) {
+                                            optionVotes[index].label = text;
+                                          },
+                                          autocorrect: true,
+                                          decoration: InputDecoration(
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: DarkRedColor,
+                                                    width: 2)),
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  color: Color(0xFFFFCBD0),
+                                                  width: 3.0),
                                             ),
+                                            labelText: 'option ${index + 1} ',
+                                            floatingLabelStyle:
+                                                TextStyle(color: Colors.red),
+                                            /*
+                                            errorText: _validateBody
+                                                ? 'Cette valeur ne peut etre vide'
+                                                : null,
+
+                                             */
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              }),
-                        ),
+                                ),
+                              );
+                            }),
                       ),
                     ],
                   ),

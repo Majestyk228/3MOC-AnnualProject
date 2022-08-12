@@ -108,7 +108,7 @@ class _InvitationViewState extends State<InvitationView> {
                       height: 75,
                       child: Center(
                         child: Text(
-                          "Add Invitation",
+                          "Ajouter une invitation",
                           style: RedButtonStyle,
                         ),
                       ),

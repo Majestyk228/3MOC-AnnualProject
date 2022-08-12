@@ -1,3 +1,4 @@
+import 'package:exprimons_nous/Child/commentview.dart';
 import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 
@@ -82,6 +83,30 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                     ),
                   ),
                 ),
+              ),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 2,
+                color: DarkRedColor,
+                child: TextButton(
+                    onPressed: () async {
+                      final value = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  CommentView(idPost: widget.post.idPost!,titlePost: widget.post.title!,)),
+                      );
+                    },
+                    child: Container(
+                      width: 300,
+                      height: 75,
+                      child: Center(
+                        child: Text(
+                          "Commentaires du post",
+                          style: RedButtonStyle,
+                        ),
+                      ),
+                    )),
               ),
             ],
           ),
