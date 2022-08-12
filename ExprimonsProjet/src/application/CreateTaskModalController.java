@@ -7,12 +7,15 @@ import java.util.ResourceBundle;
 import controllers.Tag;
 import controllers.Task;
 import controllers.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import modele.Modele;
 
 public class CreateTaskModalController implements Initializable {
 	
@@ -48,7 +51,14 @@ public class CreateTaskModalController implements Initializable {
 		
 		Task taskToInsert = new Task(0, taskName, taskDesc, user.getIdUser(), idList,selectedTag.getIdTag());
 		
-		System.out.println("Tache créée => " + taskToInsert);
+		Modele.insertTask(taskToInsert);
+		
+		Stage thisStage = new Stage();
+		
+		//Platform.exit();
+		
+		//System.out.println("Tache créée => " + taskToInsert);
+		
 	}
 
 	@Override
@@ -56,8 +66,7 @@ public class CreateTaskModalController implements Initializable {
 		// TODO Auto-generated method stub
 		System.out.println("init");
 		
-		TaskTag.getItems().addAll(tags);
-		
+		TaskTag.getItems().addAll(tags);		
 	}
 
 }

@@ -1,7 +1,7 @@
 package controllers;
 
 public class Task {
-	
+
 	// ATTRIBUTES
 	private int idTask;
 	private String title;
@@ -9,9 +9,7 @@ public class Task {
 	private int idUser;
 	private int idList;
 	private int idTag;
-	
-	
-	
+
 	// CONSTRUCTOR
 	public Task(int idTask, String title, String description, int idUser, int idList, int idTag) {
 		this.idTask = idTask;
@@ -21,9 +19,11 @@ public class Task {
 		this.idList = idList;
 		this.idTag = idTag;
 	}
-	
-	
-	
+
+	public Task() {
+
+	}
+
 	// GETTERS & SETTERS
 	public int getIdTask() {
 		return idTask;
@@ -73,15 +73,11 @@ public class Task {
 		this.idTag = idTag;
 	}
 
-	
-	
 	// TO STRING
 	@Override
 	public String toString() {
 		return "Task [idTask=" + idTask + ", title=" + title + ", description=" + description + ", idUser=" + idUser
 				+ ", idList=" + idList + ", idTag=" + idTag + "]";
 	}
-	
-	
-	
+
 }

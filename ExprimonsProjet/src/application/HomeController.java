@@ -296,7 +296,17 @@ public class HomeController implements Initializable {
 			HBox task = new HBox();
 			task.prefWidth(200);
 			task.prefHeight(50);
-			// HBox.setMargin(task, new Insets(550, 0, 0, 50));
+			task.setId(tasks.get(i).getIdTask()+"");			
+			
+			task.setOnMouseClicked((event) -> {
+				// Window window = ((Node) event.getTarget()).getScene().getWindow();
+				try {
+					showDetailPage(event);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 
 			Label nameTask = new Label(tasks.get(i).getTitle());
 			nameTask.setId("titleTask");
@@ -311,21 +321,7 @@ public class HomeController implements Initializable {
 			task.getChildren().add(nameTask);
 			task.getChildren().add(tag);
 
-			// arent.getChildrenUnmodifiable().add(task);
-
 			vbox.getChildren().add(vbox.getChildren().indexOf(vbox.lookup("AddTaskButton")) + 1, task);
-
-			vbox.setOnMouseClicked((event) -> {
-
-				System.out.println("Tache à ouvrir...");
-				// Window window = ((Node) event.getTarget()).getScene().getWindow();
-				try {
-					showDetailPage(event);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
 		}
 	}
 
@@ -354,8 +350,22 @@ public class HomeController implements Initializable {
 
 		((VBox) parent).getChildren().add(((VBox) parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1,
 				task);
+		
+		for(int i=0 ; i<((VBox) parent).getChildren().size(); i++) {
+			((VBox) parent).getChildren().get(i).setOnMouseClicked((event) -> {
 
-		((VBox) parent).setOnMouseClicked((event) -> {
+				System.out.println("Tache à ouvrir...");
+				// Window window = ((Node) event.getTarget()).getScene().getWindow();
+				try {
+					showDetailPage(event);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+		}
+
+		/*((VBox) parent).setOnMouseClicked((event) -> {
 
 			System.out.println("Tache à ouvrir...");
 			// Window window = ((Node) event.getTarget()).getScene().getWindow();
@@ -365,7 +375,7 @@ public class HomeController implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		});
+		});*/
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
@@ -417,27 +427,27 @@ public class HomeController implements Initializable {
 	}
 
 	private void showDetailPage(MouseEvent event) throws IOException {
-		Stage stage = new Stage();
-		Parent root = FXMLLoader.load(DetailController.class.getResource("/resources/DetailPage.fxml"));
-		stage.setScene(new Scene(root));
-		stage.setTitle("Details");
-		stage.initModality(Modality.WINDOW_MODAL);
-		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-		stage.show();
-	}
-	
-	private void showAddTask(MouseEvent event, int idList) throws IOException {
-		Stage stage = new Stage();
-		FXMLLoader root = FXMLLoader.load(CreateTaskModalController.class.getResource("/resources/CreateTaskModal.fxml"));
-		Parent parent = FXMLLoader.load(CreateTaskModalController.class.getResource("/resources/CreateTaskModal.fxml"));
-;		CreateTaskModalController controller = new CreateTaskModalController(user, idList, tags);
 		
-		root.setController(controller);
-		stage.setScene(new Scene(parent));
-		stage.setTitle("Nouvelle tâche");
-		stage.initModality(Modality.WINDOW_MODAL);
-		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-		stage.show();
+		Stage modalDialog = new Stage();
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource( "/resources/DetailPage.fxml" ));
+	    
+	    Node source = (Node) event.getSource();
+	    String id = source.getId();
+	    
+	    System.out.println("task id = " + id);
+	    
+	    DetailController controller = new DetailController(id, user);
+	    loader.setController(controller);
+	    Parent modalDialogRoot = loader.load();
+	    //CreateTaskModalController controller = loader.getController(); // Retrieve the controller
+	    Scene modalScene = new Scene(modalDialogRoot);
+	    modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+	    modalDialog.setTitle("Détail de tâche");
+	    modalDialog.setScene(modalScene);
+	    modalDialog.setResizable(false);
+
+	    // You need Platform.runLater() so that this method doesn't get blocked
+	    Platform.runLater(() -> modalDialog.showAndWait());
 	}
 	
 	private void showAddTask2(MouseEvent event, int idList) throws IOException {
@@ -447,7 +457,7 @@ public class HomeController implements Initializable {
 	    loader.setController(controller);
 	    Parent modalDialogRoot = loader.load();
 	    //CreateTaskModalController controller = loader.getController(); // Retrieve the controller
-	    Scene modalScene = new Scene( modalDialogRoot);
+	    Scene modalScene = new Scene(modalDialogRoot);
 	    modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
 	    modalDialog.setScene(modalScene);
 	    modalDialog.setResizable(false);

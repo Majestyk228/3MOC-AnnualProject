@@ -1,16 +1,18 @@
 package controllers;
 
 public class Tag {
-	
-	 // ATTRIBUTES
+
+	// ATTRIBUTES
 	private int idTag;
 	private String name;
-	
+
 	// CONSTRUCTOR
 	public Tag(int idTag, String name) {
-		super();
 		this.idTag = idTag;
 		this.name = name;
+	}
+
+	public Tag() {
 	}
 
 	// GETTERS & SETTERS

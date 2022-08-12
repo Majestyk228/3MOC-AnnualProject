@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import controllers.Comment;
 import controllers.ListTask;
 import controllers.Tag;
 import controllers.Task;
@@ -14,24 +15,21 @@ public class Modele {
 
 	private static Database db = new Database("exprimons-projet.c50gqqod3ibz.eu-west-3.rds.amazonaws.com",
 			"exprimonsnousprojet", "admin", "kB9qG7e3zEU3");
-	
-	
+
 	// =====================================
-	
-	public static void executerRequete (String requete)
-	{
+
+	public static void executerRequete(String requete) {
 		try {
 			db.seConnecter();
-			Statement unStat = db.getMaConnexion().createStatement(); 
-			unStat.execute(requete); 
+			Statement unStat = db.getMaConnexion().createStatement();
+			unStat.execute(requete);
 			unStat.close();
 			db.seDeconnecter();
-		}
-		catch(SQLException exp) {
-			System.out.println("Erreur d'exécution de la requete : " + requete );
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + requete);
 		}
 	}
-	
+
 	// =====================================
 
 	public static User verifConnexion(String email, String password) {
@@ -123,9 +121,9 @@ public class Modele {
 				+ task.getIdUser() + "," + task.getIdList() + ", " + task.getIdTag() + " );";
 		executerRequete(requete);
 	}
-	
+
 	// =====================================================================================================
-	
+
 	public static ArrayList<Tag> getAllTags() { // RETREIVE LISTS WITHOUT TASKS
 
 		ArrayList<Tag> allTags = new ArrayList<Tag>();
@@ -150,5 +148,80 @@ public class Modele {
 		}
 
 		return allTags;
+	}
+
+	// =====================================================================================================
+
+	public static Task getTask(int idTask) { // RETREIVE LISTS WITHOUT TASKS
+
+		Task task = new Task();
+		String request = "SELECT * FROM Task WHERE idTask = " + idTask + ";";
+
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
+
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
+
+			if (unRes.next()) {
+				task.setIdTask(unRes.getInt("idTask"));
+				task.setTitle(unRes.getString("title"));
+				task.setDescription(unRes.getString("description"));
+				task.setIdUser(unRes.getInt("idUser"));
+				task.setIdList(unRes.getInt("idList"));
+				task.setIdTag(unRes.getInt("idTag"));
+			}
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
+			System.out.println(exp);
+		}
+
+		return task;
+	}
+
+	// =====================================================================================================
+
+	public static ArrayList<Comment> getCommentFromTask(int idTask) { // RETREIVE LISTS WITHOUT TASKS
+
+		ArrayList<Comment> comments = new ArrayList<Comment>();
+		String request = "SELECT * FROM Comment WHERE idTask = " + idTask + ";";
+
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
+
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
+
+			while (unRes.next()) {
+				comments.add(new Comment(unRes.getInt("idComment"), unRes.getString("body"), unRes.getString("date"),
+						unRes.getInt("idTask"), unRes.getInt("idUser")));
+			}
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
+			System.out.println(exp);
+		}
+
+		return comments;
+	}
+
+	// =====================================================================================================
+
+	public static void insertComment(Comment comment) { // RETREIVE LISTS WITHOUT TASKS
+
+		//INSERT INTO Comment VALUES (null, "C'est si dur, seigneur aidé moi", "2022-08-12", 1, 1);
+		// ESCAPIG ' CHARACTERES
+		String body = comment.getBody().replace("'", "\'");
+		String requete = "INSERT INTO Comment VALUES (null, \""+body+"\", '"+comment.getDate()+"', "+comment.getIdTask()+", "+comment.getIdUser()+");";
+		executerRequete(requete);
 	}
 }
