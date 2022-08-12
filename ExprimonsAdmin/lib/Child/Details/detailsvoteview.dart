@@ -32,22 +32,18 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
     title = TextEditingController();
     body = TextEditingController();
     nbChoice = TextEditingController();
-    title.text=widget.vote.title??"Failed to load";
-    body.text=widget.vote.body?? "Failed to load";
-    if(widget.vote.nbChoice==null){
-      nbChoice.text="Failed to load";
+    title.text = widget.vote.title ?? "Failed to load";
+    body.text = widget.vote.body ?? "Failed to load";
+    if (widget.vote.nbChoice == null) {
+      nbChoice.text = "Failed to load";
+    } else {
+      nbChoice.text = "${widget.vote.nbChoice!}";
     }
-    else{
-      nbChoice.text="${widget.vote.nbChoice!}";
+    if (widget.vote.important == 0) {
+      important = false;
+    } else {
+      important = true;
     }
-    if (widget.vote.important==0){
-      important=false;
-    }
-    else{
-      important=true;
-    }
-
-
   }
 
   /*Future refreshOptionVotes() async {
@@ -91,7 +87,7 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: ultraLightRedColor,
+      color: Colors.white,
       child: Column(
         children: [
           Row(
@@ -151,52 +147,152 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
           ),
           Center(
             child: Container(
-              width: 500,
-
+              width: 1000,
               child: Card(
-                elevation: 10,
+                shadowColor: DarkRedColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 25,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      TextField(
-                        enabled: false,
-                        controller: title,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le titre du vote ici'),
-                      ),
-                      TextField(
-                        enabled: false,
-                        controller: body,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le descriptif du vote ici'),
-                      ),
-                      TextField(
-                        enabled: false,
-                        controller: nbChoice,
-                        autocorrect: true,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          // for below version 2 use this
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          // for version 2 and greater youcan also use this
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            hintText: 'Entrer le nombre de choix ici'),
-                      ),
-                      Row(
-                        children: [
-                          Text("si coché le vote est important"),
-                          Checkbox(
-                            value: important,
-                            onChanged: null,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: title,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Titre du vote',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
                           ),
-                        ],
+                        ),
                       ),
-                     /* TextButton(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          minLines: 1,
+                          maxLines: 5,
+                          enabled: false,
+                          controller: body,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Descriptif du vote',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: nbChoice,
+                          autocorrect: true,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            // for below version 2 use this
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                            // for version 2 and greater youcan also use this
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'le nombre de choix',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Visibility(
+                                visible: important,
+                                child: Text(
+                                  style: InputStyle,
+                                  "Ce vote est important",
+
+                                )),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                              onPressed: () {
+                                showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: Text(
+                                              'Supression du vote " ${widget.vote.title} " '),
+                                          content: const Text(
+                                              'Voullez vous vraiment supprimer le vote ?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: const Text('Non'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await deleteVotes(
+                                                    widget.vote.idVote!);
+                                                Navigator.pop(context, 'OK');
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Oui'),
+                                            ),
+                                          ],
+                                        ));
+                              },
+                              /*
+                              onPressed: () async {
+                                await deleteUser(widget.user.idUser!);
+                                Navigator.pop(context);
+                              },*/
+                              child: Text(
+                                "Supprimer le vote",
+                                style: RedButtonStyle,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      /* TextButton(
                           onPressed: () async {
                             if (nbChoice.text == "" ||
                                 int.parse(nbChoice.text) >= 5 ||

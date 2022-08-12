@@ -61,11 +61,29 @@ Future<int> addVotes(String Title,String Body,String nbChoice,bool important) as
         "Access-Control-Allow-Headers":
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8',
+        "token":currentAdmin.token!
       },
       body: body);
 
   var data = json.decode(response.body);
 
   return data['idVote'];
+}
+
+Future deleteVotes(int idVote) async {
+  Uri uri = Uri.parse("https://titan-photography.com/vote/delete/${idVote}");
+
+
+
+  final response = await http.delete(uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        'Content-Type': 'application/json; charset=UTF-8',
+        "token":currentAdmin.token!
+      });
 }

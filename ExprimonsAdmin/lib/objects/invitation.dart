@@ -38,7 +38,8 @@ Future addInvitation() async {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8',
+        "token":currentAdmin.token!
       },
       body: body);
 }
@@ -53,6 +54,7 @@ Future deleteInvitation(invitationCode) async {
     "Access-Control-Allow-Headers":
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    'Content-Type': 'application/json; charset=UTF-8'
+    'Content-Type': 'application/json; charset=UTF-8',
+    "token":currentAdmin.token!
   });
 }
