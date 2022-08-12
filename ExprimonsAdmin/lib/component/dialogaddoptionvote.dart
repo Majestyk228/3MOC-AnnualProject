@@ -64,7 +64,7 @@ class _DialogAddOptionVoteState extends State<DialogAddOptionVote> {
                         children: [
                           Container(
                             child: Text(
-                              "Ajout d'utilisateur",
+                              "Ajout d'options de vote",
                               style: TitleAddStyle,
                             ),
                           ),
@@ -154,19 +154,45 @@ class _DialogAddOptionVoteState extends State<DialogAddOptionVote> {
                       elevation: 5,
                       child: TextButton(
                           onPressed: () async {
-                            final idVote = await addVotes(
-                                widget.title,
-                                widget.body,
-                                "${widget.nbChoice}",
-                                widget.important);
-
-                            for (int i = 0; i < optionVotes.length; i++) {
-                              print(optionVotes[i].label);
-                              optionVotes[i].idVote = idVote;
+                            late bool testAllInput = false;
+                            for (OptionVotes options in optionVotes) {
+                              if (options.label == null ||
+                                  options.label == "") {
+                                testAllInput = true;
+                              }
                             }
-                            addOptionVotes(optionVotes);
-                            Navigator.pop(context);
-                            Navigator.pop(context);
+                            if (testAllInput == false) {
+                              final idVote = await addVotes(
+                                  widget.title,
+                                  widget.body,
+                                  "${widget.nbChoice}",
+                                  widget.important);
+
+                              for (int i = 0; i < optionVotes.length; i++) {
+                                print(optionVotes[i].label);
+                                optionVotes[i].idVote = idVote;
+                              }
+                              addOptionVotes(optionVotes);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            } else {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Text('Erreur'),
+                                  content: const Text(
+                                      'Veuillez renseignez toutes les options.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context, 'OK');
+                                      },
+                                      child: const Text('Ok'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           },
                           child: Text(
                             "Créer les options du vote",
