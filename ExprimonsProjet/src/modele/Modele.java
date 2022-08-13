@@ -224,4 +224,75 @@ public class Modele {
 		String requete = "INSERT INTO Comment VALUES (null, \""+body+"\", '"+comment.getDate()+"', "+comment.getIdTask()+", "+comment.getIdUser()+");";
 		executerRequete(requete);
 	}
+	
+	// =====================================================================================================
+	
+	public static int insertList(ListTask listTask) { // RETREIVE LISTS WITHOUT TASKS
+
+		//INSERT INTO Comment VALUES (null, "C'est si dur, seigneur aidé moi", "2022-08-12", 1, 1);
+		// ESCAPIG ' CHARACTERES
+		String requete = "INSERT INTO List VALUES (null, \""+listTask.getTitle()+"\", "+listTask.getIdUser()+");";
+		executerRequete(requete);
+		
+		// GETTING THE LAST idList AFTER INSERT
+		
+		int idList = 0;
+		String request = "SELECT idList FROM List ORDER BY idList DESC LIMIT 1;";
+
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
+
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
+
+			if (unRes.next()) {
+				idList = unRes.getInt("idList");
+			}
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
+			System.out.println(exp);
+		}
+
+		return idList;
+	}
+	
+	// =====================================================================================================
+	
+	public static Task getLastCreatedTask() { // RETREIVE LISTS WITHOUT TASKS
+		
+		Task task = new Task();
+		String request = "SELECT * FROM Task ORDER BY idTask DESC LIMIT 1;";
+
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
+
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
+
+			if (unRes.next()) {
+				task.setIdTask(unRes.getInt("idTask"));
+				task.setTitle(unRes.getString("title"));
+				task.setDescription(unRes.getString("description"));
+				task.setIdUser(unRes.getInt("idUser"));
+				task.setIdList(unRes.getInt("idList"));
+				task.setIdTag(unRes.getInt("idTag"));
+			}
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
+			System.out.println(exp);
+		}
+
+		return task;
+	}
+	
 }

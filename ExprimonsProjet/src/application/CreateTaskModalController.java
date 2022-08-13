@@ -22,6 +22,8 @@ public class CreateTaskModalController implements Initializable {
 	private User user;
 	private int idList;
 	private ArrayList<Tag> tags;
+	private Stage modal;
+	private Task lastCreatedTask;
 	
 	@FXML
 	private TextField TaskName;
@@ -36,11 +38,12 @@ public class CreateTaskModalController implements Initializable {
 	private Button SubmitVote;
 	
 
-	public CreateTaskModalController(User user, int idList, ArrayList<Tag> tags) {
+	public CreateTaskModalController(User user, int idList, ArrayList<Tag> tags, Stage modal) {
 		// TODO Auto-generated constructor stub
 		this.user = user;
 		this.idList = idList;
 		this.tags = tags;
+		this.modal = modal;
 	}
 	
 	public void submitTask() {
@@ -53,12 +56,9 @@ public class CreateTaskModalController implements Initializable {
 		
 		Modele.insertTask(taskToInsert);
 		
-		Stage thisStage = new Stage();
+		lastCreatedTask = Modele.getLastCreatedTask();
 		
-		//Platform.exit();
-		
-		//System.out.println("Tache créée => " + taskToInsert);
-		
+		modal.close();
 	}
 
 	@Override
@@ -69,4 +69,7 @@ public class CreateTaskModalController implements Initializable {
 		TaskTag.getItems().addAll(tags);		
 	}
 
+	public Task getLastCreatedTask() {
+		return lastCreatedTask;
+	}
 }

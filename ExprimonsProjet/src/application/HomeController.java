@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import controllers.ListTask;
 import controllers.Tag;
@@ -95,102 +96,91 @@ public class HomeController implements Initializable {
 		});
 	}
 
-	public void createDialogueTask2(ActionEvent event) {
-		// Create the custom dialog.
-		Dialog<Pair<String, String>> dialog = new Dialog<>();
-		dialog.setTitle("TestName");
+	/*
+	 * public void createDialogueTask2(ActionEvent event) { // Create the custom
+	 * dialog. Dialog<Pair<String, String>> dialog = new Dialog<>();
+	 * dialog.setTitle("TestName");
+	 * 
+	 * // Set the button types. ButtonType loginButtonType = new ButtonType("OK",
+	 * ButtonData.OK_DONE);
+	 * dialog.getDialogPane().getButtonTypes().addAll(loginButtonType,
+	 * ButtonType.CANCEL);
+	 * 
+	 * VBox dialogVbox = new VBox(); dialogVbox.setPadding(new Insets(20, 150, 10,
+	 * 10));
+	 * 
+	 * TextField from = new TextField(); from.setPromptText("From"); TextField to =
+	 * new TextField(); to.setPromptText("To");
+	 * 
+	 * dialogVbox.getChildren().add(from); dialogVbox.getChildren().add(to);
+	 * 
+	 * dialog.getDialogPane().setContent(dialogVbox);
+	 * 
+	 * // Request focus on the username field by default. Platform.runLater(() ->
+	 * from.requestFocus());
+	 * 
+	 * // Convert the result to a username-password-pair when the login button is //
+	 * clicked. dialog.setResultConverter(dialogButton -> { if (dialogButton ==
+	 * loginButtonType) { return new Pair<>(from.getText(), to.getText()); } return
+	 * null; });
+	 * 
+	 * Optional<Pair<String, String>> result = dialog.showAndWait();
+	 * 
+	 * result.ifPresent(pair -> { System.out.println("From=" + pair.getKey() +
+	 * ", To=" + pair.getValue()); }); }
+	 */
 
-		// Set the button types.
-		ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+	/*
+	 * public void createDialogueTask3(ActionEvent event) { Dialog<ButtonType> alert
+	 * = new Dialog(); alert.setTitle("Ajout d'une tâche");
+	 * alert.setHeaderText("Entrez les informations de votre nouvelle tâche");
+	 * 
+	 * DialogPane dialogPane = new DialogPane();
+	 * dialogPane.getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
+	 * 
+	 * TextField titleTXT = new TextField(); TextField descriptionTXT = new
+	 * TextField(); ComboBox<Tag> tag = new ComboBox<>();
+	 * tag.getItems().addAll(tags);
+	 * 
+	 * VBox layout = new VBox(); layout.getChildren().addAll(titleTXT,
+	 * descriptionTXT, tag);
+	 * 
+	 * dialogPane.setContent(layout); //alert.setContentText("Choose your option.");
+	 * 
+	 * //ButtonType buttonTypeOne = new ButtonType("One"); //ButtonType
+	 * buttonTypeTwo = new ButtonType("Two"); //ButtonType buttonTypeThree = new
+	 * ButtonType("Three"); //ButtonType buttonTypeCancel = new ButtonType("Cancel",
+	 * ButtonData.CANCEL_CLOSE);
+	 * 
+	 * 
+	 * 
+	 * //alert.setDialogPane(new DialogPane().);
+	 * //alert.getButtonTypes().setAll(titleTXT, descriptionTXT, tag,
+	 * buttonTypeCancel);
+	 * 
+	 * Optional<ButtonType> result = alert.showAndWait(); }
+	 */
 
-		VBox dialogVbox = new VBox();
-		dialogVbox.setPadding(new Insets(20, 150, 10, 10));
-
-		TextField from = new TextField();
-		from.setPromptText("From");
-		TextField to = new TextField();
-		to.setPromptText("To");
-
-		dialogVbox.getChildren().add(from);
-		dialogVbox.getChildren().add(to);
-
-		dialog.getDialogPane().setContent(dialogVbox);
-
-		// Request focus on the username field by default.
-		Platform.runLater(() -> from.requestFocus());
-
-		// Convert the result to a username-password-pair when the login button is
-		// clicked.
-		dialog.setResultConverter(dialogButton -> {
-			if (dialogButton == loginButtonType) {
-				return new Pair<>(from.getText(), to.getText());
-			}
-			return null;
-		});
-
-		Optional<Pair<String, String>> result = dialog.showAndWait();
-
-		result.ifPresent(pair -> {
-			System.out.println("From=" + pair.getKey() + ", To=" + pair.getValue());
-		});
-	}
-
-	public void createDialogueTask3(ActionEvent event) {
-		Dialog<ButtonType> alert = new Dialog();
-		alert.setTitle("Ajout d'une tâche");
-		alert.setHeaderText("Entrez les informations de votre nouvelle tâche");
-		
-		DialogPane dialogPane = new DialogPane();
-		dialogPane.getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
-		
-		TextField titleTXT = new TextField();
-		TextField descriptionTXT = new TextField();
-		ComboBox<Tag> tag = new ComboBox<>();
-		tag.getItems().addAll(tags);
-		
-		VBox layout = new VBox();
-		layout.getChildren().addAll(titleTXT, descriptionTXT, tag);
-		
-		dialogPane.setContent(layout);
-		//alert.setContentText("Choose your option.");
-
-		//ButtonType buttonTypeOne = new ButtonType("One");
-		//ButtonType buttonTypeTwo = new ButtonType("Two");
-		//ButtonType buttonTypeThree = new ButtonType("Three");
-		//ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		
-		
-
-		//alert.setDialogPane(new DialogPane().);
-		//alert.getButtonTypes().setAll(titleTXT, descriptionTXT, tag, buttonTypeCancel);
-
-		Optional<ButtonType> result = alert.showAndWait();
-	}
-
-	public void createDialogueTask(ActionEvent event) {
-		// create a text input dialog
-		TextInputDialog td = new TextInputDialog("Nom de la tâche...");
-
-		// setHeaderText
-		td.setHeaderText("Nommez la nouvelle tâche");
-
-		Optional<String> result = td.showAndWait();
-
-		result.ifPresent(taskName -> {
-			createTask(((Parent) event.getSource()).getParent(), taskName);
-			System.out.println(((Node) ((Parent) event.getSource()).getParent()).getParent().getParent().getId());
-			int idList = 0;
-
-			/*
-			 * for(int i=0 ; i<lists.size() ; i++) { if(lists.get(i).getTitle() == ) }
-			 */
-
-			// TODO : insert task in list
-			// Task taskToInsert = new Task(0, taskName, "", user.getIdUser(), idList,
-			// idTag);
-		});
-	}
+	/*
+	 * public void createDialogueTask(ActionEvent event) { // create a text input
+	 * dialog TextInputDialog td = new TextInputDialog("Nom de la tâche...");
+	 * 
+	 * // setHeaderText td.setHeaderText("Nommez la nouvelle tâche");
+	 * 
+	 * Optional<String> result = td.showAndWait();
+	 * 
+	 * result.ifPresent(taskName -> { createTask(((Parent)
+	 * event.getSource()).getParent(), taskName); System.out.println(((Node)
+	 * ((Parent) event.getSource()).getParent()).getParent().getParent().getId());
+	 * int idList = 0;
+	 * 
+	 * 
+	 * //for(int i=0 ; i<lists.size() ; i++) { if(lists.get(i).getTitle() == ) }
+	 * 
+	 * 
+	 * // TODO : insert task in list // Task taskToInsert = new Task(0, taskName,
+	 * "", user.getIdUser(), idList, // idTag); }); }
+	 */
 
 	public void createList(String listName) {
 
@@ -198,26 +188,22 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		/*button.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				//createDialogueTask2(event);
-				///createDialogueTask3(event);
-				// System.out.println("Prout");
-			}
-		});*/
-		
-		/*button.setOnMouseClicked((event) -> {
+		/*
+		 * button.setOnAction(new EventHandler<ActionEvent>() {
+		 * 
+		 * @Override public void handle(ActionEvent event) {
+		 * //createDialogueTask2(event); ///createDialogueTask3(event); //
+		 * System.out.println("Prout"); } });
+		 */
 
-			System.out.println("Tache à ouvrir...");
-			// Window window = ((Node) event.getTarget()).getScene().getWindow();
-			try {
-				showAddTask(event);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});*/
+		/*
+		 * button.setOnMouseClicked((event) -> {
+		 * 
+		 * System.out.println("Tache à ouvrir..."); // Window window = ((Node)
+		 * event.getTarget()).getScene().getWindow(); try { showAddTask(event); } catch
+		 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+		 * });
+		 */
 
 		VBox vbox = new VBox();
 		vbox.prefWidth(182);
@@ -239,7 +225,22 @@ public class HomeController implements Initializable {
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
-		// addTaskToList(vbox, lists);
+
+		ListTask listTask = new ListTask(0, listName, user.getIdUser());
+		int idList = Modele.insertList(listTask);
+		tpane.setId("idList = " + idList);
+
+		button.setOnMouseClicked((event) -> {
+
+			System.out.println("Tache à ouvrir...");
+			// Window window = ((Node) event.getTarget()).getScene().getWindow();
+			try {
+				showAddTask2(event, idList); // TODO to correct
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void createListWithTask(String listName, ArrayList<Task> tasks, int idList) {
@@ -248,24 +249,25 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		/*button.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				//createDialogueTask2(event);
-				
-			}
-		});*/
+		/*
+		 * button.setOnAction(new EventHandler<ActionEvent>() {
+		 * 
+		 * @Override public void handle(ActionEvent event) {
+		 * //createDialogueTask2(event);
+		 * 
+		 * } });
+		 */
 		button.setOnMouseClicked((event) -> {
 
-				System.out.println("Tache à ouvrir...");
-				// Window window = ((Node) event.getTarget()).getScene().getWindow();
-				try {
-					showAddTask2(event, idList);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
+			System.out.println("Tache à ouvrir...");
+			// Window window = ((Node) event.getTarget()).getScene().getWindow();
+			try {
+				showAddTask2(event, idList);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 
 		VBox vbox = new VBox();
 		vbox.prefWidth(182);
@@ -288,7 +290,6 @@ public class HomeController implements Initializable {
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
-		// addTaskToList(vbox, lists);
 
 		for (int i = 0; i < tasks.size(); i++) {
 			// TODO : code
@@ -296,8 +297,8 @@ public class HomeController implements Initializable {
 			HBox task = new HBox();
 			task.prefWidth(200);
 			task.prefHeight(50);
-			task.setId(tasks.get(i).getIdTask()+"");			
-			
+			task.setId(tasks.get(i).getIdTask() + "");
+
 			task.setOnMouseClicked((event) -> {
 				// Window window = ((Node) event.getTarget()).getScene().getWindow();
 				try {
@@ -325,20 +326,22 @@ public class HomeController implements Initializable {
 		}
 	}
 
-	private void createTask(Parent parent, String taskName) {
+	private void createTask(Parent parent, Task taskPM) {
 
 		// BUILD TASK ELEMENT
 
 		HBox task = new HBox();
 		task.prefWidth(200);
 		task.prefHeight(50);
-		// HBox.setMargin(task, new Insets(550, 0, 0, 50));
+		task.setId(taskPM.getIdTask() + "");
+		
+		System.out.println("idTask in ID = " + taskPM.getIdTask());
 
-		Label nameTask = new Label(taskName);
+		Label nameTask = new Label(taskPM.getTitle());
 		nameTask.setFont(new Font("System Bold", 21));
 
 		ImageView tag = new ImageView();
-		Image image = new Image("file:///images\\java_tag.png", 50, 50, false, true);
+		Image image = new Image(urlToTag.get(taskPM.getIdTag()), 50, 50, false, true);
 		tag.setImage(image);
 		tag.prefHeight(50);
 		tag.prefWidth(50);
@@ -350,8 +353,8 @@ public class HomeController implements Initializable {
 
 		((VBox) parent).getChildren().add(((VBox) parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1,
 				task);
-		
-		for(int i=0 ; i<((VBox) parent).getChildren().size(); i++) {
+
+		for (int i = 0; i < ((VBox) parent).getChildren().size(); i++) {
 			((VBox) parent).getChildren().get(i).setOnMouseClicked((event) -> {
 
 				System.out.println("Tache à ouvrir...");
@@ -365,7 +368,7 @@ public class HomeController implements Initializable {
 			});
 		}
 
-		/*((VBox) parent).setOnMouseClicked((event) -> {
+		((VBox) parent).setOnMouseClicked((event) -> {
 
 			System.out.println("Tache à ouvrir...");
 			// Window window = ((Node) event.getTarget()).getScene().getWindow();
@@ -375,7 +378,7 @@ public class HomeController implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		});*/
+		});
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
@@ -420,49 +423,49 @@ public class HomeController implements Initializable {
 		tags = Modele.getAllTags();
 	}
 
-	public void addTaskToList(Node host, ArrayList<ListTask> lists) {
-
-		System.out.println("Will build tasks in lists with action button");
-
-	}
-
 	private void showDetailPage(MouseEvent event) throws IOException {
-		
-		Stage modalDialog = new Stage();
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource( "/resources/DetailPage.fxml" ));
-	    
-	    Node source = (Node) event.getSource();
-	    String id = source.getId();
-	    
-	    System.out.println("task id = " + id);
-	    
-	    DetailController controller = new DetailController(id, user);
-	    loader.setController(controller);
-	    Parent modalDialogRoot = loader.load();
-	    //CreateTaskModalController controller = loader.getController(); // Retrieve the controller
-	    Scene modalScene = new Scene(modalDialogRoot);
-	    modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-	    modalDialog.setTitle("Détail de tâche");
-	    modalDialog.setScene(modalScene);
-	    modalDialog.setResizable(false);
 
-	    // You need Platform.runLater() so that this method doesn't get blocked
-	    Platform.runLater(() -> modalDialog.showAndWait());
+		Stage modalDialog = new Stage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/DetailPage.fxml"));
+
+		Node source = (Node) event.getSource();
+		String id = source.getId();
+
+		System.out.println("Task id = " + source);
+
+		DetailController controller = new DetailController(id, user);
+		loader.setController(controller);
+		Parent modalDialogRoot = loader.load();
+		// CreateTaskModalController controller = loader.getController(); // Retrieve
+		// the controller
+		Scene modalScene = new Scene(modalDialogRoot);
+		modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+		modalDialog.setTitle("Détail de tâche");
+		modalDialog.setScene(modalScene);
+		modalDialog.setResizable(false);
+
+		// You need Platform.runLater() so that this method doesn't get blocked
+		Platform.runLater(() -> modalDialog.showAndWait());
 	}
-	
+
 	private void showAddTask2(MouseEvent event, int idList) throws IOException {
 		Stage modalDialog = new Stage();
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource( "/resources/CreateTaskModal.fxml" ));
-	    CreateTaskModalController controller = new CreateTaskModalController(user, idList, tags);
-	    loader.setController(controller);
-	    Parent modalDialogRoot = loader.load();
-	    //CreateTaskModalController controller = loader.getController(); // Retrieve the controller
-	    Scene modalScene = new Scene(modalDialogRoot);
-	    modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-	    modalDialog.setScene(modalScene);
-	    modalDialog.setResizable(false);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/CreateTaskModal.fxml"));
+		CreateTaskModalController controller = new CreateTaskModalController(user, idList, tags, modalDialog);
+		loader.setController(controller);
+		Parent modalDialogRoot = loader.load();
+		// CreateTaskModalController controller = loader.getController(); // Retrieve
+		// the controller
+		Scene modalScene = new Scene(modalDialogRoot);
+		modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+		modalDialog.setScene(modalScene);
+		modalDialog.setResizable(false);
 
-	    // You need Platform.runLater() so that this method doesn't get blocked
-	    Platform.runLater(() -> modalDialog.showAndWait());
+		// You need Platform.runLater() so that this method doesn't get blocked
+		Platform.runLater(() -> {
+			modalDialog.showAndWait();
+			createTask(((Parent) event.getSource()).getParent(), controller.getLastCreatedTask());
+		});
+
 	}
 }
