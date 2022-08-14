@@ -308,5 +308,17 @@ public class Modele {
 		requete = "DELETE FROM Task WHERE idTask = " + idTask + ";";
 		executerRequete(requete);
 	}
+	
+	// =====================================================================================================
+	
+	public static void updateTask(Task task) {
+		
+		// ESCAPING '
+		String title = task.getTitle().replace("'", "\'");
+		String description = task.getDescription().replace("'", "\'");
+		
+		String requete = "UPDATE Task SET title = '"+title+"', description = '"+description+"', idTag = "+task.getIdTag()+" WHERE idTask = "+task.getIdTask()+";";
+		executerRequete(requete);
+	}
 
 }

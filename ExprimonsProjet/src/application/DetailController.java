@@ -1,16 +1,21 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -19,6 +24,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -197,9 +203,25 @@ public class DetailController implements Initializable {
 	}
 
 	@FXML
-	public void editTask() {
+	public void editTask(MouseEvent event) throws IOException {
 		// Modele.editTask(updatedTask);
+		
+		Stage modalDialog = new Stage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/EditTaskPage.fxml"));
+		EditTaskPageController controller = new EditTaskPageController(user, task, modalDialog, (HBox)taskGUI);
+		loader.setController(controller);
+		Parent modalDialogRoot = loader.load();
+		// CreateTaskModalController controller = loader.getController(); // Retrieve
+		// the controller
+		Scene modalScene = new Scene(modalDialogRoot);
+		modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+		modalDialog.setScene(modalScene);
+		modalDialog.setResizable(false);
+
+		Platform.runLater(() -> {
+			modalDialog.showAndWait();
+			stage.close();
+		});
 		System.out.println("Task #" + idTask + " edited.");
-		stage.close();
 	}
 }

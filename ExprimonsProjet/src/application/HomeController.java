@@ -28,14 +28,17 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -146,7 +149,7 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		
+
 		button.setOnMouseClicked((event) -> {
 
 			System.out.println("Tache à ouvrir...");
@@ -177,6 +180,40 @@ public class HomeController implements Initializable {
 
 		Accordion accord = new Accordion();
 		accord.getPanes().add(tpane);
+		accord.setId(idList + "");
+
+		// CONTEXT MENU
+		ContextMenu contextMenu = new ContextMenu();
+
+		MenuItem item1 = new MenuItem("Modifier cette liste");
+		item1.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("Modification de la liste id " + accord.getId());
+			}
+		});
+		MenuItem item2 = new MenuItem("Supprimer cette liste");
+		item2.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("Suppression de la liste id " + accord.getId());
+			}
+		});
+
+		// Add MenuItem to ContextMenu
+		contextMenu.getItems().addAll(item1, item2);
+
+		// When user right-click on Circle
+		accord.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+			@Override
+			public void handle(ContextMenuEvent event) {
+
+				contextMenu.show(accord, event.getScreenX(), event.getScreenY());
+			}
+		});
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
@@ -224,7 +261,7 @@ public class HomeController implements Initializable {
 		task.prefWidth(200);
 		task.prefHeight(50);
 		task.setId(taskPM.getIdTask() + "");
-		
+
 		System.out.println("idTask in ID = " + taskPM.getIdTask());
 
 		Label nameTask = new Label(taskPM.getTitle());
@@ -238,7 +275,6 @@ public class HomeController implements Initializable {
 
 		task.getChildren().add(nameTask);
 		task.getChildren().add(tag);
-		
 
 		((VBox) parent).getChildren().add(((VBox) parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1,
 				task);
@@ -255,22 +291,20 @@ public class HomeController implements Initializable {
 			});
 		}
 
-		/*((VBox) parent).setOnMouseClicked((event) -> {
-
-			try {
-				showDetailPage(event);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});*/
+		/*
+		 * ((VBox) parent).setOnMouseClicked((event) -> {
+		 * 
+		 * try { showDetailPage(event); } catch (IOException e) { // TODO Auto-generated
+		 * catch block e.printStackTrace(); } });
+		 */
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
-		
-		Label label = new Label("Voulez-vous vraiment fermer cette application ?\nTout progrès non sauvegardé sera perdu.");
+
+		Label label = new Label(
+				"Voulez-vous vraiment fermer cette application ?\nTout progrès non sauvegardé sera perdu.");
 		label.setWrapText(true);
-		
+
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Quitter");
 		alert.setHeaderText("Vous êtes sur le point de quitter l'application !");
@@ -321,7 +355,7 @@ public class HomeController implements Initializable {
 
 		System.out.println("Task id = " + source);
 
-		DetailController controller = new DetailController(id, user, modalDialog,source);
+		DetailController controller = new DetailController(id, user, modalDialog, source);
 		loader.setController(controller);
 		Parent modalDialogRoot = loader.load();
 		// CreateTaskModalController controller = loader.getController(); // Retrieve
