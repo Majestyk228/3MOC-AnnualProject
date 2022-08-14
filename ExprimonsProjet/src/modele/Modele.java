@@ -27,6 +27,7 @@ public class Modele {
 			db.seDeconnecter();
 		} catch (SQLException exp) {
 			System.out.println("Erreur d'exécution de la requete : " + requete);
+			System.out.println(exp);
 		}
 	}
 
@@ -304,20 +305,73 @@ public class Modele {
 	public static void deleteTask(int idTask) {
 		String requete = "DELETE FROM Comment WHERE idTask = " + idTask + ";";
 		executerRequete(requete);
-		
+
 		requete = "DELETE FROM Task WHERE idTask = " + idTask + ";";
 		executerRequete(requete);
 	}
-	
+
 	// =====================================================================================================
-	
+
 	public static void updateTask(Task task) {
-		
+
 		// ESCAPING '
 		String title = task.getTitle().replace("'", "\'");
 		String description = task.getDescription().replace("'", "\'");
-		
-		String requete = "UPDATE Task SET title = '"+title+"', description = '"+description+"', idTag = "+task.getIdTag()+" WHERE idTask = "+task.getIdTask()+";";
+
+		String requete = "UPDATE Task SET title = '" + title + "', description = '" + description + "', idTag = "
+				+ task.getIdTag() + " WHERE idTask = " + task.getIdTask() + ";";
+		executerRequete(requete);
+	}
+
+	// =====================================================================================================
+
+	public static void deleteList(int idList) {
+
+		String requete = "DELETE FROM Task WHERE idList = " + idList + ";";
+		executerRequete(requete);
+
+		requete = "DELETE FROM List WHERE idList = " + idList + ";";
+		executerRequete(requete);
+	}
+
+	// =====================================================================================================
+
+	public static ListTask getList(int idList) { // RETREIVE LISTS WITHOUT TASKS
+
+		ListTask list = new ListTask();
+		String request = "SELECT * FROM List WHERE idList = " + idList + ";";
+
+		try {
+			// CONNECT TO DB
+			db.seConnecter();
+			Statement unStat = db.getMaConnexion().createStatement();
+
+			// EXECUTE REQUEST
+			ResultSet unRes = unStat.executeQuery(request);
+
+			if (unRes.next()) {
+				list.setIdList(unRes.getInt("idList"));
+				list.setTitle(unRes.getString("title"));
+				list.setIdList(unRes.getInt("idUser"));
+			}
+			unRes.close();
+			unStat.close();
+			db.seDeconnecter();
+		} catch (SQLException exp) {
+			System.out.println("Erreur d'exécution de la requete : " + request);
+			System.out.println(exp);
+		}
+
+		return list;
+	}
+
+	// =====================================================================================================
+
+	public static void updateList(int idList, String rawTitle) {
+
+		// ESCAPE '
+		String title = rawTitle.replace("'", "\'");
+		String requete = "UPDATE List SET title = '" + title + "' WHERE idList = " + idList + ";";
 		executerRequete(requete);
 	}
 

@@ -9,17 +9,16 @@ public class ListTask {
 	private ArrayList<Task> listTask;
 	private String title;
 	private int idUser;
-	
-	
 
-	// CONSTRUCTOR
+	// CONSTRUCTORS
 	public ListTask(int idList, String title, int idUser) {
 		this.idList = idList;
 		this.title = title;
 		this.idUser = idUser;
 	}
-	
-	
+
+	public ListTask() {
+	}
 
 	// GETTER & SETTER
 	public ArrayList<Task> getListTask() {
@@ -45,7 +44,7 @@ public class ListTask {
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
-	
+
 	public int getIdList() {
 		return idList;
 	}
@@ -53,8 +52,6 @@ public class ListTask {
 	public void setIdList(int idList) {
 		this.idList = idList;
 	}
-
-
 
 	@Override
 	public String toString() {

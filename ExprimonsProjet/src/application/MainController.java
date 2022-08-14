@@ -43,6 +43,8 @@ public class MainController {
 			scene = new Scene(loader.load());
 			stage.setScene(scene);
 			stage.show();
+			controller.setStage(stage);
+			controller.setScene(scene);
 			stage.setOnCloseRequest(closeEvent -> {
 				closeEvent.consume();
 				try {
@@ -51,7 +53,6 @@ public class MainController {
 					throw new RuntimeException(e);
 				}
 			});
-			System.out.println("Good credentials");
 		}
 	}
 

@@ -35,6 +35,6 @@ public class Tag {
 	// TO STRING
 	@Override
 	public String toString() {
-		return "Tag [idTag=" + idTag + ", name=" + name + "]";
+		return name;
 	}
 }

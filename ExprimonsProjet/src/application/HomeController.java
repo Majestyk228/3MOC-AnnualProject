@@ -104,6 +104,7 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
+		button.setStyle("-fx-background-color: F3BD51;");
 
 		VBox vbox = new VBox();
 		vbox.prefWidth(182);
@@ -129,6 +130,53 @@ public class HomeController implements Initializable {
 		ListTask listTask = new ListTask(0, listName, user.getIdUser());
 		int idList = Modele.insertList(listTask);
 		tpane.setId("idList = " + idList);
+		accord.setId(idList + "");
+
+		// CONTEXT MENU
+		ContextMenu contextMenu = new ContextMenu();
+
+		MenuItem editOption = new MenuItem("Modifier cette liste");
+		editOption.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				createDialogEditList(idList, event, accord);
+			}
+		});
+		MenuItem deleteOption = new MenuItem("Supprimer cette liste");
+		deleteOption.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Label label = new Label(
+						"Voulez-vous vraiment supprimer cette liste ?\nToutes les tâches qu'elle contient seront perdues.");
+				label.setWrapText(true);
+
+				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+				alert.setTitle("Suppression de liste");
+				alert.setHeaderText("Vous êtes sur le point de supprimer une liste !");
+				alert.getDialogPane().setContent(label);
+
+				if (alert.showAndWait().get() == ButtonType.OK) {
+					System.out.println("Suppression de la liste id " + accord.getId());
+
+					Modele.deleteList(idList);
+					((HBox) accord.getParent()).getChildren().remove(accord);
+				}
+			}
+		});
+
+		// Add MenuItem to ContextMenu
+		contextMenu.getItems().addAll(editOption, deleteOption);
+
+		// When user right-click on Circle
+		accord.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+			@Override
+			public void handle(ContextMenuEvent event) {
+				contextMenu.show(accord, event.getScreenX(), event.getScreenY());
+			}
+		});
 
 		button.setOnMouseClicked((event) -> {
 
@@ -149,6 +197,7 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
+		button.setStyle("-fx-background-color: F3BD51;");
 
 		button.setOnMouseClicked((event) -> {
 
@@ -185,32 +234,45 @@ public class HomeController implements Initializable {
 		// CONTEXT MENU
 		ContextMenu contextMenu = new ContextMenu();
 
-		MenuItem item1 = new MenuItem("Modifier cette liste");
-		item1.setOnAction(new EventHandler<ActionEvent>() {
+		MenuItem editOption = new MenuItem("Modifier cette liste");
+		editOption.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Modification de la liste id " + accord.getId());
+				createDialogEditList(idList, event, accord);
 			}
 		});
-		MenuItem item2 = new MenuItem("Supprimer cette liste");
-		item2.setOnAction(new EventHandler<ActionEvent>() {
+		MenuItem deleteOption = new MenuItem("Supprimer cette liste");
+		deleteOption.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Suppression de la liste id " + accord.getId());
+				Label label = new Label(
+						"Voulez-vous vraiment supprimer cette liste ?\nToutes les tâches qu'elle contient seront perdues.");
+				label.setWrapText(true);
+
+				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+				alert.setTitle("Suppression de liste");
+				alert.setHeaderText("Vous êtes sur le point de supprimer une liste !");
+				alert.getDialogPane().setContent(label);
+
+				if (alert.showAndWait().get() == ButtonType.OK) {
+					System.out.println("Suppression de la liste id " + accord.getId());
+
+					Modele.deleteList(idList);
+					((HBox) accord.getParent()).getChildren().remove(accord);
+				}
 			}
 		});
 
 		// Add MenuItem to ContextMenu
-		contextMenu.getItems().addAll(item1, item2);
+		contextMenu.getItems().addAll(editOption, deleteOption);
 
 		// When user right-click on Circle
 		accord.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
 			@Override
 			public void handle(ContextMenuEvent event) {
-
 				contextMenu.show(accord, event.getScreenX(), event.getScreenY());
 			}
 		});
@@ -253,7 +315,7 @@ public class HomeController implements Initializable {
 		}
 	}
 
-	private void createTask(Parent parent, Task taskPM) {
+	public void createTask(Parent parent, Task taskPM) {
 
 		// BUILD TASK ELEMENT
 
@@ -386,5 +448,30 @@ public class HomeController implements Initializable {
 			modalDialog.showAndWait();
 			createTask(((Parent) event.getSource()).getParent(), controller.getLastCreatedTask());
 		});
+	}
+
+	private void createDialogEditList(int idList, ActionEvent event, Accordion accord) {
+
+		ListTask list = Modele.getList(idList);
+		// create a text input dialog
+		TextInputDialog td = new TextInputDialog(list.getTitle());
+
+		td.setHeaderText("Entrez le nouveau nom de la liste");
+
+		Optional<String> result = td.showAndWait();
+
+		result.ifPresent(listName -> {
+			Modele.updateList(idList, listName);
+			TitledPane listTitledPane = (TitledPane) accord.getChildrenUnmodifiable().get(0);
+			listTitledPane.setText(listName);
+		});
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
 	}
 }

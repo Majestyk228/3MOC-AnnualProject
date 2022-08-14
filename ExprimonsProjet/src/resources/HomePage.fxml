@@ -162,9 +162,9 @@
             <HBox fx:id="HostList" prefHeight="500.0" prefWidth="600.0">
                <children>
                   <Accordion />
-                  <Button fx:id="NewListButton" alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createDialogue" text="Nouvelle liste" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                  <Button fx:id="NewListButton" alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createDialogue" text="Nouvelle liste" textAlignment="CENTER" style="-fx-background-color: F3BD51;" HBox.hgrow="ALWAYS">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="32.0" right="32.0" top="250.0" />

@@ -98,24 +98,21 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <Button id="connexionBtn" fx:id="LoginButton" layoutX="415.0" layoutY="281.0" mnemonicParsing="false" onAction="#loogin" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: F3BD51;" styleClass="primaryButton" text="Connexion" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Button>
-                  <Button layoutX="417.0" layoutY="324.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-border-width: 2; -fx-border-color: F3BD51;" text="Quitter" textAlignment="CENTER" textFill="#f3bd51">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
                   <PasswordField fx:id="PasswordTextfield" layoutX="376.0" layoutY="227.0" prefHeight="34.0" prefWidth="212.0" promptText="Mot de passe...">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
+                  <Button id="connexionBtn" fx:id="LoginButton" layoutX="415.0" layoutY="281.0" mnemonicParsing="false" onAction="#loogin" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: F3BD51;" styleClass="primaryButton" text="Connexion" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="417.0" layoutY="324.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-border-width: 2; -fx-border-color: F3BD51;" text="Quitter" textAlignment="CENTER" textFill="#f3bd51">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
             </children>
           </AnchorPane>
         </children>
