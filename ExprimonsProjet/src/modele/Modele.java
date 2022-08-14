@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import controllers.Comment;
-import controllers.ListTask;
-import controllers.Tag;
-import controllers.Task;
-import controllers.User;
+import objects.Comment;
+import objects.ListTask;
+import objects.Tag;
+import objects.Task;
+import objects.User;
 
 public class Modele {
 
@@ -218,24 +218,28 @@ public class Modele {
 
 	public static void insertComment(Comment comment) { // RETREIVE LISTS WITHOUT TASKS
 
-		//INSERT INTO Comment VALUES (null, "C'est si dur, seigneur aidé moi", "2022-08-12", 1, 1);
+		// INSERT INTO Comment VALUES (null, "C'est si dur, seigneur aidé moi",
+		// "2022-08-12", 1, 1);
 		// ESCAPIG ' CHARACTERES
 		String body = comment.getBody().replace("'", "\'");
-		String requete = "INSERT INTO Comment VALUES (null, \""+body+"\", '"+comment.getDate()+"', "+comment.getIdTask()+", "+comment.getIdUser()+");";
+		String requete = "INSERT INTO Comment VALUES (null, \"" + body + "\", '" + comment.getDate() + "', "
+				+ comment.getIdTask() + ", " + comment.getIdUser() + ");";
 		executerRequete(requete);
 	}
-	
+
 	// =====================================================================================================
-	
+
 	public static int insertList(ListTask listTask) { // RETREIVE LISTS WITHOUT TASKS
 
-		//INSERT INTO Comment VALUES (null, "C'est si dur, seigneur aidé moi", "2022-08-12", 1, 1);
+		// INSERT INTO Comment VALUES (null, "C'est si dur, seigneur aidé moi",
+		// "2022-08-12", 1, 1);
 		// ESCAPIG ' CHARACTERES
-		String requete = "INSERT INTO List VALUES (null, \""+listTask.getTitle()+"\", "+listTask.getIdUser()+");";
+		String requete = "INSERT INTO List VALUES (null, \"" + listTask.getTitle() + "\", " + listTask.getIdUser()
+				+ ");";
 		executerRequete(requete);
-		
+
 		// GETTING THE LAST idList AFTER INSERT
-		
+
 		int idList = 0;
 		String request = "SELECT idList FROM List ORDER BY idList DESC LIMIT 1;";
 
@@ -260,11 +264,11 @@ public class Modele {
 
 		return idList;
 	}
-	
+
 	// =====================================================================================================
-	
+
 	public static Task getLastCreatedTask() { // RETREIVE LISTS WITHOUT TASKS
-		
+
 		Task task = new Task();
 		String request = "SELECT * FROM Task ORDER BY idTask DESC LIMIT 1;";
 
@@ -294,5 +298,15 @@ public class Modele {
 
 		return task;
 	}
-	
+
+	// =====================================================================================================
+
+	public static void deleteTask(int idTask) {
+		String requete = "DELETE FROM Comment WHERE idTask = " + idTask + ";";
+		executerRequete(requete);
+		
+		requete = "DELETE FROM Task WHERE idTask = " + idTask + ";";
+		executerRequete(requete);
+	}
+
 }

@@ -6,25 +6,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import controllers.Comment;
-import controllers.Task;
-import controllers.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import modele.Modele;
+import objects.Comment;
+import objects.Task;
+import objects.User;
 
 public class DetailController implements Initializable {
 
@@ -32,6 +36,8 @@ public class DetailController implements Initializable {
 	private Task task;
 	private ArrayList<Comment> comments;
 	private User user;
+	private Stage stage;
+	private Node taskGUI;
 
 	@FXML
 	private Label Title;
@@ -43,6 +49,12 @@ public class DetailController implements Initializable {
 	private Button addComment;
 
 	@FXML
+	private ImageView editTask;
+
+	@FXML
+	private ImageView deleteTask;
+
+	@FXML
 	private TextField newComment;
 
 	@FXML
@@ -51,9 +63,11 @@ public class DetailController implements Initializable {
 	@FXML
 	private ScrollPane CommentList2;
 
-	public DetailController(String id, User user) {
+	public DetailController(String id, User user, Stage stage, Node taskGUI) {
 		this.idTask = Integer.parseInt(id);
 		this.user = user;
+		this.stage = stage;
+		this.taskGUI = taskGUI;
 	}
 
 	@Override
@@ -75,7 +89,7 @@ public class DetailController implements Initializable {
 	private void loadComments() {
 		System.out.println("Loading...");
 
-		for (int i=0 ; i<comments.size() ; i++) {
+		for (int i = 0; i < comments.size(); i++) {
 			VBox root = new VBox();
 			VBox.setMargin(root, new Insets(8, 0, 8, 0));
 			root.setPadding(new Insets(5, 16, 0, 16));
@@ -93,7 +107,7 @@ public class DetailController implements Initializable {
 			root.getChildren().add(body);
 
 			// GETTING DATA FROM TEXTFIELD
-			//String bodyTXT = newComment.getText();
+			// String bodyTXT = newComment.getText();
 
 			name.setText(user.getFirstname() + " " + user.getLastname()); // TAKEN FROM BD
 			name.setFont(new Font("System", 18));
@@ -113,7 +127,7 @@ public class DetailController implements Initializable {
 			CommentList.getChildren().add(root);
 		}
 	}
-	
+
 	// GET USER FROM ID ?
 
 	@FXML
@@ -154,13 +168,38 @@ public class DetailController implements Initializable {
 		body.setFill(Color.BLACK);
 
 		CommentList.getChildren().add(root);
-		
-		
-		Comment commentToInsert = new Comment(0,bodyTXT, dtf.format(now), idTask, user.getIdUser());
+
+		Comment commentToInsert = new Comment(0, bodyTXT, dtf.format(now), idTask, user.getIdUser());
 		Modele.insertComment(commentToInsert);
-		
+
 		// ERASE TEXTFIELD
 		newComment.setText("");
 
+	}
+
+	@FXML
+	public void deleteTask() {
+		
+		Label label = new Label("Voulez-vous vraiment supprimer cette tâche ?\nCette action est IRRÉVERSIBLE.");
+		label.setWrapText(true);
+
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Quitter");
+		alert.setHeaderText("Suppression d'une tâche !");
+		alert.getDialogPane().setContent(label);
+
+		if (alert.showAndWait().get() == ButtonType.OK) {
+			Modele.deleteTask(idTask);
+			System.out.println("Task #" + idTask + " deleted.");
+			((VBox)taskGUI.getParent()).getChildren().remove(taskGUI);
+			stage.close();
+		}
+	}
+
+	@FXML
+	public void editTask() {
+		// Modele.editTask(updatedTask);
+		System.out.println("Task #" + idTask + " edited.");
+		stage.close();
 	}
 }

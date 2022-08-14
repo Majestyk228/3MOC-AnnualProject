@@ -64,7 +64,7 @@
                         <Insets left="8.0" top="13.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="editTask" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#editTask" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="38.0" right="8.0" top="15.0" />
                      </HBox.margin>
@@ -72,7 +72,7 @@
                         <Image url="@../images/edit_fill.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="deleteTask" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#deleteTask" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="8.0" top="15.0" />
                      </HBox.margin>

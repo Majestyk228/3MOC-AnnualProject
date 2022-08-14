@@ -4,9 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import controllers.Tag;
-import controllers.Task;
-import controllers.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +13,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modele.Modele;
+import objects.Tag;
+import objects.Task;
+import objects.User;
 
 public class CreateTaskModalController implements Initializable {
 	

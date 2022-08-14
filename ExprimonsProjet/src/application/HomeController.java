@@ -9,10 +9,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
-import controllers.ListTask;
-import controllers.Tag;
-import controllers.Task;
-import controllers.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,6 +48,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Pair;
 import modele.Modele;
+import objects.ListTask;
+import objects.Tag;
+import objects.Task;
+import objects.User;
 
 public class HomeController implements Initializable {
 
@@ -86,7 +86,6 @@ public class HomeController implements Initializable {
 		// create a text input dialog
 		TextInputDialog td = new TextInputDialog("Nom de la liste...");
 
-		// setHeaderText
 		td.setHeaderText("Nommez la nouvelle liste");
 
 		Optional<String> result = td.showAndWait();
@@ -96,114 +95,12 @@ public class HomeController implements Initializable {
 		});
 	}
 
-	/*
-	 * public void createDialogueTask2(ActionEvent event) { // Create the custom
-	 * dialog. Dialog<Pair<String, String>> dialog = new Dialog<>();
-	 * dialog.setTitle("TestName");
-	 * 
-	 * // Set the button types. ButtonType loginButtonType = new ButtonType("OK",
-	 * ButtonData.OK_DONE);
-	 * dialog.getDialogPane().getButtonTypes().addAll(loginButtonType,
-	 * ButtonType.CANCEL);
-	 * 
-	 * VBox dialogVbox = new VBox(); dialogVbox.setPadding(new Insets(20, 150, 10,
-	 * 10));
-	 * 
-	 * TextField from = new TextField(); from.setPromptText("From"); TextField to =
-	 * new TextField(); to.setPromptText("To");
-	 * 
-	 * dialogVbox.getChildren().add(from); dialogVbox.getChildren().add(to);
-	 * 
-	 * dialog.getDialogPane().setContent(dialogVbox);
-	 * 
-	 * // Request focus on the username field by default. Platform.runLater(() ->
-	 * from.requestFocus());
-	 * 
-	 * // Convert the result to a username-password-pair when the login button is //
-	 * clicked. dialog.setResultConverter(dialogButton -> { if (dialogButton ==
-	 * loginButtonType) { return new Pair<>(from.getText(), to.getText()); } return
-	 * null; });
-	 * 
-	 * Optional<Pair<String, String>> result = dialog.showAndWait();
-	 * 
-	 * result.ifPresent(pair -> { System.out.println("From=" + pair.getKey() +
-	 * ", To=" + pair.getValue()); }); }
-	 */
-
-	/*
-	 * public void createDialogueTask3(ActionEvent event) { Dialog<ButtonType> alert
-	 * = new Dialog(); alert.setTitle("Ajout d'une tâche");
-	 * alert.setHeaderText("Entrez les informations de votre nouvelle tâche");
-	 * 
-	 * DialogPane dialogPane = new DialogPane();
-	 * dialogPane.getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
-	 * 
-	 * TextField titleTXT = new TextField(); TextField descriptionTXT = new
-	 * TextField(); ComboBox<Tag> tag = new ComboBox<>();
-	 * tag.getItems().addAll(tags);
-	 * 
-	 * VBox layout = new VBox(); layout.getChildren().addAll(titleTXT,
-	 * descriptionTXT, tag);
-	 * 
-	 * dialogPane.setContent(layout); //alert.setContentText("Choose your option.");
-	 * 
-	 * //ButtonType buttonTypeOne = new ButtonType("One"); //ButtonType
-	 * buttonTypeTwo = new ButtonType("Two"); //ButtonType buttonTypeThree = new
-	 * ButtonType("Three"); //ButtonType buttonTypeCancel = new ButtonType("Cancel",
-	 * ButtonData.CANCEL_CLOSE);
-	 * 
-	 * 
-	 * 
-	 * //alert.setDialogPane(new DialogPane().);
-	 * //alert.getButtonTypes().setAll(titleTXT, descriptionTXT, tag,
-	 * buttonTypeCancel);
-	 * 
-	 * Optional<ButtonType> result = alert.showAndWait(); }
-	 */
-
-	/*
-	 * public void createDialogueTask(ActionEvent event) { // create a text input
-	 * dialog TextInputDialog td = new TextInputDialog("Nom de la tâche...");
-	 * 
-	 * // setHeaderText td.setHeaderText("Nommez la nouvelle tâche");
-	 * 
-	 * Optional<String> result = td.showAndWait();
-	 * 
-	 * result.ifPresent(taskName -> { createTask(((Parent)
-	 * event.getSource()).getParent(), taskName); System.out.println(((Node)
-	 * ((Parent) event.getSource()).getParent()).getParent().getParent().getId());
-	 * int idList = 0;
-	 * 
-	 * 
-	 * //for(int i=0 ; i<lists.size() ; i++) { if(lists.get(i).getTitle() == ) }
-	 * 
-	 * 
-	 * // TODO : insert task in list // Task taskToInsert = new Task(0, taskName,
-	 * "", user.getIdUser(), idList, // idTag); }); }
-	 */
-
 	public void createList(String listName) {
 
 		Button button = new Button();
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		/*
-		 * button.setOnAction(new EventHandler<ActionEvent>() {
-		 * 
-		 * @Override public void handle(ActionEvent event) {
-		 * //createDialogueTask2(event); ///createDialogueTask3(event); //
-		 * System.out.println("Prout"); } });
-		 */
-
-		/*
-		 * button.setOnMouseClicked((event) -> {
-		 * 
-		 * System.out.println("Tache à ouvrir..."); // Window window = ((Node)
-		 * event.getTarget()).getScene().getWindow(); try { showAddTask(event); } catch
-		 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }
-		 * });
-		 */
 
 		VBox vbox = new VBox();
 		vbox.prefWidth(182);
@@ -249,14 +146,7 @@ public class HomeController implements Initializable {
 		button.setId("AddTaskButton");
 		button.setText("Nouvelle tâche");
 		button.setFont(new Font("System Bold", 17));
-		/*
-		 * button.setOnAction(new EventHandler<ActionEvent>() {
-		 * 
-		 * @Override public void handle(ActionEvent event) {
-		 * //createDialogueTask2(event);
-		 * 
-		 * } });
-		 */
+		
 		button.setOnMouseClicked((event) -> {
 
 			System.out.println("Tache à ouvrir...");
@@ -348,8 +238,7 @@ public class HomeController implements Initializable {
 
 		task.getChildren().add(nameTask);
 		task.getChildren().add(tag);
-
-		// arent.getChildrenUnmodifiable().add(task);
+		
 
 		((VBox) parent).getChildren().add(((VBox) parent).getChildren().indexOf(parent.lookup("AddTaskButton")) + 1,
 				task);
@@ -357,8 +246,6 @@ public class HomeController implements Initializable {
 		for (int i = 0; i < ((VBox) parent).getChildren().size(); i++) {
 			((VBox) parent).getChildren().get(i).setOnMouseClicked((event) -> {
 
-				System.out.println("Tache à ouvrir...");
-				// Window window = ((Node) event.getTarget()).getScene().getWindow();
 				try {
 					showDetailPage(event);
 				} catch (IOException e) {
@@ -368,24 +255,26 @@ public class HomeController implements Initializable {
 			});
 		}
 
-		((VBox) parent).setOnMouseClicked((event) -> {
+		/*((VBox) parent).setOnMouseClicked((event) -> {
 
-			System.out.println("Tache à ouvrir...");
-			// Window window = ((Node) event.getTarget()).getScene().getWindow();
 			try {
 				showDetailPage(event);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		});
+		});*/
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
+		
+		Label label = new Label("Voulez-vous vraiment fermer cette application ?\nTout progrès non sauvegardé sera perdu.");
+		label.setWrapText(true);
+		
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Quitter");
-		alert.setHeaderText("Vous êtes sur le point de quitter l'appli !");
-		alert.setContentText("Voulez-vous vraiment fermer cette application ? Tout progrès non sauvegardé sera perdu");
+		alert.setHeaderText("Vous êtes sur le point de quitter l'application !");
+		alert.getDialogPane().setContent(label);
 
 		if (alert.showAndWait().get() == ButtonType.OK) {
 			System.out.println("User exited the app");
@@ -418,7 +307,6 @@ public class HomeController implements Initializable {
 			listTask.get(i).setListTask(tasksForList);
 		}
 
-		// NewListButton.setOnAction(null)
 		// RETREIVING ALL THE TAGS FROM DATABASE
 		tags = Modele.getAllTags();
 	}
@@ -433,7 +321,7 @@ public class HomeController implements Initializable {
 
 		System.out.println("Task id = " + source);
 
-		DetailController controller = new DetailController(id, user);
+		DetailController controller = new DetailController(id, user, modalDialog,source);
 		loader.setController(controller);
 		Parent modalDialogRoot = loader.load();
 		// CreateTaskModalController controller = loader.getController(); // Retrieve
@@ -444,7 +332,6 @@ public class HomeController implements Initializable {
 		modalDialog.setScene(modalScene);
 		modalDialog.setResizable(false);
 
-		// You need Platform.runLater() so that this method doesn't get blocked
 		Platform.runLater(() -> modalDialog.showAndWait());
 	}
 
@@ -461,11 +348,9 @@ public class HomeController implements Initializable {
 		modalDialog.setScene(modalScene);
 		modalDialog.setResizable(false);
 
-		// You need Platform.runLater() so that this method doesn't get blocked
 		Platform.runLater(() -> {
 			modalDialog.showAndWait();
 			createTask(((Parent) event.getSource()).getParent(), controller.getLastCreatedTask());
 		});
-
 	}
 }
