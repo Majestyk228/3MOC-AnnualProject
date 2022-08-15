@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +32,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import modele.Modele;
 import objects.Comment;
 import objects.Task;
@@ -221,6 +223,17 @@ public class DetailController implements Initializable {
 		Platform.runLater(() -> {
 			modalDialog.showAndWait();
 			stage.close();
+		});
+		
+		modalDialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				System.out.println("Closing edit modal");
+				//HomeController.refreshHost();
+			}
+			
 		});
 		System.out.println("Task #" + idTask + " edited.");
 	}

@@ -317,9 +317,8 @@ public class Modele {
 		// ESCAPING '
 		String title = task.getTitle().replace("'", "\'");
 		String description = task.getDescription().replace("'", "\'");
-
 		String requete = "UPDATE Task SET title = '" + title + "', description = '" + description + "', idTag = "
-				+ task.getIdTag() + " WHERE idTask = " + task.getIdTask() + ";";
+				+ task.getIdTag() + ", idList = " + task.getIdList() + " WHERE idTask = " + task.getIdTask() + ";";
 		executerRequete(requete);
 	}
 
@@ -374,5 +373,7 @@ public class Modele {
 		String requete = "UPDATE List SET title = '" + title + "' WHERE idList = " + idList + ";";
 		executerRequete(requete);
 	}
+
+	// =====================================================================================================
 
 }

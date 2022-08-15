@@ -55,7 +55,6 @@ public class ListTask {
 
 	@Override
 	public String toString() {
-		return "ListTask [idList=" + idList + ", listTask=" + listTask + ", title=" + title + ", idUser=" + idUser
-				+ "]";
+		return title;
 	}
 }

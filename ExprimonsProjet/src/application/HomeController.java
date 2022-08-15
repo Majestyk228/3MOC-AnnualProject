@@ -50,6 +50,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.util.Pair;
 import modele.Modele;
 import objects.ListTask;
@@ -168,7 +169,7 @@ public class HomeController implements Initializable {
 				alert.getDialogPane().setContent(label);
 
 				if (alert.showAndWait().get() == ButtonType.OK) {
-					System.out.println("Suppression de la liste id " + accord.getId());
+					//System.out.println("Suppression de la liste id " + accord.getId());
 
 					Modele.deleteList(idList);
 					((HBox) accord.getParent()).getChildren().remove(accord);
@@ -176,10 +177,8 @@ public class HomeController implements Initializable {
 			}
 		});
 
-		// Add MenuItem to ContextMenu
 		contextMenu.getItems().addAll(editOption, deleteOption);
 
-		// When user right-click on Circle
 		accord.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
 			@Override
@@ -189,11 +188,8 @@ public class HomeController implements Initializable {
 		});
 
 		button.setOnMouseClicked((event) -> {
-
-			System.out.println("Tache à ouvrir...");
-			// Window window = ((Node) event.getTarget()).getScene().getWindow();
 			try {
-				showAddTask2(event, idList); // TODO to correct
+				showAddTask2(event, idList);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -211,8 +207,6 @@ public class HomeController implements Initializable {
 
 		button.setOnMouseClicked((event) -> {
 
-			System.out.println("Tache à ouvrir...");
-			// Window window = ((Node) event.getTarget()).getScene().getWindow();
 			try {
 				showAddTask2(event, idList);
 			} catch (IOException e) {
@@ -273,7 +267,7 @@ public class HomeController implements Initializable {
 				alert.getDialogPane().setContent(label);
 
 				if (alert.showAndWait().get() == ButtonType.OK) {
-					System.out.println("Suppression de la liste id " + accord.getId());
+					//System.out.println("Suppression de la liste id " + accord.getId());
 
 					Modele.deleteList(idList);
 					((HBox) accord.getParent()).getChildren().remove(accord);
@@ -281,10 +275,8 @@ public class HomeController implements Initializable {
 			}
 		});
 
-		// Add MenuItem to ContextMenu
 		contextMenu.getItems().addAll(editOption, deleteOption);
 
-		// When user right-click on Circle
 		accord.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
 			@Override
@@ -297,7 +289,6 @@ public class HomeController implements Initializable {
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
 
 		for (int i = 0; i < tasks.size(); i++) {
-			// TODO : code
 
 			HBox task = new HBox();
 			task.prefWidth(200);
@@ -305,7 +296,6 @@ public class HomeController implements Initializable {
 			task.setId(tasks.get(i).getIdTask() + "");
 
 			task.setOnMouseClicked((event) -> {
-				// Window window = ((Node) event.getTarget()).getScene().getWindow();
 				try {
 					showDetailPage(event);
 				} catch (IOException e) {
@@ -334,13 +324,12 @@ public class HomeController implements Initializable {
 	public void createTask(Parent parent, Task taskPM) {
 
 		// BUILD TASK ELEMENT
-
 		HBox task = new HBox();
 		task.prefWidth(200);
 		task.prefHeight(50);
 		task.setId(taskPM.getIdTask() + "");
 
-		System.out.println("idTask in ID = " + taskPM.getIdTask());
+		//System.out.println("idTask in ID = " + taskPM.getIdTask());
 
 		Label nameTask = new Label(taskPM.getTitle());
 		nameTask.setFont(new Font("System Bold", 21));
@@ -363,18 +352,10 @@ public class HomeController implements Initializable {
 				try {
 					showDetailPage(event);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
 		}
-
-		/*
-		 * ((VBox) parent).setOnMouseClicked((event) -> {
-		 * 
-		 * try { showDetailPage(event); } catch (IOException e) { // TODO Auto-generated
-		 * catch block e.printStackTrace(); } });
-		 */
 	}
 
 	public void ExitApp(ActionEvent event) throws IOException {
@@ -389,7 +370,7 @@ public class HomeController implements Initializable {
 		alert.getDialogPane().setContent(label);
 
 		if (alert.showAndWait().get() == ButtonType.OK) {
-			System.out.println("User exited the app");
+			//System.out.println("User exited the app");
 			stage.close();
 		}
 	}
@@ -413,7 +394,6 @@ public class HomeController implements Initializable {
 
 		// CREATING INTERFACE AND FILLING ALL LISTS WITH ITS TASK
 		for (int i = 0; i < listTask.size(); i++) {
-			// System.out.println(listTask.get(i).getTitle());
 			ArrayList<Task> tasksForList = Modele.getTasksFromList(listTask.get(i).getIdList());
 			createListWithTask(listTask.get(i).getTitle(), tasksForList, listTask.get(i).getIdList());
 			listTask.get(i).setListTask(tasksForList);
@@ -431,13 +411,11 @@ public class HomeController implements Initializable {
 		Node source = (Node) event.getSource();
 		String id = source.getId();
 
-		System.out.println("Task id = " + source);
+		//System.out.println("Task id = " + source);
 
 		DetailController controller = new DetailController(id, user, modalDialog, source);
 		loader.setController(controller);
 		Parent modalDialogRoot = loader.load();
-		// CreateTaskModalController controller = loader.getController(); // Retrieve
-		// the controller
 		Scene modalScene = new Scene(modalDialogRoot);
 		modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
 		modalDialog.setTitle("Détail de tâche");
@@ -445,6 +423,17 @@ public class HomeController implements Initializable {
 		modalDialog.setResizable(false);
 
 		Platform.runLater(() -> modalDialog.showAndWait());
+
+		modalDialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				//System.out.println("Closing edit modal");
+				refreshHost();
+			}
+
+		});
 	}
 
 	private void showAddTask2(MouseEvent event, int idList) throws IOException {
@@ -453,8 +442,6 @@ public class HomeController implements Initializable {
 		CreateTaskModalController controller = new CreateTaskModalController(user, idList, tags, modalDialog);
 		loader.setController(controller);
 		Parent modalDialogRoot = loader.load();
-		// CreateTaskModalController controller = loader.getController(); // Retrieve
-		// the controller
 		Scene modalScene = new Scene(modalDialogRoot);
 		modalDialog.initOwner(((Node) event.getSource()).getScene().getWindow());
 		modalDialog.setScene(modalScene);
@@ -489,5 +476,25 @@ public class HomeController implements Initializable {
 
 	public void setScene(Scene scene) {
 		this.scene = scene;
+	}
+
+	@FXML
+	private void refreshHost() {
+		// EMPTYING THE HOST
+		HostList.getChildren().removeAll(HostList.getChildren());
+		HostList.getChildren().add(NewListButton);
+
+		// RETREIVING ALL THE LIST OWNED BY THE USER
+		ArrayList<ListTask> listTask = Modele.getUsersTaskList(user.getIdUser());
+		lists = listTask;
+
+		// CREATING INTERFACE AND FILLING ALL LISTS WITH ITS TASK
+		for (int i = 0; i < listTask.size(); i++) {
+			ArrayList<Task> tasksForList = Modele.getTasksFromList(listTask.get(i).getIdList());
+			createListWithTask(listTask.get(i).getTitle(), tasksForList, listTask.get(i).getIdList());
+			listTask.get(i).setListTask(tasksForList);
+		}
+
+		//System.out.println("refreshing ...");
 	}
 }
