@@ -36,6 +36,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -121,8 +122,17 @@ public class HomeController implements Initializable {
 		tpane.prefHeight(450);
 		tpane.setFont(new Font("System Bold", 22));
 
+		// TOOLTIP
+		Tooltip tt = new Tooltip("Clique-droit pour\nplus d'options");
+		tt.setStyle("-fx-font-family: System Bold; " + "-fx-font-size: 15; " + "-fx-base: #AE3522; "
+				+ "-fx-text-alignment: center ;");
+		tpane.setTooltip(tt);
+
 		Accordion accord = new Accordion();
 		accord.getPanes().add(tpane);
+
+		// TOOLTIP
+		accord.setTooltip(new Tooltip("Clique-droit pour\nplus d'option"));
 
 		// ADD accor in HostList
 		HostList.getChildren().add(HostList.getChildren().indexOf(NewListButton), accord);
@@ -226,6 +236,12 @@ public class HomeController implements Initializable {
 		tpane.prefWidth(202);
 		tpane.prefHeight(450);
 		tpane.setFont(new Font("System Bold", 22));
+
+		// TOOLTIP
+		Tooltip tt = new Tooltip("Clique-droit pour\nplus d'options.");
+		tt.setStyle("-fx-font-family: System Bold; " + "-fx-font-size: 15; " + "-fx-base: #AE3522; "
+				+ "-fx-text-alignment: center;");
+		tpane.setTooltip(tt);
 
 		Accordion accord = new Accordion();
 		accord.getPanes().add(tpane);
