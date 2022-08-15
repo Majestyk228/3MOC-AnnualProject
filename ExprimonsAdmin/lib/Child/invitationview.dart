@@ -104,7 +104,7 @@ class _InvitationViewState extends State<InvitationView> {
                       refreshInvitation();
                     },
                     child: Container(
-                      width: 200,
+                      width: 300,
                       height: 75,
                       child: Center(
                         child: Text(

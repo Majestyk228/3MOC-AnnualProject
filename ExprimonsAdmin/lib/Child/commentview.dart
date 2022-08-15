@@ -111,7 +111,7 @@ class _CommentViewState extends State<CommentView> {
                       //redirect on reported comment view of the post
                     },
                     child: Container(
-                      width: 200,
+                      width: 350,
                       height: 75,
                       child: Center(
                         child: Text(
@@ -145,7 +145,6 @@ class _CommentViewState extends State<CommentView> {
                         child: Text(
                           'Commentaire du post \n"${widget.titlePost}"',
                           textAlign: TextAlign.center,
-
                           style: TitleTableStyle,
                         ),
                       ),

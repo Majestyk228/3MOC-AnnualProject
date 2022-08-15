@@ -1,10 +1,14 @@
 import 'package:exprimons_nous/Colors.dart';
 import 'package:exprimons_nous/dashboardview.dart';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/postview.dart';
 import 'package:exprimons_nous/userview.dart';
 import 'package:exprimons_nous/voteview.dart';
 import 'package:flutter/material.dart';
 import 'package:side_navigation/side_navigation.dart';
+import 'dart:html' as html;
+
+import 'TextStyle.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -50,16 +54,51 @@ class _HomeViewState extends State<HomeView> {
           children: [
             /// Pretty similar to the BottomNavigationBar!
             SideNavigationBar(
+              expandable: false,
               selectedIndex: selectedIndex,
               header: SideNavigationBarHeader(
-                title: Text("Exprimons "),
-                subtitle: Text("Admin"),
+                title: Text(
+                  "Exprimons ",
+                  style: InputButtonDateStyle,
+                ),
+                subtitle: Text(
+                  "Admin",
+                  style: InputButtonDateStyle,
+                ),
                 image: Image(
                   image: AssetImage('assets/images/logo.png'),
                   width: 50,
                   height: 50,
                 ),
               ),
+              footer: SideNavigationBarFooter(
+                  label: Column(
+                children: [
+                  Divider(
+                    color: Colors.white,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      html.window.localStorage.clear();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Login(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          "Deconnections",
+                          style: InputButtonDateStyle,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
               items: const [
                 SideNavigationBarItem(
                   icon: Icons.dashboard,
