@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import modele.Modele;
 import objects.User;
@@ -23,6 +24,10 @@ public class MainController {
 	private TextField EmailTextfield;
 	@FXML
 	private TextField PasswordTextfield;
+	@FXML
+	private Text WrongCredentialWarning;
+	@FXML
+	private Text WrongCredentialWarning2;
 
 	public void loogin(ActionEvent event) throws IOException {
 
@@ -33,7 +38,11 @@ public class MainController {
 		
 		if (user == null) {
 			System.out.println("Erreur de connexion, vérifiez vos identifiants.");
+			WrongCredentialWarning.setOpacity(100);
+			WrongCredentialWarning2.setOpacity(100);
 		}else {
+			WrongCredentialWarning.setOpacity(0);
+			WrongCredentialWarning2.setOpacity(0);
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/HomePage.fxml"));
 			HomeController controller = new HomeController(user);
 			

@@ -198,7 +198,6 @@ public class DetailController implements Initializable {
 
 		if (alert.showAndWait().get() == ButtonType.OK) {
 			Modele.deleteTask(idTask);
-			System.out.println("Task #" + idTask + " deleted.");
 			((VBox)taskGUI.getParent()).getChildren().remove(taskGUI);
 			stage.close();
 		}
@@ -224,17 +223,5 @@ public class DetailController implements Initializable {
 			modalDialog.showAndWait();
 			stage.close();
 		});
-		
-		modalDialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-			@Override
-			public void handle(WindowEvent event) {
-				// TODO Auto-generated method stub
-				System.out.println("Closing edit modal");
-				//HomeController.refreshHost();
-			}
-			
-		});
-		System.out.println("Task #" + idTask + " edited.");
 	}
 }

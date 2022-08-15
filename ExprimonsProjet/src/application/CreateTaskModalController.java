@@ -63,17 +63,7 @@ public class CreateTaskModalController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		System.out.println("init");
-		
-		/*ArrayList<String> tagsToString = new ArrayList<String>();
-		
-		for(int i=0 ; i<tags.size() ; i++) {
-			tagsToString.add(tags.get(i).getName());
-		}*/
-		
 		TaskTag.getItems().addAll(tags);
-		//TaskTag.setStyle("-fx-font-weight: bold;");
 	}
 
 	public Task getLastCreatedTask() {

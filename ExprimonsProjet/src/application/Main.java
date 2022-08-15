@@ -16,7 +16,6 @@ public class Main extends Application {
 			Scene scene = new Scene(root,640.0,400.0);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Exprimons-Projet");
-			//primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();

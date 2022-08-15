@@ -33,7 +33,6 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -51,11 +50,6 @@
         <children>
           <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-              <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-                <font>
-                  <Font size="18.0" />
-                </font>
-              </Label>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbae73" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="322.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e3e1e1" height="400.0" layoutX="322.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="322.0" />
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="85.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
@@ -83,6 +77,14 @@
                         <Font size="25.0" />
                      </font>
                   </Text>
+                  <Text fx:id="WrongCredentialWarning" fill="RED" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identifiant/mot de passe incorrect." AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="108.05078125">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                  <Text fx:id="WrongCredentialWarning2" fill="RED" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Réessayez !" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="122.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
                   <Text layoutX="378.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail">
                      <font>
                         <Font name="System Bold" size="14.0" />
