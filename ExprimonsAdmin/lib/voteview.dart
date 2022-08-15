@@ -1,12 +1,12 @@
 import 'package:exprimons_nous/Child/Details/detailsvoteview.dart';
 import 'package:exprimons_nous/Child/addvoteview.dart';
 import 'dart:html' as html;
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/component/voteslistline.dart';
 import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:flutter/material.dart';
 
 import 'objects/votes.dart';

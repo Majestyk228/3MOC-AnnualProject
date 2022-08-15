@@ -1,8 +1,8 @@
 import 'package:exprimons_nous/objects/post.dart';
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
 
-import '../Colors.dart';
+import '../objects/Colors.dart';
 
 class AddPostView extends StatefulWidget {
   const AddPostView({Key? key}) : super(key: key);

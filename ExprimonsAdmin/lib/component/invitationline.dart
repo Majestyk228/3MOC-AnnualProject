@@ -1,8 +1,8 @@
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/invitation.dart';
 import 'package:flutter/material.dart';
 
-import '../Colors.dart';
+import '../objects/Colors.dart';
 
 class InvitationLine extends StatefulWidget {
   const InvitationLine(

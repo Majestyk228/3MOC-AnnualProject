@@ -1,8 +1,8 @@
 import 'package:exprimons_nous/objects/comment.dart';
 import 'package:flutter/material.dart';
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 
-import '../Colors.dart';
+import '../objects/Colors.dart';
 
 class CommentLine extends StatefulWidget {
   const CommentLine({Key? key, required this.comment, required this.index}) : super(key: key);

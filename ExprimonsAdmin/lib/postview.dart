@@ -1,7 +1,7 @@
 import 'package:exprimons_nous/Child/addpostview.dart';
 import 'package:exprimons_nous/Child/reportedpostview.dart';
-import 'package:exprimons_nous/Colors.dart';
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/Colors.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/component/postlistline.dart';
 import 'package:exprimons_nous/objects/post.dart';
 import 'package:flutter/material.dart';

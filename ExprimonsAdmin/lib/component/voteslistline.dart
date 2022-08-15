@@ -1,5 +1,5 @@
-import 'package:exprimons_nous/Colors.dart';
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/Colors.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
 

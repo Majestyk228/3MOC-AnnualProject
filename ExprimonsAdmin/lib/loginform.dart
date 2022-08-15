@@ -1,9 +1,9 @@
 import 'dart:html' as html;
 import 'dart:ui';
 
-import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/objects/Colors.dart';
 import 'dart:html' as html;
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/homeview.dart';
 import 'package:exprimons_nous/objects/admin.dart';
 import 'package:flutter/material.dart';

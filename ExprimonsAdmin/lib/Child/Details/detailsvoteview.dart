@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:html' as html;
 
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import '../../Colors.dart';
+import '../../objects/Colors.dart';
 import '../../objects/optionvote.dart';
 
 class DetailsVoteView extends StatefulWidget {

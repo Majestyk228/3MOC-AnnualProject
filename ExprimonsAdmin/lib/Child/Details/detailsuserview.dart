@@ -1,7 +1,7 @@
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
 
-import '../../Colors.dart';
+import '../../objects/Colors.dart';
 import '../../objects/user.dart';
 
 class DetailsUserView extends StatefulWidget {

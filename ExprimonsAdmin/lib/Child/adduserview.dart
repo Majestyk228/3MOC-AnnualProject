@@ -1,9 +1,9 @@
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../Colors.dart';
+import '../objects/Colors.dart';
 
 class AddUserView extends StatefulWidget {
   const AddUserView({Key? key}) : super(key: key);

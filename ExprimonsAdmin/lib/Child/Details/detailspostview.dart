@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:exprimons_nous/Child/commentviewpost.dart';
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
-import '../../Colors.dart';
+import '../../objects/Colors.dart';
 import '../../objects/post.dart';
 import 'package:http/http.dart' as http;
 

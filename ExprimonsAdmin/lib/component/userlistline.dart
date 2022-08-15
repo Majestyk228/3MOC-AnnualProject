@@ -1,8 +1,8 @@
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/user.dart';
 import 'package:flutter/material.dart';
 
-import '../Colors.dart';
+import '../objects/Colors.dart';
 
 class UserListLine extends StatefulWidget {
   const UserListLine({Key? key, required this.user, required this.index})

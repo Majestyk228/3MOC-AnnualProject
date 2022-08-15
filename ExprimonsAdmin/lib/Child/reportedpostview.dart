@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../Colors.dart';
+import '../objects/Colors.dart';
 import 'dart:html' as html;
 import '../component/postlistline.dart';
 import '../objects/post.dart';

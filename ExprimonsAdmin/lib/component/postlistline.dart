@@ -1,8 +1,8 @@
 import 'package:exprimons_nous/Child/Details/detailspostview.dart';
 import 'package:flutter/material.dart';
 
-import '../Colors.dart';
-import '../TextStyle.dart';
+import '../objects/Colors.dart';
+import '../objects/TextStyle.dart';
 import '../objects/post.dart';
 
 class PostListLine extends StatefulWidget {

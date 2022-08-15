@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/component/invitationline.dart';
 import 'package:exprimons_nous/objects/invitation.dart';
 import 'package:flutter/material.dart';
 
-import '../Colors.dart';
+import '../objects/Colors.dart';
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
 

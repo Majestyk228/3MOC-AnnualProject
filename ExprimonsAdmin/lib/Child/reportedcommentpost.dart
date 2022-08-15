@@ -6,8 +6,8 @@ import 'package:exprimons_nous/component/commentline.dart';
 import 'package:exprimons_nous/objects/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../Colors.dart';
-import 'package:exprimons_nous/TextStyle.dart';
+import '../objects/Colors.dart';
+import 'package:exprimons_nous/objects/TextStyle.dart';
 
 class ReportedCommentPost extends StatefulWidget {
   const ReportedCommentPost(

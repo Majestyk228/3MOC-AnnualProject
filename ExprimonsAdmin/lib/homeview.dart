@@ -1,4 +1,4 @@
-import 'package:exprimons_nous/Colors.dart';
+import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:exprimons_nous/dashboardview.dart';
 import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/postview.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:side_navigation/side_navigation.dart';
 import 'dart:html' as html;
 
-import 'TextStyle.dart';
+import 'objects/TextStyle.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
