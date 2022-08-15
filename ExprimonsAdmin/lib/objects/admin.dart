@@ -35,7 +35,10 @@ Future logAdmin(String email, String password) async {
 
   var data = json.decode(response.body);
 
-  if (data.length != 0) {
+  if (data.length != 0&&data[0]!=null) {
+
+    print("WHY");
+    print(data[0]);
     html.window.localStorage["idAdmin"] = "${data['idAdmin']}";
     html.window.localStorage["idCommunity"] = "${data['idCommunity']}";
     html.window.localStorage["token"] = "${data['token']}";
