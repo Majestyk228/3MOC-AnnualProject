@@ -4,7 +4,7 @@ import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../Colors.dart';
-import '../Globals.dart';
+import 'dart:html' as html;
 import '../component/postlistline.dart';
 import '../objects/post.dart';
 import 'Details/detailspostview.dart';
@@ -28,7 +28,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
   Future refreshPosts() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/post/reportedPosts/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/post/reportedPosts/${html.window.localStorage["idAdmin"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -37,7 +37,7 @@ class _ReportedPostViewState extends State<ReportedPostView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 

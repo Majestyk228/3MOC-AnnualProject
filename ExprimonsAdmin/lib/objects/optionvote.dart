@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:exprimons_nous/Globals.dart';
+import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
 class OptionVotes {
@@ -42,7 +42,7 @@ Future addOptionVotes(List<OptionVotes> optionVotes) async {
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
       body: body);
 }

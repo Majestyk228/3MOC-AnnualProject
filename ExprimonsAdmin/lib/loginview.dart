@@ -17,6 +17,7 @@ class Login extends StatelessWidget {
               widthFactor: 0.7,
               heightFactor: 0.6,
               child: Image(
+
                 image: AssetImage('assets/images/logo.png'),
               ),
             ), //test

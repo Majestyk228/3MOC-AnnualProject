@@ -1,6 +1,6 @@
 import 'package:exprimons_nous/Child/Details/detailsvoteview.dart';
 import 'package:exprimons_nous/Child/addvoteview.dart';
-import 'package:exprimons_nous/Globals.dart';
+import 'dart:html' as html;
 import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/component/voteslistline.dart';
 import 'package:exprimons_nous/loginview.dart';
@@ -30,7 +30,7 @@ class _VoteViewState extends State<VoteView> {
   Future refreshVotes() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/vote/voteList/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/vote/voteList/${html.window.localStorage["idCommunity"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -39,7 +39,7 @@ class _VoteViewState extends State<VoteView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 

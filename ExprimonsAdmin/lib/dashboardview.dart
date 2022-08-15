@@ -5,7 +5,7 @@ import 'package:exprimons_nous/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'Globals.dart';
+import 'dart:html' as html;
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class _DashboardViewState extends State<DashboardView> {
   Future refreshUsers() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/community/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/community/${html.window.localStorage["idCommunity"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -39,7 +39,7 @@ class _DashboardViewState extends State<DashboardView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 
@@ -54,7 +54,7 @@ class _DashboardViewState extends State<DashboardView> {
   Future refreshNbReportedPost() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/post/nbReportedPosts/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/post/nbReportedPosts/${html.window.localStorage["idCommunity"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -63,7 +63,7 @@ class _DashboardViewState extends State<DashboardView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 
@@ -78,7 +78,7 @@ class _DashboardViewState extends State<DashboardView> {
   Future refreshNbReportedComments() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/comment/nbReportedCommentsAll/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/comment/nbReportedCommentsAll/${html.window.localStorage["idCommunity"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -87,7 +87,7 @@ class _DashboardViewState extends State<DashboardView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 

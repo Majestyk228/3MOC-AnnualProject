@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../Globals.dart';
+import 'dart:html' as html;
 
 class Post {
   int? idPost;
@@ -53,9 +53,9 @@ Future addPost(String Title,String Body) async {
   var body = jsonEncode({
     "title": Title,
     "body": Body,
-    "idCommunity": currentAdmin.idCommunity,
+    "idCommunity": html.window.localStorage["idCommunity"]!,
     "idUser": null,
-    "idAdmin": currentAdmin.idAdmin
+    "idAdmin": html.window.localStorage["idCommunity"]!
   });
 
   final response = await http.post(uri,
@@ -66,7 +66,7 @@ Future addPost(String Title,String Body) async {
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
       body: body);
 }
@@ -89,7 +89,7 @@ Future updatePost(int idPost,String Title,String Body) async {
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
       body: body);
 }
@@ -107,7 +107,7 @@ Future deletePost(int idPost) async{
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
       );
 }

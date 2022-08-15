@@ -7,7 +7,7 @@ import 'package:exprimons_nous/objects/post.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'Child/Details/detailspostview.dart';
-import 'Globals.dart';
+import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
 class PostView extends StatefulWidget {
@@ -29,7 +29,7 @@ class _PostViewState extends State<PostView> {
   Future refreshPosts() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/post/all/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/post/all/${html.window.localStorage["idCommunity"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -38,7 +38,7 @@ class _PostViewState extends State<PostView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 

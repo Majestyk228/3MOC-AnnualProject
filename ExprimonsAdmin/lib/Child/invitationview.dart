@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../Colors.dart';
 import 'package:http/http.dart' as http;
-import '../Globals.dart';
+import 'dart:html' as html;
 
 class InvitationView extends StatefulWidget {
   const InvitationView({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _InvitationViewState extends State<InvitationView> {
   Future refreshInvitation() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/invite/allByCommunity/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/invite/allByCommunity/${html.window.localStorage["idAdmin"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -37,7 +37,7 @@ class _InvitationViewState extends State<InvitationView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 

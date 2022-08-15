@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'dart:html' as html;
 
-import 'package:exprimons_nous/Globals.dart';
 import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +45,7 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
     } else {
       important = true;
     }
+    print(widget.vote.idVote);
   }
 
   Future refreshOptionVotes() async {
@@ -62,7 +63,7 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
               "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
           "Access-Control-Allow-Methods": "POST, OPTIONS",
           'Content-Type': 'application/json; charset=UTF-8',
-          "token": currentAdmin.token!
+          "token": html.window.localStorage["token"]!
         },
         body: body);
 

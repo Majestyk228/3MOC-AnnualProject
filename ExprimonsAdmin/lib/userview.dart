@@ -8,7 +8,7 @@ import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/component/userlistline.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'Globals.dart';
+import 'dart:html' as html;
 import 'objects/user.dart';
 
 class UserView extends StatefulWidget {
@@ -30,7 +30,7 @@ class _UserViewState extends State<UserView> {
   Future refreshUsers() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/user/all/${currentAdmin.idCommunity}");
+        "https://www.titan-photography.com/user/all/${html.window.localStorage["idCommunity"]}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -39,7 +39,7 @@ class _UserViewState extends State<UserView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
     );
 

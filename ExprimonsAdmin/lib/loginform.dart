@@ -1,9 +1,13 @@
+import 'dart:html' as html;
+import 'dart:ui';
+
 import 'package:exprimons_nous/Colors.dart';
-import 'package:exprimons_nous/Globals.dart';
+import 'dart:html' as html;
 import 'package:exprimons_nous/TextStyle.dart';
 import 'package:exprimons_nous/homeview.dart';
 import 'package:exprimons_nous/objects/admin.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -20,9 +24,15 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
-    super.initState();
-    email = TextEditingController();
-    password = TextEditingController();
+
+
+      super.initState();
+      email = TextEditingController();
+      password = TextEditingController();
+
+
+
+
   }
 
   @override
@@ -96,11 +106,9 @@ class _LoginFormState extends State<LoginForm> {
                     elevation: 5,
                     child: TextButton(
                         onPressed: () async {
-                          //print(gender);
-
                           await logAdmin(email.text, password.text);
 
-                          if (currentAdmin.idCommunity == null) {
+                          if (html.window.localStorage["idAdmin"] == null) {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../Globals.dart';
+import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
 class Invitation {
@@ -29,7 +29,8 @@ class Invitation {
 Future addInvitation() async {
   Uri uri = Uri.parse("https://titan-photography.com/invite/create");
 
-  var body = jsonEncode({"idCommunity": currentAdmin.idCommunity});
+  var body =
+      jsonEncode({"idCommunity": html.window.localStorage["idCommunity"]});
 
   final response = await http.post(uri,
       headers: {
@@ -39,7 +40,7 @@ Future addInvitation() async {
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token": html.window.localStorage["token"]!
       },
       body: body);
 }
@@ -55,6 +56,6 @@ Future deleteInvitation(invitationCode) async {
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     'Content-Type': 'application/json; charset=UTF-8',
-    "token":currentAdmin.token!
+    "token": html.window.localStorage["token"]!
   });
 }

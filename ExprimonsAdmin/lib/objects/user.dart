@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../Globals.dart';
+import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 class User {
   int? idUser;
@@ -55,7 +55,7 @@ Future addUser(String firstName,String lastName,String birthDate,String gender,S
     "areaCode": areaCode,
     "email": email,
     "password": password,
-    "idCommunity": currentAdmin.idCommunity
+    "idCommunity": html.window.localStorage["idCommunity"]
   });
   
   final response = await http.post(uri,
@@ -66,7 +66,7 @@ Future addUser(String firstName,String lastName,String birthDate,String gender,S
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       },
       body: body);
 }
@@ -84,6 +84,6 @@ Future deleteUser(int idUser) async {
         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json; charset=UTF-8',
-        "token":currentAdmin.token!
+        "token":html.window.localStorage["token"]!
       });
 }
