@@ -37,3 +37,8 @@ TextStyle InputButtonDateStyle=TextStyle(
   fontSize: 16,
   color: Colors.white
 );
+TextStyle DashboardLabelStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontFamily: 'QuickSand',
+  fontSize: 24,
+);

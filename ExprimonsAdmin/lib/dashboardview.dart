@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/Child/reportedpostview.dart';
 import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _DashboardViewState extends State<DashboardView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":html.window.localStorage["token"]!
+        "token": html.window.localStorage["token"]!
       },
     );
 
@@ -63,7 +64,7 @@ class _DashboardViewState extends State<DashboardView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":html.window.localStorage["token"]!
+        "token": html.window.localStorage["token"]!
       },
     );
 
@@ -87,7 +88,7 @@ class _DashboardViewState extends State<DashboardView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":html.window.localStorage["token"]!
+        "token": html.window.localStorage["token"]!
       },
     );
 
@@ -130,49 +131,119 @@ class _DashboardViewState extends State<DashboardView> {
               ),
             ),
           ),
-          Row(
-            children: [
-              Card(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 200,
-                      child: Center(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  elevation: 10,
+                  shadowColor: DarkRedColor,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 200,
+                        child: Center(
+                            child: Text(
+                          nbReportedPosts,
+                          style: TitleTableStyle,
+                        )),
+                      ),
+                      Container(
+                        height: 150,
+                        width: 200,
+                        child: Center(
                           child: Text(
-                        nbReportedPosts,
-                        style: TextStyle(fontSize: 32),
-                      )),
-                    ),
-                    Container(
-                      height: 150,
-                      width: 200,
-                      child: Center(child: Text("Post signalé")),
-                    ),
-                  ],
+                            "Post signalé",
+                            style: DashboardLabelStyle,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                              onPressed: () async {
+                                final value = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const ReportedPostView()),
+                                );
+
+                              },
+                              child: Text(
+                                "Voir les Post signalés",
+                                style: RedButtonStyle,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Card(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 200,
-                      child: Center(
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  elevation: 10,
+                  shadowColor: DarkRedColor,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 200,
+                        child: Center(
+                            child: Text(
+                          nbReportedComments,
+                          style: TitleTableStyle,
+                        )),
+                      ),
+                      Container(
+                        height: 150,
+                        width: 300,
+                        child: Center(
                           child: Text(
-                            nbReportedComments,
-                            style: TextStyle(fontSize: 32),
-                          )),
-                    ),
-                    Container(
-                      height: 150,
-                      width: 200,
-                      child: Center(child: Text("Commentaire signalé")),
-                    ),
-                  ],
+                            "Commentaire signalé",
+                            style: DashboardLabelStyle,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 75,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: DarkRedColor,
+                            elevation: 5,
+                            child: TextButton(
+                              onPressed: () {
+                                //TODO
+                              },
+                              child: Text(
+                                "Voir les commentaires signalés",
+                                style: RedButtonStyle,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
