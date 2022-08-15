@@ -67,6 +67,8 @@ class _PostViewState extends State<PostView> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,6 +129,31 @@ class _PostViewState extends State<PostView> {
                       ),
                     )),
               ),
+              /*Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 10,
+                color: DarkRedColor,
+                child: TextButton(
+                    onPressed: () async {
+                      final value = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ReportedPostView()),
+                      );
+                      refreshPosts();
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 75,
+                      child: Center(
+                        child: Text(
+                          "Commentaire",
+                          style: RedButtonStyle,
+                        ),
+                      ),
+                    )),
+              ),*/
             ],
           ),
           SizedBox(

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
-class Comment {
+class Comments {
   int? idComment;
   String? body;//
   int? likes;//
@@ -13,7 +13,7 @@ class Comment {
   int? idUser;
   String? date;
 
-  Comment({
+  Comments({
     this.idComment,
     this.body,
     this.likes,
@@ -25,8 +25,8 @@ class Comment {
     this.date,
   });
 
-  factory Comment.fromJson(Map<String, dynamic> json) {
-    return Comment(
+  factory Comments.fromJson(Map<String, dynamic> json) {
+    return Comments(
       idComment: json['idComment'],
       body: json['body'],
       likes: json['likes'],

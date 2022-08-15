@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:html' as html;
 
+import 'package:exprimons_nous/Child/Details/detailscommentview.dart';
 import 'package:exprimons_nous/component/commentline.dart';
 import 'package:exprimons_nous/objects/comment.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +9,18 @@ import 'package:http/http.dart' as http;
 import '../Colors.dart';
 import 'package:exprimons_nous/TextStyle.dart';
 
-class CommentView extends StatefulWidget {
-  const CommentView({Key? key, required this.idPost, required this.titlePost})
+class ReportedCommentPost extends StatefulWidget {
+  const ReportedCommentPost(
+      {Key? key, required this.idPost, required this.titlePost})
       : super(key: key);
   final int idPost;
   final String titlePost;
 
   @override
-  State<CommentView> createState() => _CommentViewState();
+  State<ReportedCommentPost> createState() => _ReportedCommentPostState();
 }
 
-class _CommentViewState extends State<CommentView> {
+class _ReportedCommentPostState extends State<ReportedCommentPost> {
   var comments = [];
 
   @override
@@ -30,7 +32,7 @@ class _CommentViewState extends State<CommentView> {
   Future refreshComment() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/comment/all/${widget.idPost}");
+        "https://www.titan-photography.com/comment/reported/${widget.idPost}");
     //methode get du package HTTP
     final response = await http.get(
       uri,
@@ -50,7 +52,7 @@ class _CommentViewState extends State<CommentView> {
     setState(() {
       for (var i = 0; i < data.length; i++) {
         print(data[i]);
-        Comment uneInvitation = Comment(
+        Comments uneInvitation = Comments(
           idComment: data[i]['idComment'],
           body: data[i]['body'],
           likes: data[i]['likes'],
@@ -101,26 +103,6 @@ class _CommentViewState extends State<CommentView> {
                   ),
                 ),
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)),
-                elevation: 2,
-                color: DarkRedColor,
-                child: TextButton(
-                    onPressed: () async {
-                      //redirect on reported comment view of the post
-                    },
-                    child: Container(
-                      width: 350,
-                      height: 75,
-                      child: Center(
-                        child: Text(
-                          "0 Commentaire signalée",
-                          style: RedButtonStyle,
-                        ),
-                      ),
-                    )),
-              ),
             ],
           ),
           SizedBox(
@@ -143,7 +125,7 @@ class _CommentViewState extends State<CommentView> {
                       height: 200,
                       child: Center(
                         child: Text(
-                          'Commentaire du post \n"${widget.titlePost}"',
+                          'Commentaire signalée du post \n"${widget.titlePost}"',
                           textAlign: TextAlign.center,
                           style: TitleTableStyle,
                         ),
@@ -218,32 +200,17 @@ class _CommentViewState extends State<CommentView> {
                         return MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
-                            /*
-                            onTap: () => showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: Text(
-                                    'Supression de l\'invitation ${invitation[index].code}'),
-                                content: const Text(
-                                    'Voullez vous vraiment supprimer cette invitation ?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text('Non'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () async {
-                                      Navigator.pop(context, 'OK');
-
-                                      await deleteInvitation(
-                                          invitation[index].code);
-                                      refreshInvitation();
-                                    },
-                                    child: const Text('Oui'),
-                                  ),
-                                ],
-                              ),
-                            ),*/
+                            onTap: () async {
+                              //go to  post details
+                              final value = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailsCommentView(
+                                          comments: comments[index],
+                                        )),
+                              );
+                              refreshComment();
+                            },
                             child: CommentLine(
                               comment: comments[index],
                               index: index,

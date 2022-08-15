@@ -6,7 +6,7 @@ import '../Colors.dart';
 
 class CommentLine extends StatefulWidget {
   const CommentLine({Key? key, required this.comment, required this.index}) : super(key: key);
-final Comment comment;
+final Comments comment;
 final int index;
   @override
   State<CommentLine> createState() => _CommentLineState();

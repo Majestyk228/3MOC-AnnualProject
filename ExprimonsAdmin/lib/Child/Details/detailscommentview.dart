@@ -1,45 +1,42 @@
+import 'dart:html';
 import 'dart:convert';
-
-import 'package:exprimons_nous/Child/commentviewpost.dart';
+import 'package:exprimons_nous/Colors.dart';
 import 'package:exprimons_nous/TextStyle.dart';
+import 'package:exprimons_nous/objects/comment.dart';
 import 'package:flutter/material.dart';
-import 'dart:html' as html;
-import '../../Colors.dart';
-import '../../objects/post.dart';
 import 'package:http/http.dart' as http;
+import 'dart:html' as html;
 
-class DetailsPostView extends StatefulWidget {
-  const DetailsPostView({Key? key, required this.post}) : super(key: key);
-  final Post post;
+class DetailsCommentView extends StatefulWidget {
+  const DetailsCommentView({Key? key, required this.comments})
+      : super(key: key);
+  final Comments comments;
 
   @override
-  State<DetailsPostView> createState() => _DetailsPostViewState();
+  State<DetailsCommentView> createState() => _DetailsCommentViewState();
 }
 
-class _DetailsPostViewState extends State<DetailsPostView> {
-  late TextEditingController title;
+class _DetailsCommentViewState extends State<DetailsCommentView> {
   late TextEditingController body;
-  late TextEditingController date;
-  late TextEditingController time;
   late TextEditingController likes;
   late TextEditingController dislikes;
-  late TextEditingController reported;
-  int nbComment =0;
+  late TextEditingController reports;
+  late TextEditingController date;
+  late TextEditingController userName;
+  late bool anonymous = true;
+  late String Name = "";
 
-  late bool isAdmin = false;
-  bool important = false;
-
-  Future refreshNbComment() async {
+  Future refreshUserName() async {
     //endpoint
     Uri uri = Uri.parse(
-        "https://www.titan-photography.com/comment/count/${widget.post.idPost}");
+        "https://www.titan-photography.com/comment/count/${widget.comments.idUser}");
     //methode get du package HTTP
-    final response = await http.get(
+    final response = await http.post(
       uri,
       headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Headers":
-        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "token": html.window.localStorage["token"]!
       },
@@ -48,41 +45,36 @@ class _DetailsPostViewState extends State<DetailsPostView> {
     //parsing du JSON de la réponse
     var data = json.decode(response.body);
 
-
     setState(() {
-      if(data[0]["nbComment"]==null){
-        nbComment=0;
-      }
-      else{
-        nbComment=data[0]["nbComment"];
-      }
+      Name = data[0]["lastName"] + data[0]["firstName"];
     });
   }
 
   @override
   void initState() {
-    refreshNbComment();
-    if (widget.post.idAdmin != null) {
-      isAdmin = true;
+    if (widget.comments.anonymous == 0) {
+      anonymous = true;
+      refreshUserName();
+    } else {
+      anonymous = false;
     }
 
     super.initState();
 
-    title = TextEditingController();
     body = TextEditingController();
-    date = TextEditingController();
-    time = TextEditingController();
     likes = TextEditingController();
     dislikes = TextEditingController();
-    reported = TextEditingController();
+    reports = TextEditingController();
+    date = TextEditingController();
+    userName = TextEditingController();
 
-    title.text = "${widget.post.title}";
-    body.text = "${widget.post.body}";
-    date.text = "${widget.post.date}";
-    time.text = "${widget.post.time}";
-    likes.text = "${widget.post.likes}";
-    dislikes.text = "${widget.post.dislikes}";
-    reported.text = "${widget.post.reported}";
+    body.text = "${widget.comments.body}";
+    likes.text = "${widget.comments.likes}";
+    dislikes.text = "${widget.comments.dislikes}";
+    reports.text = "${widget.comments.reports}";
+    date.text = "${widget.comments.date}";
+    userName.text = "${Name}";
+
   }
 
   @override
@@ -119,30 +111,6 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                   ),
                 ),
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)),
-                elevation: 2,
-                color: DarkRedColor,
-                child: TextButton(
-                    onPressed: () async {
-                      final value = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  CommentViewPost(idPost: widget.post.idPost!,titlePost: widget.post.title!,)),
-                      );
-                    },
-                    child: Container(
-                      width: 300,
-                      height: 75,
-                      child: Center(
-                        child: Text(
-                          "${nbComment} Commentaires du post",
-                          style: RedButtonStyle,
-                        ),
-                      ),
-                    )),
-              ),
             ],
           ),
           Center(
@@ -161,7 +129,7 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                   children: [
                     Container(
                       child: Text(
-                        "Details du Post",
+                        "Details du Commentaire",
                         style: TitleAddStyle,
                       ),
                     ),
@@ -188,26 +156,6 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
-                          style: InputStyle,
-                          enabled: false,
-                          controller: title,
-                          autocorrect: true,
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: DarkRedColor, width: 2)),
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color(0xFFFFCBD0), width: 3.0),
-                            ),
-                            labelText: 'Titre du post',
-                            floatingLabelStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
                           minLines: 1,
                           maxLines: 5,
                           style: InputStyle,
@@ -222,7 +170,69 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                               borderSide: const BorderSide(
                                   color: Color(0xFFFFCBD0), width: 3.0),
                             ),
-                            labelText: 'Descriptif du post',
+                            labelText: 'Corps du commentaire',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          minLines: 1,
+                          maxLines: 5,
+                          style: InputStyle,
+                          enabled: false,
+                          controller: likes,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Likes du commentaire',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: dislikes,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Dislikes du commentaire',
+                            floatingLabelStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          style: InputStyle,
+                          enabled: false,
+                          controller: reports,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: DarkRedColor, width: 2)),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFFFCBD0), width: 3.0),
+                            ),
+                            labelText: 'Nombre de signalement du commentaire',
                             floatingLabelStyle: TextStyle(color: Colors.red),
                           ),
                         ),
@@ -242,47 +252,7 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                               borderSide: const BorderSide(
                                   color: Color(0xFFFFCBD0), width: 3.0),
                             ),
-                            labelText: 'Date du post',
-                            floatingLabelStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          style: InputStyle,
-                          enabled: false,
-                          controller: time,
-                          autocorrect: true,
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: DarkRedColor, width: 2)),
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color(0xFFFFCBD0), width: 3.0),
-                            ),
-                            labelText: 'Heure du post',
-                            floatingLabelStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          style: InputStyle,
-                          enabled: false,
-                          controller: likes,
-                          autocorrect: true,
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: DarkRedColor, width: 2)),
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color(0xFFFFCBD0), width: 3.0),
-                            ),
-                            labelText: 'Likes du post',
+                            labelText: 'Date du commentaire',
                             floatingLabelStyle: TextStyle(color: Colors.red),
                           ),
                         ),
@@ -307,23 +277,26 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          style: InputStyle,
-                          enabled: false,
-                          controller: reported,
-                          autocorrect: true,
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: DarkRedColor, width: 2)),
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color(0xFFFFCBD0), width: 3.0),
+                      Visibility(
+                        visible: anonymous,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            style: InputStyle,
+                            enabled: false,
+                            controller: userName,
+                            autocorrect: true,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: DarkRedColor, width: 2)),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color(0xFFFFCBD0), width: 3.0),
+                              ),
+                              labelText: "Nom de l'auteur du commentaire",
+                              floatingLabelStyle: TextStyle(color: Colors.red),
                             ),
-                            labelText: 'Nombre de signalement du post',
-                            floatingLabelStyle: TextStyle(color: Colors.red),
                           ),
                         ),
                       ),
@@ -344,9 +317,11 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                           title: Text(
-                                              'Supression du post ${widget.post.title}'),
+                                            'Supression du commentaire ${widget.comments.body}',
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                           content: const Text(
-                                              'Voullez vous vraiment supprimer le Post ?'),
+                                              'Voullez vous vraiment supprimer ce commentaire ?'),
                                           actions: <Widget>[
                                             TextButton(
                                               onPressed: () =>
@@ -355,8 +330,8 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                                             ),
                                             TextButton(
                                               onPressed: () async {
-                                                await deletePost(
-                                                    widget.post.idPost!);
+                                                await deleteComment(
+                                                    widget.comments.idComment!);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },
@@ -366,7 +341,7 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                                         ));
                               },
                               child: Text(
-                                "Supprimer le post",
+                                "Supprimer le Commentaire",
                                 style: RedButtonStyle,
                               ),
                             ),
