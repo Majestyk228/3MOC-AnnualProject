@@ -157,6 +157,28 @@ router.get('/formattedComment/:idPost', async function (req, res, next) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
-})
+});
+
+
+
+router.get('/all/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await comment.commmentByCommunity(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+router.get('/all/reported/:idCommunity', async function (req, res, next) {
+	try {
+		res.status(200).json(await comment.reportedCommmentByCommunity(req.params.idCommunity));
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
 
 module.exports = router;

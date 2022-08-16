@@ -106,6 +106,21 @@ async function commmentByPost(idPost) {
 	return rows;
 }
 
+
+async function commmentByCommunity(idCommunity) {
+	const request = "SELECT * FROM Comment c, Post p WHERE p.idPost = c.idPost AND p.idCommunity = " + idCommunity + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
+
+
+async function reportedCommmentByCommunity(idCommunity) {
+	const request = "SELECT * FROM Comment c, Post p WHERE p.idPost = c.idPost AND c.reports > 0 AND p.idCommunity = " + idCommunity + ";";
+	const rows = await db.query(request, "");
+	return rows;
+}
+
 module.exports = {
 	getnbComment,
 	getReportedComments,
@@ -119,5 +134,7 @@ module.exports = {
 	nbCommentAndroidPost,
 	reportComment,
 	reportCommentReinit,
-	commmentByPost
+	commmentByPost,
+	reportedCommmentByCommunity,
+	commmentByCommunity
 }
