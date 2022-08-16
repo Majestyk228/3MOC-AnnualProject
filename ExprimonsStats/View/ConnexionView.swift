@@ -11,16 +11,15 @@ import SwiftUI
 struct ConnexionView: View {
     
     
-    
+    @StateObject var admin = AdminData()
+    @StateObject var adminLogin=AdminLogin()
     @Binding var  user:User
+    
+    
     //variable de test
-    let usersTest=[
-    User(userId: 1, userMail: "root@root.fr", userPassword: "root", communityId: 1, communityTitle: "SaintDenis"),
-    User(userId: 2, userMail: "Test@test.fr", userPassword: "test", communityId: 3, communityTitle: "funEnterprise"),
-    User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
-    ]
-    @State private var email:String = ""
-    @State private var password:String = ""
+    
+    @State private var emailTest:String = ""
+    @State private var passwordTest:String = ""
     
     
     var body: some View {
@@ -43,24 +42,27 @@ struct ConnexionView: View {
                             
                             Section{
                                 
-                                TextField(/*@START_MENU_TOKEN@*/"Email"/*@END_MENU_TOKEN@*/, text: $email)
+                                TextField(/*@START_MENU_TOKEN@*/"Email"/*@END_MENU_TOKEN@*/, text: $emailTest)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .disableAutocorrection(true)
                                     
                                     
                                 
-                                SecureField("Mot de passe", text:$password)
+                                SecureField("Mot de passe", text:$passwordTest)
                                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                             }
                             Button(action: {
                                 
-                                for test in usersTest{
-                                    
-                                    if(test.userMail==email){
+                                admin.fetch()
+                                adminLogin.fetch()
+                                for admin in admin.admins{
                                         
-                                        if(test.userPassword==password){
+                                    
+                                    if(admin.email==emailTest){
+                                        
+                                        if(admin.password==passwordTest){
                                             
-                                            user = test
+                                            user = User(userId: admin.idAdmin, userMail: admin.email, userPassword: admin.password, communityId: 2, communityTitle: "HARTWOOD")
                                         }
                                     }
                                 }
@@ -80,6 +82,10 @@ struct ConnexionView: View {
                             }
                             .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                            .onAppear{
+                                admin.fetch()
+                                
+                            }
                         }
                         
                         

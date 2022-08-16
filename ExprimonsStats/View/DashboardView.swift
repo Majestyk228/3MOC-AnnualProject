@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DashboardView: View {
     @Binding var  user:User
+    @StateObject var dashboardStats = DashboardStats()
+    
     
     var body: some View {
         
@@ -86,11 +88,15 @@ struct DashboardView: View {
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
                         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                        .onAppear{
+                            dashboardStats.fetch()
+                        }
                     }
                     
                     
                     
                 }
+                    
                 
             )
     
@@ -103,6 +109,7 @@ struct DashboardView: View {
 
 struct DashBoard_Previews: PreviewProvider {
     @State static var userTest = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
     static var previews: some View {
         DashboardView(user: $userTest)
     }

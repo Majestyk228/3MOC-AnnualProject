@@ -36,9 +36,7 @@ struct SheetVoteView: View {
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .font(.system(size: 24))
-                            NavigationLink(destination:DetailsUserView()){
-                                Text("Toblerone")
-                            }
+                            
                         }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.normalColor).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                     }
                 }

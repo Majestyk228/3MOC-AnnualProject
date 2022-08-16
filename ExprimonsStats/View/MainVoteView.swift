@@ -67,16 +67,7 @@ struct MainVoteView: View {
                                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                                         .cornerRadius(25)
                                         
-                                        Button(action: {
-                                            
-                                        }) {
-                                            Text("Details")
-                                                .font(.system(size:36))
-                                                .foregroundColor(Color.black)
-                                        }
-                                        .frame(width: 200.0, height: 60)
-                                        .background(Color.ligthColor2)
-                                        .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                                        
                                         
                                         
                                         

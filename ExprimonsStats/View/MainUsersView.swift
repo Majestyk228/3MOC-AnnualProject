@@ -25,6 +25,7 @@ struct MainUsersView: View {
         ListofUser(userName: "Kevin"),
         ListofUser(userName: "Lucas"),
         ]
+    @State private var userdetail = 1
     @Binding var  user:User
     var body: some View {
         Color.normalColor
@@ -48,9 +49,7 @@ struct MainUsersView: View {
                             .background(Color.darkColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                         HStack{
-                            Button(action: {
-                                
-                            }) {
+                            NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
@@ -65,9 +64,7 @@ struct MainUsersView: View {
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                            Button(action: {
-                                
-                            }) {
+                            NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
@@ -82,7 +79,7 @@ struct MainUsersView: View {
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(50.0)
-                            NavigationLink(destination:DetailsUserView()) {
+                            NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
@@ -123,8 +120,10 @@ struct MainUsersView: View {
                                     Spacer()
                                     Text(user.userName).font(.system(size: 36))
                                     Spacer()
+                                    NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 52))
+                                    }
                                 }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.white).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             }
                         }
