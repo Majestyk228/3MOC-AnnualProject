@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+@MainActor
 struct DashboardView: View {
+    @State var user:String="32"
+    @Published var something:String?
     
-    @StateObject var dashboardStats = DashboardStats()
-    
+    init()  {
+        Task{
+            self.user="24"
+            
+        }
+        
+    }
     
     var body: some View {
-        
-        
         Color.normalColor
             .ignoresSafeArea()
             .overlay(
@@ -31,7 +37,7 @@ struct DashboardView: View {
                         VStack{
                             Text("Utilisateurs")
                                 .font(.system(size: 24))
-                            Text("320")
+                            Text(user)
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
@@ -89,7 +95,7 @@ struct DashboardView: View {
                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
                         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                         .onAppear{
-                            dashboardStats.fetch()
+                            
                         }
                     }
                     
@@ -97,13 +103,7 @@ struct DashboardView: View {
                     
                 }
                     
-                
             )
-    
-        
-        
-        
-        
     }
 }
 

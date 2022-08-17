@@ -15,19 +15,6 @@ struct ConnexionView: View {
     @State private var emailTest:String = ""
     @State private var passwordTest:String = ""
     init(){
-        /*
-        print("idAdmin: "+String(UserDefaults.standard.integer(forKey: "idAdmin")))
-        print("idCommunity: "+String(UserDefaults.standard.integer(forKey: "idCommunity")))
-        print("token: "+(UserDefaults.standard.string(forKey: "token") ?? "null"))
-         */
-        /*
-        if let bundleID =  Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-        }
-         */
-        
-        
-        
     }
     var body: some View {
         Color.normalColor

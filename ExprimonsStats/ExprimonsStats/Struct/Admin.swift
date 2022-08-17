@@ -13,7 +13,9 @@ struct loggedAdmin:Hashable,Codable{
     let idAdmin:Int?
     let idCommunity:Int?
     let token:String?
+    
 }
+
 
 func logAdmin (email:String,password:String){
     let params: Parameters = [

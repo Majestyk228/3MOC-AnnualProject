@@ -27,7 +27,7 @@ struct MainPostView: View {
                 
             
                 VStack(spacing:100){
-                    Text("Vote")
+                    Text("Post")
                         .font(.system(size: 36))
                         .foregroundColor(Color.white)
                         .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )

@@ -6,53 +6,65 @@
 //
 
 import Foundation
+import Alamofire
 
 struct DashboardStat:Hashable,Codable{
     let nbUsers:Int
-    let totalPointsCommunity:String
+    let totalPointsCommunity:Int
     let nbPost:Int
     let nbVote:Int
 }
-
-class DashboardStats:ObservableObject{
-    @Published var  dashboardStats: [DashboardStat] = []
-    
-    func fetch()  {//fonction qui va contacter l'API et récuperer les données brute
-        print("Doing a api call...")
-        let url = URL(string: "https://www.titan-photography.com/community/stats")!
-        var request = URLRequest(url: url)
-        // Serialize HTTP Body data as JSON
-        request.httpMethod="POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body: [String:AnyHashable] = [
-            "idCommunity":"2"
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
-        let task = URLSession.shared.dataTask(with: request){data, _, error in
-            guard let data = data ,error == nil else {
-                return
-            }
-            do{
-                let response = try JSONDecoder().decode([DashboardStat].self, from: data)
-                print(response)
-                DispatchQueue.main.async {
-                    self.dashboardStats = response
-                }
-                
-            }
-            catch{
-                print("OH NO")
-                print(error)
-                
-            }
-
-        }
-        task.resume()
-        
-        
-        
-        }
-    
+struct CommunityTitle:Hashable,Codable{
+    let label:String
 }
+
+func refreshDashboardStat(idCommunity:Int) async -> DashboardStat{
+    //TODO
+    var resp:DashboardStat
+    resp = DashboardStat(nbUsers: 1, totalPointsCommunity: 1, nbPost: 1, nbVote: 1)
+    
+    
+    
+    let params: Parameters = [
+            "idCommunity": idCommunity,
+        ]
+    await AF.request("https://www.titan-photography.com/community/stats", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+                case .success(let data):
+                    do {
+                        guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                            print("Error: Cannot convert data to JSON object")
+                            return
+                        }
+                        
+                        guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
+                            print("Error: Cannot convert JSON object to Pretty JSON data")
+                            return
+                        }
+                        
+                        guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
+                            print("Error: Could print JSON in String")
+                            return
+                        }
+                        print(prettyPrintedJson)
+                        
+                        resp=DashboardStat(nbUsers: jsonObject["nbUsers"] as! Int, totalPointsCommunity: jsonObject["totalPointsCommunity"] as! Int, nbPost: jsonObject["nbPost"] as! Int, nbVote: jsonObject["nbVote"] as! Int)
+                        
+                    } catch {
+                        print("Error: Trying to convert JSON data to string")
+                        return
+                    }
+                case .failure(let error):
+                    print(error)
+            }
+        }
+    
+    return resp
+}
+func refreshCommunityTitle()->CommunityTitle{
+    //todo
+    return CommunityTitle(label: "OUI")
+}
+
     
 
