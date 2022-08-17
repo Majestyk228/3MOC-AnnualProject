@@ -26,7 +26,7 @@ struct MainUsersView: View {
         ListofUser(userName: "Lucas"),
         ]
     @State private var userdetail = 1
-    @Binding var  user:User
+    
     var body: some View {
         Color.normalColor
             .ignoresSafeArea()
@@ -140,8 +140,8 @@ struct MainUsersView: View {
 }
 
 struct MainUsersView_Previews: PreviewProvider {
-    @State static var userTest = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
     static var previews: some View {
-        MainUsersView(user: $userTest)
+        MainUsersView()
     }
 }

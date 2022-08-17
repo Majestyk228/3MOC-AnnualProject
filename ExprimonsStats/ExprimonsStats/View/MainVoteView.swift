@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainVoteView: View {
-    @Binding var  user:User
+    
     var titleVote = [
         Vote(title: "Test Vote", bestChoice: "1", Description: "c'est un vote qui permet de voter"),
         Vote(title: "Test", bestChoice: "2", Description: "c'est un vote qui permet de revoter"),
@@ -114,9 +114,9 @@ struct MainVoteView: View {
 }
 
 struct MainVoteView_Previews: PreviewProvider {
-    @State static var userTest = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
     
     static var previews: some View {
-        MainVoteView(user:$userTest)
+        MainVoteView()
     }
 }

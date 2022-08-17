@@ -14,30 +14,30 @@ extension Color{
     static let ligthColor2=Color(red: 113/255, green: 204/255, blue: 27/255)
 }
 struct MainView: View {
-    @State private var user = User(userId: -1,userMail: "", userPassword: "", communityId: -1, communityTitle: "")
-    //@State private var user = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
+    
     
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.lightColor)
-        
+        print(UserDefaults.standard.integer(forKey: "idAdmin"))
     }
     var body: some View {
-        if(user.userId == -1){
+        if(UserDefaults.standard.integer(forKey: "idAdmin") == 0){
             
-            ConnexionView(user:self.$user)
+            ConnexionView()
             
         }
         else{
             
                 TabView {
-                    DashboardView(user: self.$user)
+                    DashboardView()
                         .tabItem {
                                 Image(systemName: "percent")
                                 
                                 
                                
                         }
-                    MainVoteView(user: self.$user)
+                    MainVoteView()
                         .tabItem {
                                 Image(systemName: "tray.and.arrow.down")
                                 
@@ -45,7 +45,7 @@ struct MainView: View {
                                
                         }
                     NavigationView{
-                        MainUsersView(user: self.$user)}.navigationViewStyle(StackNavigationViewStyle())
+                        MainUsersView()}.navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                                 Image(systemName: "person.fill")
                                 
@@ -53,7 +53,7 @@ struct MainView: View {
                                
                         }
                     
-                    MainPostView(user: self.$user)
+                    MainPostView()
                         .tabItem {
                                 Image(systemName: "list.bullet.rectangle.fill")
                                 

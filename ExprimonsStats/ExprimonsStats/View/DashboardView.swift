@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @Binding var  user:User
+    
     @StateObject var dashboardStats = DashboardStats()
     
     
@@ -19,7 +19,7 @@ struct DashboardView: View {
             .ignoresSafeArea()
             .overlay(
                 VStack(spacing:150){
-                    Text(user.communityTitle)
+                    Text("Community Title")
                         .font(.system(size: 36))
                     
                         .foregroundColor(Color.white)
@@ -108,9 +108,9 @@ struct DashboardView: View {
 }
 
 struct DashBoard_Previews: PreviewProvider {
-    @State static var userTest = User(userId: 3, userMail: "torresdacosta@myges.fr", userPassword: "Torres", communityId: 2, communityTitle: "ESGI")
+    
     
     static var previews: some View {
-        DashboardView(user: $userTest)
+        DashboardView()
     }
 }

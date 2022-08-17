@@ -11,17 +11,24 @@ import SwiftUI
 struct ConnexionView: View {
     
     
-    @StateObject var admin = AdminData()
-    @StateObject var adminLogin=AdminLogin()
-    @Binding var  user:User
-    
-    
     //variable de test
-    
     @State private var emailTest:String = ""
     @State private var passwordTest:String = ""
-    
-    
+    init(){
+        /*
+        print("idAdmin: "+String(UserDefaults.standard.integer(forKey: "idAdmin")))
+        print("idCommunity: "+String(UserDefaults.standard.integer(forKey: "idCommunity")))
+        print("token: "+(UserDefaults.standard.string(forKey: "token") ?? "null"))
+         */
+        /*
+        if let bundleID =  Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+         */
+        
+        
+        
+    }
     var body: some View {
         Color.normalColor
             .ignoresSafeArea() // Ignore just for the color
@@ -45,30 +52,33 @@ struct ConnexionView: View {
                                 TextField(/*@START_MENU_TOKEN@*/"Email"/*@END_MENU_TOKEN@*/, text: $emailTest)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .disableAutocorrection(true)
-                                    
-                                    
+                                
+                                
                                 
                                 SecureField("Mot de passe", text:$passwordTest)
                                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                             }
-                            Button(action: {
-                                
-                                admin.fetch()
-                                adminLogin.fetch()
-                                for admin in admin.admins{
-                                        
-                                    
-                                    if(admin.email==emailTest){
-                                        
-                                        if(admin.password==passwordTest){
+                            Button(action:  {
+                                Task{
+                                    logAdmin(email: emailTest, password: passwordTest)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.
+                                        // Code you want to be delayed
+                                        if(UserDefaults.standard.integer(forKey: "idAdmin") != 0){
+                                            print("connected")
                                             
-                                            user = User(userId: admin.idAdmin, userMail: admin.email, userPassword: admin.password, communityId: 2, communityTitle: "HARTWOOD")
+                                        }
+                                        else{
+                                            print("notConnected")
                                         }
                                     }
+                                    
                                 }
                                 
                                 
-                                   
+                                
+                                
+                                
+                                
                             }) {
                                 HStack{
                                     Spacer()
@@ -83,16 +93,14 @@ struct ConnexionView: View {
                             .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             .onAppear{
-                                admin.fetch()
+                                //admin.fetch()
                                 
                             }
                         }
                         
                         
                     }
-                    
                     .frame(width: 400.0, height: 400.0)
-                    
                     .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     
@@ -102,9 +110,9 @@ struct ConnexionView: View {
     }
     
     struct ContentView_Previews: PreviewProvider {
-        @State static var userTest = User(userId: -1,userMail: "", userPassword: "", communityId: -1, communityTitle: "")
+        
         static var previews: some View {
-            ConnexionView(user: $userTest)
+            ConnexionView()
         }
     }
 }

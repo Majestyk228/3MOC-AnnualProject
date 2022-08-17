@@ -1,3 +1,4 @@
+
 //
 //  Admin.swift
 //  ExprimonsStats
@@ -6,98 +7,62 @@
 //
 
 import Foundation
+import Alamofire
 
-
-struct Admin:Hashable,Codable{
-    let idAdmin:Int
-    let firstName:String
-    let lastName:String
-    let email:String
-    let password:String
-}
-struct Admindata:Hashable,Codable{
-    let idAdmin:Int
-    let email:String
-    let password:String
-    let idCommunity:Int
+struct loggedAdmin:Hashable,Codable{
+    let idAdmin:Int?
+    let idCommunity:Int?
+    let token:String?
 }
 
-class AdminData:ObservableObject{
-    @Published var  admins: [Admin] = []
-    
-    func fetch() { //fonction qui va contacter l'API et récuperer les données brute
-            guard let url = URL(string: "https://www.titan-photography.com/admin/all") else { return
-            }
+func logAdmin (email:String,password:String){
+    let params: Parameters = [
+            "email": email,
+            "password": password,
             
-            let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                guard let data = data, error == nil else {
-                    return
-                }
-                
-                
-                
-                //conversion en JSON
-                do{
-                    let admins = try JSONDecoder().decode([Admin].self, from: data)
-                    DispatchQueue.main.async {
-                        self?.admins = admins
+        ]
+    AF.request("https://www.titan-photography.com/admin/loginSecure", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+                case .success(let data):
+                    do {
+                        guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                            print("Error: Cannot convert data to JSON object")
+                            return
+                        }
+                        /*
+                        guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
+                            print("Error: Cannot convert JSON object to Pretty JSON data")
+                            return
+                        }
+                        
+                        guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
+                            print("Error: Could print JSON in String")
+                            return
+                        }
+                         */
+                        UserDefaults.standard.set(jsonObject["idAdmin"] as! Int, forKey: "idAdmin")
+                        UserDefaults.standard.set(jsonObject["idCommunity"] as! Int, forKey: "idCommunity")
+                        UserDefaults.standard.set(jsonObject["token"] as! String, forKey: "token")
+                        print("idAdmin in function: "+String(UserDefaults.standard.integer(forKey: "idAdmin")))
+                        
+                    } catch {
+                        print("Error: Trying to convert JSON data to string")
+                        return
                     }
-                }
-                catch {
-                    //erreur lors du parsing
+                case .failure(let error):
                     print(error)
-                }
             }
-            
-            task.resume()
         }
-    
 }
 
-class AdminLogin:ObservableObject{
-    @Published var  adminsa: [Admindata] = []
-    
-    func fetch() { //fonction qui va contacter l'API et récuperer les données brute
-        // prepare json data
-        
-        let json: [String: Any] = ["email":"root@root.fr","password":"root"]
-        let jsonData = try! JSONSerialization.data(withJSONObject: json)
-        
-        
-        
-        guard let url = URL(string: "https://www.titan-photography.com/admin/login") else { return
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            
-            
-            
-            
-            //conversion en JSON
-            do{
-                let admins = try JSONDecoder().decode([Admindata].self, from: data)
-                DispatchQueue.main.async {
-                    self?.adminsa = admins
-                    
-                    
-                }
-            }
-            catch {
-                //erreur lors du parsing
-                print(error)
-            }
-        }
-        
-        task.resume()
-        }
-    
-}
+
+
+
+
+
+
+
+
 
 
 
