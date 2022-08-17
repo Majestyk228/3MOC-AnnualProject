@@ -34,8 +34,9 @@ Future logAdmin(String email, String password) async {
       body: body);
 
   var data = json.decode(response.body);
-
-  if (data.length != 0&&data[0]!=null) {
+print (data);
+print(data[0]);
+  if (data.length != 0&&data!=null) {
 
     print("WHY");
     print(data[0]);
