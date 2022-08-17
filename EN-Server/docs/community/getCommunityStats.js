@@ -3,7 +3,20 @@ module.exports = {
 		tags: ["community"],
 		description: "Get stats from a community",
 		operationId: "getCommunityStats",
-		parameters: [],
+		parameters: [
+			{
+				in: "header",
+				name: "token",
+				required: true,
+				description: "ID of the community",
+				schema: {
+					type: "string",
+					example: {
+						token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjYsImlhdCI6MTY2MDc2Mjg0NSwiZXhwIjoxNjYxMzY3NjQ1fQ.mORMwfV6A6KmACBTwvMKAcPCMtp0ks93A"
+					}
+				}
+			},
+		],
 		requestBody: {
 			content: {
 				"application/json": {

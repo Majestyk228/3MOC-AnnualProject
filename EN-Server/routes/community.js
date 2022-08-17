@@ -2,6 +2,8 @@ const express = require('express');
 const { route } = require('express/lib/application');
 const router = express.Router();
 const community = require('../services/community.js');
+const config = require('../config/config.js');
+var jwt = require('jsonwebtoken');
 //const jwtUtils = require('../utils/jwt.utils.js');
 
 router.post('/bestUsers', async function (req, res, next) {
@@ -22,12 +24,29 @@ router.post('/bestUsers', async function (req, res, next) {
 
 router.post('/stats', async function (req, res, next) {
 	try {
-		const result = await community.getCommunityStats(req.body.idCommunity)
-		if (result.toString == "[]") {
-			res.status(404).json([{ "ERROR": "Commmunity not found" }]);
+
+		if (req.headers.token) {
+			// VERIFY TOKEN
+
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				const result = await community.getCommunityStats(req.body.idCommunity)
+				if (result.toString == "[]") {
+					res.status(404).json([{ "ERROR": "Commmunity not found" }]);
+				} else {
+					//res.status(400).json([{ "ERROR": err.message }]);
+					console.log(result[0].totalPointsCommunity)
+					res.status(200).json(result);
+				}
+
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
 		} else {
-			//res.status(400).json([{ "ERROR": err.message }]);
-			res.status(200).json(result);
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
 
 	} catch (err) {
