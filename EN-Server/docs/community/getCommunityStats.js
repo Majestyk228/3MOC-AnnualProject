@@ -59,6 +59,32 @@ module.exports = {
 					},
 				},
 			},
+			404: {
+				description: "Missing token in header",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							example: {
+								ERROR: "Missing token in header"
+							}
+						},
+					},
+				},
+			},
+			406: {
+				description: "Token expired/incorrect",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							example: {
+								ERROR: "Token expired/incorrect"
+							}
+						},
+					},
+				},
+			}
 		},
 	},
 }
