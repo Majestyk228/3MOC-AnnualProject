@@ -2,12 +2,28 @@ const express = require('express');
 const { route } = require('express/lib/application');
 const router = express.Router();
 const comment = require('../services/comment.js');
+const config = require('../config/config.js');
+var jwt = require('jsonwebtoken');
+
 
 
 /* GET nbComment POUR TOUTE LA BDD */
-router.get('/allcount', async function (_, res, next) {
+router.get('/allcount', async function (req, res, next) {
 	try {
-		res.status(200).json(await comment.getnbComment());
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await comment.getnbComment());
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
@@ -20,27 +36,92 @@ router.get('/allcount', async function (_, res, next) {
 /* GET reported comment on 1 post*/
 router.get('/reported/:idPost', async function (req, res, next) {
 	try {
-		res.status(200).json(await comment.getReportedComments(req.params.idPost));
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
 
-
-/* GET nbComment on 1 post*/
-router.get('/count/:idPost', async function (req, res, next) {
-	try {
-		if (!req.params.idPost) {
-			res.status(400).json([{ "ERROR": "Missing parameter" }]);
+				res.status(200).json(await comment.getReportedComments(req.params.idPost));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
 		} else {
-			res.status(200).json(await comment.getNbCommentsPerPost(req.params.idPost));
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
+
+
+
+
+/* GET nbComment on 1 post*/
+router.get('/count/:idPost', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				if (!req.params.idPost) {
+					res.status(400).json([{ "ERROR": "Missing parameter" }]);
+				} else {
+					res.status(200).json(await comment.getNbCommentsPerPost(req.params.idPost));
+				}
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+/*
+
+router.post('/bestUsers', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				const result = await community.getThreeBestUserByCommunity(req.body.idCommunity)
+				if (result.toString == "[]") {
+					res.status(404).json([{ "ERROR": "Bad Request" }]);
+				} else {
+					res.status(200).json(result);
+				}
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+*/
+
+
+
+
 
 
 
