@@ -8,7 +8,7 @@ module.exports = {
 				in: "header",
 				name: "token",
 				required: true,
-				description: "ID of the community",
+				description: "Admin token",
 				schema: {
 					type: "string",
 					example: {
