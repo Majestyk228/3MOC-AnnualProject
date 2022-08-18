@@ -9,14 +9,13 @@ import SwiftUI
 
 @MainActor
 struct DashboardView: View {
-    @State var user:String="32"
-    @Published var something:String?
+    @ObservedObject var dashboardStats:DashboardStat=DashboardStat(nbUsers: 1, totalPointsCommunity: 0, nbPost: 0, nbVote: 0)
+    
     
     init()  {
-        Task{
-            self.user="24"
-            
-        }
+        dashboardStats=refreshDashboardStat(idCommunity:2)
+        print(refreshDashboardStat(idCommunity: 2).nbUsers)
+        //print(dashboardStats)
         
     }
     
@@ -37,7 +36,7 @@ struct DashboardView: View {
                         VStack{
                             Text("Utilisateurs")
                                 .font(.system(size: 24))
-                            Text(user)
+                            Text(String(dashboardStats.nbUsers ?? 0))
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)

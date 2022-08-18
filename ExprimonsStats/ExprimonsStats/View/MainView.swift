@@ -19,7 +19,11 @@ struct MainView: View {
     
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.lightColor)
-        
+        /*
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+         */
     }
     var body: some View {
         if(UserDefaults.standard.integer(forKey: "idAdmin") == 0){
