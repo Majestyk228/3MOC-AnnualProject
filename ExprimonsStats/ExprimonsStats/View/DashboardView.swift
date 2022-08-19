@@ -6,18 +6,59 @@
 //
 
 import SwiftUI
+import Alamofire
+import SwiftyJSON
 
 @MainActor
 struct DashboardView: View {
-    @ObservedObject var dashboardStats:DashboardStat=DashboardStat(nbUsers: 1, totalPointsCommunity: 0, nbPost: 0, nbVote: 0)
-    
+    @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: 1, totalPointsCommunity: "1", nbPost: 0, nbVote: 0)
+    @State var nbUsers:Int=2
     
     init()  {
-        dashboardStats=refreshDashboardStat(idCommunity:2)
-        print(refreshDashboardStat(idCommunity: 2).nbUsers)
-        //print(dashboardStats)
+        refreshDashboardStat(idCommunity: 2)
+        
+        
+        
         
     }
+    func refreshDashboardStat(idCommunity:Int){
+        /*
+        let params: Parameters = [
+                "idCommunity": idCommunity,
+            ]
+        let headers: HTTPHeaders = [
+            //"token":UserDefaults.standard.string(forKey: "token")!
+            "Content-Type":"application/json",
+            "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjYsImlhdCI6MTY2MDc2ODQyNywiZXhwIjoxNjYxMzczMjI3fQ.vnQ-kuvxJnqyPRpibzt0gq5xjhM7K1vvc9dS3je6L9U"
+        ]
+        
+         AF.request("https://www.titan-photography.com/community/stats", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+                switch response.result {
+                    case .success(let json):
+                    
+                        do {
+                            let data = JSON(json)
+                            
+                            dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].string!, nbPost: data[0]["nbPost"].int!, nbVote: data[0]["nbVote"].int!)
+                            dashboardStats.nbUsers=data[0]["nbUsers"].int ?? 37123
+                            
+                            nbUsers=data[0]["nbUsers"].int ?? 37123
+                            
+                            
+                        } catch {
+                            print("Error: Trying to convert JSON data to string")
+                            return
+                        }
+                    case .failure(let error):
+                        print(error)
+                }
+            }
+        */
+        nbUsers=22
+        print(nbUsers)
+        
+    }
+    
     
     var body: some View {
         Color.normalColor
@@ -36,13 +77,16 @@ struct DashboardView: View {
                         VStack{
                             Text("Utilisateurs")
                                 .font(.system(size: 24))
-                            Text(String(dashboardStats.nbUsers ?? 0))
+                            Text(String(nbUsers))
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
                                 .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
                         }
                         .frame(width: 250.0, height: 250.0)
+                        .onAppear(perform: {
+                           
+                        })
                         
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
@@ -97,7 +141,11 @@ struct DashboardView: View {
                             
                         }
                     }
-                    
+                    Button("OUI") {
+                        print(nbUsers)
+                        
+                        
+                    }
                     
                     
                 }
