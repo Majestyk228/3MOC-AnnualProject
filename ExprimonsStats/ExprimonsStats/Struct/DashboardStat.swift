@@ -11,10 +11,10 @@ import SwiftyJSON
 
 class DashboardStat:ObservableObject{
     @Published var nbUsers:Int?
-    @Published var totalPointsCommunity:String?
+    @Published var totalPointsCommunity:Int?
     @Published var nbPost:Int?
     @Published var nbVote:Int?
-    init(nbUsers:Int,totalPointsCommunity:String,nbPost:Int,nbVote:Int){
+    init(nbUsers:Int,totalPointsCommunity:Int,nbPost:Int,nbVote:Int){
         self.nbUsers=nbUsers
         self.totalPointsCommunity=totalPointsCommunity
         self.nbPost=nbPost

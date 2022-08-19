@@ -23,6 +23,7 @@ struct MainView: View {
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)
         }*/
+        print(UserDefaults.standard.string(forKey: "token") ?? "ahbon")
          
     }
     var body: some View {

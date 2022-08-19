@@ -11,7 +11,7 @@ import SwiftyJSON
 
 
 struct DashboardView: View {
-    @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: -1, totalPointsCommunity: "-1", nbPost: -1, nbVote: -1)
+    @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: -1, totalPointsCommunity: -1, nbPost: -1, nbVote: -1)
     @State var CommunityTitle:String?
     func refreshDashboardStat(idCommunity:Int){
         
@@ -30,8 +30,8 @@ struct DashboardView: View {
                 
                 do {
                     let data = JSON(json)
-                    
-                    dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].string!, nbPost: data[0]["nbPost"].int!, nbVote: data[0]["nbVote"].int!)
+                    print(data)
+                    dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].int!, nbPost: data[0]["nbPosts"].int!, nbVote: data[0]["nbVotes"].int!)
                     
                     
                     //nbUsers=data[0]["nbUsers"].int ?? 37123
@@ -121,14 +121,14 @@ struct DashboardView: View {
                         VStack{
                             Text("Points Totals")
                                 .font(.system(size: 24))
-                            if(dashboardStats.totalPointsCommunity=="-1"){
+                            if(dashboardStats.totalPointsCommunity == -1 ){
                                 Text("Load...")
                                     .font(.system(size: 36))
                                     .frame(width: 150.0, height: 150.0)
                                     .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
                                     .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
                             }else{
-                                Text(dashboardStats.totalPointsCommunity!)
+                                Text(String(dashboardStats.totalPointsCommunity!))
                                     .font(.system(size: 36))
                                     .frame(width: 150.0, height: 150.0)
                                     .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
