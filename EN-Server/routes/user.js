@@ -2,13 +2,58 @@ const express = require('express');
 const router = express.Router();
 const user = require('../services/user.js');
 const jwtUtils = require('../utils/jwt.utils.js');
+const config = require('../config/config.js');
+var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+
+
+
+/*
+router.post('/useReward', async function (req, res, next) {
+
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				await reward.useReward(req.body);
+				res.status(200).json({ "Message": "Reward added successfully." });
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+*/
+
 
 
 /* GET allUsers*/
 router.get('/all/:idCommunity', async function (req, res, next) {
+
 	try {
-		res.status(200).json(await user.getAllUsers(req.params.idCommunity));
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getAllUsers(req.params.idCommunity));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
@@ -21,8 +66,22 @@ router.get('/all/:idCommunity', async function (req, res, next) {
 
 /* GET userInfo // idUser must be in body request*/
 router.post('/infos', async function (req, res, next) {
+
 	try {
-		res.status(200).json(await user.getUserInfo(req.body.idUser));
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getUserInfo(req.body.idUser));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
@@ -103,53 +162,66 @@ router.post('/register', async function (req, res) {
 
 //PUT updateInfo idUser must be passed in request body
 router.put('/infos/update', async function (req, res, next) {
+
+
 	try {
-		if (!req.body.firstName || !req.body.lastName || !req.body.birthDate || !req.body.gender || !req.body.areaCode || !req.body.email) {
-			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				if (!req.body.firstName || !req.body.lastName || !req.body.birthDate || !req.body.gender || !req.body.areaCode || !req.body.email) {
+					res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+				} else {
+					//
+					var firstName = req.body.firstName;
+					var lastName = req.body.lastName;
+					var birthDate = req.body.birthDate;
+					var gender = req.body.gender;
+					var areaCode = req.body.areaCode;
+					var email = req.body.email;
+
+					if (!req.body.idUser) {
+						res.status(400).json([{ 'Error': "idUser not in request" }]);
+					}
+
+					var infoUser = user.getUserInfo(req.body.idUser);
+
+					//verifying if each parameter is empty or not
+					if (firstName == "") {
+						firstName = infoUser[0].firstName;
+					}
+					if (lastName == "") {
+						lastName = infoUser[0].lastName;
+					}
+					if (birthDate == "") {
+						birthDate = infoUser[0].birthDate;
+					}
+					if (gender == "") {
+						gender = infoUser[0].gender;
+					}
+					if (areaCode == "") {
+						areaCode = infoUser[0].areaCode;
+					}
+					if (email == "") {
+						email = infoUser[0].email;
+					}
+
+					await user.updateUser(req.body.idUser, firstName, lastName, birthDate, gender, areaCode, email);
+					res.status(200).json({ "Message": "User Updated" });
+				}
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
 		} else {
-			//
-			var firstName = req.body.firstName;
-			var lastName = req.body.lastName;
-			var birthDate = req.body.birthDate;
-			var gender = req.body.gender;
-			var areaCode = req.body.areaCode;
-			var email = req.body.email;
-
-			if (!req.body.idUser) {
-				res.status(400).json([{ 'Error': "idUser not in request" }]);
-			}
-
-			var infoUser = user.getUserInfo(req.body.idUser);
-
-			//verifying if each parameter is empty or not
-			if (firstName == "") {
-				firstName = infoUser[0].firstName;
-			}
-			if (lastName == "") {
-				lastName = infoUser[0].lastName;
-			}
-			if (birthDate == "") {
-				birthDate = infoUser[0].birthDate;
-			}
-			if (gender == "") {
-				gender = infoUser[0].gender;
-			}
-			if (areaCode == "") {
-				areaCode = infoUser[0].areaCode;
-			}
-			if (email == "") {
-				email = infoUser[0].email;
-			}
-
-			await user.updateUser(req.body.idUser, firstName, lastName, birthDate, gender, areaCode, email);
-			res.status(200).json({ "Message": "User Updated" });
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
-
 	} catch (err) {
-		res.status(200).json([{ "ERROR": "Cannot update user" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
-
 });
 
 
@@ -158,11 +230,25 @@ router.put('/infos/update', async function (req, res, next) {
 
 
 /* GET allUsers that has at least 1 comment reported*/
-router.get('/all/reports', async function (_, res, next) {
+router.get('/all/reports', async function (req, res, next) {
+
 	try {
-		res.status(200).json(await user.getAllReportedUsers());
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getAllReportedUsers());
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
-		res.status(400).json([{ "ERROR": "cannot get reported users" }]);
+		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
 });
@@ -173,9 +259,23 @@ router.get('/all/reports', async function (_, res, next) {
 
 
 /* GET allUsers ordered by points*/
-router.get('/all/points', async function (_, res, next) {
+router.get('/all/points', async function (req, res, next) {
+
 	try {
-		res.status(200).json(await user.getAllPointOrderedUsers());
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getAllPointOrderedUsers());
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
@@ -190,12 +290,27 @@ router.get('/all/points', async function (_, res, next) {
 
 /* PUT allUsers ordered by points*/
 router.put('/password/reset', async function (req, res, next) {
+
+
 	try {
-		if (req.body.password == null || req.body.idUser == null) {
-			res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				if (req.body.password == null || req.body.idUser == null) {
+					res.status(422).json([{ "ERROR": "Missing argument(s)" }]);
+				} else {
+					await user.updatePasswordUser(req.body.password, req.body.idUser);
+					res.status(200).json([{ "Message": "Password updated successfully" }]);
+				}
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
 		} else {
-			await user.updatePasswordUser(req.body.password, req.body.idUser);
-			res.status(200).json([{ "Message": "Password updated successfully" }]);
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
@@ -210,9 +325,23 @@ router.put('/password/reset', async function (req, res, next) {
 
 /* PUT allUsers ordered by points*/
 router.delete('/delete/:idUser', async function (req, res, next) {
+
 	try {
-		await user.deleteUser(req.params.idUser);
-		res.status(200).json([{ "Message": "User deleted successfully" }]);
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				await user.deleteUser(req.params.idUser);
+				res.status(200).json([{ "Message": "User deleted successfully" }]);
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
@@ -226,26 +355,54 @@ router.delete('/delete/:idUser', async function (req, res, next) {
 
 /* GET 5 last registered users */
 router.get('/lastRegistered/:idCommunity', async function (req, res, next) {
-	//TODO code
+
+
 	try {
-		res.status(200).json(await user.getLastRegisteredUsers(req.params.idCommunity));
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getLastRegisteredUsers(req.params.idCommunity));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
-
 });
 
 
 
 /* GET allUsers that has at least 1 comment reported*/
 router.post('/register/admin', async function (req, res, next) {
-	try {
-		const idUser = await user.insertUser(req.body);
-		//insert user in community
-		user.addUserToCommunity(idUser.idUser[0].idUser, req.body.idCommunity);
 
-		res.status(400).json([{ "message": "User created successfully." }]);
+
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				const idUser = await user.insertUser(req.body);
+				//insert user in community
+				user.addUserToCommunity(idUser.idUser[0].idUser, req.body.idCommunity);
+
+				res.status(400).json([{ "message": "User created successfully." }]);
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
@@ -253,11 +410,25 @@ router.post('/register/admin', async function (req, res, next) {
 });
 
 router.post('/addToCommunity', async function (req, res, next) {
-	// TODO code
-	try {
-		user.addUserToCommunity(req.body.idUser, req.body.idCommunity);
 
-		res.status(400).json([{ "message": "User added to community successfully." }]);
+
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				user.addUserToCommunity(req.body.idUser, req.body.idCommunity);
+
+				res.status(400).json([{ "message": "User added to community successfully." }]);
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
