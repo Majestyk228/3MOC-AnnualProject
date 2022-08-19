@@ -58,9 +58,11 @@ async function getListOfNumber(idVote, choice) {
 
 	var number = 0;
 
-	number = await getNbChoices(idVote, choice['idVoteOptions'])
+	number = await getNbChoices(idVote, choice.idVoteOptions)
 
-	return (number[0])
+	console.log("number = " + number[0].nbChoice)
+
+	return number[0].nbChoice;
 }
 
 
