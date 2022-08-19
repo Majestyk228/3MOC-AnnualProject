@@ -8,7 +8,7 @@ module.exports = {
 				in: "header",
 				name: "token",
 				required: true,
-				description: "Admin token",
+				description: "User token",
 				schema: {
 					type: "string",
 					example: {
