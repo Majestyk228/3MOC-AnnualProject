@@ -22,8 +22,8 @@ struct MainView: View {
         /*
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)
-        }
-         */
+        }*/
+         
     }
     var body: some View {
         if(UserDefaults.standard.integer(forKey: "idAdmin") == 0){

@@ -10,10 +10,10 @@ import Alamofire
 import SwiftyJSON
 
 class DashboardStat:ObservableObject{
-    @Published var nbUsers:Int=0
-    @Published var totalPointsCommunity:String="0"
-    @Published var nbPost:Int=0
-    @Published var nbVote:Int=0
+    @Published var nbUsers:Int?
+    @Published var totalPointsCommunity:String?
+    @Published var nbPost:Int?
+    @Published var nbVote:Int?
     init(nbUsers:Int,totalPointsCommunity:String,nbPost:Int,nbVote:Int){
         self.nbUsers=nbUsers
         self.totalPointsCommunity=totalPointsCommunity

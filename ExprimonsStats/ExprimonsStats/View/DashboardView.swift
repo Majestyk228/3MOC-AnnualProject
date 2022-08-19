@@ -9,51 +9,42 @@ import SwiftUI
 import Alamofire
 import SwiftyJSON
 
-@MainActor
+
 struct DashboardView: View {
-    @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: 1, totalPointsCommunity: "1", nbPost: 0, nbVote: 0)
-    //@State var nbUsers:Int=2
+    @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: -1, totalPointsCommunity: "-1", nbPost: -1, nbVote: -1)
     
-    init()  {
-        
-        
-        
-    }
     func refreshDashboardStat(idCommunity:Int){
         
         let params: Parameters = [
-                "idCommunity": idCommunity,
-            ]
+            "idCommunity": idCommunity,
+        ]
         let headers: HTTPHeaders = [
             //"token":UserDefaults.standard.string(forKey: "token")!
             "Content-Type":"application/json",
-            "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjYsImlhdCI6MTY2MDc2ODQyNywiZXhwIjoxNjYxMzczMjI3fQ.vnQ-kuvxJnqyPRpibzt0gq5xjhM7K1vvc9dS3je6L9U"
+            "token":UserDefaults.standard.string(forKey: "token")!
         ]
         
-         AF.request("https://www.titan-photography.com/community/stats", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
-                switch response.result {
-                    case .success(let json):
+        AF.request("https://www.titan-photography.com/community/stats", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+            case .success(let json):
+                
+                do {
+                    let data = JSON(json)
                     
-                        do {
-                            let data = JSON(json)
-                            
-                            dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].string!, nbPost: data[0]["nbPost"].int!, nbVote: data[0]["nbVote"].int!)
-                            dashboardStats.nbUsers=data[0]["nbUsers"].int ?? 37123
-                            
-                            //nbUsers=data[0]["nbUsers"].int ?? 37123
-                            
-                            
-                        } catch {
-                            print("Error: Trying to convert JSON data to string")
-                            return
-                        }
-                    case .failure(let error):
-                        print(error)
+                    dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].string!, nbPost: data[0]["nbPost"].int!, nbVote: data[0]["nbVote"].int!)
+                    
+                    
+                    //nbUsers=data[0]["nbUsers"].int ?? 37123
+                    
+                    
+                } catch {
+                    print("Error: Trying to convert JSON data to string")
+                    return
                 }
+            case .failure(let error):
+                print(error)
             }
-        
-        
-        
+        }
         
     }
     
@@ -75,15 +66,24 @@ struct DashboardView: View {
                         VStack{
                             Text("Utilisateurs")
                                 .font(.system(size: 24))
-                            Text(String(dashboardStats.nbUsers))
-                                .font(.system(size: 36))
-                                .frame(width: 150.0, height: 150.0)
-                                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
-                                .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            if(dashboardStats.nbUsers == -1){
+                                Text(String("Load.."))
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }else{
+                                Text(String(dashboardStats.nbUsers!))
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }
+                            
                         }
                         .frame(width: 250.0, height: 250.0)
                         .onAppear(perform: {
-                           
+                            
                         })
                         
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
@@ -93,11 +93,20 @@ struct DashboardView: View {
                         VStack{
                             Text("Points Totals")
                                 .font(.system(size: 24))
-                            Text(dashboardStats.totalPointsCommunity)
-                                .font(.system(size: 36))
-                                .frame(width: 150.0, height: 150.0)
-                                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
-                                .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            if(dashboardStats.totalPointsCommunity=="-1"){
+                                Text("Load...")
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }else{
+                                Text(dashboardStats.totalPointsCommunity!)
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }
+                            
                         }
                         .frame(width: 250.0, height: 250.0)
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
@@ -110,11 +119,20 @@ struct DashboardView: View {
                         VStack{
                             Text("Posts")
                                 .font(.system(size: 24))
-                            Text(String(dashboardStats.nbPost))
-                                .font(.system(size: 36))
-                                .frame(width: 150.0, height: 150.0)
-                                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
-                                .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            if(dashboardStats.nbPost == -1){
+                                Text("Load...")
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }else{
+                                Text(String(dashboardStats.nbPost!))
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }
+                            
                         }
                         .frame(width: 250.0, height: 250.0)
                         
@@ -125,11 +143,20 @@ struct DashboardView: View {
                         VStack{
                             Text("Votes")
                                 .font(.system(size: 24))
-                            Text(String(dashboardStats.nbVote))
-                                .font(.system(size: 36))
-                                .frame(width: 150.0, height: 150.0)
-                                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
-                                .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            if(dashboardStats.nbVote == -1){
+                                Text(String("Load..."))
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }else{
+                                Text(String(dashboardStats.nbVote!))
+                                    .font(.system(size: 36))
+                                    .frame(width: 150.0, height: 150.0)
+                                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
+                                    .cornerRadius(/*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                            }
+                            
                         }
                         .frame(width: 250.0, height: 250.0)
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
@@ -139,17 +166,14 @@ struct DashboardView: View {
                             
                         }
                     }
-                    Button("OUI") {
-                        refreshDashboardStat(idCommunity: 2)
-                        //print(nbUsers)
-                        
-                        
-                    }
+                    
                     
                     
                 }
-                    
-            ).onAppear(perform: {refreshDashboardStat(idCommunity: 2)})
+                
+            ).onAppear(perform: {refreshDashboardStat(idCommunity: 2)
+                print(UserDefaults.standard.string(forKey: "token") ?? "jure")
+            })
     }
 }
 
@@ -160,3 +184,4 @@ struct DashBoard_Previews: PreviewProvider {
         DashboardView()
     }
 }
+
