@@ -39,8 +39,8 @@ module.exports = {
 							example: {
 								nbUsers: 10,
 								totalPointsCommunity: 500,
-								nbPost: 10,
-								nbVote: 10
+								nbPosts: 10,
+								nbVotes: 10
 							}
 						},
 					},
