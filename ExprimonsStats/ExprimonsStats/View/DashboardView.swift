@@ -12,17 +12,15 @@ import SwiftyJSON
 @MainActor
 struct DashboardView: View {
     @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: 1, totalPointsCommunity: "1", nbPost: 0, nbVote: 0)
-    @State var nbUsers:Int=2
+    //@State var nbUsers:Int=2
     
     init()  {
-        refreshDashboardStat(idCommunity: 2)
-        
         
         
         
     }
     func refreshDashboardStat(idCommunity:Int){
-        /*
+        
         let params: Parameters = [
                 "idCommunity": idCommunity,
             ]
@@ -42,7 +40,7 @@ struct DashboardView: View {
                             dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].string!, nbPost: data[0]["nbPost"].int!, nbVote: data[0]["nbVote"].int!)
                             dashboardStats.nbUsers=data[0]["nbUsers"].int ?? 37123
                             
-                            nbUsers=data[0]["nbUsers"].int ?? 37123
+                            //nbUsers=data[0]["nbUsers"].int ?? 37123
                             
                             
                         } catch {
@@ -53,9 +51,9 @@ struct DashboardView: View {
                         print(error)
                 }
             }
-        */
-        nbUsers=22
-        print(nbUsers)
+        
+        
+        
         
     }
     
@@ -77,7 +75,7 @@ struct DashboardView: View {
                         VStack{
                             Text("Utilisateurs")
                                 .font(.system(size: 24))
-                            Text(String(nbUsers))
+                            Text(String(dashboardStats.nbUsers))
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
@@ -95,7 +93,7 @@ struct DashboardView: View {
                         VStack{
                             Text("Points Totals")
                                 .font(.system(size: 24))
-                            Text("12394")
+                            Text(dashboardStats.totalPointsCommunity)
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
@@ -112,7 +110,7 @@ struct DashboardView: View {
                         VStack{
                             Text("Posts")
                                 .font(.system(size: 24))
-                            Text("52")
+                            Text(String(dashboardStats.nbPost))
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
@@ -127,7 +125,7 @@ struct DashboardView: View {
                         VStack{
                             Text("Votes")
                                 .font(.system(size: 24))
-                            Text("7")
+                            Text(String(dashboardStats.nbVote))
                                 .font(.system(size: 36))
                                 .frame(width: 150.0, height: 150.0)
                                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
@@ -142,7 +140,8 @@ struct DashboardView: View {
                         }
                     }
                     Button("OUI") {
-                        print(nbUsers)
+                        refreshDashboardStat(idCommunity: 2)
+                        //print(nbUsers)
                         
                         
                     }
@@ -150,7 +149,7 @@ struct DashboardView: View {
                     
                 }
                     
-            )
+            ).onAppear(perform: {refreshDashboardStat(idCommunity: 2)})
     }
 }
 
