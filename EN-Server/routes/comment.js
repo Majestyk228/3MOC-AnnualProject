@@ -299,6 +299,57 @@ router.get('/report/:idComment', async function (req, res, next) {
 
 
 
+///ReportReinit/{idComment}
+router.get('/reportReinit/:idComment', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				await comment.reportCommentReinit(req.params.idComment)
+				res.status(200).json({ "Message": "Comment reinitialized successfully" });
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
+router.get('/formattedComment/:idPost', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await comment.commmentByPost(req.params.idPost));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
 /*
 
 router.post('/bestUsers', async function (req, res, next) {
@@ -332,8 +383,7 @@ router.post('/bestUsers', async function (req, res, next) {
 
 
 
-///ReportReinit/{idComment}
-router.get('/reportReinit/:idComment', async function (req, res, next) {
+router.get('/all/:idCommunity', async function (req, res, next) {
 	try {
 		if (req.headers.token) {
 			// VERIFY TOKEN
@@ -341,8 +391,7 @@ router.get('/reportReinit/:idComment', async function (req, res, next) {
 				// IF TOKEN IS VALID
 				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
 
-				await comment.reportCommentReinit(req.params.idComment)
-				res.status(200).json({ "Message": "Comment reinitialized successfully" });
+				res.status(200).json(await comment.commmentByCommunity(req.params.idCommunity));
 			} catch (err) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
@@ -358,34 +407,23 @@ router.get('/reportReinit/:idComment', async function (req, res, next) {
 
 
 
-
-
-
-router.get('/formattedComment/:idPost', async function (req, res, next) {
-	try {
-		res.status(200).json(await comment.commmentByPost(req.params.idPost));
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-
-
-router.get('/all/:idCommunity', async function (req, res, next) {
-	try {
-		res.status(200).json(await comment.commmentByCommunity(req.params.idCommunity));
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-
-
 router.get('/all/reported/:idCommunity', async function (req, res, next) {
+
 	try {
-		res.status(200).json(await comment.reportedCommmentByCommunity(req.params.idCommunity));
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await comment.reportedCommmentByCommunity(req.params.idCommunity));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
 	} catch (err) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
