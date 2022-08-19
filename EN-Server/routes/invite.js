@@ -6,37 +6,6 @@ var jwt = require('jsonwebtoken');
 
 
 
-/*
-
-router.post('/bestUsers', async function (req, res, next) {
-	try {
-		if (req.headers.token) {
-			// VERIFY TOKEN
-			try {
-				// IF TOKEN IS VALID
-				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
-
-				const result = await community.getThreeBestUserByCommunity(req.body.idCommunity)
-				if (result.toString == "[]") {
-					res.status(404).json([{ "ERROR": "Bad Request" }]);
-				} else {
-					res.status(200).json(result);
-				}
-			} catch (err) {
-				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
-			}
-		} else {
-			res.status(404).json([{ "ERROR": "Missing token in header" }]);
-		}
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-*/
-
 
 
 /*POST create invite -> idCommunity must be in body*/
