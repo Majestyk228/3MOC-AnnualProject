@@ -29,10 +29,6 @@ struct CommunityTitle:Hashable,Codable{
 }
 
     
-func refreshCommunityTitle()->CommunityTitle{
-    //todo
-    return CommunityTitle(label: "OUI")
-}
 
     
 

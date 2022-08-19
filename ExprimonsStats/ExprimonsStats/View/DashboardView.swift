@@ -12,7 +12,7 @@ import SwiftyJSON
 
 struct DashboardView: View {
     @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: -1, totalPointsCommunity: "-1", nbPost: -1, nbVote: -1)
-    
+    @State var CommunityTitle:String?
     func refreshDashboardStat(idCommunity:Int){
         
         let params: Parameters = [
@@ -47,6 +47,34 @@ struct DashboardView: View {
         }
         
     }
+    func refreshCommunityTitle(idCommunity:Int){
+        
+        let headers: HTTPHeaders = [
+            //"token":UserDefaults.standard.string(forKey: "token")!
+            "Content-Type":"application/json",
+            "token":UserDefaults.standard.string(forKey: "token")!
+        ]
+        AF.request("https://www.titan-photography.com/community/\(UserDefaults.standard.integer(forKey: "idCommunity"))", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+            case .success(let json):
+                
+                do {
+                    let data = JSON(json)
+                    
+                    CommunityTitle=data[0]["label"].string
+                    
+                    //nbUsers=data[0]["nbUsers"].int ?? 37123
+                    
+                    
+                } catch {
+                    print("Error: Trying to convert JSON data to string")
+                    return
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     
     var body: some View {
@@ -54,7 +82,7 @@ struct DashboardView: View {
             .ignoresSafeArea()
             .overlay(
                 VStack(spacing:150){
-                    Text("Community Title")
+                    Text(CommunityTitle ?? "Load...")
                         .font(.system(size: 36))
                     
                         .foregroundColor(Color.white)
@@ -171,8 +199,8 @@ struct DashboardView: View {
                     
                 }
                 
-            ).onAppear(perform: {refreshDashboardStat(idCommunity: 2)
-                print(UserDefaults.standard.string(forKey: "token") ?? "jure")
+            ).onAppear(perform: {refreshDashboardStat(idCommunity: UserDefaults.standard.integer(forKey: "idCommunity"))
+                refreshCommunityTitle(idCommunity: UserDefaults.standard.integer(forKey: "idCommunity"))
             })
     }
 }
