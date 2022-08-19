@@ -448,8 +448,6 @@ router.get('/reportReinit/:idPost', async function (req, res, next) {
 
 
 router.get('/formattedPost/:idPost', async function (req, res, next) {
-
-
 	try {
 		if (req.headers.token) {
 			// VERIFY TOKEN
