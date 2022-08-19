@@ -53,6 +53,16 @@ async function getNbChoices(idVote, choice) {
 	return rows;
 }
 
+async function getVoteOptionsComplete(idVote, list) {
+	for (const element of list) {
+		const contents = await getNbChoices(idVote, element.idVoteOptions);
+		element.nbChoice = contents[0].nbChoice
+		console.log(contents);
+	}
+
+	return list
+}
+
 
 async function getListOfNumber(idVote, choice) {
 
@@ -190,5 +200,6 @@ module.exports = {
 	getVoteOptionsAndroid,
 	insertVoteOptions,
 	getLastVote,
-	insertVoteUser
+	insertVoteUser,
+	getVoteOptionsComplete
 }

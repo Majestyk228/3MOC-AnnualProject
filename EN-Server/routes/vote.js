@@ -47,6 +47,8 @@ router.post('/voteInfo', async function (req, res, next) {
 				//TODO : Take choices list
 				const choiceList = await vote.getVoteOptions(req.body.idVote)
 
+				const choiceListComplet = await vote.getVoteOptionsComplete(req.body.idVote, choiceList);
+
 				//TODO : Take number for selection for each choice
 
 				var nbSelected = []
@@ -62,8 +64,7 @@ router.post('/voteInfo', async function (req, res, next) {
 						{
 							"title": titleBody[0].title,
 							"body": titleBody[0].body,
-							"voteOptions": choiceList,
-							"nbChoiceVoteOptions": nbSelected
+							"voteOptions": choiceListComplet,
 						}
 					]
 				);

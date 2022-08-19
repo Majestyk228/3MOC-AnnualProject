@@ -45,25 +45,17 @@ module.exports = {
 								voteOptions: [
 									{
 										label: "Oui !",
-										idVoteOptions: 1
-									},
-									{
-										label: "Non !",
-										idVoteOptions: 2
-									},
-									{
-										label: "Sans opinion",
-										idVoteOptions: 3
-									}
-								],
-								nbChoiceVoteOptions: [
-									{
+										idVoteOptions: 1,
 										nbChoice: 0
 									},
 									{
+										label: "Non !",
+										idVoteOptions: 2,
 										nbChoice: 2
 									},
 									{
+										label: "Sans opinion",
+										idVoteOptions: 3,
 										nbChoice: 0
 									}
 								]
