@@ -1,5 +1,8 @@
 package com.example.exprimonsnousapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +47,16 @@ public class BottomSheetFrag extends Fragment {
     // TOOLBAR
     Toolbar myToolbar;
 
+    //DATA
+    private String token;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
+
     public BottomSheetFrag() {
         // Required empty public constructor
     }
@@ -70,6 +83,9 @@ public class BottomSheetFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -187,7 +203,7 @@ public class BottomSheetFrag extends Fragment {
     }
 
     private void sendReward(RewardSend rewardSend) {
-        Call<Object> call = apiInterface.sendReward(rewardSend);
+        Call<Object> call = apiInterface.sendReward(token,rewardSend);
         Log.i("SendReward", "sendReward object: "+rewardSend.toString());
         call.enqueue(new Callback<Object>() {
             @Override
@@ -205,9 +221,18 @@ public class BottomSheetFrag extends Fragment {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                //Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-                //createToast("Une erreur est survenue");
-                Log.i("SendReward", "onResponse fail: "+t.getLocalizedMessage());
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

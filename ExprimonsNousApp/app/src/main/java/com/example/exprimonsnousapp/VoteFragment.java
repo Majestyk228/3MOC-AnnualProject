@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -159,7 +160,7 @@ public class VoteFragment extends Fragment {
 
 
     private void extractVote(IdCommunity idCommunity) {
-        Call<List<Vote>> call = apiInterface.getVotesFromCommunity(idCommunity);
+        Call<List<Vote>> call = apiInterface.getVotesFromCommunity(token,idCommunity);
         call.enqueue(new Callback<List<Vote>>() {
 
             @Override
@@ -233,6 +234,19 @@ public class VoteFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+
+                        if(error.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                            // TOAST NOTIFYING USER TO LOGIN AGAIN
+                            Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                            // SET FRAGMENT STACK TO NULL
+
+                            // GET TO LOGIN ACTIVITY
+                            Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                            getActivity().startActivity(myIntent);
+                        } else {
+                            Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }) {
             public Map<String, String> getHeaders() throws AuthFailureError {

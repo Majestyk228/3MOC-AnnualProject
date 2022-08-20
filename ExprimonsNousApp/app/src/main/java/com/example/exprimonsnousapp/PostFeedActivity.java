@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,7 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostFeedActivity extends AppCompatActivity {
 
@@ -33,6 +38,15 @@ public class PostFeedActivity extends AppCompatActivity {
     private String URL = "https://www.titan-photography.com/post/all";
     PostAdapter adapter;
     private int userId = -1;
+    String token = "";
+
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     SwipeRefreshLayout swipeRefreshPosts;
 
@@ -40,6 +54,10 @@ public class PostFeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.posts_page);
+
+        //GETTING SHARED PREFERENCES
+        sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         // RETRIEVING userId FROM EXTRAS
         Bundle extras = getIntent().getExtras();
@@ -106,9 +124,18 @@ public class PostFeedActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        //if
                         Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
                     }
-                });
+                }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+
+                return params;
+            }
+        };
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);

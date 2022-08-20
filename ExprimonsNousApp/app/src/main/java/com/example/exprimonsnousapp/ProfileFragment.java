@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -228,7 +229,7 @@ public class ProfileFragment extends Fragment {
 
         UserUpdatedInfos userUpdatedInfos1 = userUpdatedInfos;
 
-        Call<UserUpdateResponse> call = apiInterface.updateUserInfo(userUpdatedInfos1);
+        Call<UserUpdateResponse> call = apiInterface.updateUserInfo(token, userUpdatedInfos1);
 
         call.enqueue(new Callback<UserUpdateResponse>(){
             UserUpdateResponse responseStr;
@@ -244,7 +245,18 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

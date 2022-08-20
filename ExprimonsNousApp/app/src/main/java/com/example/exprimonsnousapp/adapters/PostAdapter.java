@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     Context context;
     int communityId;
     int idUser;
+    private String token;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
 
     // ADAPTER'S CONSTRUTOR
@@ -56,6 +65,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.context = context;
         this.communityId = communityId;
         this.idUser = idUser;
+
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
     }
 
     @NonNull
@@ -80,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.avatar_textfield.setText(posts.get(holder.getAdapterPosition()).getUserInitials());
 
         // IF A POST IS NOT AN ADMIN POST, HIDE THE ADMIN LOGO FROM THE POST
-        if(!posts.get(position).isAdmin()) {
+        if (!posts.get(position).isAdmin()) {
             holder.is_admin_post.setVisibility(View.INVISIBLE);
         }
 
@@ -92,8 +104,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 addLike(idPost);
 
                 // Fake refresh of the number of likes
-                int nblikes = Integer.parseInt((String)holder.likesTXT.getText())+1;
-                holder.likesTXT.setText(nblikes+"");
+                int nblikes = Integer.parseInt((String) holder.likesTXT.getText()) + 1;
+                holder.likesTXT.setText(nblikes + "");
             }
         });
 
@@ -105,8 +117,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 addDislike(idPost);
 
                 // Fake refresh of the number of dislikes
-                int nblikes = Integer.parseInt((String)holder.dislikesTXT.getText())+1;
-                holder.dislikesTXT.setText(nblikes+"");
+                int nblikes = Integer.parseInt((String) holder.dislikesTXT.getText()) + 1;
+                holder.dislikesTXT.setText(nblikes + "");
             }
         });
 
@@ -184,11 +196,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT,avatar_textfield;
+        TextView fullnameTXT, bodyTXT, likesTXT, dislikesTXT, commentTXT, rewardTXT, avatar_textfield;
         //Button likeBtn, dislikeBtn, commentBtn, rewardBtn;
         LinearLayout likeBtn, dislikeBtn, commentBtn, rewardBtn;
 
-        ImageView menu_post,is_admin_post;
+        ImageView menu_post, is_admin_post;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -215,7 +227,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private void addLike(IdPost idPost) {
         //IdPost idPost1 = new IdPost("1");
-        Call<Object> call = apiInterface.likePost(idPost);
+        Call<Object> call = apiInterface.likePost(token, idPost);
 
         call.enqueue(new Callback<Object>() {
             @Override
@@ -231,7 +243,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     private void addDislike(IdPost idPost) {
-        Call<Object> call = apiInterface.dislikePost(idPost);
+        Call<Object> call = apiInterface.dislikePost(token, idPost);
 
         call.enqueue(new Callback<Object>() {
             @Override
@@ -248,19 +260,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 
     private void reportPost(int idPost) {
-        Call<Object> call = apiInterface.reportPost(idPost);
-        Log.i("REPORT", "Request  : "+call.request().body());
+        Call<Object> call = apiInterface.reportPost(token, idPost);
+        Log.i("REPORT", "Request  : " + call.request().body());
 
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.i("REPORT", "onResponse: Success : "+response.body());
+                Log.i("REPORT", "onResponse: Success : " + response.body());
                 Toast.makeText(inflater.getContext(), R.string.dislike_toast, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Log.i("REPORT", "onResponse: Success : "+t.getLocalizedMessage());
+                Log.i("REPORT", "onResponse: Success : " + t.getLocalizedMessage());
                 Toast.makeText(inflater.getContext(), R.string.error, Toast.LENGTH_SHORT).show();
             }
         });

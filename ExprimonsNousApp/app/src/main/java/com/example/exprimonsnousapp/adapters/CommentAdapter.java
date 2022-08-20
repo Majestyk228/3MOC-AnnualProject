@@ -1,6 +1,8 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exprimonsnousapp.LoginActivity;
 import com.example.exprimonsnousapp.R;
 import com.example.exprimonsnousapp.models.CommentPost;
 import com.example.exprimonsnousapp.models.IdPost;
@@ -33,12 +36,23 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     List<CommentPost> commentsPost;
     ApiInterface apiInterface;
     Context context;
+    private static String token;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     //constructeur de l'adapteur
     public CommentAdapter(Context context, List<CommentPost> commentsPost) {
         this.inflater = LayoutInflater.from(context);
         this.commentsPost = commentsPost;
         this.context = context;
+
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
     }
 
     @NonNull
@@ -117,7 +131,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
     private void reportComment(int idComment) {
-        Call<Object> call = apiInterface.reportComment(idComment);
+        Call<Object> call = apiInterface.reportComment(token, idComment);
         Log.i("REPORT", "Request  : "+idComment);
 
         call.enqueue(new Callback<Object>() {
@@ -131,6 +145,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onFailure(Call<Object> call, Throwable t) {
                 Log.i("REPORTCOMMENT", "onResponse: Success : "+t.getLocalizedMessage());
                 Toast.makeText(inflater.getContext(), R.string.error, Toast.LENGTH_SHORT).show();
+
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(context, "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(context, LoginActivity.class);
+                    context.startActivity(myIntent);
+                } else {
+                    Toast.makeText(context, "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

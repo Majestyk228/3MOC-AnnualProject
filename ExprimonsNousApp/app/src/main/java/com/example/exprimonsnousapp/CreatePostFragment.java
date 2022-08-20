@@ -1,5 +1,8 @@
 package com.example.exprimonsnousapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.exprimonsnousapp.models.NewPost;
 import com.example.exprimonsnousapp.retrofit.ApiClient;
@@ -31,12 +35,20 @@ public class CreatePostFragment extends Fragment {
 
     private int idUser;
     private int idCommunity;
+    private String token;
 
     // API
     ApiInterface apiInterface;
 
     // COORDINATOR LAYOUT
     private CoordinatorLayout coordinatorLayout;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     public CreatePostFragment() {
         // Required empty public constructor
@@ -61,6 +73,9 @@ public class CreatePostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_post, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -102,7 +117,7 @@ public class CreatePostFragment extends Fragment {
     }
 
     private void sendNewPost(NewPost newPost) {
-        Call<Object> call = apiInterface.postPost(newPost);
+        Call<Object> call = apiInterface.postPost(token,newPost);
 
         call.enqueue(new Callback<Object>() {
             @Override
@@ -117,7 +132,18 @@ public class CreatePostFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Snackbar.make(coordinatorLayout,R.string.createPostError, Snackbar.LENGTH_SHORT).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

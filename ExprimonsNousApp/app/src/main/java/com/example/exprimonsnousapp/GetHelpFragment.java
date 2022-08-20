@@ -48,10 +48,13 @@ public class GetHelpFragment extends Fragment {
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USER = "idUser";
     private static final String KEY_COMMUNITY = "idCommunity";
-
+    private static final String KEY_TOKEN = "token";
     // IMPORTANT DATA
     private int idUser;
     private int idCommunity;
+    private String token;
+
+
 
     // API
     ApiInterface apiInterface;
@@ -82,6 +85,9 @@ public class GetHelpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_get_help, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -175,7 +181,7 @@ public class GetHelpFragment extends Fragment {
     }
 
     private void sendMessage(MessageSupport messageSupport) {
-        Call<Object> call = apiInterface.sendMessageSupport(messageSupport);
+        Call<Object> call = apiInterface.sendMessageSupport(token, messageSupport);
 
         call.enqueue(new Callback<Object>() {
             @Override
@@ -190,7 +196,18 @@ public class GetHelpFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                //Snackbar.make(coordinatorLayout,R.string.createPostError, Snackbar.LENGTH_SHORT).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

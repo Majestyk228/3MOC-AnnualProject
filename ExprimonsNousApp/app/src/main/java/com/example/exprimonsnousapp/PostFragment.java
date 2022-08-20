@@ -56,8 +56,6 @@ public class PostFragment extends Fragment {
     List<Post> posts;
     private final String URL = "https://www.titan-photography.com/post/formatted/";
     private final String URLAdmin = "https://www.titan-photography.com/post/formatted/admin/";
-    private final String URLComment = "https://www.titan-photography.com/comment/count/";
-    private final String URLReward = "https://www.titan-photography.com/rewards/nbReward/";
 
     // SWIPE REFRESH LAYOUT - PULL DOWN TO REFRESH
     SwipeRefreshLayout swipeRefreshPosts;
@@ -99,6 +97,9 @@ public class PostFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
+
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         posts = new ArrayList<>();
@@ -109,6 +110,7 @@ public class PostFragment extends Fragment {
         } catch (AuthFailureError e) {
             e.printStackTrace();
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             posts.sort(Comparator.comparing(Post::getIdPost));
         }
@@ -119,9 +121,6 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
-
-        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         myToolbar = getActivity().findViewById(R.id.my_toolbar);
 

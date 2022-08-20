@@ -1,5 +1,8 @@
 package com.example.exprimonsnousapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +50,14 @@ public class CommentFragment extends Fragment {
     int idPost;
     int idCommunity;
     int idUser;
+    private String token;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     // UI ELEMENTS
     TextView fullnameTXT;
@@ -95,6 +106,9 @@ public class CommentFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_comment, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
 
         fullnameTXT = view.findViewById(R.id.fullnameTXT);
@@ -181,7 +195,7 @@ public class CommentFragment extends Fragment {
     }
 
     private void extractComments(int idPost) {
-        Call<List<CommentPost>> call = apiInterface.getComments(idPost);
+        Call<List<CommentPost>> call = apiInterface.getComments(token, idPost);
         call.enqueue(new Callback<List<CommentPost>>() {
             @Override
             public void onResponse(Call<List<CommentPost>> call, Response<List<CommentPost>> response) {
@@ -211,14 +225,25 @@ public class CommentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<CommentPost>> call, Throwable t) {
-                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
 
     private void getPost(int idPost) {
-        Call<Post> call = apiInterface.getPost(idPost);
+        Call<Post> call = apiInterface.getPost(token,idPost);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
@@ -228,14 +253,25 @@ public class CommentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
     private void sendComment(NewComment newComment) {
         // API CALL
-        Call<Object> call = apiInterface.sendComment(newComment);
+        Call<Object> call = apiInterface.sendComment(token,newComment);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -246,7 +282,18 @@ public class CommentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

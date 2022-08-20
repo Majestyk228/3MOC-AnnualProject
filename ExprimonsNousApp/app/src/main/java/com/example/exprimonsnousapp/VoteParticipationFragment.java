@@ -1,5 +1,8 @@
 package com.example.exprimonsnousapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -46,11 +49,19 @@ public class VoteParticipationFragment extends Fragment {
     // IMPORTANT DATA
     private int pidVote;
     int idUser;
+    private String token;
 
 
     // OTHER
     ApiInterface apiInterface;
     Toolbar myToolbar;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     public VoteParticipationFragment() {
         // Required empty public constructor
@@ -86,6 +97,9 @@ public class VoteParticipationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vote_participation, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
 
         this.sujet_vote_name = view.findViewById(R.id.sujet_vote_name);
         this.title_vote_name = view.findViewById(R.id.title_vote_name);
@@ -127,7 +141,7 @@ public class VoteParticipationFragment extends Fragment {
     }
 
     public void extractVoteOptions(IdVote idVote) {
-        Call<List<VoteOption>> call = apiInterface.getVoteOptions(idVote);
+        Call<List<VoteOption>> call = apiInterface.getVoteOptions(token,idVote);
         call.enqueue(new Callback<List<VoteOption>>() {
 
             @Override
@@ -161,7 +175,7 @@ public class VoteParticipationFragment extends Fragment {
 
         Vote voteBuffer = new Vote();
 
-        Call<List<Vote>> call = apiInterface.getVote(idVote);
+        Call<List<Vote>> call = apiInterface.getVote(token,idVote);
         call.enqueue(new Callback<List<Vote>>() {
 
             @Override
@@ -189,7 +203,18 @@ public class VoteParticipationFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Vote>> call, Throwable t) {
-                Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                    // TOAST NOTIFYING USER TO LOGIN AGAIN
+                    Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                    // SET FRAGMENT STACK TO NULL
+
+                    // GET TO LOGIN ACTIVITY
+                    Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                    getActivity().startActivity(myIntent);
+                } else {
+                    Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

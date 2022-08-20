@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,14 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
     private static int idUser;
     private static int idVote;
     private static VoteOption selectedChoice;
+    private static String token;
+
+    // SHARED PREFERENCES
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_USER = "idUser";
+    private static final String KEY_COMMUNITY = "idCommunity";
+    private static final String KEY_TOKEN = "token";
 
     LayoutInflater inflater;
     static List<VoteOption> choices;
@@ -58,6 +67,9 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
         this.context = context;
         this.idUser = idUser;
         this.idVote = idVote;
+
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(KEY_TOKEN, "");
     }
 
     public static void selectedChoice(int idUser) {
@@ -65,7 +77,7 @@ public class VoteOptionsListAdapter extends RecyclerView.Adapter<VoteOptionsList
 
         UserVote userVote = new UserVote(idUser,idVote,choiceInt);
 
-        Call<Object> call = apiInterface.sendUserVote(userVote);
+        Call<Object> call = apiInterface.sendUserVote(token,userVote);
 
         Log.i("VOTEOPTIONENVOI", "selectedChoice -> call: "+ choices.get(lastCheckedPosition).getIdVoteOptions());
         Log.i("VOTEOPTIONENVOI", "idUser = "+idUser);

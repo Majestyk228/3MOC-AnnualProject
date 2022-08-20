@@ -25,6 +25,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.HTTP;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
@@ -36,33 +37,33 @@ public interface ApiInterface {
     //UPDATE USER INFOS
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "PUT", path = "/user/infos/update", hasBody = true)
-    Call<UserUpdateResponse> updateUserInfo(@Body UserUpdatedInfos userUpdatedInfos);
+    Call<UserUpdateResponse> updateUserInfo(@Header("token") String token, @Body UserUpdatedInfos userUpdatedInfos);
 
     // GET LISTS OF VOTES FROM A COMMUNITY
     @HTTP(method = "POST", path = "/vote/voteListAndroid", hasBody = true)
-    Call<List<Vote>> getVotesFromCommunity(@Body IdCommunity idCommunity);
+    Call<List<Vote>> getVotesFromCommunity(@Header("token") String token, @Body IdCommunity idCommunity);
 
     // POST A NEW POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/post/create", hasBody = true)
-    Call<Object> postPost(@Body NewPost newPost);
+    Call<Object> postPost(@Header("token") String token, @Body NewPost newPost);
 
     // LIKE A POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/post/like", hasBody = true)
-    Call<Object> likePost(@Body IdPost idPost);
+    Call<Object> likePost(@Header("token") String token, @Body IdPost idPost);
 
 
     // DISLIKE A POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/post/dislike", hasBody = true)
-    Call<Object> dislikePost(@Body IdPost idPost);
+    Call<Object> dislikePost(@Header("token") String token, @Body IdPost idPost);
 
 
     // GET NUMBER OF COMMENTS ON A POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/comment/count/", hasBody = false)
-    Call<Object> getNbCommentAPI(@Path("idPost") int idPost);
+    Call<Object> getNbCommentAPI(@Header("token") String token, @Path("idPost") int idPost);
 
 
     // GET NUMBER OF REWARDS ON A POST
@@ -70,12 +71,12 @@ public interface ApiInterface {
     // GET VOTE OPTIONS FROM AN idVote
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/vote/options", hasBody = true)
-    Call<List<VoteOption>> getVoteOptions(@Body IdVote idVote);
+    Call<List<VoteOption>> getVoteOptions(@Header("token") String token, @Body IdVote idVote);
 
     // GET VOTE OPTIONS FROM AN idVote
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/vote/infos", hasBody = true)
-    Call<List<Vote>> getVote(@Body IdVote idVote);
+    Call<List<Vote>> getVote(@Header("token") String token, @Body IdVote idVote);
 
     //CREATE ACCOUNT
     @Headers({"Content-Type: application/json"})
@@ -95,40 +96,40 @@ public interface ApiInterface {
     // GET COMMENT FROM A POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/comment/formattedComment/{idPost}", hasBody = false)
-    Call <List<CommentPost>> getComments(@Path("idPost") int idPost);
+    Call<List<CommentPost>> getComments(@Header("token") String token, @Path("idPost") int idPost);
 
     // GET COMMENT FROM A POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/post/formattedPost/{idPost}", hasBody = false)
-    Call <Post> getPost(@Path("idPost") int idPost);
+    Call<Post> getPost(@Header("token") String token, @Path("idPost") int idPost);
 
     // CREATE COMMENT
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/comment/create", hasBody = true)
-    Call<Object> sendComment(@Body NewComment newComment);
+    Call<Object> sendComment(@Header("token") String token, @Body NewComment newComment);
 
     // SUBMIT VOTE
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/vote/userVote", hasBody = true)
-    Call<Object> sendUserVote(@Body UserVote userVote);
+    Call<Object> sendUserVote(@Header("token") String token, @Body UserVote userVote);
 
     // SUBMIT REWARD
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/rewards/useReward", hasBody = true)
-    Call<Object> sendReward(@Body RewardSend rewardSend);
+    Call<Object> sendReward(@Header("token") String token, @Body RewardSend rewardSend);
 
     // REPORTING POST
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/post/report/{idPost}", hasBody = false)
-    Call<Object> reportPost(@Path("idPost") int idPost);
+    Call<Object> reportPost(@Header("token") String token, @Path("idPost") int idPost);
 
     // REPORTING COMMENT
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "GET", path = "/comment/report/{idComment}", hasBody = false)
-    Call<Object> reportComment(@Path("idComment") int idComment);
+    Call<Object> reportComment(@Header("token") String token, @Path("idComment") int idComment);
 
     // SENDING MESSAGE TO SUPPORT
     @Headers({"Content-Type: application/json"})
     @HTTP(method = "POST", path = "/support/", hasBody = true)
-    Call<Object> sendMessageSupport(@Body MessageSupport messageSupport);
+    Call<Object> sendMessageSupport(@Header("token") String token, @Body MessageSupport messageSupport);
 }
