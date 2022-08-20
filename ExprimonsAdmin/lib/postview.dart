@@ -1,4 +1,5 @@
 import 'package:exprimons_nous/Child/addpostview.dart';
+import 'package:exprimons_nous/Child/reportedcommentview.dart';
 import 'package:exprimons_nous/Child/reportedpostview.dart';
 import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
@@ -19,10 +20,11 @@ class PostView extends StatefulWidget {
 
 class _PostViewState extends State<PostView> {
   var posts = [];
-
+  int nbComment =0;
   @override
   void initState() {
     refreshPosts();
+    refreshNbReportedComment();
     super.initState();
   }
 
@@ -67,6 +69,36 @@ class _PostViewState extends State<PostView> {
     });
   }
 
+  Future refreshNbReportedComment() async {
+    //endpoint
+    Uri uri = Uri.parse(
+        "https://www.titan-photography.com/comment/nbReportedCommentsAll/${html.window.localStorage["idCommunity"]}");
+    //methode get du package HTTP
+    final response = await http.get(
+      uri,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "token": html.window.localStorage["token"]!
+      },
+    );
+
+    //parsing du JSON de la réponse
+    var data = json.decode(response.body);
+  print(data);
+
+    setState(() {
+      if(data[0]["nbComment"]==null){
+        nbComment=0;
+      }
+      else{
+        nbComment=data[0]["nbComment"];
+      }
+
+    });
+  }
 
 
   @override
@@ -98,7 +130,7 @@ class _PostViewState extends State<PostView> {
                       height: 75,
                       child: Center(
                         child: Text(
-                          "Add Post",
+                          "Ajout de Post",
                           style: RedButtonStyle,
                         ),
                       ),
@@ -123,13 +155,14 @@ class _PostViewState extends State<PostView> {
                       height: 75,
                       child: Center(
                         child: Text(
-                          "Post reporté",
+                          "Post signalé",
                           style: RedButtonStyle,
                         ),
                       ),
                     )),
               ),
-              /*Card(
+
+              Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25)),
                 elevation: 10,
@@ -139,21 +172,21 @@ class _PostViewState extends State<PostView> {
                       final value = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ReportedPostView()),
+                            builder: (context) => const ReportedCommentView()),
                       );
                       refreshPosts();
                     },
                     child: Container(
-                      width: 200,
+                      width: 300,
                       height: 75,
                       child: Center(
                         child: Text(
-                          "Commentaire",
+                          "${nbComment} Commentaire signalé",
                           style: RedButtonStyle,
                         ),
                       ),
                     )),
-              ),*/
+              ),
             ],
           ),
           SizedBox(

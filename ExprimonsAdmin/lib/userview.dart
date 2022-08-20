@@ -94,11 +94,11 @@ class _UserViewState extends State<UserView> {
                       refreshUsers();
                     },
                     child: Container(
-                      width: 200,
+                      width: 250,
                       height: 75,
                       child: Center(
                         child: Text(
-                          "Add User",
+                          "Ajout d'utilisateur",
                           style: RedButtonStyle
                         ),
                       ),

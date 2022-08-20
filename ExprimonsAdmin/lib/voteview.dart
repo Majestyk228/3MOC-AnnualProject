@@ -93,7 +93,7 @@ class _VoteViewState extends State<VoteView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Add Vote",style: RedButtonStyle),
+                        child: Text("Ajout de vote",style: RedButtonStyle),
                       ),
                     )),
               ),
