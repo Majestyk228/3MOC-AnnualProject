@@ -1,6 +1,8 @@
 package com.example.exprimonsnousapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -278,7 +280,14 @@ public class PostFragment extends Fragment {
                         // NOTIFY USER SESSION HAS EXPIRED
                         // CLEAR SHARED PREFERENCES
                         // GO TO LOGIN ACTIVITY
-                        Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
+                        //Log.d("SKY_ESGI", "onErrorResponse:" + error.getMessage());
+                        Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                        //EMPTYING SHARED PREFERENCES
+                        sharedPreferences.edit().clear();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 }) {
             public Map<String, String> getHeaders() throws AuthFailureError {

@@ -1,5 +1,6 @@
 package com.example.exprimonsnousapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -115,7 +116,7 @@ public class VoteFragment extends Fragment {
 
         IdCommunity idCommunity = new IdCommunity(communityId);
         try {
-            extractVoteBis(idCommunity);
+            extractVoteBis(idCommunity,view);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -140,7 +141,7 @@ public class VoteFragment extends Fragment {
                 //réextraction de la liste des posts
                 IdCommunity idCommunity = new IdCommunity(communityId);
                 try {
-                    extractVoteBis(idCommunity);
+                    extractVoteBis(idCommunity,view);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -180,7 +181,7 @@ public class VoteFragment extends Fragment {
         });
     }
 
-    private void extractVoteBis(IdCommunity idCommunity) throws JSONException {
+    private void extractVoteBis(IdCommunity idCommunity, View view) throws JSONException {
         // BUILDING BODY OBJECT
 
 
@@ -233,9 +234,13 @@ public class VoteFragment extends Fragment {
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        /*Log.i("vote_error",error.getMessage());
                         Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
 
-                        if(error.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+
+
+                        if(error.getMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
                             // TOAST NOTIFYING USER TO LOGIN AGAIN
                             Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
 
@@ -246,7 +251,15 @@ public class VoteFragment extends Fragment {
                             getActivity().startActivity(myIntent);
                         } else {
                             Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
-                        }
+                        }*/
+                        Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                        //getActivity().getFragmentManager().beginTransaction().remove(view.getCon).commit();
+                        //EMPTYING SHARED PREFERENCES
+                        sharedPreferences.edit().clear();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 }) {
             public Map<String, String> getHeaders() throws AuthFailureError {

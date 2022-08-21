@@ -2,6 +2,7 @@ package com.example.exprimonsnousapp;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -245,7 +246,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserUpdateResponse> call, Throwable t) {
-                if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
+                /*if(t.getLocalizedMessage().equals("{\"ERROR\": \"Token expired/incorrect\"}")) {
                     // TOAST NOTIFYING USER TO LOGIN AGAIN
                     Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
 
@@ -256,7 +257,16 @@ public class ProfileFragment extends Fragment {
                     getActivity().startActivity(myIntent);
                 } else {
                     Toast.makeText(getContext(), "Une erreur est survenue.", Toast.LENGTH_LONG).show();
-                }
+                }*/
+
+                Toast.makeText(getContext(), "Veuillez vous reconnecter.", Toast.LENGTH_LONG).show();
+
+                //getActivity().getFragmentManager().beginTransaction().remove(view.getCon).commit();
+                //EMPTYING SHARED PREFERENCES
+                sharedPreferences.edit().clear();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
