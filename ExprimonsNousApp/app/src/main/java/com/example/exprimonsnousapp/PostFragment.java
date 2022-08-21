@@ -113,9 +113,9 @@ public class PostFragment extends Fragment {
             e.printStackTrace();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             posts.sort(Comparator.comparing(Post::getIdPost));
-        }
+        }*/
     }
 
     @Override
@@ -300,6 +300,7 @@ public class PostFragment extends Fragment {
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
+        //extractAdminPost();
     }
 
     // TODO : TEST API CALL
