@@ -40,17 +40,20 @@ module.exports = {
 								{
 									idUser: 7,
 									firstName: "Bo",
-									lastName: "BURNHAM"
+									lastName: "BURNHAM",
+									points: 4
 								},
 								{
 									idUser: 6,
 									firstName: "Fally",
-									lastName: "IPUPA"
+									lastName: "IPUPA",
+									points: 4
 								},
 								{
 									idUser: 8,
 									firstName: "Master",
-									lastName: "KJ"
+									lastName: "KJ",
+									points: 4
 								}
 							]
 						},
