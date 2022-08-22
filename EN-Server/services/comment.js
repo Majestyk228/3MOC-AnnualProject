@@ -48,6 +48,12 @@ async function getComments(idPost) {
 }
 
 
+async function getComment(idComment) {
+	const rows = await db.query("SELECT * FROM Comment WHERE idComment = " + idComment + ";", "");
+	return rows;
+}
+
+
 
 
 async function insertComment(commentReq) {
@@ -136,5 +142,6 @@ module.exports = {
 	reportCommentReinit,
 	commmentByPost,
 	reportedCommmentByCommunity,
-	commmentByCommunity
+	commmentByCommunity,
+	getComment
 }

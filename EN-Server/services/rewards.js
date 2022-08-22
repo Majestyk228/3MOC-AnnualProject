@@ -6,6 +6,12 @@ async function getAllRewards() {
 }
 
 
+async function getRewardPointsValues(idRewards) {
+	const rows = await db.query("SELECT score FROM Rewards WHERE idRewards = " + idRewards + ";", "");
+	return rows[0];
+}
+
+
 async function nbRewardByPost(idPost) {
 	const request = "SELECT COUNT(*) AS rewards FROM Congratulate WHERE idPost =" + idPost + " ;";
 	const rows = await db.query(request, "");
@@ -22,5 +28,6 @@ async function useReward(body) {
 module.exports = {
 	getAllRewards,
 	nbRewardByPost,
-	useReward
+	useReward,
+	getRewardPointsValues
 }

@@ -181,7 +181,6 @@ router.get('/all/:idPost', async function (req, res, next) {
 
 
 
-// TODO Post comment !
 
 router.post('/create', async function (req, res, next) {
 	if (req.body.idCommunity == null || req.body.body == null || req.body.anonymous == null || req.body.idPost == null || req.body.idUser == null) {
@@ -260,6 +259,9 @@ router.delete('/deleteComment/:idComment', async function (req, res, next) {
 			}
 
 			// TODO : GET COMMENT THAT GOT DELETED TO RETREIVE ITS OWNER
+			const commentTargeted = await comment.getComment(req.params.idComment);
+
+			pm.removePoints(commentTargeted[0].idUser, 5);
 
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);

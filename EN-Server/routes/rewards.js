@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const reward = require('../services/rewards.js');
+const post = require('../services/post.js');
 const config = require('../config/config.js');
+const pm = require('../services/pointsManager.js');
 var jwt = require('jsonwebtoken');
 
 
@@ -74,6 +76,11 @@ router.post('/useReward', async function (req, res, next) {
 			}
 
 			// TODO : GET POST THAT GOT REWARDED TO RETREIVE ITS OWNER
+			const postTargeted = await post.getPost(req.body.idPost)
+			const rewardTargeted = await reward.getRewardPointsValues(req.body.idRewards)
+
+			pm.addPoints(postTargeted[0].idUser, rewardTargeted)
+
 
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);

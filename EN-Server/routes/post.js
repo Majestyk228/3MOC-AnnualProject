@@ -5,6 +5,7 @@ const comment = require('../services/comment.js');
 const pm = require('../services/pointsManager.js');
 const config = require('../config/config.js');
 var jwt = require('jsonwebtoken');
+const { post } = require('./comment.js');
 
 
 
@@ -340,7 +341,9 @@ router.delete('/delete/:idPost', async function (req, res, next) {
 			}
 
 			// TODO : GET POST THAT GOT DELETED TO RETREIVE ITS OWNER
+			const postTargeted = await post.getPost(req.body.idPost)
 
+			pm.addPoints(postTargeted[0].idUser, 10);
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
@@ -367,6 +370,9 @@ router.post('/like', async function (req, res, next) {
 			}
 
 			// TODO : GET POST THAT GOT LIKED TO RETREIVE ITS OWNER
+			const postTargeted = await post.getPost(req.body.idPost)
+
+			pm.addPoints(postTargeted[0].idUser, 3);
 
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
@@ -395,6 +401,9 @@ router.post('/dislike', async function (req, res, next) {
 			}
 
 			// TODO : GET POST THAT GOT DISLIKED TO RETREIVE ITS OWNER
+			const postTargeted = await post.getPost(req.body.idPost)
+
+			pm.removePoints(postTargeted[0].idUser, 3);
 
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
