@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const post = require('../services/post.js');
-const comment = require('../services/comment.js');
+//const comment = require('../services/comment.js');
 const pm = require('../services/pointsManager.js');
 const config = require('../config/config.js');
 var jwt = require('jsonwebtoken');
-const { post } = require('./comment.js');
+//const { post } = require('./comment.js');
 
 
 
@@ -183,7 +183,7 @@ router.post('/create', async function (req, res, next) {
 			}
 
 			if (req.body.idUser) {
-				pm.addPoints(req.body.idUser, 10);
+				await pm.addPoints(req.body.idUser, 10);
 			}
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
@@ -333,17 +333,18 @@ router.delete('/delete/:idPost', async function (req, res, next) {
 				// IF TOKEN IS VALID
 				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
 
+				// TODO : GET POST THAT GOT DELETED TO RETREIVE ITS OWNER
+				const postTargeted = await post.getPost(req.params.idPost);
+				await pm.removePoints(postTargeted[0].idUser, 10);
+
 				await post.deletePost(req.params.idPost);
 				res.status(200).json([{ "Message": "Post deleted successfully" }]);
 			} catch (err) {
 				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				//res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				res.status(406).json([{ "ERROR": err.message }]);
 			}
 
-			// TODO : GET POST THAT GOT DELETED TO RETREIVE ITS OWNER
-			const postTargeted = await post.getPost(req.body.idPost)
-
-			pm.addPoints(postTargeted[0].idUser, 10);
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
@@ -351,6 +352,9 @@ router.delete('/delete/:idPost', async function (req, res, next) {
 		res.status(400).json([{ "ERROR": err.message }]);
 		next(err);
 	}
+
+
+
 });
 
 router.post('/like', async function (req, res, next) {
@@ -371,7 +375,6 @@ router.post('/like', async function (req, res, next) {
 
 			// TODO : GET POST THAT GOT LIKED TO RETREIVE ITS OWNER
 			const postTargeted = await post.getPost(req.body.idPost)
-
 			pm.addPoints(postTargeted[0].idUser, 3);
 
 		} else {

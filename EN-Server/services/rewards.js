@@ -8,7 +8,7 @@ async function getAllRewards() {
 
 async function getRewardPointsValues(idRewards) {
 	const rows = await db.query("SELECT score FROM Rewards WHERE idRewards = " + idRewards + ";", "");
-	return rows[0];
+	return rows[0].score;
 }
 
 

@@ -338,10 +338,11 @@ router.post('/userVote', async function (req, res, next) {
 				res.status(200).json([{ "Message": "Vote User submitted successfully" }]);
 			} catch (err) {
 				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				//es.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				res.status(404).json([{ "ERROR": err.message }]);
 			}
 
-			pm.addPoints(req.body.idUser, 15);
+			await pm.addPoints(req.body.idUser, 15);
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}

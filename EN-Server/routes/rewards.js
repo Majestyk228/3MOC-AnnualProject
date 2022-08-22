@@ -68,20 +68,19 @@ router.post('/useReward', async function (req, res, next) {
 				// IF TOKEN IS VALID
 				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
 
+				// TODO : GET POST THAT GOT REWARDED TO RETREIVE ITS OWNER
+				const postTargeted = await post.getPost(req.body.idPost)
+				const rewardTargeted = await reward.getRewardPointsValues(req.body.idRewards)
+
+				await pm.addPoints(postTargeted[0].idUser, rewardTargeted)
+
 				await reward.useReward(req.body);
 				res.status(200).json({ "Message": "Reward added successfully." });
 			} catch (err) {
 				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				//res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				res.status(406).json([{ "ERROR": err.message }]);
 			}
-
-			// TODO : GET POST THAT GOT REWARDED TO RETREIVE ITS OWNER
-			const postTargeted = await post.getPost(req.body.idPost)
-			const rewardTargeted = await reward.getRewardPointsValues(req.body.idRewards)
-
-			pm.addPoints(postTargeted[0].idUser, rewardTargeted)
-
-
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}

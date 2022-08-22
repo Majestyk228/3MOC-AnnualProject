@@ -251,17 +251,16 @@ router.delete('/deleteComment/:idComment', async function (req, res, next) {
 				// IF TOKEN IS VALID
 				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
 
+				// TODO : GET COMMENT THAT GOT DELETED TO RETREIVE ITS OWNER
+				const commentTargeted = await comment.getComment(req.params.idComment);
+				pm.removePoints(commentTargeted[0].idUser, 5);
+
 				await comment.deleteComment(req.params.idComment)
 				res.status(200).json({ "Message": "Comment deleted successfully" });
 			} catch (err) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
-
-			// TODO : GET COMMENT THAT GOT DELETED TO RETREIVE ITS OWNER
-			const commentTargeted = await comment.getComment(req.params.idComment);
-
-			pm.removePoints(commentTargeted[0].idUser, 5);
 
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
