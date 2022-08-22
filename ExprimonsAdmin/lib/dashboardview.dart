@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 
 import 'dart:html' as html;
 
+import 'loginview.dart';
+
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
 
@@ -44,12 +46,29 @@ class _DashboardViewState extends State<DashboardView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if(response.statusCode>=200 && response.statusCode<=299){
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    setState(() {
-      this.title = data[0]['label'];
-    });
+      setState(() {
+        this.title = data[0]['label'];
+      });
+    }
+    else if(response.statusCode==406){
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+    else{
+      //TODO Dialog of error
+    }
+
+
+
   }
 
   Future refreshNbReportedPost() async {
@@ -68,12 +87,27 @@ class _DashboardViewState extends State<DashboardView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if(response.statusCode>=200 && response.statusCode<=299){
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    setState(() {
-      this.nbReportedPosts = "${data[0]['nbReportedPost']}";
-    });
+      setState(() {
+        this.nbReportedPosts = "${data[0]['nbReportedPost']}";
+      });
+    }
+    else if(response.statusCode==406){
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+    else{
+      //TODO Dialog of error
+    }
+
   }
 
   Future refreshNbReportedComments() async {
@@ -92,12 +126,28 @@ class _DashboardViewState extends State<DashboardView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if(response.statusCode>=200 && response.statusCode<=299){
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    setState(() {
-      this.nbReportedComments = "${data[0]['nbReportedComments']}";
-    });
+      setState(() {
+        this.nbReportedComments = "${data[0]['nbReportedComments']}";
+      });
+    }
+    else if(response.statusCode==406){
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+    else{
+      //TODO Dialog of error
+    }
+
+
   }
 
   @override
@@ -108,6 +158,7 @@ class _DashboardViewState extends State<DashboardView> {
       color: Colors.white,
       child: Column(
         children: [
+
           Center(
             child: Container(
               width: 1000,

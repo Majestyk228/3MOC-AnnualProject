@@ -1,6 +1,7 @@
 import 'package:exprimons_nous/Child/addpostview.dart';
 import 'package:exprimons_nous/Child/reportedcommentview.dart';
 import 'package:exprimons_nous/Child/reportedpostview.dart';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/component/postlistline.dart';
@@ -43,30 +44,45 @@ class _PostViewState extends State<PostView> {
         "token":html.window.localStorage["token"]!
       },
     );
+    if(response.statusCode>=200 && response.statusCode<=299){
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+      this.posts = [];
+      setState(() {
+        for (var i = 0; i < data.length; i++) {
+          Post unPost = Post(
+            idPost: data[i]['idPost'],
+            title: data[i]['title'],
+            body: data[i]['body'],
+            date: data[i]['date'],
+            time: data[i]['time'],
+            likes: data[i]['likes'],
+            dislikes: data[i]['dislikes'],
+            idCommunity: data[i]['idCommunity'],
+            idUser: data[i]['idUser'],
+            idAdmin: data[i]['idAdmin'],
+            reported: data[i]['reported'],
+          );
 
-    this.posts = [];
-    setState(() {
-      for (var i = 0; i < data.length; i++) {
-        Post unPost = Post(
-          idPost: data[i]['idPost'],
-          title: data[i]['title'],
-          body: data[i]['body'],
-          date: data[i]['date'],
-          time: data[i]['time'],
-          likes: data[i]['likes'],
-          dislikes: data[i]['dislikes'],
-          idCommunity: data[i]['idCommunity'],
-          idUser: data[i]['idUser'],
-          idAdmin: data[i]['idAdmin'],
-          reported: data[i]['reported'],
-        );
+          posts.add(unPost);
+        }
+      });
+    }
+    else if(response.statusCode==406){
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+    else{
+      //TODO Dialog of error
+    }
 
-        posts.add(unPost);
-      }
-    });
+
   }
 
   Future refreshNbReportedComment() async {
@@ -85,19 +101,35 @@ class _PostViewState extends State<PostView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
-  print(data);
+    if(response.statusCode>=200 && response.statusCode<=299){
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    setState(() {
-      if(data[0]["nbComment"]==null){
-        nbComment=0;
-      }
-      else{
-        nbComment=data[0]["nbComment"];
-      }
 
-    });
+      setState(() {
+        if(data[0]["nbComment"]==null){
+          nbComment=0;
+        }
+        else{
+          nbComment=data[0]["nbComment"];
+        }
+
+      });
+    }
+    else if(response.statusCode==406){
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+    else{
+      //TODO Dialog of error
+    }
+
+
   }
 
 

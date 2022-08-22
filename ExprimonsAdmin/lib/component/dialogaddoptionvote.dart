@@ -164,13 +164,13 @@ class _DialogAddOptionVoteState extends State<DialogAddOptionVote> {
                                   widget.title,
                                   widget.body,
                                   "${widget.nbChoice}",
-                                  widget.important);
+                                  widget.important,context);
 
                               for (int i = 0; i < optionVotes.length; i++) {
                                 print(optionVotes[i].label);
                                 optionVotes[i].idVote = idVote;
                               }
-                              addOptionVotes(optionVotes);
+                              addOptionVotes(optionVotes,context);
                               Navigator.pop(context);
                               Navigator.pop(context);
                             } else {

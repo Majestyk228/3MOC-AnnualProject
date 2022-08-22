@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:html';
 
+import 'package:flutter/material.dart';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
 
@@ -33,17 +36,15 @@ Future logAdmin(String email, String password) async {
       },
       body: body);
 
-  var data = json.decode(response.body);
-print (data);
-print(data[0]);
-  if (data.length != 0&&data!=null) {
+  if (response.statusCode >= 200 && response.statusCode <= 299) {
+    var data = json.decode(response.body);
 
-    print("WHY");
-    print(data[0]);
-    html.window.localStorage["idAdmin"] = "${data['idAdmin']}";
-    html.window.localStorage["idCommunity"] = "${data['idCommunity']}";
-    html.window.localStorage["token"] = "${data['token']}";
-
-
+    if (data.length != 0 && data != null) {
+      html.window.localStorage["idAdmin"] = "${data['idAdmin']}";
+      html.window.localStorage["idCommunity"] = "${data['idCommunity']}";
+      html.window.localStorage["token"] = "${data['token']}";
+    }
+  } else {
+    //TODO Dialog of error
   }
 }

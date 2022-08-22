@@ -100,7 +100,7 @@ class _InvitationViewState extends State<InvitationView> {
                 color: DarkRedColor,
                 child: TextButton(
                     onPressed: () async {
-                      await addInvitation();
+                      await addInvitation(context);
                       refreshInvitation();
                     },
                     child: Container(
@@ -209,7 +209,7 @@ class _InvitationViewState extends State<InvitationView> {
                                       Navigator.pop(context, 'OK');
 
                                       await deleteInvitation(
-                                          invitation[index].code);
+                                          invitation[index].code,context);
                                       refreshInvitation();
                                     },
                                     child: const Text('Oui'),

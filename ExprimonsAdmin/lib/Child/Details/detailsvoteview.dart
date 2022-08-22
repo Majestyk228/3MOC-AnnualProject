@@ -45,7 +45,6 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
     } else {
       important = true;
     }
-    print(widget.vote.idVote);
   }
 
   Future refreshOptionVotes() async {
@@ -76,7 +75,7 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
         OptionVotes uneOptionVote = OptionVotes(
           label: data[0]["voteOptions"][i]["label"],
           idVote: widget.vote.idVote,
-          nbChoice: data[0]["nbChoiceVoteOptions"][i]["nbChoice"],
+          nbChoice: data[0]["voteOptions"][i]["nbChoice"],
         );
         optionVotes.add(uneOptionVote);
       }
@@ -327,7 +326,8 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
                                             TextButton(
                                               onPressed: () async {
                                                 await deleteVotes(
-                                                    widget.vote.idVote!);
+                                                    widget.vote.idVote!,
+                                                    context);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },

@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'dart:html' as html;
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:exprimons_nous/loginview.dart';
 class User {
   int? idUser;
   String? firstName;
@@ -44,7 +47,7 @@ class User {
   }
 
 }
-Future addUser(String firstName,String lastName,String birthDate,String gender,String areaCode,String email,String password) async {
+Future addUser(String firstName,String lastName,String birthDate,String gender,String areaCode,String email,String password,BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/user/register/admin");
 
   var body = jsonEncode({
@@ -69,9 +72,24 @@ Future addUser(String firstName,String lastName,String birthDate,String gender,S
         "token":html.window.localStorage["token"]!
       },
       body: body);
+  if(response.statusCode>=200 && response.statusCode<=299){
+
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+  else{
+    //TODO Dialog of error
+  }
 }
 
-Future deleteUser(int idUser) async {
+Future deleteUser(int idUser,BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/user/delete/${idUser}");
 
 
@@ -86,4 +104,19 @@ Future deleteUser(int idUser) async {
         'Content-Type': 'application/json; charset=UTF-8',
         "token":html.window.localStorage["token"]!
       });
+  if(response.statusCode>=200 && response.statusCode<=299){
+
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+  else{
+    //TODO Dialog of error
+  }
 }

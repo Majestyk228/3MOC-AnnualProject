@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
+import 'package:flutter/material.dart';
+import 'package:exprimons_nous/loginview.dart';
 
 class Post {
   int? idPost;
@@ -71,7 +73,7 @@ Future addPost(String Title,String Body) async {
       body: body);
 }
 
-Future updatePost(int idPost,String Title,String Body) async {
+Future updatePost(int idPost,String Title,String Body,BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/post/updatePost");
 
   var body = jsonEncode({
@@ -92,9 +94,24 @@ Future updatePost(int idPost,String Title,String Body) async {
         "token":html.window.localStorage["token"]!
       },
       body: body);
+  if(response.statusCode>=200 && response.statusCode<=299){
+
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+  else{
+    //TODO Dialog of error
+  }
 }
 
-Future deletePost(int idPost) async{
+Future deletePost(int idPost,BuildContext context) async{
   Uri uri = Uri.parse("https://titan-photography.com/post/delete/${idPost}");
 
 
@@ -110,4 +127,19 @@ Future deletePost(int idPost) async{
         "token":html.window.localStorage["token"]!
       },
       );
+  if(response.statusCode>=200 && response.statusCode<=299){
+
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+  else{
+    //TODO Dialog of error
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:exprimons_nous/loginview.dart';
+import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 class Vote {
@@ -42,7 +43,7 @@ class Vote {
   }
 
 }
-Future<int> addVotes(String Title,String Body,String nbChoice,bool important) async {
+Future<int> addVotes(String Title,String Body,String nbChoice,bool important,BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/vote/create");
 
   var body = jsonEncode({
@@ -65,13 +66,30 @@ Future<int> addVotes(String Title,String Body,String nbChoice,bool important) as
         "token":html.window.localStorage["token"]!
       },
       body: body);
+  if(response.statusCode>=200 && response.statusCode<=299){
+    var data = json.decode(response.body);
 
-  var data = json.decode(response.body);
+    return data['idVote'];
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+    return 0;
+  }
+  else{
+    //TODO Dialog of error
+    return 0;
+  }
 
-  return data['idVote'];
+
 }
 
-Future deleteVotes(int idVote) async {
+Future deleteVotes(int idVote,BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/vote/delete/${idVote}");
 
 
@@ -86,4 +104,19 @@ Future deleteVotes(int idVote) async {
         'Content-Type': 'application/json; charset=UTF-8',
         "token":html.window.localStorage["token"]!
       });
+  if(response.statusCode>=200 && response.statusCode<=299){
+
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+  else{
+    //TODO Dialog of error
+  }
 }

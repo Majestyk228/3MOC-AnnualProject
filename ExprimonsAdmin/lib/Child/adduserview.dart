@@ -425,7 +425,7 @@ class _AddUserViewState extends State<AddUserView> {
                                         gender,
                                         areaCode.text,
                                         email.text,
-                                        password.text);
+                                        password.text,context);
                                     Navigator.pop(context);
                                   }
                                 },

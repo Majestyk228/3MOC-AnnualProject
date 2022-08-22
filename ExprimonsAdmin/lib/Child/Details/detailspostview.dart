@@ -356,7 +356,7 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                                             TextButton(
                                               onPressed: () async {
                                                 await deletePost(
-                                                    widget.post.idPost!);
+                                                    widget.post.idPost!,context);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },

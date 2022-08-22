@@ -39,31 +39,43 @@ class _VoteViewState extends State<VoteView> {
         "Access-Control-Allow-Headers":
             "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "token":html.window.localStorage["token"]!
+        "token": html.window.localStorage["token"]!
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    this.votes = [];
-    setState(() {
-      for (var i = 0; i < data.length; i++) {
-        Vote unVote = Vote(
-          idVote: data[i]['idVote'],
-          title: data[i]['title'],
-          body: data[i]['body'],
-          nbChoice: data[i]['nbChoices'],
-          important: data[i]['important'],
-          idUser: data[i]['idUser'],
-          idAdmin: data[i]['idAdmin'],
-          voteBegins: data[i]['voteBegins'],
-          voteEnds: data[i]['voteEnds'],
-          idCommunity: data[i]['idCommunity'],
-        );
-        votes.add(unVote);
-      }
-    });
+      this.votes = [];
+      setState(() {
+        for (var i = 0; i < data.length; i++) {
+          Vote unVote = Vote(
+            idVote: data[i]['idVote'],
+            title: data[i]['title'],
+            body: data[i]['body'],
+            nbChoice: data[i]['nbChoices'],
+            important: data[i]['important'],
+            idUser: data[i]['idUser'],
+            idAdmin: data[i]['idAdmin'],
+            voteBegins: data[i]['voteBegins'],
+            voteEnds: data[i]['voteEnds'],
+            idCommunity: data[i]['idCommunity'],
+          );
+          votes.add(unVote);
+        }
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      //TODO Dialog of error
+    }
   }
 
   @override
@@ -77,7 +89,7 @@ class _VoteViewState extends State<VoteView> {
           Row(
             children: [
               Card(
-                shape:  RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25)),
                 elevation: 10,
                 color: DarkRedColor,
@@ -93,7 +105,7 @@ class _VoteViewState extends State<VoteView> {
                       width: 200,
                       height: 75,
                       child: Center(
-                        child: Text("Ajout de vote",style: RedButtonStyle),
+                        child: Text("Ajout de vote", style: RedButtonStyle),
                       ),
                     )),
               ),

@@ -263,7 +263,7 @@ class _DetailsUserViewState extends State<DetailsUserView> {
                                             TextButton(
                                               onPressed: () async {
                                                 await deleteUser(
-                                                    widget.user.idUser!);
+                                                    widget.user.idUser!,context);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },

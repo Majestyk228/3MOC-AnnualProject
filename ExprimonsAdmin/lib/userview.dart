@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:exprimons_nous/Child/Details/detailsuserview.dart';
 import 'package:exprimons_nous/Child/adduserview.dart';
 import 'package:exprimons_nous/Child/invitationview.dart';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/component/userlistline.dart';
@@ -43,29 +44,45 @@ class _UserViewState extends State<UserView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if(response.statusCode>=200 && response.statusCode<=299){
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    this.users = [];
-    setState(() {
+      this.users = [];
+      setState(() {
 
-      for (var i = 0; i < data.length; i++) {
-        User unUser = User(
-          idUser: data[i]['idUser'],
-          firstName: data[i]['firstName'],
-          lastName: data[i]['lastName'],
-          birthDate: data[i]['birthDate'],
-          gender: data[i]['gender'],
-          areaCode: data[i]['areaCode'],
-          email: data[i]['email'],
-          password: data[i]['password'],
-          points: data[i]['points'],
-          signInDate: data[i]['signInDate'],
-        );
+        for (var i = 0; i < data.length; i++) {
+          User unUser = User(
+            idUser: data[i]['idUser'],
+            firstName: data[i]['firstName'],
+            lastName: data[i]['lastName'],
+            birthDate: data[i]['birthDate'],
+            gender: data[i]['gender'],
+            areaCode: data[i]['areaCode'],
+            email: data[i]['email'],
+            password: data[i]['password'],
+            points: data[i]['points'],
+            signInDate: data[i]['signInDate'],
+          );
 
-        users.add(unUser);
-      }
-    });
+          users.add(unUser);
+        }
+      });
+    }
+    else if(response.statusCode==406){
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+    else{
+      //TODO Dialog of error
+    }
+
+
   }
 
   @override

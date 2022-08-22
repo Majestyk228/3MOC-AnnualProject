@@ -5,9 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:html' as html;
 void main() {
   var home;
-  print(html.window.localStorage["idAdmin"]);
-  print(html.window.localStorage["idCommunity"]);
-  print(html.window.localStorage["token"]);
+
   if (html.window.localStorage["idAdmin"] != null ||
       html.window.localStorage["idCommunity"] != null ||
       html.window.localStorage["token"] != null){

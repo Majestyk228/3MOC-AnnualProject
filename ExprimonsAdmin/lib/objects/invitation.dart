@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'dart:html' as html;
+import 'package:exprimons_nous/loginview.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 
 class Invitation {
   int? code;
@@ -26,7 +28,7 @@ class Invitation {
   }
 }
 
-Future addInvitation() async {
+Future addInvitation(BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/invite/create");
 
   var body =
@@ -43,9 +45,10 @@ Future addInvitation() async {
         "token": html.window.localStorage["token"]!
       },
       body: body);
+
 }
 
-Future deleteInvitation(invitationCode) async {
+Future deleteInvitation(invitationCode,BuildContext context) async {
   Uri uri =
       Uri.parse("https://titan-photography.com/invite/delete/$invitationCode");
 
@@ -58,4 +61,19 @@ Future deleteInvitation(invitationCode) async {
     'Content-Type': 'application/json; charset=UTF-8',
     "token": html.window.localStorage["token"]!
   });
+  if(response.statusCode>=200 && response.statusCode<=299){
+
+  }
+  else if(response.statusCode==406){
+    html.window.localStorage.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+  else{
+    //TODO Dialog of error
+  }
 }

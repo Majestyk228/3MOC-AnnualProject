@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:convert';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/Colors.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/comment.dart';
@@ -42,12 +43,24 @@ class _DetailsCommentViewState extends State<DetailsCommentView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    setState(() {
-      Name = data[0]["lastName"] + data[0]["firstName"];
-    });
+      setState(() {
+        Name = data[0]["lastName"] + data[0]["firstName"];
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      //TODO Dialog of error
+    }
   }
 
   @override
@@ -74,7 +87,6 @@ class _DetailsCommentViewState extends State<DetailsCommentView> {
     reports.text = "${widget.comments.reports}";
     date.text = "${widget.comments.date}";
     userName.text = "${Name}";
-
   }
 
   @override
@@ -331,7 +343,7 @@ class _DetailsCommentViewState extends State<DetailsCommentView> {
                                             TextButton(
                                               onPressed: () async {
                                                 await deleteComment(
-                                                    widget.comments.idComment!);
+                                                    widget.comments.idComment!,context);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },
