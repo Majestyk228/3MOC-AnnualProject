@@ -20,3 +20,18 @@ Autour de la thématique générale du projet son demandé un certain nombre de 
 * **iOS-iPad** : Théo TORRES DA COSTA,
 * **Flutter** : Théo TORRES DA COSTA,
 * **Java** : Kilian CASSAIGNE.
+
+## Fonctionnement général de la plateforme
+
+Chaque utilisateur de la plateforme (hors administrateur) possède un nombre de points servant aux statistiques du/des administrateur(s) de l'entreprise afin de gaugé de manière globale l'activité d'un utilisateur : plus un utilisateur a de points, plus il est actif au sein de la plateforme.
+
+Les points sont attribués (ou retirés) automatiquement aux utilisateurs suitent à l'accomplissement d'une action au sein de la plateforme. Le nombre de point attribués (ou retiré) dépend de l'action menée par l'utilisateur (ou de l'administrateur de l'entreprise) selon les valeurs données par le barème ci-dessous : 
+
+* **Création de post** : +10 points
+* **Participation à un vote** : +15 points (pour le votant)
+* **Ajout d'un commentaire à un post** : +5 points
+* **Réception d'une récompense** : Le nombre de points atrtibué dépendant de la récompense reçue ; les points sont attribués au créateur du post récompensé
+* **Suppression d'un post** : -10 points
+* **Suppression d'un commentaire** : -5 points
+* **Like d'un post** : +3 points
+* **Dislike d'un post** : -3 points
