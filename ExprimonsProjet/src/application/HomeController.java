@@ -499,33 +499,15 @@ public class HomeController implements Initializable {
 			createListWithTask(listTask.get(i).getTitle(), tasksForList, listTask.get(i).getIdList());
 			listTask.get(i).setListTask(tasksForList);
 		}
-
-		//System.out.println("refreshing ...");
 	}
 	
 	@FXML
 	private void logout(MouseEvent event) throws IOException {
-		// TODO Code...
-		//System.out.println("Logout function...");
-		
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/LandingPage.fxml"));
-		//HomeController controller = new HomeController(user);
-		
-		//loader.setController(controller);
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setUserData(user);
 		scene = new Scene(loader.load());
 		stage.setScene(scene);
 		stage.show();
-		//controller.setStage(stage);
-		//controller.setScene(scene);
-		/*stage.setOnCloseRequest(closeEvent -> {
-			closeEvent.consume();
-			try {
-				ExitApp(event);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});*/
 	}
 }

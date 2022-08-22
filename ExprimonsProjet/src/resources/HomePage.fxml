@@ -102,7 +102,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="AccountButton" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
+                  <HBox fx:id="AccountButton" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;" visible="false">
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -122,7 +122,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox fx:id="SettingsButton" layoutX="10.0" layoutY="131.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;">
+                  <HBox fx:id="SettingsButton" layoutX="10.0" layoutY="131.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-style: solid;" visible="false">
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
