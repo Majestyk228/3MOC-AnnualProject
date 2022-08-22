@@ -3,6 +3,7 @@ const { route } = require('express/lib/application');
 const router = express.Router();
 const comment = require('../services/comment.js');
 const config = require('../config/config.js');
+const pm = require('../services/pointsManager.js');
 var jwt = require('jsonwebtoken');
 
 
@@ -201,6 +202,8 @@ router.post('/create', async function (req, res, next) {
 					// IF TOKEN IS INVALID
 					res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 				}
+
+				pm.addPoints(req.body.idUser, 5);
 			} else {
 				res.status(404).json([{ "ERROR": "Missing token in header" }]);
 			}
@@ -255,6 +258,9 @@ router.delete('/deleteComment/:idComment', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			// TODO : GET COMMENT THAT GOT DELETED TO RETREIVE ITS OWNER
+
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}

@@ -2,6 +2,7 @@ const express = require('express');
 const { route } = require('express/lib/application');
 const router = express.Router();
 const vote = require('../services/vote.js');
+const pm = require('../services/pointsManager.js');
 const config = require('../config/config.js');
 var jwt = require('jsonwebtoken');
 
@@ -339,6 +340,8 @@ router.post('/userVote', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			pm.addPoints(req.body.idUser, 15);
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}

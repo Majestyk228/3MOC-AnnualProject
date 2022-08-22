@@ -72,6 +72,9 @@ router.post('/useReward', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			// TODO : GET POST THAT GOT REWARDED TO RETREIVE ITS OWNER
+
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}

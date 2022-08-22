@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const post = require('../services/post.js');
 const comment = require('../services/comment.js');
+const pm = require('../services/pointsManager.js');
 const config = require('../config/config.js');
 var jwt = require('jsonwebtoken');
 
@@ -179,6 +180,10 @@ router.post('/create', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			if (req.body.idUser) {
+				pm.addPoints(req.body.idUser, 10);
+			}
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
@@ -333,6 +338,9 @@ router.delete('/delete/:idPost', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			// TODO : GET POST THAT GOT DELETED TO RETREIVE ITS OWNER
+
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
@@ -357,6 +365,9 @@ router.post('/like', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			// TODO : GET POST THAT GOT LIKED TO RETREIVE ITS OWNER
+
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
@@ -382,6 +393,9 @@ router.post('/dislike', async function (req, res, next) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
 			}
+
+			// TODO : GET POST THAT GOT DISLIKED TO RETREIVE ITS OWNER
+
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
 		}
