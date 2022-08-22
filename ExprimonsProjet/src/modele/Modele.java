@@ -14,6 +14,7 @@ import objects.ListTask;
 import objects.Tag;
 import objects.Task;
 import objects.User;
+import utils.BCrypt;
 
 public class Modele {
 
@@ -39,23 +40,11 @@ public class Modele {
 
 	public static User verifConnexion(String email, String password) {
 		User unUser = null;
-		String decryptedPassword = "";
-		/*try {
-	          KeyGenerator kg = KeyGenerator.getInstance("AES");
-	          SecretKey myDESKey = kg.generateKey();
-	          Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
-	          cipher.init(Cipher.DECRYPT_MODE, myDESKey);
-	          byte[] text = password.getBytes();
-	          byte[] textEnc = cipher.doFinal(text);
-	          decryptedPassword = new String(textEnc);
-	          System.out.println("Text decrypted = "+new String(textEnc));
-	      }
-	      catch(Exception e) {
-	          //code...
-	      }*/
+		String hashedPassword = "";
+	
 		
-		String request = "select * from User where email = '" + email + "'  and password ='" + password + "';";
-		//String request = "select * from User where email = '" + email + "'  and password ='" + decryptedPassword + "';";
+		/*String request = "select * from User where email = '" + email + "'  and password ='" + password + "';";*/
+		String request = "select * from User where email = '" + email + "';";
 		try {
 			db.seConnecter();
 			Statement unStat = db.getMaConnexion().createStatement();
@@ -64,6 +53,7 @@ public class Modele {
 			if (unRes.next()) {
 				unUser = new User(unRes.getInt("idUser"), unRes.getString("firstname"), unRes.getString("lastname"),
 						unRes.getString("email"));
+				hashedPassword = unRes.getString("password");
 			}
 			unRes.close();
 			unStat.close();
@@ -72,8 +62,12 @@ public class Modele {
 			System.out.println("Erreur d'exécution de la requete : " + request);
 			// System.out.println(exp);
 		}
-
-		return unUser;
+		
+		if (BCrypt.checkpw(password, hashedPassword)) {
+			return unUser;
+		} else {
+			return null;
+		}
 	}
 
 	// =====================================================================================================
