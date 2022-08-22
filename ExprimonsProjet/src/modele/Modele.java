@@ -5,6 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
 import objects.Comment;
 import objects.ListTask;
 import objects.Tag;
@@ -35,7 +39,23 @@ public class Modele {
 
 	public static User verifConnexion(String email, String password) {
 		User unUser = null;
+		String decryptedPassword = "";
+		/*try {
+	          KeyGenerator kg = KeyGenerator.getInstance("AES");
+	          SecretKey myDESKey = kg.generateKey();
+	          Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
+	          cipher.init(Cipher.DECRYPT_MODE, myDESKey);
+	          byte[] text = password.getBytes();
+	          byte[] textEnc = cipher.doFinal(text);
+	          decryptedPassword = new String(textEnc);
+	          System.out.println("Text decrypted = "+new String(textEnc));
+	      }
+	      catch(Exception e) {
+	          //code...
+	      }*/
+		
 		String request = "select * from User where email = '" + email + "'  and password ='" + password + "';";
+		//String request = "select * from User where email = '" + email + "'  and password ='" + decryptedPassword + "';";
 		try {
 			db.seConnecter();
 			Statement unStat = db.getMaConnexion().createStatement();
