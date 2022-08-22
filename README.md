@@ -19,7 +19,7 @@ Autour de la thématique générale du projet son demandé un certain nombre de 
 * **API NodeJS** : Sarah KOUTA-LOPATEY,
 * **iOS-iPad** : Théo TORRES DA COSTA,
 * **Flutter** : Théo TORRES DA COSTA,
-* **Java** : Kilian CASSAIGNE.
+* **Java** : initialament Kilian CASSAIGNE ; refonte complète par Sarah KOUTA-LOPATEY.
 
 ## Fonctionnement général de la plateforme
 
