@@ -12,11 +12,11 @@
 
 # Auteur(s)
 ## Logo
-Sarah KOUTA-LOPATEY
+* Sarah KOUTA-LOPATEY
 
 ## Maquette Figma
-Sarah KOUTA-LOPATEY *(Théo TORRES DA COSTA pour consultation sur certains choix)*
+* Sarah KOUTA-LOPATEY *(Théo TORRES DA COSTA pour consultation sur certains choix)*
 [Maquette disponible ici](https://www.figma.com/file/b3YVTf2W7bgbzqHKRKvhCU/ExprimonsNous_Android?node-id=63%3A27)
 
 ## Application
-Sarah KOUTA-LOPATEY
+* Sarah KOUTA-LOPATEY
