@@ -1,22 +1,42 @@
-# 3MOC-AnnualProject
-## Repository du projet annuel de 3ème année MOC - ESGI
-###### Monté par Théo TORRES DA COSTA, Sarah KOUTA-LOPATEY et Kilian CASSAIGNE
+# Exprimons-Nous API Service Java
+## Service d'API développée pour le fonctionnement de l'ensemble de l'application Desktop Java.
+### Développée par Sarah KOUTA-LOPATEY
 
-## Thématique générale du projet
-La thématique du projet est basé sur l'**e-démocratie**.
+_**Nom du serveur**_ : EP-Server
+Entry point : server.js
+Base de données : Instance de base de données MySQL par AWS
+Hébergement de l'API : Heroku
 
-## Productions attendues
-Autour de la thématique générale du projet son demandé un certain nombre de livrable tel que listé ci-après :
-* un client **Android** faisant office d'application ciblant le public,
-* un client **iOS-iPad** faisant office d'application de suivi de statistiques sur les activités de l'application Android,
-* un client **Flutter web** faisant office d'application d'administration de l'application Android,
-* un client **lourd** permettant à l'équipe de développement de suivre l'avancée du projet de développement des 3 clients listés ci-dessus
-* une API **NodeJS** permettant le fonctionnement des applications **Android**, **iOS-iPad** et **Flutter**.
+## Instructions d'installation
+Pour mettre en place l'API sur votre serveur, il vous faudra récupérer toutes les dépendances en lancant un termimal dans le répertoire **EP-Server** et exécuter la commande suivante :
+```
+npm i
+```
 
-## Répartition des productions attendues
+Pour lancer le service, vous pouvez lancer dans ce même terminal la commande suivante :
+```
+nodemon server.js
+```
 
-* **Android** : Sarah KOUTA-LOPATEY,
-* **API NodeJS** : Sarah KOUTA-LOPATEY,
-* **iOS-iPad** : Théo TORRES DA COSTA,
-* **Flutter** : Théo TORRES DA COSTA,
-* **Java** : Kilian CASSAIGNE.
+Assurez-vous que votre serveur ait son port 3000 libre : l'écoute du serveur se fera sur ce port par défaut.
+
+## Dépendances employées
+* body-parser v1.20.0
+* express v4.17.3
+* mysql2 v2.3.3
+* nodemon v2.0.19
+* swagger-ui-express v4.5.0
+
+
+## Auteur(s)
+### Développement & maintien de l'API
+* Sarah KOUTA-LOPATEY
+
+### Modélisation de la base de données
+* Sarah KOUTA-LOPATEY
+
+### Conception de la base de données
+* Sarah KOUTA-LOPATEY
+
+### Maintien de la base de données
+* Sarah KOUTA-LOPATEY
