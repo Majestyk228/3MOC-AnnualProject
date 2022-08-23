@@ -5,7 +5,7 @@
 ## Base de données - Exprimons Nous
 Cette base de données distante a été mise en place pour le fonctionnement des applications Android, Flutter et iOS de la plateforme. Cette base de données est exploitée par une API donc se servent les applications pour la lecture et l'écriture de données sur cette base de données.
 
-<img src="diagramme_exploit_db.jpg" alt="Plan d'exploitatation de la base de données Exprimons-Nous" title="Plan d'exploitatation de la base de données Exprimons-Nous" style="height: 300px"/>
+<img src="diagramme_exploit_db.jpg" alt="Plan d'exploitatation de la base de données Exprimons-Nous" title="Plan d'exploitatation de la base de données Exprimons-Nous" style="height: 450px"/>
 
 ### Fournisseur
 AWS
