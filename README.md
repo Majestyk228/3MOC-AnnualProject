@@ -30,6 +30,10 @@ Assurez-vous que votre serveur ait son port 8080 libre : l'écoute du serveur se
 * nodemailer v6.7.7
 * swagger-ui-express v4.4.0
 
+## Logiciels utilisés
+* Visual Studio Code
+* Insomnia
+
 
 ## Auteur(s)
 ### Développement & maintien de l'API
