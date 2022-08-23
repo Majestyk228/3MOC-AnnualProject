@@ -27,6 +27,9 @@ Assurez-vous que votre serveur ait son port 3000 libre : l'écoute du serveur se
 * nodemon v2.0.19
 * swagger-ui-express v4.5.0
 
+## Logiciels utilisés
+* Visual Studio Code
+* Insomnia
 
 ## Auteur(s)
 ### Développement & maintien de l'API
