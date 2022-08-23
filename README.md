@@ -33,7 +33,7 @@ Assurez-vous que votre serveur ait son port 8080 libre : l'écoute du serveur se
 
 ## Auteur(s)
 ### Développement & maintien de l'API
-Sarah KOUTA-LOPATEY
+* Sarah KOUTA-LOPATEY
 
 ### Modélisation de la base de données
 * Sarah KOUTA-LOPATEY
@@ -41,7 +41,7 @@ Sarah KOUTA-LOPATEY
 * Kilian CASSAIGNE
 
 ### Conception de la base de données
-Sarah KOUTA-LOPATEY
+* Sarah KOUTA-LOPATEY
 
 ### Maintien de la base de données
-Sarah KOUTA-LOPATEY
+* Sarah KOUTA-LOPATEY
