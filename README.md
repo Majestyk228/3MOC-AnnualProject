@@ -12,6 +12,8 @@ MySQL v8.0.27
 
 ## Base de données - Exprimons Projet
 Cette base de données distante a été mise en place pour le fonctionnement de l'application desktop Java. Cette base de données n'est exploitée que par cette application.
+
+<img src="diagramme_exploit_db.jpg" alt="Diagramme de l'exploitatation de la base de données Exprimons-Nous" title="Diagramme de l'exploitatation de la base de données Exprimons-Nous">
 ### Fournisseur
 AWS
 ### Moteur de l'instance
