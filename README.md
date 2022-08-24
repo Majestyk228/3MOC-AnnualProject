@@ -6,6 +6,7 @@ _**Nom du serveur**_ : EP-Server
 Entry point : server.js
 Base de données : Instance de base de données MySQL par AWS
 Hébergement de l'API : Heroku
+[Documentation disponible ici](https://ep-server-esgi.herokuapp.com/swagger/)
 
 ## Instructions d'installation
 Pour mettre en place l'API sur votre serveur, il vous faudra récupérer toutes les dépendances en lancant un termimal dans le répertoire **EP-Server** et exécuter la commande suivante :
