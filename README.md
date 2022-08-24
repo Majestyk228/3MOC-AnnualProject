@@ -3,9 +3,10 @@
 ### Développée par Sarah KOUTA-LOPATEY
 
 _**Nom du serveur**_ : EP-Server
-Entry point : server.js
-Base de données : Instance de base de données MySQL par AWS
-Hébergement de l'API : Heroku
+**Entry point** : server.js
+**Base de données** : Instance de base de données MySQL par AWS
+**Hébergement de l'API** : Heroku
+
 [Documentation disponible ici](https://ep-server-esgi.herokuapp.com/swagger/)
 
 ## Instructions d'installation
