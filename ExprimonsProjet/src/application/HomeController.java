@@ -311,7 +311,7 @@ public class HomeController implements Initializable {
 			nameTask.setFont(new Font("System Bold", 21));
 
 			ImageView tag = new ImageView();
-			Image image = new Image(urlToTag.get(tasks.get(i).getIdTag()), 50, 50, false, true);
+			Image image = new Image(getClass().getResource(urlToTag.get(tasks.get(i).getIdTag())).toExternalForm(), 50, 50, false, true);
 			tag.setImage(image);
 			tag.prefHeight(50);
 			tag.prefWidth(50);
@@ -336,9 +336,9 @@ public class HomeController implements Initializable {
 		Label nameTask = new Label(taskPM.getTitle());
 		nameTask.setFont(new Font("System Bold", 21));
 
-		ImageView tag = new ImageView();
 		Image image = new Image(urlToTag.get(taskPM.getIdTag()), 50, 50, false, true);
-		tag.setImage(image);
+		ImageView tag = new ImageView(image);
+		//tag.setImage(image);
 		tag.prefHeight(50);
 		tag.prefWidth(50);
 
@@ -381,11 +381,19 @@ public class HomeController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// SET TAGS VALUES
 		urlToTag = new HashMap<Integer, String>();
-		urlToTag.put(1, "file:///images\\java_tag.png");
-		urlToTag.put(2, "file:///images\\android_tag.png");
-		urlToTag.put(3, "file:///images\\flutter_tag.png");
-		urlToTag.put(4, "file:///images\\ios_tag.png");
-		urlToTag.put(5, "file:///images\\api_tag.png");
+		urlToTag.put(1, "tags_images/java_tag.png");
+		urlToTag.put(2, "tags_images/android_tag.png");
+		urlToTag.put(3, "tags_images/flutter_tag.png");
+		urlToTag.put(4, "tags_images/ios_tag.png");
+		urlToTag.put(5, "tags_images/api_tag.png");
+		
+		/*tags_images/java_tag.png
+		
+		urlToTag.put(1, "../images/java_tag.png");
+		urlToTag.put(2, "../images/android_tag.png");
+		urlToTag.put(3, "../images/flutter_tag.png");
+		urlToTag.put(4, "../images/ios_tag.png");
+		urlToTag.put(5, "../images/api_tag.png");*/
 
 		// CHANGING USER NAME
 		UsernameText.setText(user.getFirstname() + " " + user.getLastname());
