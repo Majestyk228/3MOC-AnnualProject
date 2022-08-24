@@ -3,6 +3,7 @@ import 'dart:html' as html;
 
 import 'package:exprimons_nous/Child/reportedcommentpost.dart';
 import 'package:exprimons_nous/component/commentline.dart';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -47,28 +48,55 @@ class _CommentViewPostState extends State<CommentViewPost> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    this.comments = [];
-    setState(() {
-      for (var i = 0; i < data.length; i++) {
+      this.comments = [];
+      setState(() {
+        for (var i = 0; i < data.length; i++) {
 
-        Comments uneInvitation = Comments(
-          idComment: data[i]['idComment'],
-          body: data[i]['body'],
-          likes: data[i]['likes'],
-          dislikes: data[i]['dislikes'],
-          reports: data[i]['reports'],
-          anonymous: data[i]['anonymous'],
-          idPost: data[i]['idPost'],
-          idUser: data[i]['idUser'],
-          date: data[i]['date'],
-        );
+          Comments uneInvitation = Comments(
+            idComment: data[i]['idComment'],
+            body: data[i]['body'],
+            likes: data[i]['likes'],
+            dislikes: data[i]['dislikes'],
+            reports: data[i]['reports'],
+            anonymous: data[i]['anonymous'],
+            idPost: data[i]['idPost'],
+            idUser: data[i]['idUser'],
+            date: data[i]['date'],
+          );
 
-        comments.add(uneInvitation);
-      }
-    });
+          comments.add(uneInvitation);
+        }
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Erreur'),
+            content: const Text(
+                'Une erreur est survenue veuillez réessayer ultérieurement'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'OK');
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          ));
+    }
+
   }
 
   Future refreshNbReportedComment() async {
@@ -87,19 +115,46 @@ class _CommentViewPostState extends State<CommentViewPost> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
 
-    setState(() {
-      if(data[0]["nbComment"]==null){
-        nbComment=0;
-      }
-      else{
-        nbComment=data[0]["nbComment"];
-      }
+      setState(() {
+        if(data[0]["nbComment"]==null){
+          nbComment=0;
+        }
+        else{
+          nbComment=data[0]["nbComment"];
+        }
 
-    });
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Erreur'),
+            content: const Text(
+                'Une erreur est survenue veuillez réessayer ultérieurement'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'OK');
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          ));
+    }
+
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:html' as html;
 
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/objects/votes.dart';
 import 'package:flutter/material.dart';
@@ -66,20 +67,48 @@ class _DetailsVoteViewState extends State<DetailsVoteView> {
         },
         body: body);
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    this.optionVotes = [];
-    setState(() {
-      for (var i = 0; i < data[0]["voteOptions"].length; i++) {
-        OptionVotes uneOptionVote = OptionVotes(
-          label: data[0]["voteOptions"][i]["label"],
-          idVote: widget.vote.idVote,
-          nbChoice: data[0]["voteOptions"][i]["nbChoice"],
-        );
-        optionVotes.add(uneOptionVote);
-      }
-    });
+      this.optionVotes = [];
+      setState(() {
+        for (var i = 0; i < data[0]["voteOptions"].length; i++) {
+          OptionVotes uneOptionVote = OptionVotes(
+            label: data[0]["voteOptions"][i]["label"],
+            idVote: widget.vote.idVote,
+            nbChoice: data[0]["voteOptions"][i]["nbChoice"],
+          );
+          optionVotes.add(uneOptionVote);
+        }
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Erreur'),
+            content: const Text(
+                'Une erreur est survenue veuillez réessayer ultérieurement'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'OK');
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          ));
+    }
+
+
   }
 
   @override

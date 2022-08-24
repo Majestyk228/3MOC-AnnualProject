@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -41,29 +42,56 @@ class _ReportedPostViewState extends State<ReportedPostView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    this.posts = [];
-    setState(() {
-      for (var i = 0; i < data.length; i++) {
-        Post unPost = Post(
-          idPost: data[i]['idPost'],
-          title: data[i]['title'],
-          body: data[i]['body'],
-          date: data[i]['date'],
-          time: data[i]['time'],
-          likes: data[i]['likes'],
-          dislikes: data[i]['dislikes'],
-          idCommunity: data[i]['idCommunity'],
-          idUser: data[i]['idUser'],
-          idAdmin: data[i]['idAdmin'],
-          reported: data[i]['reported'],
-        );
+      this.posts = [];
+      setState(() {
+        for (var i = 0; i < data.length; i++) {
+          Post unPost = Post(
+            idPost: data[i]['idPost'],
+            title: data[i]['title'],
+            body: data[i]['body'],
+            date: data[i]['date'],
+            time: data[i]['time'],
+            likes: data[i]['likes'],
+            dislikes: data[i]['dislikes'],
+            idCommunity: data[i]['idCommunity'],
+            idUser: data[i]['idUser'],
+            idAdmin: data[i]['idAdmin'],
+            reported: data[i]['reported'],
+          );
 
-        posts.add(unPost);
-      }
-    });
+          posts.add(unPost);
+        }
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Erreur'),
+            content: const Text(
+                'Une erreur est survenue veuillez réessayer ultérieurement'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'OK');
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          ));
+    }
+
   }
 
   @override

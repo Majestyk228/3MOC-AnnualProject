@@ -82,7 +82,21 @@ Future<int> addVotes(String Title,String Body,String nbChoice,bool important,Bui
     return 0;
   }
   else{
-    //TODO Dialog of error
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Erreur'),
+          content: const Text(
+              'Une erreur est survenue veuillez réessayer ultérieurement'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'OK');
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ));
     return 0;
   }
 
@@ -117,6 +131,20 @@ Future deleteVotes(int idVote,BuildContext context) async {
     );
   }
   else{
-    //TODO Dialog of error
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Erreur'),
+          content: const Text(
+              'Une erreur est survenue veuillez réessayer ultérieurement'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'OK');
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ));
   }
 }

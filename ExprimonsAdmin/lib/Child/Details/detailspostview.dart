@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:exprimons_nous/Child/commentviewpost.dart';
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
@@ -24,7 +25,7 @@ class _DetailsPostViewState extends State<DetailsPostView> {
   late TextEditingController likes;
   late TextEditingController dislikes;
   late TextEditingController reported;
-  int nbComment =0;
+  int nbComment = 0;
 
   late bool isAdmin = false;
   bool important = false;
@@ -39,24 +40,48 @@ class _DetailsPostViewState extends State<DetailsPostView> {
       headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Headers":
-        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "token": html.window.localStorage["token"]!
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-
-    setState(() {
-      if(data[0]["nbComment"]==null){
-        nbComment=0;
-      }
-      else{
-        nbComment=data[0]["nbComment"];
-      }
-    });
+      setState(() {
+        if (data[0]["nbComment"] == null) {
+          nbComment = 0;
+        } else {
+          nbComment = data[0]["nbComment"];
+        }
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: Text('Erreur'),
+                content: const Text(
+                    'Une erreur est survenue veuillez réessayer ultérieurement'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () async {
+                      Navigator.pop(context, 'OK');
+                    },
+                    child: const Text('Ok'),
+                  ),
+                ],
+              ));
+    }
   }
 
   @override
@@ -129,7 +154,10 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                       final value = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  CommentViewPost(idPost: widget.post.idPost!,titlePost: widget.post.title!,)),
+                            builder: (context) => CommentViewPost(
+                                  idPost: widget.post.idPost!,
+                                  titlePost: widget.post.title!,
+                                )),
                       );
                     },
                     child: Container(
@@ -356,7 +384,8 @@ class _DetailsPostViewState extends State<DetailsPostView> {
                                             TextButton(
                                               onPressed: () async {
                                                 await deletePost(
-                                                    widget.post.idPost!,context);
+                                                    widget.post.idPost!,
+                                                    context);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },

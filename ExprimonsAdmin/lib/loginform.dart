@@ -105,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                       elevation: 5,
                       child: TextButton(
                           onPressed: () async {
-                            await logAdmin(email.text, password.text);
+                            await logAdmin(email.text, password.text,context);
 
                             if (html.window.localStorage["idAdmin"] == null) {
                               showDialog(

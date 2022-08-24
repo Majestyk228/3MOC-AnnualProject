@@ -59,7 +59,21 @@ class _DetailsCommentViewState extends State<DetailsCommentView> {
         ),
       );
     } else {
-      //TODO Dialog of error
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: Text('Erreur'),
+                content: const Text(
+                    'Une erreur est survenue veuillez réessayer ultérieurement'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () async {
+                      Navigator.pop(context, 'OK');
+                    },
+                    child: const Text('Ok'),
+                  ),
+                ],
+              ));
     }
   }
 
@@ -343,7 +357,8 @@ class _DetailsCommentViewState extends State<DetailsCommentView> {
                                             TextButton(
                                               onPressed: () async {
                                                 await deleteComment(
-                                                    widget.comments.idComment!,context);
+                                                    widget.comments.idComment!,
+                                                    context);
                                                 Navigator.pop(context, 'OK');
                                                 Navigator.pop(context);
                                               },

@@ -21,7 +21,7 @@ class Admin {
   }
 }
 
-Future logAdmin(String email, String password) async {
+Future logAdmin(String email, String password, BuildContext context) async {
   Uri uri = Uri.parse("https://titan-photography.com/admin/loginSecure");
   var body = jsonEncode({"email": email, "password": password});
 
@@ -44,7 +44,24 @@ Future logAdmin(String email, String password) async {
       html.window.localStorage["idCommunity"] = "${data['idCommunity']}";
       html.window.localStorage["token"] = "${data['token']}";
     }
+    else if (response.statusCode==403){
+
+    }
   } else {
-    //TODO Dialog of error
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Erreur'),
+          content: const Text(
+              'Une erreur est survenue veuillez réessayer ultérieurement'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'OK');
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ));
   }
 }

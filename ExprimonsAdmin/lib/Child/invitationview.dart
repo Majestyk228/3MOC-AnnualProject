@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exprimons_nous/loginview.dart';
 import 'package:exprimons_nous/objects/TextStyle.dart';
 import 'package:exprimons_nous/component/invitationline.dart';
 import 'package:exprimons_nous/objects/invitation.dart';
@@ -41,22 +42,49 @@ class _InvitationViewState extends State<InvitationView> {
       },
     );
 
-    //parsing du JSON de la réponse
-    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      //parsing du JSON de la réponse
+      var data = json.decode(response.body);
 
-    this.invitation = [];
-    setState(() {
-      for (var i = 0; i < data.length; i++) {
-        Invitation uneInvitation = Invitation(
-          code: data[i]['code'],
-          idCommunity: data[i]['idCommunity'],
-          creationDate: data[i]['creationDate'],
-          endDate: data[i]['endDate'],
-        );
+      this.invitation = [];
+      setState(() {
+        for (var i = 0; i < data.length; i++) {
+          Invitation uneInvitation = Invitation(
+            code: data[i]['code'],
+            idCommunity: data[i]['idCommunity'],
+            creationDate: data[i]['creationDate'],
+            endDate: data[i]['endDate'],
+          );
 
-        invitation.add(uneInvitation);
-      }
-    });
+          invitation.add(uneInvitation);
+        }
+      });
+    } else if (response.statusCode == 406) {
+      html.window.localStorage.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Erreur'),
+            content: const Text(
+                'Une erreur est survenue veuillez réessayer ultérieurement'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'OK');
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          ));
+    }
+
   }
 
   @override
