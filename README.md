@@ -2,9 +2,9 @@
 ## Service d'API développée pour le fonctionnement de l'ensemble de l'application Desktop Java.
 ### Développée par Sarah KOUTA-LOPATEY
 
-_**Nom du serveur**_ : EP-Server
-**Entry point** : server.js
-**Base de données** : Instance de base de données MySQL par AWS
+_**Nom du serveur**_ : EP-Server<br>
+**Entry point** : server.js<br>
+**Base de données** : Instance de base de données MySQL par AWS<br>
 **Hébergement de l'API** : Heroku
 
 [Documentation disponible ici](https://ep-server-esgi.herokuapp.com/swagger/)
