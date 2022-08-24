@@ -15,8 +15,10 @@
 * Sarah KOUTA-LOPATEY
 
 ## Maquette Figma
-* Sarah KOUTA-LOPATEY *(Théo TORRES DA COSTA pour consultation sur certains choix)*
-[Maquette disponible ici](https://www.figma.com/file/b3YVTf2W7bgbzqHKRKvhCU/ExprimonsNous_Android?node-id=63%3A27)
+* Sarah KOUTA-LOPATEY 
+* *(Théo TORRES DA COSTA pour consultation sur certains choix)*
+
+[Maquette disponible ici](https://www.figma.com/file/6GYGe64CMYWIi3AXo47kI2/Exprimons-Projet)
 
 ## Application
 * Sarah KOUTA-LOPATEY
