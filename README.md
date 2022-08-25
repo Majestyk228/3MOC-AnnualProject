@@ -1,2 +1,3 @@
 # 3MOC-AnnualProject
-Global repository for our annual project
+## Documentations du projet
+Retrouvez sur cette branche les différentes documentations des applications du projet annuel.
