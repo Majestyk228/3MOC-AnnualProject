@@ -1,6 +1,5 @@
 # Les bases de données
 ## Détails des configurations des différentes bases de données mises en place pour le fonctionnement de la plateforme Exprimons-Nous.
-###### Monté par Théo TORRES DA COSTA, Sarah KOUTA-LOPATEY et Kilian CASSAIGNE
 
 ## Base de données - Exprimons Nous
 Cette base de données distante a été mise en place pour le fonctionnement des applications Android, Flutter et iOS de la plateforme. Cette base de données est exploitée par une API donc se servent les applications pour la lecture et l'écriture de données sur cette base de données.
