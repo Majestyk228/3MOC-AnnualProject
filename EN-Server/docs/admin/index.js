@@ -5,12 +5,6 @@ const updateAdminPassword = require('./updateAdminPassword.js');
 const schema = require("./_model.js")
 module.exports = {
     paths: {
-        "/admin/all": {
-            ...getAllAdmins,
-        },
-        "/admin/login": {
-            ...adminLogin,
-        },
         "/admin/loginSecure": {
             ...adminLoginSecure,
         },
