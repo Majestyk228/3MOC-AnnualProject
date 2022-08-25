@@ -185,12 +185,18 @@ router.post('/create', async function (req, res, next) {
 
 
 				messaging.send(payload)
-					.then((result) => {
+					.then(async (result) => {
+						//const token = await admin.database().ref("/UserInfo/" + notifiedUserID + "/token").once('value');
+						//console.log("UserInfo " + token);
+						//return null;
 						console.log(result)
 					})
 					.catch((error) => {
 						console.log('Error sending message:', error);
 					});
+
+
+
 
 
 

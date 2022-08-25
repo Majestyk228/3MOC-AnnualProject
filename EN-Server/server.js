@@ -12,10 +12,10 @@ var server = express();
 
 
 // NOTIFICATION PARAMETERS
-const notification_options = {
+/*const notification_options = {
 	priority: "high",
 	timeToLive: 60 * 60 * 24
-}
+}*/
 
 // INSTANCIATION DES LOG DE REQUEST ET REPONSES
 
@@ -95,20 +95,4 @@ server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs, options));
 //lancement du serveur sur le port 8080
 server.listen(8080, function () {
 	console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
-
-	/*var connection = mysql.createConnection({
-		host: 'exprimonsnous.coqdgtazlflp.us-east-1.rds.amazonaws.com',
-		user: 'admin',
-		password: 'kB9qG7e3zEU3',
-		database: 'exprimonsNous'
-	});
-
-	connection.connect();
-
-	connection.query('SHOW TABLES', function (err, rows, fields) {
-		if (err) throw err;
-		console.log('The solution is: ', rows);
-	});
-
-	connection.end();*/
 })
