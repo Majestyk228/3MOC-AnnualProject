@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainVoteView: View {
-    
+    @Binding var isConnected: Bool
     var titleVote = [
         Vote(title: "Test Vote", bestChoice: "1", Description: "c'est un vote qui permet de voter"),
         Vote(title: "Test", bestChoice: "2", Description: "c'est un vote qui permet de revoter"),
@@ -109,9 +109,9 @@ struct MainVoteView: View {
 }
 
 struct MainVoteView_Previews: PreviewProvider {
-    
+    @State static var isConnected=true
     
     static var previews: some View {
-        MainVoteView()
+        MainVoteView(isConnected: $isConnected)
     }
 }

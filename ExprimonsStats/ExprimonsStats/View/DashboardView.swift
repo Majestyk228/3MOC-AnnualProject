@@ -10,11 +10,14 @@ import Alamofire
 import SwiftyJSON
 
 
+@available(iOS 15.0, *)
 struct DashboardView: View {
+    @State var alert:Bool=false
     @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: -1, totalPointsCommunity: -1, nbPost: -1, nbVote: -1)
     @State var CommunityTitle:String?
+    @Binding var isConnected: Bool
     func refreshDashboardStat(idCommunity:Int){
-        print(UserDefaults.standard.string(forKey: "token"))
+        UserDefaults.standard.set("", forKey: "token")
         let params: Parameters = [
             "idCommunity": idCommunity,
         ]
@@ -43,12 +46,13 @@ struct DashboardView: View {
                     return
                 }
             case .failure(let error):
-                if(response.response?.statusCode == 406){
-                    if let bundleID = Bundle.main.bundleIdentifier {
-                        UserDefaults.standard.removePersistentDomain(forName: bundleID)
-                    }
+                if(response.response?.statusCode == 406 || response.response?.statusCode==404){
+                    alert=true
+                    
+                    
+                    
                 }
-                print(error)
+                
             }
         }
         
@@ -208,14 +212,26 @@ struct DashboardView: View {
             ).onAppear(perform: {refreshDashboardStat(idCommunity: UserDefaults.standard.integer(forKey: "idCommunity"))
                 refreshCommunityTitle(idCommunity: UserDefaults.standard.integer(forKey: "idCommunity"))
             })
+            .alert(isPresented: $alert){
+                Alert(title: Text("Erreur"),
+                      message: Text("Votre session a expiré veuillez vous reconnecter"),
+                      dismissButton: .default(Text("Got it!")){
+                    if let bundleID = Bundle.main.bundleIdentifier {
+                        UserDefaults.standard.removePersistentDomain(forName: bundleID)
+                    }
+                    isConnected=false
+                }
+                )
+            }
     }
 }
 
+@available(iOS 15.0, *)
 struct DashBoard_Previews: PreviewProvider {
-    
+    @State static var isConnected=true
     
     static var previews: some View {
-        DashboardView()
+        DashboardView(isConnected: $isConnected)
     }
 }
 

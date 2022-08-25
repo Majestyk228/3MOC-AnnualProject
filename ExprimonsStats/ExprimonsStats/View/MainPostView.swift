@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainPostView: View {
-    
+    @Binding var isConnected: Bool
     var currentPostList=[
         currentPost(titlePost: "Le marché", like: 12, nbComment: 2),
         currentPost(titlePost: "30/03", like: 32, nbComment: 10),
@@ -139,8 +139,8 @@ struct MainPostView: View {
 }
 
 struct MainPostView_Previews: PreviewProvider {
-    
+    @State static var isConnected=true
     static var previews: some View {
-        MainPostView()
+        MainPostView(isConnected: $isConnected)
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConnectedView: View {
-    
+    @Binding var isConnected: Bool
     var body: some View {
         TabView {
             DashboardView()

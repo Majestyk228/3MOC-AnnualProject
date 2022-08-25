@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+@available(iOS 15.0, *)
 @main
 struct ExprimonsStatsApp: App {
     var body: some Scene {

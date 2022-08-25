@@ -12,6 +12,7 @@ var listAllUser=[
     
     ]
 struct DetailsUserView: View {
+    @Binding var isConnected: Bool
     
     
     @Binding var detailUser:Int
@@ -98,7 +99,8 @@ struct DetailsUserView: View {
 
 struct DetailsUserView_Previews: PreviewProvider {
     @State static var userdetailTest=1
+    @State static var isConnected=true
     static var previews: some View {
-        DetailsUserView(detailUser: $userdetailTest)
+        DetailsUserView(isConnected:$isConnected,detailUser: $userdetailTest)
     }
 }

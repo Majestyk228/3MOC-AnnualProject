@@ -13,13 +13,19 @@ extension Color{
     static let lightColor=Color(red: 151/255, green: 207/255, blue: 101/255)
     static let ligthColor2=Color(red: 113/255, green: 204/255, blue: 27/255)
 }
+@available(iOS 15.0, *)
 struct MainView: View {
-    @State private var connected : Bool=false
+    @State private var connected : Bool
     
     
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.lightColor)
-        
+        if(UserDefaults.standard.integer(forKey: "idAdmin")==0){
+            connected=false
+        }
+        else{
+            connected=true
+        }
        /*
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)
@@ -29,8 +35,8 @@ struct MainView: View {
          
     }
     var body: some View {
-        NavigationView{
-        if(UserDefaults.standard.integer(forKey: "idAdmin") == 0 && connected == false){
+        
+        if( connected == false){
             
             ConnexionView(isConnected: $connected)
             
@@ -38,14 +44,14 @@ struct MainView: View {
         else{
             
                 TabView {
-                    DashboardView()
+                    DashboardView(isConnected: $connected)
                         .tabItem {
                                 Image(systemName: "percent")
                                 
                                 
                                
                         }
-                    MainVoteView()
+                    MainVoteView(isConnected: $connected)
                         .tabItem {
                                 Image(systemName: "tray.and.arrow.down")
                                 
@@ -53,7 +59,7 @@ struct MainView: View {
                                
                         }
                     NavigationView{
-                        MainUsersView()}.navigationViewStyle(StackNavigationViewStyle())
+                        MainUsersView(isConnected: $connected)}.navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                                 Image(systemName: "person.fill")
                                 
@@ -61,7 +67,7 @@ struct MainView: View {
                                
                         }
                     
-                    MainPostView()
+                    MainPostView(isConnected: $connected)
                         .tabItem {
                                 Image(systemName: "list.bullet.rectangle.fill")
                                 
@@ -78,10 +84,11 @@ struct MainView: View {
                 
             
         }
-        }.navigationViewStyle(StackNavigationViewStyle())
+        
     }
 }
 
+@available(iOS 15.0, *)
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()

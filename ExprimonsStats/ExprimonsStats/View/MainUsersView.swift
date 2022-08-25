@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainUsersView: View {
-    
+    @Binding var isConnected: Bool
     var listBestUser=[
         BestUser( userName: "Michelle"),
         BestUser( userName: "Claude"),
@@ -49,7 +49,7 @@ struct MainUsersView: View {
                             .background(Color.darkColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                         HStack{
-                            NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
+                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
@@ -64,7 +64,7 @@ struct MainUsersView: View {
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                            NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
+                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
@@ -79,7 +79,7 @@ struct MainUsersView: View {
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(50.0)
-                            NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
+                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
@@ -120,7 +120,7 @@ struct MainUsersView: View {
                                     Spacer()
                                     Text(user.userName).font(.system(size: 36))
                                     Spacer()
-                                    NavigationLink(destination:DetailsUserView(detailUser: $userdetail)) {
+                                    NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 52))
                                     }
@@ -140,8 +140,8 @@ struct MainUsersView: View {
 }
 
 struct MainUsersView_Previews: PreviewProvider {
-    
+    @State static var isConnected=true
     static var previews: some View {
-        MainUsersView()
+        MainUsersView(isConnected: $isConnected)
     }
 }
