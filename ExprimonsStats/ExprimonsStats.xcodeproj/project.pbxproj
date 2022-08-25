@@ -12,6 +12,7 @@
 		E424EE1C28372D65004F9154 /* SheetPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424EE1B28372D65004F9154 /* SheetPostView.swift */; };
 		E4294DAC2887367500825311 /* DashboardStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4294DAB2887367500825311 /* DashboardStat.swift */; };
 		E42B4B1728AE7FE800305957 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E42B4B1628AE7FE700305957 /* SwiftyJSON */; };
+		E42B4B1928B7E44B00305957 /* ConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B4B1828B7E44B00305957 /* ConnectedView.swift */; };
 		E436D29E28AC1DCD007B0071 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E436D29D28AC1DCD007B0071 /* Alamofire */; };
 		E443157F283BAE7E0073250B /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E443157E283BAE7E0073250B /* Admin.swift */; };
 		E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4454C0F27F76D8500CCB4A2 /* ExprimonsStatsApp.swift */; };
@@ -33,6 +34,7 @@
 		E424EE1928372578004F9154 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E424EE1B28372D65004F9154 /* SheetPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetPostView.swift; sourceTree = "<group>"; };
 		E4294DAB2887367500825311 /* DashboardStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStat.swift; sourceTree = "<group>"; };
+		E42B4B1828B7E44B00305957 /* ConnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedView.swift; sourceTree = "<group>"; };
 		E443157E283BAE7E0073250B /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
 		E4454C0C27F76D8500CCB4A2 /* ExprimonsStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExprimonsStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4454C0F27F76D8500CCB4A2 /* ExprimonsStatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExprimonsStatsApp.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				E447DAC0282EFC76008C223D /* MainPostView.swift */,
 				E447DABE282EFC51008C223D /* MainUsersView.swift */,
 				E45959242837B4B200E16E72 /* DetailsUserView.swift */,
+				E42B4B1828B7E44B00305957 /* ConnectedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				E45959252837B4B200E16E72 /* DetailsUserView.swift in Sources */,
 				E424EE1728370403004F9154 /* SheetVoteView.swift in Sources */,
 				E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */,
+				E42B4B1928B7E44B00305957 /* ConnectedView.swift in Sources */,
 				E447DAC528303B26008C223D /* Vote.swift in Sources */,
 				E4294DAC2887367500825311 /* DashboardStat.swift in Sources */,
 				E447DAC1282EFC76008C223D /* MainPostView.swift in Sources */,

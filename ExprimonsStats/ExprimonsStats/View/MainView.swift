@@ -14,22 +14,25 @@ extension Color{
     static let ligthColor2=Color(red: 113/255, green: 204/255, blue: 27/255)
 }
 struct MainView: View {
-    
+    @State private var connected : Bool=false
     
     
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.lightColor)
-        /*
+        
+       /*
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)
-        }*/
+        }
+         */
         print(UserDefaults.standard.string(forKey: "token") ?? "ahbon")
          
     }
     var body: some View {
-        if(UserDefaults.standard.integer(forKey: "idAdmin") == 0){
+        NavigationView{
+        if(UserDefaults.standard.integer(forKey: "idAdmin") == 0 && connected == false){
             
-            ConnexionView()
+            ConnexionView(isConnected: $connected)
             
         }
         else{
@@ -75,7 +78,7 @@ struct MainView: View {
                 
             
         }
-        
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -14,8 +14,8 @@ struct ConnexionView: View {
     //variable de test
     @State private var emailTest:String = ""
     @State private var passwordTest:String = ""
-    init(){
-    }
+    @Binding var isConnected: Bool
+    
     var body: some View {
         Color.normalColor
             .ignoresSafeArea() // Ignore just for the color
@@ -45,6 +45,7 @@ struct ConnexionView: View {
                                 SecureField("Mot de passe", text:$passwordTest)
                                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                             }
+                            
                             Button(action:  {
                                 Task{
                                     logAdmin(email: emailTest, password: passwordTest)
@@ -52,6 +53,8 @@ struct ConnexionView: View {
                                         // Code you want to be delayed
                                         if(UserDefaults.standard.integer(forKey: "idAdmin") != 0){
                                             print("connected")
+                                            isConnected=true
+                                            print(isConnected)
                                             
                                         }
                                         else{
@@ -60,12 +63,6 @@ struct ConnexionView: View {
                                     }
                                     
                                 }
-                                
-                                
-                                
-                                
-                                
-                                
                             }) {
                                 HStack{
                                     Spacer()
@@ -79,10 +76,7 @@ struct ConnexionView: View {
                             }
                             .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                            .onAppear{
-                                //admin.fetch()
-                                
-                            }
+                            
                         }
                         
                         
@@ -97,9 +91,9 @@ struct ConnexionView: View {
     }
     
     struct ContentView_Previews: PreviewProvider {
-        
+        @State static var isConnected=false
         static var previews: some View {
-            ConnexionView()
+            ConnexionView(isConnected: $isConnected)
         }
     }
 }

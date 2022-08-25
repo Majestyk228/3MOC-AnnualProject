@@ -23,6 +23,7 @@ func logAdmin (email:String,password:String){
             "password": password,
             
         ]
+    
     AF.request("https://www.titan-photography.com/admin/loginSecure", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).validate(statusCode: 200 ..< 299).responseData { response in
             switch response.result {
                 case .success(let data):
@@ -45,7 +46,7 @@ func logAdmin (email:String,password:String){
                         UserDefaults.standard.set(jsonObject["idAdmin"] as! Int, forKey: "idAdmin")
                         UserDefaults.standard.set(jsonObject["idCommunity"] as! Int, forKey: "idCommunity")
                         UserDefaults.standard.set(jsonObject["token"] as! String, forKey: "token")
-                        print("idAdmin in function: "+String(UserDefaults.standard.integer(forKey: "idAdmin")))
+                        
                         
                     } catch {
                         print("Error: Trying to convert JSON data to string")

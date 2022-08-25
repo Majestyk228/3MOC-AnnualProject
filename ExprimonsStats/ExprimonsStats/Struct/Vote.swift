@@ -19,3 +19,9 @@ struct ListVote:Identifiable{
     let id = UUID()
     let title:String
 }
+/*
+class Votes:ObservableObject{
+    @Published var titleVote:String?
+    @Published var title
+}
+*/

@@ -23,11 +23,9 @@ struct MainVoteView: View {
             .ignoresSafeArea()
             .edgesIgnoringSafeArea(.all)// Ignore just for the color
             .overlay(
-                
-            
                 VStack(spacing:100){
                     Text("Vote")
-                        .font(.system(size: 36))
+                        .font(.system(size: 48))
                         .foregroundColor(Color.white)
                         .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
                         .background(Color.darkColor)
@@ -105,9 +103,6 @@ struct MainVoteView: View {
                         
                     }
                 }
-            
-                    
-                
             )
    
     }

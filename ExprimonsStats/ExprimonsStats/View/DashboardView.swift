@@ -14,18 +14,19 @@ struct DashboardView: View {
     @State var dashboardStats:DashboardStat=DashboardStat(nbUsers: -1, totalPointsCommunity: -1, nbPost: -1, nbVote: -1)
     @State var CommunityTitle:String?
     func refreshDashboardStat(idCommunity:Int){
-        
+        print(UserDefaults.standard.string(forKey: "token"))
         let params: Parameters = [
             "idCommunity": idCommunity,
         ]
         let headers: HTTPHeaders = [
             //"token":UserDefaults.standard.string(forKey: "token")!
             "Content-Type":"application/json",
-            "token":UserDefaults.standard.string(forKey: "token")!
+            "token":UserDefaults.standard.string(forKey: "token") ?? ""
         ]
         
         AF.request("https://www.titan-photography.com/community/stats", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
             switch response.result {
+                
             case .success(let json):
                 
                 do {
@@ -42,6 +43,11 @@ struct DashboardView: View {
                     return
                 }
             case .failure(let error):
+                if(response.response?.statusCode == 406){
+                    if let bundleID = Bundle.main.bundleIdentifier {
+                        UserDefaults.standard.removePersistentDomain(forName: bundleID)
+                    }
+                }
                 print(error)
             }
         }
@@ -52,7 +58,7 @@ struct DashboardView: View {
         let headers: HTTPHeaders = [
             //"token":UserDefaults.standard.string(forKey: "token")!
             "Content-Type":"application/json",
-            "token":UserDefaults.standard.string(forKey: "token")!
+            "token":UserDefaults.standard.string(forKey: "token") ?? "nil"
         ]
         AF.request("https://www.titan-photography.com/community/\(UserDefaults.standard.integer(forKey: "idCommunity"))", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
             switch response.result {
@@ -83,7 +89,7 @@ struct DashboardView: View {
             .overlay(
                 VStack(spacing:150){
                     Text(CommunityTitle ?? "Load...")
-                        .font(.system(size: 36))
+                        .font(.system(size: 48))
                     
                         .foregroundColor(Color.white)
                         .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
