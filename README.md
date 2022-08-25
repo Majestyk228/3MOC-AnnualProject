@@ -8,7 +8,6 @@
 
 * Alamofire
 * SwiftyJSON
-* *[reconfirmer les dépendances avec Théo...]*
 
 # Auteur(s)
 ## Logo
@@ -16,7 +15,7 @@
 
 ## Maquette Figma
 * Théo TORRES DA COSTA
-* *(Sarah KOUTA-LOPATEY pour consultation sur certains choix)*
+* *(Sarah KOUTA-LOPATEY pour consultation sur certains choix)*<br>
 [Maquette disponible ici](https://www.figma.com/file/vJfSA8NP1LtV4ucp4JQbwE/Exprimons-Stats?node-id=0%3A1)
 
 ## Application
