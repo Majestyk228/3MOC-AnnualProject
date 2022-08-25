@@ -17,13 +17,11 @@
 	"author": "Sarah KOUTA-LOPATEY",
 	"license": "ISC",
 	"dependencies": {
-		"@firebase/app": "^0.7.31",
 		"bcrypt": "^5.0.1",
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.20.0",
 		"cors": "^2.8.5",
 		"express": "^4.17.3",
-		"firebase-admin": "^11.0.1",
 		"jsonwebtoken": "^8.5.1",
 		"mysql": "^2.18.1",
 		"mysql2": "^2.3.3",

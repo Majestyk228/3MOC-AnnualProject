@@ -7,7 +7,7 @@ const config = require('../config/config.js');
 var jwt = require('jsonwebtoken');
 
 //GET CURRENT TIME
-var today = new Date();
+/*var today = new Date();
 var time = today.getHours() + ':' + today.getMinutes();
 
 // FIREBASE CONFIGURATION
@@ -16,7 +16,7 @@ const serviceAccount = require("../config/exprimons-nous-firebase-adminsdk-tinzt
 //var fcm = new fcm(serviceAccount)
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount)
-});
+});/*
 
 
 
@@ -123,30 +123,6 @@ router.post('/voteListAndroid', async function (req, res, next) {
 
 
 
-
-
-/*// TODO Test route
-server.post('/firebase/notification', (req, res) => {
-	const registrationToken = req.body.registrationToken
-	const message = req.body.message
-	const options = notification_options
-
-	admin.messaging().sendToDevice(registrationToken, message, options)
-		.then(response => {
-
-			res.status(200).send("Notification sent successfully")
-
-		})
-		.catch(error => {
-			console.log(error);
-		});
-
-})*/
-
-
-
-
-
 // CREATE a vote
 router.post('/create', async function (req, res, next) {
 	try {
@@ -159,8 +135,8 @@ router.post('/create', async function (req, res, next) {
 				await vote.createVote(req.body);
 				const idVote = await vote.getLastVote();
 
-				// NOTIFICATION VIA FCM
-				const topic = 'idCommunity' + req.body.idCommunity;
+				// NOTIFICATION VIA FCM - NOK
+				/*const topic = 'idCommunity' + req.body.idCommunity;
 
 				const message = {
 					data: {
@@ -170,10 +146,6 @@ router.post('/create', async function (req, res, next) {
 					topic: topic
 				};
 
-
-
-
-
 				const messaging = admin.messaging()
 				var payload = {
 					notification: {
@@ -182,7 +154,6 @@ router.post('/create', async function (req, res, next) {
 					},
 					topic: topic
 				};
-
 
 				messaging.send(payload)
 					.then(async (result) => {
@@ -195,13 +166,8 @@ router.post('/create', async function (req, res, next) {
 						console.log('Error sending message:', error);
 					});
 
-
-
-
-
-
 				//SEND MESSAGE TO SUBSCRIBED DEVICES 
-				/*admin.getMessaging().send(message)
+				admin.getMessaging().send(message)
 					.then((response) => {
 						// Response is a message ID string.
 						console.log('Successfully sent message:', response);
