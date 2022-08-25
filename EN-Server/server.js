@@ -1,5 +1,15 @@
 //importations
 var express = require('express');
+//import { admin } from ""
+//const admin = require('./config/firebase.js')
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./config/exprimons-nous-firebase-adminsdk-tinzt-bba1677dec.json");
+//var serviceAccount = "firebase-adminsdk-tinzt@exprimons-nous.iam.gserviceaccount.com"
+
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount)
+});
 
 // CORS
 var cors = require('cors');
@@ -9,6 +19,13 @@ var cors = require('cors');
 
 //instanciation du serveur
 var server = express();
+
+
+// NOTIFICATION PARAMETERS
+const notification_options = {
+	priority: "high",
+	timeToLive: 60 * 60 * 24
+}
 
 // INSTANCIATION DES LOG DE REQUEST ET REPONSES
 
@@ -48,6 +65,26 @@ server.use('/rewards', rewardRouter);
 server.use('/comment', commentRouter);
 server.use('/vote', voteRouter);
 server.use('/support', supportRouter);
+
+
+// TODO Test route
+server.post('/firebase/notification', (req, res) => {
+	const registrationToken = req.body.registrationToken
+	const message = req.body.message
+	const options = notification_options
+
+	admin.messaging().sendToDevice(registrationToken, message, options)
+		.then(response => {
+
+			res.status(200).send("Notification sent successfully")
+
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+})
+
 
 
 
