@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680662367417",
+    "project_id": "exprimons-nous",
+    "storage_bucket": "exprimons-nous.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680662367417:android:c47da33be89b8a463a2f68",
+        "android_client_info": {
+          "package_name": "com.example.exprimonsnousapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680662367417-ts3e79cqe5ikspefglt36q9kpqej6fe5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAho6dukB577X7ZKcqQF0Qy7Ji5r7hF3vg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680662367417-ts3e79cqe5ikspefglt36q9kpqej6fe5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
