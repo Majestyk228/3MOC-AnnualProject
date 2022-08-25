@@ -6,6 +6,18 @@ const pm = require('../services/pointsManager.js');
 const config = require('../config/config.js');
 var jwt = require('jsonwebtoken');
 
+//GET CURRENT TIME
+var today = new Date();
+var time = today.getHours() + ':' + today.getMinutes();
+
+// FIREBASE CONFIGURATION
+var admin = require("firebase-admin");
+const serviceAccount = require("../config/exprimons-nous-firebase-adminsdk-tinzt-bba1677dec.json");
+//var fcm = new fcm(serviceAccount)
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount)
+});
+
 
 
 /* GET VoteListByCommunity idCommunity MUST BE IN BODY*/
@@ -108,6 +120,33 @@ router.post('/voteListAndroid', async function (req, res, next) {
 });
 
 
+
+
+
+
+
+/*// TODO Test route
+server.post('/firebase/notification', (req, res) => {
+	const registrationToken = req.body.registrationToken
+	const message = req.body.message
+	const options = notification_options
+
+	admin.messaging().sendToDevice(registrationToken, message, options)
+		.then(response => {
+
+			res.status(200).send("Notification sent successfully")
+
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+})*/
+
+
+
+
+
 // CREATE a vote
 router.post('/create', async function (req, res, next) {
 	try {
@@ -119,13 +158,62 @@ router.post('/create', async function (req, res, next) {
 
 				await vote.createVote(req.body);
 				const idVote = await vote.getLastVote();
+
+				// NOTIFICATION VIA FCM
+				const topic = 'idCommunity' + req.body.idCommunity;
+
+				const message = {
+					data: {
+						score: '850',
+						time: time
+					},
+					topic: topic
+				};
+
+
+
+
+
+				const messaging = admin.messaging()
+				var payload = {
+					notification: {
+						title: "Un nouveau vote a été posté !",
+						body: "This is the body of the notification message."
+					},
+					topic: topic
+				};
+
+
+				messaging.send(payload)
+					.then((result) => {
+						console.log(result)
+					})
+					.catch((error) => {
+						console.log('Error sending message:', error);
+					});
+
+
+
+				//SEND MESSAGE TO SUBSCRIBED DEVICES 
+				/*admin.getMessaging().send(message)
+					.then((response) => {
+						// Response is a message ID string.
+						console.log('Successfully sent message:', response);
+					})
+					.catch((error) => {
+						console.log('Error sending message:', error);
+					});*/
+
+
 				res.status(200).json({
 					"Message": "Vote created successfully.",
 					"idVote": idVote[0].idVote
 				});
+
 			} catch (err) {
 				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				//res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+				res.status(406).json([{ "ERROR": err.message }]);
 			}
 		} else {
 			res.status(404).json([{ "ERROR": "Missing token in header" }]);
