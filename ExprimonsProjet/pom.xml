@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ExprimonsProjet</groupId>
   <artifactId>ExprimonsProjet</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar </packaging>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
@@ -16,29 +16,46 @@
     </resources>
     <plugins>
     
-    <!--<plugin>
+    
+    
+    
+    
+    <plugin>
     <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-assembly-plugin</artifactId>
-    <version>2.2.1</version>
+    <artifactId>maven-dependency-plugin</artifactId>
     <executions>
         <execution>
-            <phase>package</phase>
+            <id>copy-dependencies</id>
+            <phase>prepare-package</phase>
             <goals>
-                <goal>single</goal>
+                <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-                <archive>
-                <manifest>
-                    <mainClass>application.Main</mainClass>
-                </manifest>
-                </archive>
-                <descriptorRef>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRef>
+                <outputDirectory>
+                    ${project.build.directory}/libs
+                </outputDirectory>
             </configuration>
         </execution>
     </executions>
-</plugin>-->
+</plugin>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>3.2.2</version>
+    <configuration>
+        <archive>
+            <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>libs/</classpathPrefix>
+                <mainClass>
+                    application.Main
+                </mainClass>
+            </manifest>
+        </archive>
+    </configuration>
+</plugin>
+
+
 
 
 <plugin>

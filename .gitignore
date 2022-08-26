@@ -9,3 +9,13 @@ ExprimonsAdmin/
 /.metadata/
 *.dll
 ExprimonsProjet/javafx-sdk-11.0.2/legal/javafx.base/ADDITIONAL_LICENSE_INFO
+ExprimonsProjet/javafx-sdk-11.0.2/lib/src.zip
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.web.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.swing.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.properties
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.media.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.graphics.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.fxml.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.controls.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx.base.jar
+ExprimonsProjet/javafx-sdk-11.0.2/lib/javafx-swt.jar
