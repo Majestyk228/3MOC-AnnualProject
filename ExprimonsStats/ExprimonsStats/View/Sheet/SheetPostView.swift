@@ -8,17 +8,7 @@
 import SwiftUI
 
 struct SheetPostView: View {
-    var titlePost=[
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
-    allPost(titlePost: "Test"),
     
-    ]
     var body: some View {
         VStack(spacing:100){
             Text("Historique des Post")
@@ -29,6 +19,7 @@ struct SheetPostView: View {
                 .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
             ScrollView{
                 VStack(spacing:20){
+                    /*
                     ForEach(titlePost){title in
                         HStack{
                             Image(systemName: "tray.and.arrow.down")
@@ -40,6 +31,7 @@ struct SheetPostView: View {
                                 .font(.system(size: 24))
                         }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.normalColor).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                     }
+                     */
                 }
                 .padding(.horizontal, 25.0)
             }

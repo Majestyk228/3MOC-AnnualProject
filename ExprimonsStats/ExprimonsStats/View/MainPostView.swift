@@ -6,19 +6,97 @@
 //
 
 import SwiftUI
+import Alamofire
+import SwiftyJSON
 
 struct MainPostView: View {
+    @State var alert:Bool=false
     @Binding var isConnected: Bool
-    var currentPostList=[
-        currentPost(titlePost: "Le marché", like: 12, nbComment: 2),
-        currentPost(titlePost: "30/03", like: 32, nbComment: 10),
-        currentPost(titlePost: "Malbouffe", like: 123, nbComment: 54),
-        currentPost(titlePost: "Sport", like: 15, nbComment: 15),
-        currentPost(titlePost: "Chauffard", like: 321, nbComment: 10),
-        currentPost(titlePost: "Élection", like: 49, nbComment: 6),
-        currentPost(titlePost: "Compétition", like: 301, nbComment: 1024),
-    ]
     @State private var showingSheet = false
+    @State var allPosts:[Post]=[]
+    @State var lastPosts:[Post]=[]
+    
+    func refreshAllPosts(idCommunity:Int){
+        
+        
+        let headers: HTTPHeaders = [
+            //"token":UserDefaults.standard.string(forKey: "token")!
+            "Content-Type":"application/json",
+            "token":UserDefaults.standard.string(forKey: "token") ?? ""
+        ]
+        
+        AF.request("https://www.titan-photography.com/post/all/\(idCommunity)", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+                
+            case .success(let json):
+                
+                do {
+                    let data = JSON(json)
+                    
+                    let currentDate = Date()
+                    let calendar = Calendar.current
+                    let year = calendar.component(.year, from: currentDate)
+                    let month = calendar.component(.month, from: currentDate)
+                    let day=calendar.component(.day, from: currentDate)
+                    
+                    allPosts=[]
+                    lastPosts=[]
+                    
+                    
+                    for i in 0 ... data.count-1{
+                        
+                        let date:String=data[i]["time"].string!
+                        let dateSplitted = date.split(separator: "-")
+                        
+                        let newPost=Post(
+                            idPost: data[i]["idPost"].int!,
+                            title: data[i]["title"].string!,
+                            body: data[i]["body"].string!,
+                            date: data[i]["date"].string!,
+                            time: data[i]["time"].string!,
+                            likes: data[i]["likes"].int!,
+                            dislikes: data[i]["dislikes"].int!,
+                            idCommunity: data[i]["idCommunity"].int!,
+                            idUser: data[i]["idUser"].int ?? 0,
+                            idAdmin: data[i]["idAdmin"].int ?? 0,
+                            reported: data[i]["reported"].int!)
+                        allPosts.append(newPost)
+                        if(Int(dateSplitted[0]) ?? 0>=year){
+                            
+                            if(Int(dateSplitted[1]) ?? 0>=month){
+                                
+                                if(Int(dateSplitted[2]) ?? 0>=day-7){
+                                    lastPosts.append(newPost)
+                                    
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                } catch {
+                    print("Error: Trying to convert JSON data to string")
+                    return
+                }
+            case .failure(let error):
+                
+                if(response.response?.statusCode == 406 || response.response?.statusCode==404){
+                    alert=true
+                    
+                    
+                    
+                    
+                }
+                else{
+                    print("mais")
+                }
+                
+            }
+        }
+        
+    }
+    
+    
     var body: some View {
         Color.normalColor
             .ignoresSafeArea()
@@ -43,9 +121,9 @@ struct MainPostView: View {
                         
                         ScrollView(.horizontal){
                             HStack(spacing:20){
-                                ForEach(currentPostList) {curPost in
+                                ForEach(allPosts,id:\.id) {curPost in
                                     VStack{
-                                        Text(curPost.titlePost)
+                                        Text(curPost.title ?? "Loading")
                                             .font(.system(size: 36))
                                             .foregroundColor(Color.white)
                                             .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
@@ -54,7 +132,7 @@ struct MainPostView: View {
                                         
                                         HStack{
                                             VStack{
-                                            Text("\(curPost.like)")
+                                            Text("\(curPost.likes ?? 0)")
                                                 .font(.system(size: 36))
                                                 
                                             Image(systemName: "hand.thumbsup.circle")
@@ -66,7 +144,7 @@ struct MainPostView: View {
                                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                                             Spacer()
                                             VStack{
-                                            Text("\(curPost.nbComment)")
+                                            Text("\(curPost.dislikes ?? 0)")
                                                 .font(.system(size: 36))
                                                 
                                             Image(systemName: "note.text.badge.plus")
@@ -134,7 +212,8 @@ struct MainPostView: View {
             
                     
                 
-            )
+            ).onAppear(perform: {refreshAllPosts(idCommunity: UserDefaults.standard.integer(forKey: "idCommunity"))
+            })
     }
 }
 
