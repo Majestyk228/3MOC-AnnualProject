@@ -17,7 +17,7 @@ struct DashboardView: View {
     @State var CommunityTitle:String?
     @Binding var isConnected: Bool
     func refreshDashboardStat(idCommunity:Int){
-        UserDefaults.standard.set("", forKey: "token")
+        
         let params: Parameters = [
             "idCommunity": idCommunity,
         ]

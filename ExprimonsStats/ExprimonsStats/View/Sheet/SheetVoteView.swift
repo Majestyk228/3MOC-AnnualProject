@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SheetVoteView: View {
+    /*
     var titleVote = [
         ListVote(title: "Mcdo"),
         ListVote(title: "Soyons juste"),
@@ -16,6 +17,7 @@ struct SheetVoteView: View {
         ListVote(title: "fontaine"),
         ListVote(title: "bain")
     ]
+     */
     
     var body: some View {
         VStack(spacing:100){
@@ -27,6 +29,7 @@ struct SheetVoteView: View {
                 .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
             ScrollView{
                 VStack(spacing:20){
+                    /*
                     ForEach(titleVote){votelist in
                         HStack{
                             Image(systemName: "tray.and.arrow.down")
@@ -39,6 +42,7 @@ struct SheetVoteView: View {
                             
                         }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.normalColor).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                     }
+                     */
                 }
                 .padding(.horizontal, 25.0)
             }
