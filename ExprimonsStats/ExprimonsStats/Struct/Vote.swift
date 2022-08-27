@@ -23,7 +23,7 @@ class Vote:ObservableObject,Identifiable{
          title:String,
          body:String,
          nbChoice:Int,
-         important:Int?,
+         important:Int,
          idAdmin:Int,voteBegins:String,voteEnds:String,idCommunity:Int){
         self.idVote=idVote
         self.title=title

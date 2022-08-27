@@ -6,26 +6,74 @@
 //
 
 import SwiftUI
-
+import Alamofire
+import SwiftyJSON
 struct MainUsersView: View {
+    @State var alert:Bool=false
     @Binding var isConnected: Bool
-    var listBestUser=[
-        BestUser( userName: "Michelle"),
-        BestUser( userName: "Claude"),
-        BestUser( userName: "Jacqueline")
-    ]
-    var listAllUser=[
-        ListofUser(userName: "Michelle"),
-        ListofUser(userName: "Claude"),
-        ListofUser(userName: "Jacqueline"),
-        ListofUser(userName: "Lucifer"),
-        ListofUser(userName: "Francis"),
-        ListofUser(userName: "Martin"),
-        ListofUser(userName: "Antoine"),
-        ListofUser(userName: "Kevin"),
-        ListofUser(userName: "Lucas"),
+    
+    @State var allUsers:[User]=[]
+    @State var bestUsers:[User]=[User(idUser: 0, firstName: "Loading", lastName: "Loading", birthDate: "Loading", gender: "Loading", areaCode: "Loading", email: "Loading", points: 0),User(idUser: 0, firstName: "Loading", lastName: "Loading", birthDate: "Loading", gender: "Loading", areaCode: "Loading", email: "Loading", points: 0),User(idUser: 0, firstName: "Loading", lastName: "Loading", birthDate: "Loading", gender: "Loading", areaCode: "Loading", email: "Loading", points: 0)]
+    func refreshAllUsers(idCommunity:Int){
+        
+        
+        let headers: HTTPHeaders = [
+            //"token":UserDefaults.standard.string(forKey: "token")!
+            "Content-Type":"application/json",
+            "token":UserDefaults.standard.string(forKey: "token") ?? ""
         ]
-    @State private var userdetail = 1
+        
+        AF.request("https://www.titan-photography.com/user/all/\(idCommunity)", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+                
+            case .success(let json):
+                
+                do {
+                    let data = JSON(json)
+                    print(data)
+                    allUsers=[]
+                    
+                    
+                    for i in 0 ... data.count-1{
+                        
+                       
+                        
+                        let newUser=User(
+                            idUser: data[i]["idUser"].int!,
+                            firstName: data[i]["firstName"].string!,
+                            lastName: data[i]["lastName"].string!,
+                            birthDate: data[i]["birthDate"].string!,
+                            gender: data[i]["gender"].string!,
+                            areaCode: data[i]["areaCode"].string!,
+                            email: data[i]["email"].string!,
+                            points: data[i]["points"].int!
+                            )
+                        allUsers.append(newUser)
+                        
+                        
+                    }
+                    
+                } catch {
+                    print("Error: Trying to convert JSON data to string")
+                    return
+                }
+            case .failure(let error):
+                
+                if(response.response?.statusCode == 406 || response.response?.statusCode==404){
+                    alert=true
+                    
+                    
+                    
+                    
+                }
+                else{
+                    print("mais")
+                }
+                
+            }
+        }
+        
+    }
     
     var body: some View {
         Color.normalColor
@@ -49,45 +97,71 @@ struct MainUsersView: View {
                             .background(Color.darkColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                         HStack{
-                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
+                            
+                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
                                         .font(.system(size: 100))
                                     
-                                    Text(listBestUser[0].userName)
-                                        .font(.system(size:36))
-                                        .foregroundColor(Color.black)
+                                    if(allUsers.isEmpty){
+                                        Text(bestUsers[0].firstName ?? "Loading")
+                                            .font(.system(size:36))
+                                            .foregroundColor(Color.black)
+                                    }
+                                    else{
+                                        Text(allUsers[0].firstName ?? "Loading")
+                                            .font(.system(size:36))
+                                            .foregroundColor(Color.black)
+                                    }
                                 }
                                 
                             }
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
+                             
+                            
+                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
                                         .font(.system(size: 100))
                                     
-                                    Text(listBestUser[1].userName)
-                                        .font(.system(size:36))
-                                        .foregroundColor(Color.black)
+                                    if(allUsers.isEmpty){
+                                        Text(bestUsers[1].firstName ?? "Loading")
+                                            .font(.system(size:36))
+                                            .foregroundColor(Color.black)
+                                    }
+                                    else{
+                                        Text(allUsers[1].firstName ?? "Loading")
+                                            .font(.system(size:36))
+                                            .foregroundColor(Color.black)
+                                    }
                                 }
                                 
                             }
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(50.0)
-                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
+                            
+                            
+                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
                                         .font(.system(size: 100))
-                                    
-                                    Text(listBestUser[2].userName)
-                                        .font(.system(size:36))
-                                        .foregroundColor(Color.black)
+                                    if(allUsers.isEmpty){
+                                        Text(bestUsers[2].firstName ?? "Loading")
+                                            .font(.system(size:36))
+                                            .foregroundColor(Color.black)
+                                    }
+                                    else{
+                                        Text(allUsers[2].firstName ?? "Loading")
+                                            .font(.system(size:36))
+                                            .foregroundColor(Color.black)
+                                    }
+                                   
                                 }
                                 
                             }
@@ -113,19 +187,20 @@ struct MainUsersView: View {
                         VStack(spacing:10){
                             
                             
-                            ForEach(listAllUser){user in
+                            ForEach(allUsers,id: \.id){user in
                                 HStack{
                                     Image(systemName: "person.fill")
                                         .font(.system(size: 52))
                                     Spacer()
-                                    Text(user.userName).font(.system(size: 36))
+                                    Text(user.firstName ?? "Loading").font(.system(size: 36))
                                     Spacer()
-                                    NavigationLink(destination:DetailsUserView(isConnected:$isConnected,detailUser: $userdetail)) {
+                                    NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 52))
                                     }
                                 }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.white).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             }
+                             
                         }
                         .padding(.horizontal, 25.0)
                     }
@@ -135,7 +210,8 @@ struct MainUsersView: View {
                     
                 
                 
-            )
+            ).onAppear(perform: {refreshAllUsers(idCommunity: UserDefaults.standard.integer(forKey: "idCommunity"))
+            })
     }
 }
 

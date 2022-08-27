@@ -34,7 +34,7 @@ struct DashboardView: View {
                 
                 do {
                     let data = JSON(json)
-                    print(data)
+                    
                     dashboardStats=DashboardStat(nbUsers: data[0]["nbUsers"].int!, totalPointsCommunity: data[0]["totalPointsCommunity"].int!, nbPost: data[0]["nbPosts"].int!, nbVote: data[0]["nbVotes"].int!)
                     
                     
