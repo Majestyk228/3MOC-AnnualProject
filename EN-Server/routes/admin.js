@@ -9,34 +9,6 @@ var jwt = require('jsonwebtoken');
 
 
 
-// ! ENDPOINT MUST BE REMOVED
-router.get('/all', async function (_, res, next) {
-
-	try {
-		res.status(200).json(await admin.getAllAdmin());
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-
-
-
-
-
-
-// ! ENDPOINT MUST BE REMOVED
-router.post('/login', async function (req, res, next) {
-	try {
-		res.status(200).json(await admin.getAdminCredentials(req.body.email));
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-
 // email must be in body request
 router.post('/loginSecure', async function (req, res, next) {
 	//verifying credentials entered

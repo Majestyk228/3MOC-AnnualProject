@@ -89,8 +89,8 @@ async function getAllReportedUsers() {
 
 
 
-async function getAllPointOrderedUsers() {
-    const rows = await db.query("SELECT idUser, firstName, lastName, birthDate, gender, areaCode, email, points FROM User ORDER BY points DESC;", "");
+async function getAllPointOrderedUsers(idCommunity) {
+    const rows = await db.query("SELECT u.idUser, u.firstName, u.lastName, u.birthDate, u.gender, u.areaCode, u.email, u.points FROM User u, Associate a WHERE a.idUser = u.idUser AND a.idCommunity = " + idCommunity + " ORDER BY points DESC;", "");
     return rows;
 }
 
@@ -140,6 +140,22 @@ async function addUserToCommunity(idUser, idCommunity) {
     return rows[0];
 }
 
+//getNbPostsFromUser
+async function getNbPostsFromUser(idUser) {
+    const request = "SELECT COUNT(*) as nbPosts FROM Post WHERE idUser = " + idUser + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
+
+
+//getNbPostsFromUser
+async function getNbCommentsFromUser(idUser) {
+    const request = "SELECT COUNT(*) as nbComments FROM Comment WHERE idUser = " + idUser + ";";
+    const rows = await db.query(request, "");
+    return rows;
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
@@ -154,5 +170,7 @@ module.exports = {
     getLastRegisteredUsers,
     getLastUserRegistered,
     addUserToCommunity,
-    insertUser1
+    insertUser1,
+    getNbPostsFromUser,
+    getNbCommentsFromUser
 }

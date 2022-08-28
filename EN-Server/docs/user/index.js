@@ -10,7 +10,13 @@ const deleteUser = require("./deleteUser.js")
 const lastRegisteredUsers = require('./lastRegisteredUsers.js')
 const registerAdmin = require('./registerAdmin.js');
 const addToCommunity = require('./addToCommunity.js');
+const nbPostsFromUser = require('./nbPostsFromUser.js')
+const nbCommentsFromUser = require('./nbCommentsFromUser.js')
 const schema = require("./_model.js")
+
+
+
+
 module.exports = {
 	paths: {
 		"/user/all/{idCommunity}": {
@@ -48,6 +54,12 @@ module.exports = {
 		},
 		"/user/addToCommunity": {
 			...addToCommunity,
+		},
+		"/user/nbPosts/{idUser}": {
+			...nbPostsFromUser
+		},
+		"/user/nbComments/{idUser}": {
+			...nbCommentsFromUser
 		}
 	},
 	schema: {

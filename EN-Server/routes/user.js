@@ -8,6 +8,112 @@ var bcrypt = require('bcryptjs');
 
 
 
+
+
+
+router.get('/nbPosts/:idUser', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getNbPostsFromUser(req.params.idUser));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
+router.get('/nbComments/:idUser', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getNbCommentsFromUser(req.params.idUser));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
+
+/* GET allUsers ordered by points*/
+router.get('/all/points/:idCommunity', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getAllPointOrderedUsers(req.params.idCommunity));
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
+/* GET allUsers that has at least 1 comment reported*/
+router.get('/all/reports', async function (req, res, next) {
+	try {
+		if (req.headers.token) {
+			// VERIFY TOKEN
+			try {
+				// IF TOKEN IS VALID
+				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
+
+				res.status(200).json(await user.getAllReportedUsers());
+			} catch (err) {
+				// IF TOKEN IS INVALID
+				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
+			}
+		} else {
+			res.status(404).json([{ "ERROR": "Missing token in header" }]);
+		}
+	} catch (err) {
+		res.status(400).json([{ "ERROR": err.message }]);
+		next(err);
+	}
+});
+
+
+
+
 /* GET allUsers*/
 router.get('/all/:idCommunity', async function (req, res, next) {
 
@@ -183,64 +289,6 @@ router.put('/infos/update', async function (req, res, next) {
 					await user.updateUser(req.body.idUser, firstName, lastName, birthDate, gender, areaCode, email);
 					res.status(200).json({ "Message": "User Updated" });
 				}
-			} catch (err) {
-				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
-			}
-		} else {
-			res.status(404).json([{ "ERROR": "Missing token in header" }]);
-		}
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-
-
-
-
-
-/* GET allUsers that has at least 1 comment reported*/
-router.get('/all/reports', async function (req, res, next) {
-
-	try {
-		if (req.headers.token) {
-			// VERIFY TOKEN
-			try {
-				// IF TOKEN IS VALID
-				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
-
-				res.status(200).json(await user.getAllReportedUsers());
-			} catch (err) {
-				// IF TOKEN IS INVALID
-				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
-			}
-		} else {
-			res.status(404).json([{ "ERROR": "Missing token in header" }]);
-		}
-	} catch (err) {
-		res.status(400).json([{ "ERROR": err.message }]);
-		next(err);
-	}
-});
-
-
-
-
-
-
-/* GET allUsers ordered by points*/
-router.get('/all/points', async function (req, res, next) {
-
-	try {
-		if (req.headers.token) {
-			// VERIFY TOKEN
-			try {
-				// IF TOKEN IS VALID
-				const decoded = jwt.verify(req.headers.token, config.JWT_SIGN_SECRET)
-
-				res.status(200).json(await user.getAllPointOrderedUsers());
 			} catch (err) {
 				// IF TOKEN IS INVALID
 				res.status(406).json([{ "ERROR": "Token expired/incorrect" }]);
