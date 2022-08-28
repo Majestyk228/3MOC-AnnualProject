@@ -16,6 +16,19 @@ module.exports = {
 					}
 				}
 			},
+
+			{
+				in: "path",
+				name: "idUser",
+				required: true,
+				description: "ID of the user",
+				schema: {
+					type: "string",
+					example: {
+						idUser: 6
+					}
+				}
+			},
 		],
 		responses: {
 			200: {

@@ -3,24 +3,33 @@ const db = require('./database.js');
 
 //getting current date and time
 var today = new Date();
-//var nextDay = new Date();
-var nextDay = new Date(today.getTime() + (7 * 24 * 60 * 60 * 1000));
-var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+
+
+var nextDay = new Date();
+nextDay.setDate(nextDay.getDate() + 7);
+
+
+
+//var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 var dd = String(today.getDate()).padStart(2, '0');
-var dd7 = String(nextDay.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
+
+
+var dd7 = String(nextDay.getDate()).padStart(2, '0');
+var mm7 = String(nextDay.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy7 = nextDay.getFullYear();
+
+var dd7 = String(nextDay.getDate()).padStart(2, '0');
 today = yyyy + '-' + mm + '-' + dd;
-nextDay = yyyy + '-' + mm + '-' + dd7;
-var Datetime = (today + ' ' + time);
+nextDay = yyyy7 + '-' + mm7 + '-' + dd7;
+//var Datetime = (today + ' ' + time);
 
 
 async function getVoteListByCommunity(idCommunity) {
 	const rows = await db.query("SELECT * FROM Vote WHERE idCommunity = " + idCommunity + " ORDER BY idVote DESC;", "");
 	return rows;
 }
-
-
 
 
 
@@ -150,8 +159,6 @@ async function getVoteOptionsAndroid(idVote) {
 
 
 async function insertVoteOptions(body) {
-	// TODO CODE
-
 	var request = "INSERT INTO VoteOptions VALUES ";
 
 
@@ -161,7 +168,7 @@ async function insertVoteOptions(body) {
 	});
 
 
-	// REMOVING LAST , UNEADED
+	// REMOVING LAST , UNNEEDED
 	request = request.slice(0, -1);
 
 	request += ";";
