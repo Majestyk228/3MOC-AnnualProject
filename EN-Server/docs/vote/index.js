@@ -15,6 +15,9 @@ module.exports = {
 		"/vote/voteList/{idCommunity}": {
 			...getVoteListByCommunity,
 		},
+		"/vote/lastPost/{idCommunity}": {
+			...lastVote,
+		},
 		"/vote/voteInfo": {
 			...getVoteinfo,
 		},
@@ -23,15 +26,6 @@ module.exports = {
 		},
 		"/vote/create": {
 			...createVote,
-		},
-		"/vote/delete/{idVote}": {
-			...deleteVote,
-		},
-		"/vote/lastPost/{idCommunity}": {
-			...lastVote,
-		},
-		"/vote/updateVote": {
-			...updateVote
 		},
 		"/vote/options": {
 			...voteOptions
@@ -44,7 +38,13 @@ module.exports = {
 		},
 		"/vote/userVote": {
 			...userVote
-		}
+		},
+		"/vote/updateVote": {
+			...updateVote
+		},
+		"/vote/delete/{idVote}": {
+			...deleteVote,
+		},
 	},
 	schema: {
 		...schema,

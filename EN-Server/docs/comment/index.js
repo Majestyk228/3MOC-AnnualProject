@@ -37,14 +37,8 @@ module.exports = {
 		"/comment/allcount/reported": {
 			...allcountReported,
 		},
-		"/comment/create": {
-			...create,
-		},
 		"/comment/nbReportedCommentsAll/{idCommunity}": {
 			...countReportedByCommunity
-		},
-		"/comment/delete/{idComment}": {
-			...deleteCommment
 		},
 		"/comment/report/{idComment}": {
 			...report
@@ -60,6 +54,12 @@ module.exports = {
 		},
 		"/comment/all/reported/{idCommunity}": {
 			...allReported
+		},
+		"/comment/create": {
+			...create,
+		},
+		"/comment/delete/{idComment}": {
+			...deleteCommment
 		},
 	},
 	schema: {

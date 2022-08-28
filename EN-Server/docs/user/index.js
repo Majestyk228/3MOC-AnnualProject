@@ -19,8 +19,29 @@ const schema = require("./_model.js")
 
 module.exports = {
 	paths: {
+		"/user/lastRegistered/{idCommunity}": {
+			...lastRegisteredUsers,
+		},
+		"/user/nbPosts/{idUser}": {
+			...nbPostsFromUser
+		},
+		"/user/nbComments/{idUser}": {
+			...nbCommentsFromUser
+		},
+		"/user/all/reports": {
+			...getReportedUsers,
+		},
+		"/user/all/points/{idCommunity}": {
+			...getAllByPoints,
+		},
 		"/user/all/{idCommunity}": {
 			...getAll,
+		},
+		"/user/register/admin": {
+			...registerAdmin,
+		},
+		"/user/addToCommunity": {
+			...addToCommunity,
 		},
 		"/user/infos": {
 			...getInfos,
@@ -34,33 +55,12 @@ module.exports = {
 		"/user/infos/update": {
 			...updateUser,
 		},
-		"/user/all/reports": {
-			...getReportedUsers,
-		},
-		"/user/all/points": {
-			...getAllByPoints,
-		},
 		"/user/password/reset": {
 			...updatePassword,
 		},
 		"/user/delete/{idUser}": {
 			...deleteUser,
 		},
-		"/user/lastRegistered/{idCommunity}": {
-			...lastRegisteredUsers,
-		},
-		"/user/register/admin": {
-			...registerAdmin,
-		},
-		"/user/addToCommunity": {
-			...addToCommunity,
-		},
-		"/user/nbPosts/{idUser}": {
-			...nbPostsFromUser
-		},
-		"/user/nbComments/{idUser}": {
-			...nbCommentsFromUser
-		}
 	},
 	schema: {
 		...schema,

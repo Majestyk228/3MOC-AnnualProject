@@ -9,18 +9,18 @@ module.exports = {
 		"/invite/all": {
 			...getAllInvite,
 		},
-		"/invite/create": {
-			...createInvite,
+		"/invite/getCommunity/{code}": {
+			...getCommunity,
 		},
 		"/invite/allByCommunity/{idCommunity}": {
 			...getAllByCommunity,
 		},
+		"/invite/create": {
+			...createInvite,
+		},
 		"/invite/delete/{code}": {
 			...deleteInvite,
 		},
-		"/invite/getCommunity/{code}": {
-			...getCommunity,
-		}
 	},
 	schema: {
 		...schema,

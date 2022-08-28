@@ -20,17 +20,17 @@ module.exports = {
         "/post/all": {
             ...getAllPost,
         },
+        "/post/report/{idPost}": {
+            ...report,
+        },
+        "/post/reportReinit/{idPost}": {
+            ...reportReinit,
+        },
         "/post/{idPost}": {
             ...getOnePost,
         },
-        "/post/formatted/{idPost}": {
-            ...getAllPostsFormated,
-        },
         "/post/nbReportedPosts/{idCommunity}": {
             ...nbReportedPosts,
-        },
-        "/post/create": {
-            ...createPost,
         },
         "/post/lastPosted/{idCommunity}": {
             ...lastPosted,
@@ -41,30 +41,30 @@ module.exports = {
         "/post/all/{idCommunity}": {
             ...postsByCommunity,
         },
-        "/post/updatePost": {
-            ...updatePost,
-        },
-        "/post/delete/{idPost}": {
-            ...deletePost,
-        },
         "/post/like": {
             ...likePost,
         },
         "/post/dislike": {
             ...dislikePost,
         },
-        "/post/report/{idPost}": {
-            ...report,
-        },
-        "/post/reportReinit/{idPost}": {
-            ...reportReinit,
-        },
         "/post/formattedPost/{idPost}": {
             ...getFormattedPost,
         },
+        "/post/formatted/{idPost}": {
+            ...getAllPostsFormated,
+        },
+        "/post/create": {
+            ...createPost,
+        },
         "/post/formatted/admin/{idCommunity}": {
             ...getAllPostsFormatedAdmin,
-        }
+        },
+        "/post/updatePost": {
+            ...updatePost,
+        },
+        "/post/delete/{idPost}": {
+            ...deletePost,
+        },
     },
     schema: {
         ...schema,

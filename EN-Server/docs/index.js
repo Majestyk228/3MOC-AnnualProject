@@ -33,9 +33,9 @@ module.exports = {
 		...invite.paths,
 		...post.paths,
 		...reward.paths,
+		...support.paths,
 		...user.paths,
 		...vote.paths,
-		...support.paths
 	},
 	components: {
 		schemas: {
