@@ -1,6 +1,7 @@
 package com.example.exprimonsnousapp;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,7 +46,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -73,6 +78,9 @@ public class ProfileFragment extends Fragment {
 
     // API
     ApiInterface apiInterface;
+
+    // DATE SELECTOR
+    final Calendar myCalendar= Calendar.getInstance();
 
     // OTHER VARIABLES
     private int idUser;
@@ -139,6 +147,24 @@ public class ProfileFragment extends Fragment {
         this.email = view.findViewById(R.id.emailUpdate);
         this.gender = view.findViewById(R.id.genderUpdate);
         this.areaCode = view.findViewById(R.id.areaCodeUpdate);
+
+        // DATE SELECTOR
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                myCalendar.set(Calendar.YEAR, i);
+                myCalendar.set(Calendar.MONTH,i1);
+                myCalendar.set(Calendar.DAY_OF_MONTH,i2);
+                updateLabel();
+            }
+        };
+
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getContext(),date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         // COORDINATOR LAYOUT
         this.coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
@@ -358,5 +384,12 @@ public class ProfileFragment extends Fragment {
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
+    }
+
+    // DATE SELECTOR
+    private void updateLabel(){
+        String myFormat="yyyy-MM-dd";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.FRANCE);
+        this.birthDate.setText(dateFormat.format(myCalendar.getTime()));
     }
 }

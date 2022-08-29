@@ -105,17 +105,8 @@ public class PostFragment extends Fragment {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         posts = new ArrayList<>();
-
-        try {
-            extractPost();
-            extractAdminPost();
-        } catch (AuthFailureError e) {
-            e.printStackTrace();
-        }
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            posts.sort(Comparator.comparing(Post::getIdPost));
-        }*/
+        extractPost();
+        extractAdminPost();
     }
 
     @Override
@@ -143,18 +134,16 @@ public class PostFragment extends Fragment {
             @Override
             public void onRefresh() {
                 //wipe out de la liste des posts
+                Log.i("REFRESH", "onRefresh: "+posts.toString());
                 posts = new ArrayList<>();
 
                 //réextraction de la liste des posts
-                try {
-                    extractPost();
-                    extractAdminPost();
-                } catch (AuthFailureError e) {
-                    e.printStackTrace();
-                }
+                extractPost();
+                extractAdminPost();
 
                 //implémeenter le changement de données
                 adapter.notifyDataSetChanged();
+
                 swipeRefreshPosts.setRefreshing(false);
             }
         });
@@ -224,7 +213,7 @@ public class PostFragment extends Fragment {
     }
 
 
-    public void extractPost() throws AuthFailureError {
+    public void extractPost() {
         //API call made here
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -300,11 +289,10 @@ public class PostFragment extends Fragment {
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
-        //extractAdminPost();
     }
 
     // TODO : TEST API CALL
-    public void extractAdminPost() throws AuthFailureError {
+    public void extractAdminPost() {
         //API call made here
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -372,7 +360,7 @@ public class PostFragment extends Fragment {
             }
         };
 
-        Log.i("POSTSADMIN", "extractPost: request = " + jsonArrayRequest.getHeaders());
+        //Log.i("POSTSADMIN", "extractPost: request = " + jsonArrayRequest.getHeaders());
 
         //ajouter la requete à la queue d'exécution
         queue.add(jsonArrayRequest);
