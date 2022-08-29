@@ -1,13 +1,10 @@
-//importations
+// IMPORT EXPRESS
 var express = require('express');
 
 // CORS
 var cors = require('cors');
 
-// File-Morgan
-
-
-//instanciation du serveur
+// INSTANCIATE SERVER
 var server = express();
 
 
@@ -17,11 +14,8 @@ var server = express();
 	timeToLive: 60 * 60 * 24
 }*/
 
-// INSTANCIATION DES LOG DE REQUEST ET REPONSES
 
-
-
-//importation des routes
+// IMPORT ALL ROUTES
 const userRouter = require("./routes/user.js");
 const postRouter = require("./routes/post.js");
 const inviteRouter = require("./routes/invite.js");
@@ -31,21 +25,20 @@ const rewardRouter = require("./routes/rewards.js");
 const commentRouter = require("./routes/comment.js");
 const voteRouter = require("./routes/vote.js");
 const supportRouter = require("./routes/support.js");
-////const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const swaggerUI = require('swagger-ui-express');
 const docs = require('./docs/index.js');
 
 
 
-//Body Parser
+// BODY PARSER
 server.use(bodyParser.json());
 
 // CORS
 server.use(cors());
 
 
-//Middlewares
+// MIDDLEWARES
 server.use('/user', userRouter);
 server.use('/post', postRouter);
 server.use('/invite', inviteRouter);
@@ -92,7 +85,7 @@ server.use("/swagger", swaggerUI.serve, swaggerUI.setup(docs, options));
 
 
 
-//lancement du serveur sur le port 8080
+// LAUNCH SERVER ON PORT 8080
 server.listen(8080, function () {
 	console.log("/!\\ Serveur en écoute sur le port 8080 /!\\");
 })

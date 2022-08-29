@@ -70,8 +70,6 @@ router.post('/voteInfo', async function (req, res, next) {
 					nbSelected.push(vote.getListOfNumber(req.body.idVote, choice)).value
 				})
 
-				console.log("nbselected = " + nbSelected)
-
 				res.status(200).json(
 					[
 						{

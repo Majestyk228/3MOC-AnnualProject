@@ -56,8 +56,6 @@ async function getVoteOptions(idVote) {
 //nbChoice
 async function getNbChoices(idVote, choice) {
 	const query = "SELECT COUNT(vs.choice) AS nbChoice FROM Votes vs, VoteOptions vo WHERE vs.idVote = " + idVote + " AND vs.choice = " + choice + " AND vs.choice = vo.idVoteOptions;";
-
-	//console.log(query)
 	const rows = await db.query(query, "");
 	return rows;
 }
@@ -65,8 +63,7 @@ async function getNbChoices(idVote, choice) {
 async function getVoteOptionsComplete(idVote, list) {
 	for (const element of list) {
 		const contents = await getNbChoices(idVote, element.idVoteOptions);
-		element.nbChoice = contents[0].nbChoice
-		console.log(contents);
+		element.nbChoice = contents[0].nbChoice;
 	}
 
 	return list
@@ -78,8 +75,6 @@ async function getListOfNumber(idVote, choice) {
 	var number = 0;
 
 	number = await getNbChoices(idVote, choice.idVoteOptions)
-
-	console.log("number = " + number[0].nbChoice)
 
 	return number[0].nbChoice;
 }
@@ -172,8 +167,6 @@ async function insertVoteOptions(body) {
 	request = request.slice(0, -1);
 
 	request += ";";
-
-	console.log(request);
 
 	const rows = await db.query(request, "");
 	return rows;

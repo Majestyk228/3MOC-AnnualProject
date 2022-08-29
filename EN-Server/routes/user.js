@@ -185,10 +185,6 @@ router.post('/login', async function (req, res, next) {
 		res.status(404).json({ 'ERROR': "cannot find user" });
 		next();
 	} else {
-		//if (req.body.password != userCredentials[0].password) {
-
-		//console.log("DB => " + userCredentials[0].password)
-		console.log("compareSync => " + bcrypt.compareSync(req.body.password, userCredentials[0].password))
 
 		if (bcrypt.compareSync(req.body.password, userCredentials[0].password) == false) {
 			res.status(403).json({ 'ERROR': "incorrect password" });
@@ -221,7 +217,6 @@ router.post('/register', async function (req, res) {
 		//insert in db
 		const idUser = await user.insertUser1(req.body);
 		//const idUser = await user.getLastUserRegistered()[0]
-		console.log(idUser)
 		res.status(201).json(
 			{
 				"message": "User successufully registered",
