@@ -116,6 +116,9 @@ struct MainVoteView: View {
                             
                             HStack(spacing:20){
                                 ForEach(allCurrentVotes,id: \.id) {vote in
+                                    NavigationLink(destination: DetailsVoteView(isConnected: $isConnected, vote: vote)){
+                                        
+                                    
                                     VStack{
                                         Text(vote.title ?? "Loading")
                                             .font(.system(size: 36))
@@ -148,7 +151,7 @@ struct MainVoteView: View {
                                     .frame(width: 300.0, height: 380.0)
                                     .background(Color.lightColor)
                                     .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                                    
+                                    }
                                 }
                             }
                              

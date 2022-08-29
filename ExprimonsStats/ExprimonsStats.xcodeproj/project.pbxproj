@@ -25,6 +25,10 @@
 		E447DAC528303B26008C223D /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447DAC428303B26008C223D /* Vote.swift */; };
 		E45959252837B4B200E16E72 /* DetailsUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45959242837B4B200E16E72 /* DetailsUserView.swift */; };
 		E48CC77C2817F67900C62957 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48CC77B2817F67900C62957 /* MainView.swift */; };
+		E4AD82A528BAEC2B00F42A41 /* DetailsVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82A428BAEC2B00F42A41 /* DetailsVoteView.swift */; };
+		E4AD82A828BAEE0000F42A41 /* SwiftPieChart in Frameworks */ = {isa = PBXBuildFile; productRef = E4AD82A728BAEE0000F42A41 /* SwiftPieChart */; };
+		E4AD82AA28BB2BAC00F42A41 /* VoteOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82A928BB2BAC00F42A41 /* VoteOptions.swift */; };
+		E4AD82AC28BB45E500F42A41 /* DetailsPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82AB28BB45E500F42A41 /* DetailsPostView.swift */; };
 		E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DC3F282DB745006CB498 /* MainVoteView.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +50,9 @@
 		E447DAC428303B26008C223D /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		E45959242837B4B200E16E72 /* DetailsUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsUserView.swift; sourceTree = "<group>"; };
 		E48CC77B2817F67900C62957 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E4AD82A428BAEC2B00F42A41 /* DetailsVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVoteView.swift; sourceTree = "<group>"; };
+		E4AD82A928BB2BAC00F42A41 /* VoteOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteOptions.swift; sourceTree = "<group>"; };
+		E4AD82AB28BB45E500F42A41 /* DetailsPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPostView.swift; sourceTree = "<group>"; };
 		E4D3DC3F282DB745006CB498 /* MainVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVoteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,6 +63,7 @@
 			files = (
 				E42B4B1728AE7FE800305957 /* SwiftyJSON in Frameworks */,
 				E436D29E28AC1DCD007B0071 /* Alamofire in Frameworks */,
+				E4AD82A828BAEE0000F42A41 /* SwiftPieChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +123,7 @@
 				E424EE1928372578004F9154 /* Post.swift */,
 				E443157E283BAE7E0073250B /* Admin.swift */,
 				E4294DAB2887367500825311 /* DashboardStat.swift */,
+				E4AD82A928BB2BAC00F42A41 /* VoteOptions.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -130,6 +139,8 @@
 				E447DAC0282EFC76008C223D /* MainPostView.swift */,
 				E447DABE282EFC51008C223D /* MainUsersView.swift */,
 				E45959242837B4B200E16E72 /* DetailsUserView.swift */,
+				E4AD82A428BAEC2B00F42A41 /* DetailsVoteView.swift */,
+				E4AD82AB28BB45E500F42A41 /* DetailsPostView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,6 +164,7 @@
 			packageProductDependencies = (
 				E436D29D28AC1DCD007B0071 /* Alamofire */,
 				E42B4B1628AE7FE700305957 /* SwiftyJSON */,
+				E4AD82A728BAEE0000F42A41 /* SwiftPieChart */,
 			);
 			productName = ExprimonsStats;
 			productReference = E4454C0C27F76D8500CCB4A2 /* ExprimonsStats.app */;
@@ -185,6 +197,7 @@
 			packageReferences = (
 				E436D29C28AC1DCD007B0071 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E42B4B1528AE7FE700305957 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				E4AD82A628BAEE0000F42A41 /* XCRemoteSwiftPackageReference "SwiftPieChart" */,
 			);
 			productRefGroup = E4454C0D27F76D8500CCB4A2 /* Products */;
 			projectDirPath = "";
@@ -219,14 +232,17 @@
 				E48CC77C2817F67900C62957 /* MainView.swift in Sources */,
 				E424EE1C28372D65004F9154 /* SheetPostView.swift in Sources */,
 				E4454C1227F76D8500CCB4A2 /* ConnexionView.swift in Sources */,
+				E4AD82AC28BB45E500F42A41 /* DetailsPostView.swift in Sources */,
 				E447DAC3282EFF35008C223D /* User.swift in Sources */,
 				E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */,
+				E4AD82AA28BB2BAC00F42A41 /* VoteOptions.swift in Sources */,
 				E45959252837B4B200E16E72 /* DetailsUserView.swift in Sources */,
 				E424EE1728370403004F9154 /* SheetVoteView.swift in Sources */,
 				E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */,
 				E447DAC528303B26008C223D /* Vote.swift in Sources */,
 				E4294DAC2887367500825311 /* DashboardStat.swift in Sources */,
 				E447DAC1282EFC76008C223D /* MainPostView.swift in Sources */,
+				E4AD82A528BAEC2B00F42A41 /* DetailsVoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +465,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		E4AD82A628BAEE0000F42A41 /* XCRemoteSwiftPackageReference "SwiftPieChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ilamanov/SwiftPieChart";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -461,6 +485,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E436D29C28AC1DCD007B0071 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		E4AD82A728BAEE0000F42A41 /* SwiftPieChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4AD82A628BAEE0000F42A41 /* XCRemoteSwiftPackageReference "SwiftPieChart" */;
+			productName = SwiftPieChart;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

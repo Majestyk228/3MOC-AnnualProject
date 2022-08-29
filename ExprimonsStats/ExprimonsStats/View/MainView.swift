@@ -51,7 +51,8 @@ struct MainView: View {
                                 
                                
                         }
-                    MainVoteView(isConnected: $connected)
+                    NavigationView{
+                        MainVoteView(isConnected: $connected)}.navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                                 Image(systemName: "tray.and.arrow.down")
                                 
@@ -66,8 +67,9 @@ struct MainView: View {
                                 
                                
                         }
-                    
-                    MainPostView(isConnected: $connected)
+                    NavigationView{
+                        MainPostView(isConnected: $connected)
+                    }.navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                                 Image(systemName: "list.bullet.rectangle.fill")
                                 

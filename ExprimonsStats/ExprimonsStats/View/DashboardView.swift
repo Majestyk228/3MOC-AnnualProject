@@ -120,10 +120,6 @@ struct DashboardView: View {
                             
                         }
                         .frame(width: 250.0, height: 250.0)
-                        .onAppear(perform: {
-                            
-                        })
-                        
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
                         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)

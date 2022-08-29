@@ -12,7 +12,7 @@ struct MainUsersView: View {
     @State var alert:Bool=false
     @Binding var isConnected: Bool
     
-    @State var allUsers:[User]=[]
+    @State private var allUsers:[User]=[]
     @State var bestUsers:[User]=[User(idUser: 0, firstName: "Loading", lastName: "Loading", birthDate: "Loading", gender: "Loading", areaCode: "Loading", email: "Loading", points: 0),User(idUser: 0, firstName: "Loading", lastName: "Loading", birthDate: "Loading", gender: "Loading", areaCode: "Loading", email: "Loading", points: 0),User(idUser: 0, firstName: "Loading", lastName: "Loading", birthDate: "Loading", gender: "Loading", areaCode: "Loading", email: "Loading", points: 0)]
     func refreshAllUsers(idCommunity:Int){
         
@@ -97,85 +97,112 @@ struct MainUsersView: View {
                             .background(Color.darkColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                         HStack{
-                            
-                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
+                            if ($allUsers.isEmpty){
+                                
+                                    VStack{
+                                        Image(systemName: "person.fill")
+                                            .foregroundColor(Color.black)
+                                            .font(.system(size: 100))
+                                        
+                                        
+                                            Text(bestUsers[0].firstName ?? "Loading")
+                                                .font(.system(size:36))
+                                                .foregroundColor(Color.black)
+                                        
+                                    
+                                    }
+                                .frame(width: 200, height: 250)
+                                .background(Color.lightColor)
+                                .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                                
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
                                         .font(.system(size: 100))
                                     
-                                    if(allUsers.isEmpty){
+                                    
                                         Text(bestUsers[0].firstName ?? "Loading")
                                             .font(.system(size:36))
                                             .foregroundColor(Color.black)
-                                    }
-                                    else{
-                                        Text(allUsers[0].firstName ?? "Loading")
-                                            .font(.system(size:36))
-                                            .foregroundColor(Color.black)
-                                    }
-                                }
+                                    
                                 
-                            }
+                                }
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                             
-                            
-                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
                                 VStack{
                                     Image(systemName: "person.fill")
                                         .foregroundColor(Color.black)
                                         .font(.system(size: 100))
                                     
-                                    if(allUsers.isEmpty){
-                                        Text(bestUsers[1].firstName ?? "Loading")
+                                    
+                                        Text(bestUsers[0].firstName ?? "Loading")
                                             .font(.system(size:36))
                                             .foregroundColor(Color.black)
-                                    }
-                                    else{
-                                        Text(allUsers[1].firstName ?? "Loading")
-                                            .font(.system(size:36))
-                                            .foregroundColor(Color.black)
-                                    }
+                                    
+                                
                                 }
                                 
-                            }
-                            .frame(width: 200, height: 250)
-                            .background(Color.lightColor)
-                            .cornerRadius(50.0)
                             
-                            
-                            NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
-                                VStack{
-                                    Image(systemName: "person.fill")
-                                        .foregroundColor(Color.black)
-                                        .font(.system(size: 100))
-                                    if(allUsers.isEmpty){
-                                        Text(bestUsers[2].firstName ?? "Loading")
-                                            .font(.system(size:36))
-                                            .foregroundColor(Color.black)
-                                    }
-                                    else{
-                                        Text(allUsers[2].firstName ?? "Loading")
-                                            .font(.system(size:36))
-                                            .foregroundColor(Color.black)
-                                    }
-                                   
-                                }
-                                
-                            }
                             .frame(width: 200, height: 250)
                             .background(Color.lightColor)
                             .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                            
-                            
-                            
-                            
+                            }
+                            else{
+                                NavigationLink(destination:DetailsUserView(isConnected:$isConnected,user: $allUsers[0])) {
+                                    VStack{
+                                        Image(systemName: "person.fill")
+                                            .foregroundColor(Color.black)
+                                            .font(.system(size: 100))
+                                        
+                                        
+                                        
+                                            Text(allUsers[0].firstName ?? "Loading")
+                                                .font(.system(size:36))
+                                                .foregroundColor(Color.black)
+                                        
+                                    }
+                                    
+                                }
+                                .frame(width: 200, height: 250)
+                                .background(Color.lightColor)
+                                .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                                NavigationLink(destination:DetailsUserView(isConnected:$isConnected,user: $allUsers[1])) {
+                                    VStack{
+                                        Image(systemName: "person.fill")
+                                            .foregroundColor(Color.black)
+                                            .font(.system(size: 100))
+                                        
+                                        
+                                            Text(allUsers[1].firstName ?? "Loading")
+                                                .font(.system(size:36))
+                                                .foregroundColor(Color.black)
+                                        
+                                    }
+                                    
+                                }
+                                .frame(width: 200, height: 250)
+                                .background(Color.lightColor)
+                                .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                                NavigationLink(destination:DetailsUserView(isConnected:$isConnected,user: $allUsers[2])) {
+                                    VStack{
+                                        Image(systemName: "person.fill")
+                                            .foregroundColor(Color.black)
+                                            .font(.system(size: 100))
+                                        
+                                        
+                                            Text(allUsers[2].firstName ?? "Loading")
+                                                .font(.system(size:36))
+                                                .foregroundColor(Color.black)
+                                        
+                                    }
+                                    
+                                }
+                                .frame(width: 200, height: 250)
+                                .background(Color.lightColor)
+                                .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
+                            }
                         }
-                        
-                        
-                 
                     }
                     .frame(width: 700, height: 400.0)
                     .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
@@ -188,16 +215,20 @@ struct MainUsersView: View {
                             
                             
                             ForEach(allUsers,id: \.id){user in
+                                
                                 HStack{
                                     Image(systemName: "person.fill")
                                         .font(.system(size: 52))
                                     Spacer()
                                     Text(user.firstName ?? "Loading").font(.system(size: 36))
                                     Spacer()
-                                    NavigationLink(destination:DetailsUserView(isConnected:$isConnected)) {
+                                    NavigationLink(destination:DetailsUserView(isConnected:$isConnected,user:$allUsers[0] )) {
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 52))
                                     }
+                                    .onAppear(perform:{
+                                        
+                                    })
                                 }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.white).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             }
                              

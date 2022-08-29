@@ -161,18 +161,18 @@ struct MainPostView: View {
                                         .frame(width: 280.0, height: 150.0)
                                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                                         .cornerRadius(25)
-                                        
-                                        Button(action: {
+                                        NavigationLink(destination: DetailsPostView(isConnected: $isConnected, post: curPost)){
                                             
-                                        }) {
+                                        
+                                        
                                             Text("Details")
                                                 .font(.system(size:36))
                                                 .foregroundColor(Color.black)
-                                        }
+                                        
                                         .frame(width: 200.0, height: 60)
                                         .background(Color.ligthColor2)
                                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
-                                        
+                                        }
                                         
                                         
                                     }
