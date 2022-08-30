@@ -61,15 +61,21 @@ struct MainPostView: View {
                             idAdmin: data[i]["idAdmin"].int ?? 0,
                             reported: data[i]["reported"].int!)
                         allPosts.append(newPost)
-                        if(Int(dateSplitted[0]) ?? 0>=year){
+                        if(Int(dateSplitted[0]) ?? 0==year){
                             
-                            if(Int(dateSplitted[1]) ?? 0>=month){
+                            if(Int(dateSplitted[1]) ?? 0==month){
                                 
                                 if(Int(dateSplitted[2]) ?? 0>=day-7){
                                     lastPosts.append(newPost)
                                     
                                 }
                             }
+                            else if(Int(dateSplitted[1]) ?? 0>month){
+                                lastPosts.append(newPost)
+                            }
+                        }
+                        else if(Int(dateSplitted[0]) ?? 0>year){
+                            lastPosts.append(newPost)
                         }
                         
                     }
@@ -191,9 +197,7 @@ struct MainPostView: View {
                     .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     
-                    Button(action: {
-                        showingSheet=true
-                    }) {
+                    NavigationLink(destination: ListOfPostView(isConnected: $isConnected, posts: allPosts)) {
                         Text("Voir l'historique")
                             .font(.system(size:36))
                             .foregroundColor(Color.black)

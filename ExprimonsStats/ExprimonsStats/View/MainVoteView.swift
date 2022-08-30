@@ -57,15 +57,21 @@ struct MainVoteView: View {
                             voteEnds: data[i]["voteEnds"].string!,
                             idCommunity: data[i]["idCommunity"].int!)
                         allVotes.append(newVote)
-                        if(Int(dateSplitted[0]) ?? 0>=year){
+                        if(Int(dateSplitted[0]) ?? 0 == year){
                             
-                            if(Int(dateSplitted[1]) ?? 0>=month){
+                            if(Int(dateSplitted[1]) ?? 0 == month){
                                 
                                 if(Int(dateSplitted[2]) ?? 0>=day){
                                     allCurrentVotes.append(newVote)
                                     
                                 }
                             }
+                            else if(Int(dateSplitted[1]) ?? 0 > month){
+                                allCurrentVotes.append(newVote)
+                            }
+                        }
+                        else if(Int(dateSplitted[0]) ?? 0 > year){
+                            allCurrentVotes.append(newVote)
                         }
                         
                     }
@@ -164,9 +170,7 @@ struct MainVoteView: View {
                     .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     
-                    Button(action: {
-                        showingSheet=true
-                    }) {
+                    NavigationLink(destination: ListOfVoteView(isConnected: $isConnected, votes: allVotes)) {
                         Text("Voir l'historique")
                             .font(.system(size:36))
                             .foregroundColor(Color.black)

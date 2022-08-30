@@ -23,7 +23,7 @@ struct MainUsersView: View {
             "token":UserDefaults.standard.string(forKey: "token") ?? ""
         ]
         
-        AF.request("https://www.titan-photography.com/user/all/\(idCommunity)", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+        AF.request("https://www.titan-photography.com/user/all/points/\(idCommunity)", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
             switch response.result {
                 
             case .success(let json):

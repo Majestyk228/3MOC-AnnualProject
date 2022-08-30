@@ -6,11 +6,52 @@
 //
 
 import SwiftUI
-
+import Alamofire
+import SwiftyJSON
 struct DetailsPostView: View {
+    @State var alert:Bool=false
     @Binding var isConnected: Bool
      var post:Post
     @State var nbComment:Int=0
+    func refreshNbComment(){
+        
+        
+        let headers: HTTPHeaders = [
+            //"token":UserDefaults.standard.string(forKey: "token")!
+            "Content-Type":"application/json",
+            "token":UserDefaults.standard.string(forKey: "token") ?? ""
+        ]
+        
+        AF.request("https://www.titan-photography.com/comment/count/\(post.idPost ?? 0)", method: .get, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200 ..< 299).responseData { response in
+            switch response.result {
+                
+            case .success(let json):
+                
+                do {
+                    let data = JSON(json)
+                    
+                    nbComment=data[0]["nbComment"].int!
+                } catch {
+                    print("Error: Trying to convert JSON data to string")
+                    return
+                }
+            case .failure(let error):
+                
+                if(response.response?.statusCode == 406 || response.response?.statusCode==404){
+                    alert=true
+                    
+                    
+                    
+                    
+                }
+                else{
+                    print("mais")
+                }
+                
+            }
+        }
+        
+    }
     
     var body: some View {
         Color.normalColor
@@ -50,9 +91,7 @@ struct DetailsPostView: View {
                                 Text("\(post.dislikes ?? 0)").font(.system(size: 24))
                             }.frame(maxWidth:.infinity,alignment: .leading).padding(.all,10)
                             
-                            Button(action: {
-                                
-                            }){
+                            NavigationLink(destination:CommentView(postTitle: post.title ?? "Failed to load", postId: post.idPost ?? 0)){
                                 Text("\(nbComment) Commentaires")
                             }.frame(width: 400, height: 60)
                                 .background(Color.ligthColor2)
@@ -60,7 +99,7 @@ struct DetailsPostView: View {
                                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                              
                         }
-                        .frame(width: 500, height: 500)
+                        .frame(width: 650, height: 400)
                         
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         .cornerRadius(/*@START_MENU_TOKEN@*/50.0/*@END_MENU_TOKEN@*/)
@@ -73,7 +112,7 @@ struct DetailsPostView: View {
                 }
                 
             ).onAppear(perform: {
-                
+                refreshNbComment()
             })
     }
 }

@@ -29,6 +29,10 @@
 		E4AD82A828BAEE0000F42A41 /* SwiftPieChart in Frameworks */ = {isa = PBXBuildFile; productRef = E4AD82A728BAEE0000F42A41 /* SwiftPieChart */; };
 		E4AD82AA28BB2BAC00F42A41 /* VoteOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82A928BB2BAC00F42A41 /* VoteOptions.swift */; };
 		E4AD82AC28BB45E500F42A41 /* DetailsPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82AB28BB45E500F42A41 /* DetailsPostView.swift */; };
+		E4AD82B028BDDC1700F42A41 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82AF28BDDC1700F42A41 /* Comment.swift */; };
+		E4AD82B228BDDC5000F42A41 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82B128BDDC5000F42A41 /* CommentView.swift */; };
+		E4AD82B628BDDF9600F42A41 /* ListOfPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82B528BDDF9600F42A41 /* ListOfPostView.swift */; };
+		E4AD82B828BDDFA200F42A41 /* ListOfVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD82B728BDDFA200F42A41 /* ListOfVoteView.swift */; };
 		E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DC3F282DB745006CB498 /* MainVoteView.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +57,10 @@
 		E4AD82A428BAEC2B00F42A41 /* DetailsVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVoteView.swift; sourceTree = "<group>"; };
 		E4AD82A928BB2BAC00F42A41 /* VoteOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteOptions.swift; sourceTree = "<group>"; };
 		E4AD82AB28BB45E500F42A41 /* DetailsPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPostView.swift; sourceTree = "<group>"; };
+		E4AD82AF28BDDC1700F42A41 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		E4AD82B128BDDC5000F42A41 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		E4AD82B528BDDF9600F42A41 /* ListOfPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfPostView.swift; sourceTree = "<group>"; };
+		E4AD82B728BDDFA200F42A41 /* ListOfVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfVoteView.swift; sourceTree = "<group>"; };
 		E4D3DC3F282DB745006CB498 /* MainVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVoteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +132,7 @@
 				E443157E283BAE7E0073250B /* Admin.swift */,
 				E4294DAB2887367500825311 /* DashboardStat.swift */,
 				E4AD82A928BB2BAC00F42A41 /* VoteOptions.swift */,
+				E4AD82AF28BDDC1700F42A41 /* Comment.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -141,6 +150,9 @@
 				E45959242837B4B200E16E72 /* DetailsUserView.swift */,
 				E4AD82A428BAEC2B00F42A41 /* DetailsVoteView.swift */,
 				E4AD82AB28BB45E500F42A41 /* DetailsPostView.swift */,
+				E4AD82B128BDDC5000F42A41 /* CommentView.swift */,
+				E4AD82B528BDDF9600F42A41 /* ListOfPostView.swift */,
+				E4AD82B728BDDFA200F42A41 /* ListOfVoteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -226,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E447DABF282EFC51008C223D /* MainUsersView.swift in Sources */,
+				E4AD82B628BDDF9600F42A41 /* ListOfPostView.swift in Sources */,
 				E424EE1A28372578004F9154 /* Post.swift in Sources */,
 				E4454C1E280C059300CCB4A2 /* DashboardView.swift in Sources */,
 				E443157F283BAE7E0073250B /* Admin.swift in Sources */,
@@ -235,13 +248,16 @@
 				E4AD82AC28BB45E500F42A41 /* DetailsPostView.swift in Sources */,
 				E447DAC3282EFF35008C223D /* User.swift in Sources */,
 				E4D3DC40282DB746006CB498 /* MainVoteView.swift in Sources */,
+				E4AD82B828BDDFA200F42A41 /* ListOfVoteView.swift in Sources */,
 				E4AD82AA28BB2BAC00F42A41 /* VoteOptions.swift in Sources */,
 				E45959252837B4B200E16E72 /* DetailsUserView.swift in Sources */,
 				E424EE1728370403004F9154 /* SheetVoteView.swift in Sources */,
 				E4454C1027F76D8500CCB4A2 /* ExprimonsStatsApp.swift in Sources */,
 				E447DAC528303B26008C223D /* Vote.swift in Sources */,
 				E4294DAC2887367500825311 /* DashboardStat.swift in Sources */,
+				E4AD82B028BDDC1700F42A41 /* Comment.swift in Sources */,
 				E447DAC1282EFC76008C223D /* MainPostView.swift in Sources */,
+				E4AD82B228BDDC5000F42A41 /* CommentView.swift in Sources */,
 				E4AD82A528BAEC2B00F42A41 /* DetailsVoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
