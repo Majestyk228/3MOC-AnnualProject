@@ -129,7 +129,7 @@ struct MainPostView: View {
                             HStack(spacing:20){
                                 ForEach(allPosts,id:\.id) {curPost in
                                     VStack{
-                                        Text(curPost.title ?? "Loading")
+                                        Text("Titre: \(curPost.title ?? "Loading")")
                                             .font(.system(size: 36))
                                             .foregroundColor(Color.white)
                                             .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
@@ -153,7 +153,7 @@ struct MainPostView: View {
                                             Text("\(curPost.dislikes ?? 0)")
                                                 .font(.system(size: 36))
                                                 
-                                            Image(systemName: "note.text.badge.plus")
+                                            Image(systemName: "hand.thumbsdown.circle")
                                                     .font(.system(size: 50))
                                             }
                                             .foregroundColor(Color.black)

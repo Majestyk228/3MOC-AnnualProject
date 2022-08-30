@@ -126,7 +126,7 @@ struct MainVoteView: View {
                                         
                                     
                                     VStack{
-                                        Text(vote.title ?? "Loading")
+                                        Text("Titre: \(vote.title ?? "Loading")")
                                             .font(.system(size: 36))
                                             .foregroundColor(Color.white)
                                             .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
@@ -134,15 +134,25 @@ struct MainVoteView: View {
                                             .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                                         
                                         VStack{
-                                            Text("2")
-                                                .font(.system(size: 36))
-                                                .foregroundColor(Color.white)
-                                                .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
-                                                .background(Color.darkColor)
-                                                .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                            if(vote.important == 0){
+                                                Text("Vote non important")
+                                                    .font(.system(size: 22))
+                                                    .foregroundColor(Color.white)
+                                                    .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
+                                                    .background(Color.darkColor)
+                                                    .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                            }else{
+                                                Text("Vote important")
+                                                    .font(.system(size: 22))
+                                                    .foregroundColor(Color.white)
+                                                    .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
+                                                    .background(Color.darkColor)
+                                                    .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                            }
+                                            
                                             
                                             Text(vote.body ?? "Loading")
-                                                .font(.system(size: 24))
+                                                .font(.system(size: 18))
                                             
                                         }
                                         .frame(width: 280.0, height: 150.0)

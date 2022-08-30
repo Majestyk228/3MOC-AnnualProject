@@ -171,10 +171,16 @@ struct CommentView: View {
                                         }
                                     }
                                     Spacer()
-                                    Text(comment.body ?? "Loading").font(.system(size: 16))
-                                    Text(String(comment.likes ?? 0)).font(.system(size: 16))
-                                    Text(String(comment.dislikes ?? 0)).font(.system(size: 16))
+                                    Text("Corps: \(comment.body ?? "Loading")").font(.system(size: 16))
                                     Spacer()
+                                    Image(systemName: "hand.thumbsdown.circle")
+                                            .font(.system(size: 25))
+                                    Text(String(comment.likes ?? 0)).font(.system(size: 16))
+                                    
+                                    Image(systemName: "hand.thumbsdown.circle")
+                                            .font(.system(size: 25))
+                                    Text(String(comment.dislikes ?? 0)).font(.system(size: 16))
+                                    
                                     
                                 }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.white).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             

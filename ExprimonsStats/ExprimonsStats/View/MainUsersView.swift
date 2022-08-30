@@ -108,6 +108,7 @@ struct MainUsersView: View {
                                             Text(bestUsers[0].firstName ?? "Loading")
                                                 .font(.system(size:36))
                                                 .foregroundColor(Color.black)
+                                        Text("Points: \(bestUsers[0].points ?? 0)").font(.system(size:26))
                                         
                                     
                                     }
@@ -124,7 +125,7 @@ struct MainUsersView: View {
                                         Text(bestUsers[0].firstName ?? "Loading")
                                             .font(.system(size:36))
                                             .foregroundColor(Color.black)
-                                    
+                                    Text("Points: \(bestUsers[0].points ?? 0)").font(.system(size:26))
                                 
                                 }
                             .frame(width: 200, height: 250)
@@ -139,7 +140,7 @@ struct MainUsersView: View {
                                         Text(bestUsers[0].firstName ?? "Loading")
                                             .font(.system(size:36))
                                             .foregroundColor(Color.black)
-                                    
+                                    Text("Points: \(bestUsers[0].points ?? 0)").font(.system(size:26))
                                 
                                 }
                                 
@@ -160,7 +161,7 @@ struct MainUsersView: View {
                                             Text(allUsers[0].firstName ?? "Loading")
                                                 .font(.system(size:36))
                                                 .foregroundColor(Color.black)
-                                        
+                                        Text("Points: \(allUsers[0].points ?? 0)").font(.system(size:26))
                                     }
                                     
                                 }
@@ -177,7 +178,7 @@ struct MainUsersView: View {
                                             Text(allUsers[1].firstName ?? "Loading")
                                                 .font(.system(size:36))
                                                 .foregroundColor(Color.black)
-                                        
+                                        Text("Points: \(allUsers[1].points ?? 0)").font(.system(size:26))
                                     }
                                     
                                 }
@@ -194,7 +195,7 @@ struct MainUsersView: View {
                                             Text(allUsers[2].firstName ?? "Loading")
                                                 .font(.system(size:36))
                                                 .foregroundColor(Color.black)
-                                        
+                                        Text("Points: \(allUsers[2].points ?? 0)").font(.system(size:26))
                                     }
                                     
                                 }
@@ -221,6 +222,8 @@ struct MainUsersView: View {
                                         .font(.system(size: 52))
                                     Spacer()
                                     Text(user.firstName ?? "Loading").font(.system(size: 36))
+                                    Spacer()
+                                    Text("Points: \(user.points ?? 0)")
                                     Spacer()
                                     NavigationLink(destination:DetailsUserView(isConnected:$isConnected,user:$allUsers[0] )) {
                                     Image(systemName: "chevron.right")

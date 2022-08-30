@@ -98,23 +98,31 @@ struct DetailsVoteView: View {
                     
                     VStack(spacing:20){
                         Spacer( )
-                        Text(vote.body ?? "Loading")
-                            .font(.system(size: 18))
-                        
-                            .foregroundColor(Color.white)
-                            .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
-                            .background(Color.darkColor)
-                            .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                        HStack(){
+                            Text("Corps du vote: ")
+                            Text(vote.body ?? "Loading")
+                                .font(.system(size: 18))
+                                
+                                .foregroundColor(Color.white)
+                                .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40) )
+                                .background(Color.darkColor)
+                                .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                        }
+                        HStack{
+                            Text("Date de fin du vote:")
+                            Text(vote.voteEnds ?? "0")
+                        }
                             
-                        //if(nbVotesStat.isEmpty){}
+                        
                          if(testVoteisfirstVoted==false){
                             Text("Aucun vote n'a été enregistré pour le moment")
+                             
                              VStack(){
                                  ForEach(Array(labelStats.enumerated()),id:\.offset){index,labelOptionVote in
                                         
                                      HStack(alignment: .center){
                                         
-                                         Text("Options\(index+1)")
+                                         Text("Titre de l'Option \(index+1): ")
                                          Text(labelOptionVote ?? "Loading")
                                          Spacer()
                                          

@@ -34,11 +34,25 @@ struct ListOfVoteView: View {
                             ForEach(votes,id: \.id){vote in
                                 NavigationLink(destination:DetailsVoteView(isConnected: $isConnected, vote: vote)){
                                 HStack{
-                                    Image(systemName: "person.fill")
-                                        .font(.system(size: 52))
+                                    Image(systemName: "tray.and.arrow.down").font(.system(size: 25))
                                     Spacer()
-                                    Text(vote.title ?? "Loading").font(.system(size: 36))
+                                    Text("Titre: \(vote.title ?? "Loading")").font(.system(size: 36))
                                     Spacer()
+                                    if(vote.important == 0){
+                                        Text("Vote non important")
+                                            .font(.system(size: 22))
+                                            .foregroundColor(Color.white)
+                                            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10) )
+                                            .background(Color.darkColor)
+                                            .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                    }else{
+                                        Text("Vote important")
+                                            .font(.system(size: 22))
+                                            .foregroundColor(Color.white)
+                                            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10) )
+                                            .background(Color.darkColor)
+                                            .cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                    }
                                     
                                 }.padding(.horizontal, 50.0).frame(height: 100.0).background(Color.white).cornerRadius(/*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             }
