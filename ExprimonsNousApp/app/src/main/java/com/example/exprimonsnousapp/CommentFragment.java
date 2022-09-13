@@ -67,6 +67,7 @@ public class CommentFragment extends Fragment {
     MaterialButton postCommentBtn;
     MaterialButton anonymousCommmentBtn;
     EditText newCommentEdittext;
+    TextView avatar_textfield;
 
     // OTHER
     ApiInterface apiInterface;
@@ -118,6 +119,8 @@ public class CommentFragment extends Fragment {
 
         postCommentBtn = view.findViewById(R.id.postCommentBtn);
         anonymousCommmentBtn = view.findViewById(R.id.anonymousCommmentBtn);
+
+        avatar_textfield = view.findViewById(R.id.avatar_textfield_comment);
 
         newCommentEdittext = view.findViewById(R.id.newCommentEdittext);
 
@@ -249,6 +252,8 @@ public class CommentFragment extends Fragment {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 fullnameTXT.setText(response.body().getFirstname() + " " + response.body().getLastname());
+                String avatar = response.body().getFirstname().charAt(0)+""+response.body().getLastname().charAt(0);
+                avatar_textfield.setText(avatar);
                 bodyTXT.setText(response.body().getBody());
             }
 

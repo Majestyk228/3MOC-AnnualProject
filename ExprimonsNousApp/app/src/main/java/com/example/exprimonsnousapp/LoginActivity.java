@@ -70,8 +70,24 @@ public class LoginActivity extends AppCompatActivity {
                 UserLoginCreds userLoginCreds = new UserLoginCreds(emailTXT,passwordTXT);
 
                 getUserCreds(userLoginCreds);
-                ProgressDialog.show(LoginActivity.this, "",
-                        "Connexion en cours... Veuillez patienter...", true);
+                //ProgressDialog.show(LoginActivity.this, "","Connexion en cours... Veuillez patienter...", true);
+
+
+
+                /*final ProgressDialog progress = new ProgressDialog(LoginActivity.this);
+                progress.setMessage("Connexion en cours... Veuillez patienter...");
+                progress.show();
+
+                Runnable progressRunnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        progress.cancel();
+                    }
+                };
+
+                Handler pdCanceller = new Handler();
+                pdCanceller.postDelayed(progressRunnable, 1000);*/
             }
         });
     }
@@ -102,15 +118,35 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 connexion(userCreds);
             }
-        }, 1200);
+        }, 1000);
     }
 
     public void connexion(UserCreds userCreds) {
+
+        final ProgressDialog progress = new ProgressDialog(LoginActivity.this);
+        progress.setMessage("Connexion en cours... Veuillez patienter...");
+        progress.show();
+
         // CHECKS VALIDITY OF RETREIVED USER BEFORE SWITCHING SCREEN
         if(userCreds.getIdUser() == -1) {
+
+            Runnable progressRunnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    progress.cancel();
+                }
+            };
+
+            Handler pdCanceller = new Handler();
+            pdCanceller.postDelayed(progressRunnable, 2000);
+
             // TOAST
             Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
         } else {
+
+            progress.cancel();
+
             Intent nextActivity = new Intent(getApplicationContext(), MainActivity2.class);
             //extras will be added
             nextActivity.putExtra("userId", userCreds.getIdUser());
